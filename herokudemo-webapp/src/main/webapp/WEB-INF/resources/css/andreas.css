@@ -1,0 +1,163 @@
+
+#site {
+	border: 1px #ddd solid;
+	background-color: #FCFCFC;
+	margin-left: auto;
+	margin-right: auto;
+	font-family: Tahoma;
+	font-size: 14px;
+	width: 80%;
+	height: 1200px;
+	max-width: 1200px;
+}
+
+
+
+/* Site main content */
+#siteMain {
+	float: left;
+	margin-left: 20px;
+}
+
+
+
+
+
+/* Site banner */
+#siteBanner {
+	padding: 0;
+	border-bottom: 1px #ddd solid;
+}
+#siteBanner h1 {
+	width: 100%;
+	height: 100%;
+	padding: 20px;
+	margin: 0;
+}
+#siteBanner a{
+	color: #2779aa;
+	text-decoration: none;
+	text-align: center;
+}
+
+
+
+/* Lists */
+ul a, ol a {
+	text-decoration: none;
+	color: #636363;
+}
+li {
+	vertical-align: middle;
+	
+	border: 1px #ddd solid;
+	border-top-width: 0;
+	border-left-width: 0;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+li:hover {
+	background-color: #F7F7F7;
+}
+ul a:hover, ol a:hover {
+	color: #2779aa;
+	font-weight: bold;
+}
+
+
+
+
+/* Navigation menu */
+#siteNavigation {
+	float: left;
+	width: 200px;
+	font-size: 12px;
+}
+#siteNavigation a {
+	text-transform: uppercase;
+}
+#siteNavigation a.active  {
+	color: #2779aa;
+	font-weight: bold;
+}
+#siteNavigation a.active li {
+	background-color: #F7F7F7;
+}
+
+
+
+/* Date */
+.date {
+	text-align: center;
+	font-weight: bold;
+}
+.date .day {
+	font-size: 18px;
+}
+.date .month {
+	font-size: 12px;
+}
+
+
+
+/* Contest List */
+.contestList .disciplineName {
+	font-size: 18px;
+	font-weight: bold;
+}
+.contestList li {
+	padding-left: 10px;
+	padding-right: 10px;
+    overflow: hidden;
+}
+.contestList .description {
+	float: left;
+}
+.contestList .date {
+	float: right;
+}
+
+
+
+/* Tables */
+table {
+	border-spacing: 0;
+	border-collapse: collapse;
+	color: #333;
+	width: 100%;
+}
+th {
+	background-color: #F7F7F7;
+	border: 1px #ddd solid;
+	padding: 10px 0px 10px 0px;
+}
+tr {
+}
+td {
+	border: 1px #ddd solid;
+	padding: 10px 30px 10px 20px;
+}
+
+
+
+/* Filters */
+.filters {
+	background-color: #F7F7F7;
+	border: 1px #ddd solid;
+	width: 100%;
+	height: 50px;
+	margin: 10px 0 20px 0;
+}
+.filter {
+	margin: 5px;
+	float: left;
+}
+
+
+
+
+/* Etc. */
+.buttonGroup {
+	float: right;
+	margin-top: 15px;
+}

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/heroku-webapp-demo.iml" filepath="$PROJECT_DIR$/heroku-webapp-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/herokudemo-business/herokudemo-business.iml" filepath="$PROJECT_DIR$/herokudemo-business/herokudemo-business.iml" />
+      <module fileurl="file://$PROJECT_DIR$/herokudemo-webapp/herokudemo-webapp.iml" filepath="$PROJECT_DIR$/herokudemo-webapp/herokudemo-webapp.iml" />
+    </modules>
+  </component>
+</project>

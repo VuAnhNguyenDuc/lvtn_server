@@ -1,0 +1,67 @@
+/*
+*Font color 1: #0070A3
+*/
+
+body {
+	font-family: 'Trebuchet MS',Trebuchet,'Lucida Sans Unicode','Lucida Grande','Lucida Sans',Arial,sans-serif;
+	background-color: #EFF7FD;
+	/*
+	background-image: url("../images/bg.png");
+	*/
+	background-repeat: repeat;
+	color: #000305;
+}
+
+#site {
+    width: 800px;
+    margin: 0 auto
+}
+
+
+#siteMain {
+	padding: 5px 20px;
+	float: right;
+	width: 680px;
+
+	-webkit-border-radius: 15px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+}
+
+label {
+	text-align: right;
+	float: left;
+	width: 140px;
+	margin-right: 10px;
+}
+
+#siteBanner {
+	text-align: center;
+	margin-bottom: 20px;
+}
+#siteBanner a {
+	font-size:50px;
+	color: #2779aa;
+	font-weight: bold;
+	text-decoration: none;
+	text-shadow: 0.05em 0.05em 0.15em #bbbbbb;
+	letter-spacing: 0.1em;
+}
+
+
+ #footer {
+ 	font-size: 10px;
+ 	float: right;
+ 	width: 710px;
+    clear:both;
+    padding-top: 5px;
+    }
+
+h1 {
+	text-align: center;
+	font-size: 30px;
+}
+
+.ui-datepicker {
+	font-size: 14px !important;
+}

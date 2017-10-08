@@ -1,0 +1,84 @@
+.triggerframe{
+	background-color: #E1F5FF;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	width: 100%;
+	padding: 0px;
+	margin-top: 0px;
+	border-color: rgba(205,225,235, 0.4);
+	border-style: solid;
+	border-width: 2px;
+	margin-bottom: 10px;
+}
+
+.trigger:hover{
+	background-color: #E1E5FF;
+}
+
+.trigger{
+	background-color: #C4E4F5;
+}
+
+h2.trigger {
+    
+	font-size:15px;
+	
+	border-top: 1px solid #a9a9a9;
+	border-bottom: 1px solid #a9a9a9;
+	text-align:center;
+	margin-bottom: 5px;
+	margin-top: 0px;
+	
+}
+
+h2.trigger a {
+    color: rgba(0, 0, 0, 0.5);
+    display: block;
+    text-decoration: none;
+}
+
+h2.trigger a:hover {
+    color: #CCCCCC;
+}
+
+
+.togglebox {
+	background-color: #E1E5FF;
+    border-top: 1px solid #D6D6D6;
+    clear: both;
+   
+    margin: 0 0 5px;
+    overflow: hidden;
+    padding: 0;
+    width: 100%;
+    border: 1px solid #a9a9a9;
+    -moz-border-radius: 7px; /* Rounder Corner */
+    -webkit-border-radius: 7px;
+	-khtml-border-radius: 7px;
+}
+.togglebox .content {
+	padding: 20px;
+}
+
+.togglebox .block {
+    
+    padding: 20px;
+}
+.togglebox .block p {
+    margin: 5px 0;
+    padding: 5px 0;
+}
+.togglebox h3 {
+    border-bottom: 1px dashed #CCCCCC;
+    
+    margin: 0 0 10px;
+    padding: 0 0 5px;
+}
+.togglebox img {
+    background: none repeat scroll 0 0 #DDDDDD;
+    border: 1px solid #CCCCCC;
+    float: left;
+    margin: 10px 15px 15px 0;
+    padding: 5px;
+}

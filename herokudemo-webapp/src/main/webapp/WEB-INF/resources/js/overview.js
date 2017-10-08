@@ -1,0 +1,3 @@
+$(function() {
+	$("#overviewMenuItem").addClass("active");
+});
