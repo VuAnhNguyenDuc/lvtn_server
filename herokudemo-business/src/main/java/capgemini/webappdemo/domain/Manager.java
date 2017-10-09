@@ -1,9 +1,11 @@
 package capgemini.webappdemo.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity(name = "manager")
 public class Manager {
+    @Id
     private int user_id;
     private int number_of_employees;
 
