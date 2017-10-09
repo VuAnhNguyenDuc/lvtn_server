@@ -1,14 +1,16 @@
 package capgemini.webappdemo.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.io.Serializable;
 
 @Entity(name = "user_takes_appointment")
 public class UserTakesAppointment implements Serializable {
+    @Id
     private int appointment_id;
+    @Id
     private int user_id;
     private String user_response;
-
     public String getUser_response() {
         return user_response;
     }
