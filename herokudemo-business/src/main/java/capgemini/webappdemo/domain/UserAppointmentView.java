@@ -1,11 +1,18 @@
 package capgemini.webappdemo.domain;
 
+import org.hibernate.annotations.Immutable;
+
+import javax.persistence.Entity;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.io.Serializable;
+import java.util.Date;
 
 public class UserAppointmentView implements Serializable {
     private int user_id;
     private int appointment_id;
-    private String start_date;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date start_date;
     private int created_by;
     private int status;
     private String appointment_name;
@@ -34,11 +41,11 @@ public class UserAppointmentView implements Serializable {
         this.created_by = created_by;
     }
 
-    public String getStart_date() {
+    public Date getStart_date() {
         return start_date;
     }
 
-    public void setStart_date(String start_date) {
+    public void setStart_date(Date start_date) {
         this.start_date = start_date;
     }
 

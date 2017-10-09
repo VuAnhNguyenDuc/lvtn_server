@@ -1,16 +1,15 @@
 package capgemini.webappdemo.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity(name = "coordinate")
 public class Coordinate {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
-    private String time;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date time;
     private float longtitude;
     private float lattitude;
     private int detail_id;
@@ -29,7 +28,7 @@ public class Coordinate {
         this.id = 0;
     }
 
-    public Coordinate(Integer id, String time, float longtitude, float lattitude, int detail_id) {
+    public Coordinate(Integer id, Date time, float longtitude, float lattitude, int detail_id) {
         this.id = id;
         this.time = time;
         this.longtitude = longtitude;
@@ -45,11 +44,11 @@ public class Coordinate {
         this.id = id;
     }
 
-    public String getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 

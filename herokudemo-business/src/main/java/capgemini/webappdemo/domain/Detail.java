@@ -1,6 +1,7 @@
 package capgemini.webappdemo.domain;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity(name = "detail")
@@ -14,23 +15,26 @@ public class Detail {
     private List<Coordinate> coordinates;
     private int appointment_id;
     private int vehicle_id;
-    private String start_time;
-    private String end_time;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date start_time;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date end_time;
     //private String jsonKey;
 
-    public String getEnd_time() {
+    public Date getEnd_time() {
         return end_time;
     }
 
-    public void setEnd_time(String end_time) {
+    public void setEnd_time(Date end_time) {
         this.end_time = end_time;
     }
 
-    public String getStart_time() {
+    public Date getStart_time() {
         return start_time;
     }
 
-    public void setStart_time(String start_time) {
+    public void setStart_time(Date start_time) {
         this.start_time = start_time;
     }
 
@@ -54,7 +58,7 @@ public class Detail {
         this.id = 0;
     }
 
-    public Detail(Integer id, Integer input_cost, List<Coordinate> coordinates, int appointment_id, int vehicle_id, String start_time, String end_time) {
+    public Detail(Integer id, Integer input_cost, List<Coordinate> coordinates, int appointment_id, int vehicle_id, Date start_time, Date end_time) {
         this.id = id;
         this.input_cost = input_cost;
         this.coordinates = coordinates;
