@@ -8,6 +8,7 @@ import javax.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity(name = "user_appointment_view")
 public class UserAppointmentView implements Serializable {
     private int user_id;
     private int appointment_id;
