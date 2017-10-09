@@ -1,6 +1,7 @@
 package capgemini.webappdemo.domain;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity(name = "appointment")
@@ -9,7 +10,8 @@ public class Appointment {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
     private String name;
-    private String start_date;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date start_date;
     private String start_location;
     private String end_location;
     private Integer status;
@@ -38,7 +40,7 @@ public class Appointment {
         this.id = 0;
     }
 
-    public Appointment(Integer id, String name, String start_date, String start_location, String end_location, Integer status, List<Detail> details, List<User> users, List<Image> images) {
+    public Appointment(Integer id, String name, Date start_date, String start_location, String end_location, Integer status, List<Detail> details, List<User> users, List<Image> images) {
         this.id = id;
         this.name = name;
         this.start_date = start_date;
@@ -66,11 +68,11 @@ public class Appointment {
         this.name = name;
     }
 
-    public String getStart_date() {
+    public Date getStart_date() {
         return start_date;
     }
 
-    public void setStart_date(String start_date) {
+    public void setStart_date(Date start_date) {
         this.start_date = start_date;
     }
 
