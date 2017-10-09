@@ -29,4 +29,9 @@ public class UserServiceImpl extends EntityServiceImpl<User> implements UserServ
 	public void deleteAll() {
 		Repository.deleteAll();
 	}
+
+	@Override
+	public User checkLogin(String username, String password) {
+		return Repository.checkLogin(username,password);
+	}
 }

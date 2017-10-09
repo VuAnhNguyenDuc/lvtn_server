@@ -9,6 +9,8 @@ import org.hibernate.classic.Session;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Repository
 @Transactional
@@ -28,5 +30,22 @@ public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements Us
 		String stringQuery = "DELETE FROM User";
 		Query query = session.createQuery(stringQuery);
 		query.executeUpdate();
+	}
+
+	@Override
+	public User checkLogin(String username, String password) {
+		Session session = getSession();
+
+		String strQuery = "from User u where u.username = :usn and u.password = :psw";
+		Query query = session.createQuery(strQuery);
+		query.setParameter("usn",username);
+		query.setParameter("psw",password);
+
+		List<User> results = query.list();
+		if(results != null && results.size() > 0){
+			return results.get(0);
+		} else{
+			return null;
+		}
 	}
 }

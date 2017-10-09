@@ -11,5 +11,7 @@ public interface UserRepository extends EntityRepository<User> {
 	 * Our app has a need for a fast method for deleting names
 	 */
 	public void deleteAll();
+
+	public User checkLogin(String username, String password);
 	
 }
