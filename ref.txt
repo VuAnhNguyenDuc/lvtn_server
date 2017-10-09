@@ -1,0 +1,8 @@
+Tạo một thuộc tính mà không cho phép map nó vào database :
+https://stackoverflow.com/questions/4008418/hibernate-add-a-property-in-my-class-that-is-not-mapped-to-a-db-table
+
+@Transient
+
+Map một view trong annotation :
+https://www.thoughts-on-java.org/hibernate-tips-map-view-hibernate/
+https://stackoverflow.com/questions/4676162/how-hibernate-retrieve-data-from-existing-database-view
