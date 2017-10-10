@@ -1,11 +1,9 @@
 package capgemini.webappdemo.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Entity(name = "employee")
+@Entity
+@Table(name = "employee")
 public class Employee {
     @Id
     private int user_id;

@@ -2,14 +2,12 @@ package capgemini.webappdemo.domain;
 
 import org.hibernate.annotations.Immutable;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-@Entity(name = "user_appointment_view")
+@Entity
+@Table(name = "user_appointment_view")
 public class UserAppointmentView implements Serializable {
     @Id
     private int user_id;

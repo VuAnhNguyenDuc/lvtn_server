@@ -3,7 +3,8 @@ package capgemini.webappdemo.domain;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity(name = "coordinate")
+@Entity
+@Table(name = "coordinate")
 public class Coordinate {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
