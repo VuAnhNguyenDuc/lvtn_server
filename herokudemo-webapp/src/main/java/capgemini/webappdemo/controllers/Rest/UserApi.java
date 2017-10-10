@@ -54,8 +54,8 @@ public class UserApi {
         logger.info("user login in - User API");
         if(user.getUsername() != null && user.getPassword() != null){
             User result = userService.checkLogin(user.getUsername(),user.getPassword());
-            String userType = userService.getUserType(result.getId());
             if(result != null){
+                String userType = userService.getUserType(result.getId());
                 TokenPayload token = new TokenPayload(result.getId(),userType);
                 String payload = jsonTokenUtil.createPayload(token);
                 String jsonKey = jsonTokenUtil.createJWT(payload);
