@@ -77,7 +77,7 @@ public class JsonTokenUtil {
         try {
             jwt = JWT.decode(key);
         } catch (JWTDecodeException e) {
-            return e.getMessage();
+            System.out.println(e.getMessage());
         }
         return jwt.getSubject();
     }

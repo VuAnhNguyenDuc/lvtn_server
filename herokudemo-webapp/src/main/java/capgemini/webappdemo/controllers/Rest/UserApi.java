@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -34,9 +35,14 @@ public class UserApi {
     private JsonTokenUtil jsonTokenUtil = new JsonTokenUtil();
 
     @RequestMapping(value = "/api/changepass", method = RequestMethod.POST)
-    public ResponseEntity<Message> changePassword(@RequestBody User user){
+    public ResponseEntity<Message> changePassword(@RequestBody User user, Errors errors){
         logger.info("changing password - User API");
         System.out.println("changing password - User API");
+        if(errors.hasErrors()){
+            for(ObjectError err:errors.getAllErrors()){
+                System.out.println(err.toString());
+            }
+        }
 
         String decoded = jsonTokenUtil.getPayloadFromKey(user.getJsonToken());
         TokenPayload token = jsonTokenUtil.parsePayload(decoded);
