@@ -14,6 +14,7 @@ public class Manager {
     private int number_of_employees;
     @Transient
     private String username;
+    @Transient
     private List<Employee> employees;
     private int status;
 
