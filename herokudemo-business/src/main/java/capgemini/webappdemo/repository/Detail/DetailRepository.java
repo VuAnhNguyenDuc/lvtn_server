@@ -19,5 +19,8 @@ public interface DetailRepository extends EntityRepository<Detail> {
 	public void end(int id) throws ParseException;
 
 	public void inputCost(int id, int price);
+
+	public List<Detail> getDetailsOfAppointment(int appointment_id);
+
 	
 }

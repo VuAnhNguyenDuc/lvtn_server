@@ -4,6 +4,8 @@ package capgemini.webappdemo.repository.User;
 import capgemini.webappdemo.domain.*;
 import capgemini.webappdemo.repository.EntityRepositoryImpl;
 import capgemini.webappdemo.service.Appointment.AppointmentService;
+import capgemini.webappdemo.service.Detail.DetailService;
+import capgemini.webappdemo.service.User.UserService;
 import org.hibernate.Query;
 import org.hibernate.classic.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ import java.util.List;
 public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements UserRepository {
 	@Autowired
 	private AppointmentService appointmentService;
+
+	@Autowired
+	private DetailService detailService;
 
     private DateFormat dateFormat = new SimpleDateFormat("HH:mm dd-MM-yyyy");
 
@@ -96,8 +101,6 @@ public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements Us
 		List<Appointment> all = getAllAppointments(id);
 		List<Appointment> result = new ArrayList<Appointment>();
 		for(Appointment ap : all){
-            Date date = ap.getStart_date();
-            ap.setDate_str(convertDateToString(date));
 			if(ap.getStatus() == 1){
 				result.add(ap);
 			}
@@ -116,7 +119,10 @@ public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements Us
 			List<Appointment> result = new ArrayList<Appointment>();
 			for(UserTakesAppointment uta : utaList){
 				Appointment ap = appointmentService.get(uta.getAppointment_id());
-                ap.setDate_str(convertDateToString(ap.getStart_date()));
+				Date date = ap.getStart_date();
+				ap.setDate_str(convertDateToString(date));
+				List<Detail> details = detailService.getDetailsOfAppointment(id);
+				ap.setDetails(details);
 				result.add(ap);
 			}
 			return result;

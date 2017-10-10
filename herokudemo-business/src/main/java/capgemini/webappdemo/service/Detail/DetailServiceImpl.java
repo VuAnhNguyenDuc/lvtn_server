@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
+import java.util.List;
 
 
 @Service
@@ -45,5 +46,10 @@ public class DetailServiceImpl extends EntityServiceImpl<Detail> implements Deta
 	@Override
 	public void inputCost(int id, int price) {
 		Repository.inputCost(id, price);
+	}
+
+	@Override
+	public List<Detail> getDetailsOfAppointment(int appointment_id) {
+		return Repository.getDetailsOfAppointment(appointment_id);
 	}
 }

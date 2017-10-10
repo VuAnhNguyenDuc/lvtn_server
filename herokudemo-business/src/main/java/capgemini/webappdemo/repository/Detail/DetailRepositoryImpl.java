@@ -59,11 +59,22 @@ public class DetailRepositoryImpl extends EntityRepositoryImpl<Detail> implement
 		update(detail);
 	}
 
+	@Override
+	public List<Detail> getDetailsOfAppointment(int appointment_id) {
+		Session session = getSession();
+
+		String strQuery = "from Detail d where d.appointment_id = :id";
+		Query query = session.createQuery(strQuery);
+		return query.list();
+	}
+
 	private Date getDate() throws ParseException {
 		Date date = new Date();
 		String strDate = dateFormat.format(date);
 		Date result = dateFormat.parse(strDate);
 		return result;
 	}
+
+
 
 }

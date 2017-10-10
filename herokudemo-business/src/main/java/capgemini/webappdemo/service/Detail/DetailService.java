@@ -5,6 +5,7 @@ import capgemini.webappdemo.domain.Detail;
 import capgemini.webappdemo.service.EntityService;
 
 import java.text.ParseException;
+import java.util.List;
 
 public interface DetailService extends EntityService<Detail> {
 	
@@ -18,4 +19,6 @@ public interface DetailService extends EntityService<Detail> {
 	public void end(int id) throws ParseException;
 
 	public void inputCost(int id, int price);
+
+	public List<Detail> getDetailsOfAppointment(int appointment_id);
 }
