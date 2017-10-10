@@ -32,7 +32,7 @@ public class UserApi {
         return new ResponseEntity<String>("Hello World", HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/api/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/api/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Message> loginApi(@ModelAttribute("user") User user, Errors errors, Model model){
         if(user.getUsername() != null && user.getPassword() != null){
             User result = userService.checkLogin(user.getUsername(),user.getPassword());
