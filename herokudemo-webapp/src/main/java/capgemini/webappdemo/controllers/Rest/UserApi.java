@@ -32,19 +32,23 @@ public class UserApi {
         return new ResponseEntity<String>("Hello World", HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/api/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Message> loginApi(@ModelAttribute("user") User user, Errors errors, Model model){
+    @RequestMapping(value = "/api/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> loginApi(@ModelAttribute User user, Errors errors, Model model){
         if(user.getUsername() != null && user.getPassword() != null){
+
             User result = userService.checkLogin(user.getUsername(),user.getPassword());
             if(result != null){
                 TokenPayload token = new TokenPayload(result.getId(),"manager");
                 String payload = jsonTokenUtil.createPayload(token);
                 String jsonKey = jsonTokenUtil.createJWT(payload);
-                return new ResponseEntity<Message>(new Message("Login successful", jsonKey), HttpStatus.OK);
+                return new ResponseEntity<String>("Login successful", HttpStatus.OK);
+                /*return new ResponseEntity<Message>(new Message("Login successful", jsonKey), HttpStatus.OK);*/
             } else{
-                return new ResponseEntity<Message>(new Message("Incorrect username or password", ""), HttpStatus.OK);
+                return new ResponseEntity<String>("Incorrect username or password", HttpStatus.OK);
+                /*return new ResponseEntity<Message>(new Message("Incorrect username or password", ""), HttpStatus.OK);*/
             }
         }
-        return new ResponseEntity<Message>(new Message("Username and Password cannot be empty!!", ""), HttpStatus.NO_CONTENT);
+        /*return new ResponseEntity<Message>(new Message("Username and Password cannot be empty!!", ""), HttpStatus.NO_CONTENT);*/
+        return new ResponseEntity<String>("username and password cannot be empty", HttpStatus.NO_CONTENT);
     }
 }
