@@ -7,6 +7,7 @@ public class NavigationRegistry {
 	 */
 	public static final String URL_WEB = "web";
 	public static final String URL_OVERVIEW = "overview";
+	public static final String URL_HELLO = "/api/hello";
 	
 	/*
 	 * Views
