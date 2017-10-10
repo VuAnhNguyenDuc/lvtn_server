@@ -73,12 +73,13 @@ public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements Us
 		String strQuery = "from Employee e where e.user_id = :id";
 		Query query = session.createQuery(strQuery);
 		query.setParameter("id",id);
-		if(query.list() != null){
+		if(query.list() != null && query.list().size() > 0){
 			return "Employee";
 		} else{
 			strQuery = "from Manager m where m.user_id = :id";
 			query = session.createQuery(strQuery);
-			if(query.list() != null){
+			query.setParameter("id",id);
+			if(query.list() != null && query.list().size() > 0){
 				return "Manager";
 			} else{
 				return "this user does not exist";
