@@ -6,3 +6,7 @@ https://stackoverflow.com/questions/4008418/hibernate-add-a-property-in-my-class
 Map một view trong annotation :
 https://www.thoughts-on-java.org/hibernate-tips-map-view-hibernate/
 https://stackoverflow.com/questions/4676162/how-hibernate-retrieve-data-from-existing-database-view
+
+Reset counter to 1
+https://stackoverflow.com/questions/5342440/reset-auto-increment-counter-in-postgres
+TRUNCATE TABLE public.appointment RESTART IDENTITY;

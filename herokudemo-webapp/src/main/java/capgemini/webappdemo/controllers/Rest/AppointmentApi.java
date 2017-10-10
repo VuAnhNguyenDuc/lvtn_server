@@ -5,6 +5,7 @@ import capgemini.webappdemo.domain.Message;
 import capgemini.webappdemo.domain.User;
 import capgemini.webappdemo.service.Appointment.AppointmentService;
 import capgemini.webappdemo.service.Manager.ManagerService;
+import capgemini.webappdemo.service.User.UserService;
 import capgemini.webappdemo.utils.CommonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +27,9 @@ public class AppointmentApi {
     @Autowired
     private ManagerService mngService;
 
+    @Autowired
+    private UserService userService;
+
     private CommonUtils commonUtils = new CommonUtils();
 
     private Logger logger = LoggerFactory.getLogger(AppointmentApi.class);
@@ -34,6 +38,10 @@ public class AppointmentApi {
     public ResponseEntity<Message> createAppointment(@PathVariable("managerid") int id, @RequestBody Appointment apm){
         logger.info("creating appointment - Appointment API");
         Message msg = new Message("");
+        if(!userService.getUserType(id).equals("Manager")){
+            return new ResponseEntity<Message>(new Message("This user does not have enough privileges",""),HttpStatus.OK);
+        }
+
         if(apm.getName() == null || !within(apm.getName(),8,32)){
             msg = new Message("appointment name must not be empty and within 8 to 32 characters");
         } else if(apm.getStart_location() == null){
@@ -54,7 +62,7 @@ public class AppointmentApi {
             } catch (ParseException e) {
                 logger.info(e.getMessage());
             }
-            if(apm.getId() != null){
+            if(apm.getId() == 0){
                 msg.setMessage("something went wrong when creating appointment");
             } else{
                 List<User> users = apm.getUsers();
