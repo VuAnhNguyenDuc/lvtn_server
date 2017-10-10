@@ -29,8 +29,8 @@ public class UserApi {
     private JsonTokenUtil jsonTokenUtil = new JsonTokenUtil();
 
     @RequestMapping(value = "/api/login", method = RequestMethod.GET)
-    public ResponseEntity<String> hello(){
-        return new ResponseEntity<String>("Hello World", HttpStatus.OK);
+    public ResponseEntity<Message> hello(){
+        return new ResponseEntity<Message>(new Message("hello","123456"), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/api/login", method = RequestMethod.POST)
