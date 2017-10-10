@@ -38,29 +38,20 @@ public class UserApi {
     }
 
     @RequestMapping(value = "/api/login", method = RequestMethod.POST)
-    public ResponseEntity<String> loginApi(@RequestBody User user, Errors errors, Model model){
+    public ResponseEntity<Message> loginApi(@RequestBody User user, Errors errors, Model model){
         logger.info("start login post api");
-        /*if(user.getUsername() != null && user.getPassword() != null){
+        if(user.getUsername() != null && user.getPassword() != null){
 
             User result = userService.checkLogin(user.getUsername(),user.getPassword());
             if(result != null){
                 TokenPayload token = new TokenPayload(result.getId(),"manager");
                 String payload = jsonTokenUtil.createPayload(token);
                 String jsonKey = jsonTokenUtil.createJWT(payload);
-                return new ResponseEntity<String>("Login successful", HttpStatus.OK);
-                *//*return new ResponseEntity<Message>(new Message("Login successful", jsonKey), HttpStatus.OK);*//*
+                return new ResponseEntity<Message>(new Message("Login successful", jsonKey), HttpStatus.OK);
             } else{
-                return new ResponseEntity<String>("Incorrect username or password", HttpStatus.OK);
-                *//*return new ResponseEntity<Message>(new Message("Incorrect username or password", ""), HttpStatus.OK);*//*
+                return new ResponseEntity<Message>(new Message("Incorrect username or password", ""), HttpStatus.OK);
             }
         }
-        *//*return new ResponseEntity<Message>(new Message("Username and Password cannot be empty!!", ""), HttpStatus.NO_CONTENT);*//*
-        return new ResponseEntity<String>("username and password cannot be empty", HttpStatus.NO_CONTENT);*/
-        String username = user.getUsername();
-        String password = user.getPassword();
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.set("Content-Type","application/json");
-        return new ResponseEntity<String>(username + password, HttpStatus.OK);
-
+        return new ResponseEntity<Message>(new Message("Username and Password cannot be empty!!", ""), HttpStatus.NO_CONTENT);
     }
 }
