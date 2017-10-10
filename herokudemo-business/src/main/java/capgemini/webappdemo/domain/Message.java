@@ -3,16 +3,16 @@ package capgemini.webappdemo.domain;
 public class Message {
     String message;
 
-    String jsonTokenKey;
+    String json_token;
 
 
     public Message(String message) {
         this.message = message;
     }
 
-    public Message(String message, String jsonTokenKey) {
+    public Message(String message, String json_token) {
         this.message = message;
-        this.jsonTokenKey = jsonTokenKey;
+        this.json_token = json_token;
     }
 
     public String getMessage() {
@@ -23,13 +23,11 @@ public class Message {
         this.message = message;
     }
 
-    public String getJsonTokenKey() {
-        return jsonTokenKey;
+    public String getJson_token() {
+        return json_token;
     }
 
-    public void setJsonTokenKey(String jsonTokenKey) {
-        this.jsonTokenKey = jsonTokenKey;
+    public void setJson_token(String json_token) {
+        this.json_token = json_token;
     }
-
-
 }

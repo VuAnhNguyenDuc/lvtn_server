@@ -61,7 +61,7 @@ public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements Us
 		if(user!=null){
 			user.setPassword(newPassword);
 			update(user);
-			return "user password updated successfully";
+			return "password updated successfully";
 		} else{
 			return "cannot find this user";
 		}
