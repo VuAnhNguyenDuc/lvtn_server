@@ -34,7 +34,7 @@ public class UserApi {
 
     @RequestMapping(value = "/api/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> loginApi(@ModelAttribute User user, Errors errors, Model model){
-        if(user.getUsername() != null && user.getPassword() != null){
+        /*if(user.getUsername() != null && user.getPassword() != null){
 
             User result = userService.checkLogin(user.getUsername(),user.getPassword());
             if(result != null){
@@ -42,13 +42,15 @@ public class UserApi {
                 String payload = jsonTokenUtil.createPayload(token);
                 String jsonKey = jsonTokenUtil.createJWT(payload);
                 return new ResponseEntity<String>("Login successful", HttpStatus.OK);
-                /*return new ResponseEntity<Message>(new Message("Login successful", jsonKey), HttpStatus.OK);*/
+                *//*return new ResponseEntity<Message>(new Message("Login successful", jsonKey), HttpStatus.OK);*//*
             } else{
                 return new ResponseEntity<String>("Incorrect username or password", HttpStatus.OK);
-                /*return new ResponseEntity<Message>(new Message("Incorrect username or password", ""), HttpStatus.OK);*/
+                *//*return new ResponseEntity<Message>(new Message("Incorrect username or password", ""), HttpStatus.OK);*//*
             }
         }
-        /*return new ResponseEntity<Message>(new Message("Username and Password cannot be empty!!", ""), HttpStatus.NO_CONTENT);*/
-        return new ResponseEntity<String>("username and password cannot be empty", HttpStatus.NO_CONTENT);
+        *//*return new ResponseEntity<Message>(new Message("Username and Password cannot be empty!!", ""), HttpStatus.NO_CONTENT);*//*
+        return new ResponseEntity<String>("username and password cannot be empty", HttpStatus.NO_CONTENT);*/
+        return new ResponseEntity<String>("HelloWorld", HttpStatus.OK);
+
     }
 }
