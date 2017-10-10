@@ -2,7 +2,10 @@ package capgemini.webappdemo.repository.Manager;
 
 import capgemini.webappdemo.domain.Image;
 import capgemini.webappdemo.domain.Manager;
+import capgemini.webappdemo.domain.User;
 import capgemini.webappdemo.repository.EntityRepository;
+
+import java.util.List;
 
 
 public interface ManagerRepository extends EntityRepository<Manager> {
