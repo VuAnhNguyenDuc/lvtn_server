@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 @Entity(name = "app_user")
-public class User implements Serializable{
+public class User{
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
