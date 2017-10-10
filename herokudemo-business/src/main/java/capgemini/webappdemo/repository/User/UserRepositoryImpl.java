@@ -36,7 +36,7 @@ public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements Us
 	public User checkLogin(String username, String password) {
 		Session session = getSession();
 
-		String strQuery = "from User u where u.username = :usn and u.password = :psw";
+		String strQuery = "FROM User u WHERE u.username = :usn and u.password = :psw";
 		Query query = session.createQuery(strQuery);
 		query.setParameter("usn",username);
 		query.setParameter("psw",password);

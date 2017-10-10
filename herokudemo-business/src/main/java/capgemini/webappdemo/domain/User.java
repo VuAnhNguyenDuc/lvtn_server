@@ -1,12 +1,10 @@
 package capgemini.webappdemo.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity(name = "app_user")
+@Entity
+@Table(name = "app_user")
 public class User{
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
