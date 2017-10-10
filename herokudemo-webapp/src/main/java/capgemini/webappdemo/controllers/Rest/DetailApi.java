@@ -74,7 +74,7 @@ public class DetailApi {
     public ResponseEntity<Message> endDetail(@PathVariable("detailid") int id, @RequestBody Detail detail){
         logger.info("ending a detail - Detail API");
         Message msg = new Message("");
-        if(detail.getStart_time_string().isEmpty()){
+        if(detail.getEnd_time_string().isEmpty()){
             msg.setMessage("please input the end time on end_date_string column");
         } else{
             Detail result = detailService.get(id);
