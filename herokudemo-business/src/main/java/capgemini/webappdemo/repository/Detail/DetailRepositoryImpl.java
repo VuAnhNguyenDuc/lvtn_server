@@ -65,6 +65,7 @@ public class DetailRepositoryImpl extends EntityRepositoryImpl<Detail> implement
 
 		String strQuery = "from Detail d where d.appointment_id = :id";
 		Query query = session.createQuery(strQuery);
+		query.setParameter("id",appointment_id);
 		return query.list();
 	}
 
