@@ -26,8 +26,13 @@ public class UserApi {
 
     private JsonTokenUtil jsonTokenUtil = new JsonTokenUtil();
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<Message> loginApi(@ModelAttribute User user, Errors errors, Model model){
+    @RequestMapping(value = "/api/login", method = RequestMethod.GET)
+    public ResponseEntity<String> hello(){
+        return new ResponseEntity<String>("Hello World", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/api/login", method = RequestMethod.POST)
+    public ResponseEntity<Message> loginApi(@ModelAttribute("user") User user, Errors errors, Model model){
         if(user.getUsername() != null && user.getPassword() != null){
             User result = userService.checkLogin(user.getUsername(),user.getPassword());
             if(result != null){
