@@ -10,17 +10,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
 @Repository
 @Transactional
 public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements UserRepository {
-
 	@Autowired
 	private AppointmentService appointmentService;
-	
+
+    private DateFormat dateFormat = new SimpleDateFormat("HH:mm dd-MM-yyyy");
+
 	public UserRepositoryImpl() {
 		super(User.class);
 	}
@@ -92,6 +96,8 @@ public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements Us
 		List<Appointment> all = getAllAppointments(id);
 		List<Appointment> result = new ArrayList<Appointment>();
 		for(Appointment ap : all){
+            Date date = ap.getStart_date();
+            ap.setDate_str(convertDateToString(date));
 			if(ap.getStatus() == 1){
 				result.add(ap);
 			}
@@ -110,10 +116,15 @@ public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements Us
 			List<Appointment> result = new ArrayList<Appointment>();
 			for(UserTakesAppointment uta : utaList){
 				Appointment ap = appointmentService.get(uta.getAppointment_id());
+                ap.setDate_str(convertDateToString(ap.getStart_date()));
 				result.add(ap);
 			}
 			return result;
 		}
 		return new ArrayList<Appointment>();
 	}
+
+    public String convertDateToString(Date date){
+        return dateFormat.format(date);
+    }
 }
