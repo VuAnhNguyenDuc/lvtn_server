@@ -5,7 +5,10 @@ import capgemini.webappdemo.domain.User;
 import capgemini.webappdemo.service.User.UserService;
 import capgemini.webappdemo.utils.JsonTokenUtil;
 import capgemini.webappdemo.utils.TokenPayload;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+
 /**
  * Created by Vu Anh Nguyen Duc on 10/10/2017.
  */
@@ -26,15 +30,19 @@ public class UserApi {
     @Autowired
     private UserService userService;
 
+    private static final Logger logger = LoggerFactory.getLogger(UserApi.class);
+
     private JsonTokenUtil jsonTokenUtil = new JsonTokenUtil();
 
     @RequestMapping(value = "/api/login", method = RequestMethod.GET)
     public ResponseEntity<Message> hello(){
+        logger.info("start login get api");
         return new ResponseEntity<Message>(new Message("hello","123456"), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/api/login", method = RequestMethod.POST)
     public ResponseEntity<String> loginApi(@RequestBody User user, Errors errors, Model model){
+        logger.info("start login post api");
         /*if(user.getUsername() != null && user.getPassword() != null){
 
             User result = userService.checkLogin(user.getUsername(),user.getPassword());
@@ -53,6 +61,8 @@ public class UserApi {
         return new ResponseEntity<String>("username and password cannot be empty", HttpStatus.NO_CONTENT);*/
         String username = user.getUsername();
         String password = user.getPassword();
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Content-Type","application/json");
         return new ResponseEntity<String>(username + password, HttpStatus.OK);
 
     }
