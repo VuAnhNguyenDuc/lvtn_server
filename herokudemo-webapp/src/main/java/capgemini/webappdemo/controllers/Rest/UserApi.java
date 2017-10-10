@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -33,7 +34,7 @@ public class UserApi {
     }
 
     @RequestMapping(value = "/api/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> loginApi(@ModelAttribute User user, Errors errors, Model model){
+    public ResponseEntity<String> loginApi(@RequestBody User user, Errors errors, Model model){
         /*if(user.getUsername() != null && user.getPassword() != null){
 
             User result = userService.checkLogin(user.getUsername(),user.getPassword());
