@@ -15,7 +15,8 @@ public class User{
     private int status;
     @Transient
     private String userType;
-    //private String jsonToken;
+    @Transient
+    private String jsonToken;
 
     public int getStatus() {
         return status;
@@ -75,11 +76,11 @@ public class User{
         this.userType = userType;
     }
 
-    /*public String getJsonToken() {
+    public String getJsonToken() {
         return jsonToken;
     }
 
     public void setJsonToken(String jsonToken) {
         this.jsonToken = jsonToken;
-    }*/
+    }
 }

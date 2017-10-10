@@ -33,10 +33,20 @@ public class UserApi {
 
     private JsonTokenUtil jsonTokenUtil = new JsonTokenUtil();
 
-    @RequestMapping(value = "/api/changepass/{userid}/{password}", method = RequestMethod.GET)
-    public ResponseEntity<Message> changePassword(@PathVariable("userid") int id, @PathVariable("password") String pwd){
+    @RequestMapping(value = "/api/changepass", method = RequestMethod.POST)
+    public ResponseEntity<Message> changePassword(@RequestBody User user){
         logger.info("changing password - User API");
-        return new ResponseEntity<Message>(new Message(userService.changePassword(id,pwd),""), HttpStatus.OK);
+        System.out.println("changing password - User API");
+
+        String decoded = jsonTokenUtil.getPayloadFromKey(user.getJsonToken());
+        TokenPayload token = jsonTokenUtil.parsePayload(decoded);
+        if(token.getUser_id() != 0){
+            int id = token.getUser_id();
+            String pwd = user.getPassword();
+            return new ResponseEntity<Message>(new Message(userService.changePassword(id,pwd),""), HttpStatus.OK);
+        } else{
+            return new ResponseEntity<Message>(new Message("invalid json token key"), HttpStatus.NO_CONTENT);
+        }
     }
 
     @RequestMapping(value = "/api/login", method = RequestMethod.POST)
