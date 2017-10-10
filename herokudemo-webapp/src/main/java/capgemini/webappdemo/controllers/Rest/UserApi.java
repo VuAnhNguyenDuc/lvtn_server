@@ -50,7 +50,9 @@ public class UserApi {
         }
         *//*return new ResponseEntity<Message>(new Message("Username and Password cannot be empty!!", ""), HttpStatus.NO_CONTENT);*//*
         return new ResponseEntity<String>("username and password cannot be empty", HttpStatus.NO_CONTENT);*/
-        return new ResponseEntity<String>("HelloWorld", HttpStatus.OK);
+        String username = user.getUsername();
+        String password = user.getPassword();
+        return new ResponseEntity<String>(username + password, HttpStatus.OK);
 
     }
 }
