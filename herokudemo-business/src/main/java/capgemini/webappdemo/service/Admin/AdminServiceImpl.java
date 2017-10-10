@@ -29,4 +29,9 @@ public class AdminServiceImpl extends EntityServiceImpl<Admin> implements AdminS
 	public void deleteAll() {
 		adminRepository.deleteAll();
 	}
+
+	@Override
+	public Admin login(String username, String password) {
+		return adminRepository.login(username,password);
+	}
 }

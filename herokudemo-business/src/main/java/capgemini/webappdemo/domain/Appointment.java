@@ -18,6 +18,8 @@ public class Appointment {
     private Integer status;
 
     @Transient
+    private String date_str;
+    @Transient
     private List<Detail> details;
     @Transient
     private List<User> users;
@@ -125,11 +127,11 @@ public class Appointment {
         this.images = images;
     }
 
-    /*public String getJsonKey() {
-        return jsonKey;
+    public String getDate_str() {
+        return date_str;
     }
 
-    public void setJsonKey(String jsonKey) {
-        this.jsonKey = jsonKey;
-    }*/
+    public void setDate_str(String date_str) {
+        this.date_str = date_str;
+    }
 }

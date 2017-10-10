@@ -48,7 +48,7 @@ public class EntityRepositoryImpl<T> implements EntityRepository<T> {
 	}
 	
 	@Override
-	public T get(Long id) {
+	public T get(int id) {
 		Session session = sessionFactory.getCurrentSession();
 		return (T) session.get(clazz, id);
 	}
@@ -77,4 +77,5 @@ public class EntityRepositoryImpl<T> implements EntityRepository<T> {
 		Session session = getSession();
 		session.delete(entity);
 	}
+
 }

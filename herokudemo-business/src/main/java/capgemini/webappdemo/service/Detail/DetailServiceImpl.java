@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
+
 
 @Service
 @Transactional
@@ -28,5 +30,20 @@ public class DetailServiceImpl extends EntityServiceImpl<Detail> implements Deta
 	@Override
 	public void deleteAll() {
 		Repository.deleteAll();
+	}
+
+	@Override
+	public void start(int id) throws ParseException {
+		Repository.start(id);
+	}
+
+	@Override
+	public void end(int id) throws ParseException {
+		Repository.end(id);
+	}
+
+	@Override
+	public void inputCost(int id, int price) {
+		Repository.inputCost(id, price);
 	}
 }

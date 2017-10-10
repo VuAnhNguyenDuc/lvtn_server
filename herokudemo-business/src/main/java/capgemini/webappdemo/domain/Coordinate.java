@@ -15,7 +15,8 @@ public class Coordinate {
     private float lattitude;
     private int detail_id;
 
-    //private String jsonKey;
+    @Transient
+    private String time_str;
 
     public int getDetail_id() {
         return detail_id;
@@ -69,11 +70,11 @@ public class Coordinate {
         this.lattitude = lattitude;
     }
 
-    /*public String getJsonKey() {
-        return jsonKey;
+    public String getTime_str() {
+        return time_str;
     }
 
-    public void setJsonKey(String jsonKey) {
-        this.jsonKey = jsonKey;
-    }*/
+    public void setTime_str(String time_str) {
+        this.time_str = time_str;
+    }
 }

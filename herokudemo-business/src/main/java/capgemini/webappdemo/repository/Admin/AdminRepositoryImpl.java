@@ -28,4 +28,20 @@ public class AdminRepositoryImpl extends EntityRepositoryImpl<Admin> implements 
 		Query query = session.createQuery(stringQuery);
 		query.executeUpdate();
 	}
+
+	@Override
+	public Admin login(String username, String password) {
+		Session session = getSession();
+
+		String strQuery = "from Admin a where a.username = :usn and a.password = :pwd";
+		Query query = session.createQuery(strQuery);
+		query.setParameter("usn",username);
+		query.setParameter("pwd",password);
+		if(query.list() != null){
+			Admin result = (Admin) query.list().get(0);
+			return result;
+		} else{
+			return null;
+		}
+	}
 }

@@ -13,7 +13,7 @@ import java.util.List;
 public interface EntityRepository<T> {
 	
 	public List<T> getAll();
-	public T get(Long id);
+	public T get(int id);
 	public void add(T entity);
 	public void update(T entity);
 	public void remove(T entity);

@@ -1,5 +1,7 @@
 package capgemini.webappdemo.domain;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -12,6 +14,8 @@ public class Detail {
     private Integer id;
     //private Integer estimate_cost;
     private Integer input_cost;
+    @Type(type = "text")
+    private String image_content;
     @Transient
     private List<Coordinate> coordinates;
     private int appointment_id;
@@ -21,7 +25,11 @@ public class Detail {
     private Date start_time;
     @Temporal(TemporalType.TIMESTAMP)
     private Date end_time;
-    //private String jsonKey;
+
+    @Transient
+    private String start_time_string;
+    @Transient
+    private String end_time_string;
 
     public Date getEnd_time() {
         return end_time;
@@ -101,11 +109,27 @@ public class Detail {
         this.coordinates = coordinates;
     }
 
-    /*public String getJsonKey() {
-        return jsonKey;
+    public String getStart_time_string() {
+        return start_time_string;
     }
 
-    public void setJsonKey(String jsonKey) {
-        this.jsonKey = jsonKey;
-    }*/
+    public void setStart_time_string(String start_time_string) {
+        this.start_time_string = start_time_string;
+    }
+
+    public String getEnd_time_string() {
+        return end_time_string;
+    }
+
+    public void setEnd_time_string(String end_time_string) {
+        this.end_time_string = end_time_string;
+    }
+
+    public String getImage_content() {
+        return image_content;
+    }
+
+    public void setImage_content(String image_content) {
+        this.image_content = image_content;
+    }
 }

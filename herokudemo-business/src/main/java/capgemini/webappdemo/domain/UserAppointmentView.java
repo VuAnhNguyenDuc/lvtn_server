@@ -8,6 +8,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "user_appointment_view")
+@Immutable
 public class UserAppointmentView implements Serializable {
     @Id
     private int user_id;

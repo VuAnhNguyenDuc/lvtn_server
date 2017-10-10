@@ -1,12 +1,12 @@
 package capgemini.webappdemo.repository.Manager;
 
-
-import capgemini.webappdemo.domain.Detail;
-import capgemini.webappdemo.domain.Image;
 import capgemini.webappdemo.domain.Manager;
+import capgemini.webappdemo.domain.UserTakesAppointment;
 import capgemini.webappdemo.repository.EntityRepositoryImpl;
+import capgemini.webappdemo.service.UserTakesAppointment.UserTakesAppointmentService;
 import org.hibernate.Query;
 import org.hibernate.classic.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public class ManagerRepositoryImpl extends EntityRepositoryImpl<Manager> implements ManagerRepository {
+	@Autowired
+	private UserTakesAppointmentService utaService;
 	
 	public ManagerRepositoryImpl() {
 		super(Manager.class);
@@ -29,5 +31,10 @@ public class ManagerRepositoryImpl extends EntityRepositoryImpl<Manager> impleme
 		String stringQuery = "DELETE FROM Manager";
 		Query query = session.createQuery(stringQuery);
 		query.executeUpdate();
+	}
+
+	@Override
+	public void assignAppointmentToUser(int apmID, int userID) {
+		utaService.add(new UserTakesAppointment(apmID,userID));
 	}
 }

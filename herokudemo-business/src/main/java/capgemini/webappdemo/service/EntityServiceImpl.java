@@ -16,7 +16,7 @@ public abstract class EntityServiceImpl<T> implements EntityService<T> {
 	}
 
 	@Override
-	public T get(Long id) {
+	public T get(int id) {
 		return repository.get(id);
 	}
 

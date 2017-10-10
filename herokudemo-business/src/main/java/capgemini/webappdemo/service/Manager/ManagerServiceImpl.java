@@ -29,4 +29,9 @@ public class ManagerServiceImpl extends EntityServiceImpl<Manager> implements Ma
 	public void deleteAll() {
 		Repository.deleteAll();
 	}
+
+	@Override
+	public void assignAppointmentToUser(int apmID, int userID) {
+		Repository.assignAppointmentToUser(apmID,userID);
+	}
 }

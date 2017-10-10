@@ -23,7 +23,7 @@ public interface EntityService<T> {
 	 * @param id
 	 * @return Entity<T> with the given id. Null if no such entity<T> exist.
 	 */
-	public T get(Long id);
+	public T get(int id);
 
 	/**
 	 * Save the entity<T> to persistent storage. 

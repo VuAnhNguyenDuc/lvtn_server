@@ -10,4 +10,6 @@ public interface AdminService extends EntityService<Admin> {
 	 * Our app has a need for a fast method for deleting names
 	 */
 	public void deleteAll();
+
+	public Admin login(String username, String password);
 }

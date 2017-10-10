@@ -9,6 +9,14 @@ public class Employee {
     private int user_id;
     private String employee_type;
     private int manager_id;
+    @Transient
+    private String username;
+    @Transient
+    private String email;
+    @Transient
+    private String manager_name;
+    @Transient
+    private int status;
 
     public Employee(int user_id, String employee_type, int manager_id) {
         this.user_id = user_id;
@@ -41,5 +49,37 @@ public class Employee {
 
     public void setUser_id(int user_id) {
         this.user_id = user_id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getManager_name() {
+        return manager_name;
+    }
+
+    public void setManager_name(String manager_name) {
+        this.manager_name = manager_name;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }
