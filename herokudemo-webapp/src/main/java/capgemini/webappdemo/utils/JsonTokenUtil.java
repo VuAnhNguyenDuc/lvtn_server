@@ -82,7 +82,7 @@ public class JsonTokenUtil {
         return jwt.getSubject();
     }
 
-    public static void main(String[] args){
+    /*public static void main(String[] args){
         JsonTokenUtil jsonTokenUtil = new JsonTokenUtil();
 
         TokenPayload subject = new TokenPayload(1,"anthony","zen","emp");
@@ -96,5 +96,5 @@ public class JsonTokenUtil {
         TokenPayload temp = jsonTokenUtil.parsePayload(decoded);
 
         System.out.println(jsonKey);
-    }
+    }*/
 }
