@@ -43,15 +43,18 @@ public class UserApi {
                 System.out.println(err.toString());
             }
         }
-
-        String decoded = jsonTokenUtil.getPayloadFromKey(user.getJsonToken());
-        TokenPayload token = jsonTokenUtil.parsePayload(decoded);
-        if(token.getUser_id() != 0){
-            int id = token.getUser_id();
-            String pwd = user.getPassword();
-            return new ResponseEntity<Message>(new Message(userService.changePassword(id,pwd),""), HttpStatus.OK);
-        } else{
+        if(!jsonTokenUtil.validateKey(user.getJson_token())){
             return new ResponseEntity<Message>(new Message("invalid json token key"), HttpStatus.NO_CONTENT);
+        } else{
+            String decoded = jsonTokenUtil.getPayloadFromKey(user.getJson_token());
+            TokenPayload token = jsonTokenUtil.parsePayload(decoded);
+            if(token.getUser_id() != 0){
+                int id = token.getUser_id();
+                String pwd = user.getPassword();
+                return new ResponseEntity<Message>(new Message(userService.changePassword(id,pwd),""), HttpStatus.OK);
+            } else{
+                return new ResponseEntity<Message>(new Message("invalid json token key"), HttpStatus.NO_CONTENT);
+            }
         }
     }
 
