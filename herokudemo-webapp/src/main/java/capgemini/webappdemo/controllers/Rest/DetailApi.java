@@ -2,7 +2,9 @@ package capgemini.webappdemo.controllers.Rest;
 
 import capgemini.webappdemo.domain.Detail;
 import capgemini.webappdemo.domain.Message;
+import capgemini.webappdemo.domain.Vehicle;
 import capgemini.webappdemo.service.Detail.DetailService;
+import capgemini.webappdemo.service.Vehicle.VehicleService;
 import capgemini.webappdemo.utils.CommonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,11 +14,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.util.List;
 
 @RestController
 public class DetailApi {
     @Autowired
     private DetailService detailService;
+
+    @Autowired
+    private VehicleService vehicleService;
 
     private Logger logger = LoggerFactory.getLogger(DetailApi.class);
     private CommonUtils commonUtils = new CommonUtils();
@@ -40,7 +46,7 @@ public class DetailApi {
         return new ResponseEntity<Message>(msg, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/api/detail/{detailid}/start", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/detail/{detailid}/start", method = RequestMethod.POST)
     public ResponseEntity<Message> startDetail(@PathVariable("detailid") int id, @RequestBody Detail detail){
         logger.info("starting a detail - Detail API");
         Message msg = new Message("");
@@ -64,7 +70,7 @@ public class DetailApi {
         return new ResponseEntity<Message>(msg,HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/api/detail/{detailid}/end", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/detail/{detailid}/end", method = RequestMethod.POST)
     public ResponseEntity<Message> endDetail(@PathVariable("detailid") int id, @RequestBody Detail detail){
         logger.info("ending a detail - Detail API");
         Message msg = new Message("");
@@ -107,5 +113,27 @@ public class DetailApi {
         return new ResponseEntity<Message>(msg,HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/api/detail/{detailid}/addCost", method = RequestMethod.POST)
+    public ResponseEntity<Message> addCost(@PathVariable("detailid") int id, @RequestBody Detail detail){
+        logger.info("adding an price cost to detail - Detail API");
+        Message msg = new Message("");
+        if(detail.getInput_cost() == 0){
+            msg.setMessage("please input a valid integer price");
+        } else{
+            Detail result = detailService.get(id);
+            if(result == null){
+                msg.setMessage("this detail does not exist");
+            } else{
+                result.setInput_cost(detail.getInput_cost());
+                detailService.update(result);
+                msg.setMessage("detail updated successfully");
+            }
+        }
+        return new ResponseEntity<Message>(msg,HttpStatus.OK);
+    }
 
+    @RequestMapping(value = "/api/getVehicles", method = RequestMethod.GET)
+    public ResponseEntity<List<Vehicle>> getVehicles(){
+        return new ResponseEntity<List<Vehicle>>(vehicleService.getAll(),HttpStatus.OK);
+    }
 }
