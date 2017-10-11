@@ -1,3 +1,4 @@
+/*
 package capgemini.webappdemo.controllers;
 
 import static capgemini.webappdemo.controllers.NavigationRegistry.VIEW_WEB_OVERVIEW;
@@ -17,3 +18,4 @@ public class RootController {
 	}
 
 }
+*/

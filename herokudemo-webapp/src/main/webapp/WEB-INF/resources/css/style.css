@@ -1,0 +1,50 @@
+/* GENERAL STYLESHEETS FOR ADMIN PAGES */
+
+body{
+    font-family : "Helvetica Neue",Helvetica,Arial,sans-serif !important;
+}
+
+/* TinyMCE TEXT AREA WORD WRAP
+
+*/
+#Content img{
+    word-wrap: break-word !important;
+    max-width: 100%;
+}
+
+.form-error{
+    color:red !important;
+    font-weight: 700 !important;
+}
+
+.insert-edit-button div{
+    margin-top: 60px !important;
+    margin-bottom: 60px !important;
+}
+
+/* PREVIEW IMAGE */
+#imagePreview{
+    height: 100% !important;
+    width: 100% !important;
+    margin-top: 60px;
+}
+
+/* FOOTER */
+footer{
+    background: #232323;
+    color: #8f8f8f;
+    font-size: 13px;
+    font-weight: 400;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    text-align: center;
+}
+
+footer div{
+    margin: auto;
+    height: 100%;
+    font-size: 20px;
+    font-weight: bold;
+}

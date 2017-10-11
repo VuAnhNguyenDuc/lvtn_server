@@ -1,3 +1,4 @@
+/*
 package capgemini.webappdemo.controllers;
 
 import static capgemini.webappdemo.controllers.NavigationRegistry.URL_OVERVIEW;
@@ -22,11 +23,13 @@ import capgemini.webappdemo.service.NameService;
 
 
 
+*/
 /**
  * This is the controller serving requests from /web<br>
  * Here we will map views for entry level pages
  *
- */
+ *//*
+
 @Controller
 @RequestMapping(value = "/" + URL_WEB)
 public class WebController {
@@ -34,7 +37,8 @@ public class WebController {
 	@Autowired
 	private NameService nameService;
 
-	/**
+	*/
+/**
 	 * Serves GET requests to /web/overview<br>
 	 * This is where our {@link RootController} redirects requests for our
 	 * webapp root page
@@ -42,7 +46,8 @@ public class WebController {
 	 * @param model
 	 *            object passed to the view with data we can retrieve from .jsp
 	 * @return path to the JSP to use
-	 */
+	 *//*
+
 	@RequestMapping(value = URL_OVERVIEW, method = RequestMethod.GET)
 	public String showFrontpage(Model model) {
 		
@@ -53,7 +58,8 @@ public class WebController {
 		return VIEW_WEB_OVERVIEW;
 	}
 	
-	/**
+	*/
+/**
 	 * Controller that handles the "addName" button click.
 	 * Read the form, and add name to database if not null or empty.
 	 * 
@@ -61,7 +67,8 @@ public class WebController {
 	 * @param errors
 	 * @param model
 	 * @return
-	 */
+	 *//*
+
 	@RequestMapping(value = URL_OVERVIEW, method = RequestMethod.POST, params = "addName")
 	public String addName(@ModelAttribute AddNameForm addNameForm,
 			Errors errors, Model model) {
@@ -76,14 +83,16 @@ public class WebController {
 		return redirectTo(URL_OVERVIEW);
 	}
 	
-	/**
+	*/
+/**
 	 * Controller that handles the "deleteAll" button click event
 	 * 
 	 * @param addNameForm
 	 * @param errors
 	 * @param model
 	 * @return
-	 */
+	 *//*
+
 	@RequestMapping(value = URL_OVERVIEW, method = RequestMethod.POST, params = "deleteAll")
 	public String deleteAll(@ModelAttribute AddNameForm addNameForm,
 			Errors errors, Model model) {
@@ -95,13 +104,15 @@ public class WebController {
 		return redirectTo(URL_OVERVIEW);
 	}
 	
-	/**
+	*/
+/**
 	 * Simple controller taking a name from GET request. We want this to run
 	 * our load testing. so that /web/overview/?name=addMe will add a name
 	 * 
 	 * @param name
 	 * @return
-	 */
+	 *//*
+
 	@RequestMapping(value = URL_OVERVIEW, method = RequestMethod.GET, params = "name")
 	public String addName(@RequestParam(value="name") String name) {
 		
@@ -113,4 +124,4 @@ public class WebController {
 		// Go back to web/overview
 		return redirectTo("/web/overview");
 	}
-}
+}*/

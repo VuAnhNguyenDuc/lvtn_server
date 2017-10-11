@@ -36,6 +36,7 @@ public class ManagerApi {
         List<User> users = new ArrayList<>();
         for(Employee emp : emps){
             User user = userService.get(emp.getUser_id());
+            user.setPassword("");
             users.add(user);
         }
         return new ResponseEntity<List<User>>(users, HttpStatus.OK);
