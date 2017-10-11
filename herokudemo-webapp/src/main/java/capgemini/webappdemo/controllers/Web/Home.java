@@ -52,7 +52,7 @@ public class Home {
     @RequestMapping(value = {"/","/home"}, method = RequestMethod.GET)
     public String homePage(HttpServletRequest request, ModelMap model){
         if(!loginUtil.isLogin(request)){
-            return "redirect:/web/login";
+            return "redirect:/login";
         } else{
             return "web/home";
         }
