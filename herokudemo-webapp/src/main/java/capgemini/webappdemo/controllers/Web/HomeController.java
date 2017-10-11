@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
-public class Home {
+public class HomeController {
     @Autowired
     private AdminService adminService;
 
@@ -51,10 +51,16 @@ public class Home {
 
     @RequestMapping(value = {"/","/home"}, method = RequestMethod.GET)
     public String homePage(HttpSession session){
-        if(session.getAttribute("admin") == null){
+        if(!loginUtil.isLogin(session)){
             return "redirect:/login";
         } else{
             return "web/home";
         }
+    }
+
+    @RequestMapping(value = {"/logout"}, method = RequestMethod.GET)
+    public String logOut(HttpSession session){
+        session.setAttribute("admin","");
+        return "redirect:/login";
     }
 }

@@ -15,6 +15,8 @@ public class Manager {
     @Transient
     private String username;
     @Transient
+    private String email;
+    @Transient
     private List<Employee> employees;
     private int status;
 
@@ -64,5 +66,13 @@ public class Manager {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

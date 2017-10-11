@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
+import java.util.List;
+
 
 @Service
 @Transactional
@@ -28,5 +31,15 @@ public class UserAppointmentViewServiceImpl extends EntityServiceImpl<UserAppoin
 	@Override
 	public void deleteAll() {
 		Repository.deleteAll();
+	}
+
+	@Override
+	public List<UserAppointmentView> getAppointmentsByMonth(int month, int year, int manager_id) throws ParseException {
+		return Repository.getAppointmentsByMonth(month, year, manager_id);
+	}
+
+	@Override
+	public List<UserAppointmentView> getAppointmentsByYear(int year, int manager_id) throws ParseException {
+		return Repository.getAppointmentsByYear(year, manager_id);
 	}
 }

@@ -3,12 +3,15 @@ package capgemini.webappdemo.service.Appointment;
 
 import capgemini.webappdemo.domain.Admin;
 import capgemini.webappdemo.domain.Appointment;
+import capgemini.webappdemo.domain.User;
 import capgemini.webappdemo.repository.Admin.AdminRepository;
 import capgemini.webappdemo.repository.Appointment.AppointmentRepository;
 import capgemini.webappdemo.service.EntityServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service
@@ -28,5 +31,10 @@ public class AppointmentServiceImpl extends EntityServiceImpl<Appointment> imple
 	@Override
 	public void deleteAll() {
 		Repository.deleteAll();
+	}
+
+	@Override
+	public List<User> getUsersOfAppointment(int id) {
+		return Repository.getUsersOfAppointment(id);
 	}
 }
