@@ -32,7 +32,7 @@ public class Home {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String loginPostPage(HttpServletRequest request, @ModelAttribute("loginForm") @Valid LoginForm loginForm, BindingResult errors, Model model){
+    public String loginPostPage(HttpSession session, @ModelAttribute("loginForm") @Valid LoginForm loginForm, BindingResult errors, Model model){
         if(errors.hasErrors()){
             return "web/login";
         } else{
@@ -43,7 +43,6 @@ public class Home {
                 model.addAttribute("error","Invalid username or password");
                 return "web/login";
             } else{
-                HttpSession session = request.getSession();
                 session.setAttribute("admin",usn);
                 return "redirect:/home";
             }
@@ -51,8 +50,8 @@ public class Home {
     }
 
     @RequestMapping(value = {"/","/home"}, method = RequestMethod.GET)
-    public String homePage(HttpServletRequest request, ModelMap model){
-        if(!loginUtil.isLogin(request)){
+    public String homePage(HttpSession session){
+        if(session.getAttribute("admin") == null){
             return "redirect:/login";
         } else{
             return "web/home";
