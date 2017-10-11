@@ -32,7 +32,7 @@ public class Home {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String loginPostPage(HttpServletRequest request, @ModelAttribute("loginForm") LoginForm lgf, Errors errors, Model model){
+    public String loginPostPage(HttpServletRequest request, @ModelAttribute("loginForm") LoginForm lgf, BindingResult errors, Model model){
         if(errors.hasErrors()){
             return "web/login";
         } else{

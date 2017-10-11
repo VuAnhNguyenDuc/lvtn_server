@@ -43,7 +43,7 @@
 
         <div class="form-group">
             <c:if test="${not empty error}">
-                <label class="form-error">${result}</label>
+                <label class="form-error">${error}</label>
             </c:if>
         </div>
 
