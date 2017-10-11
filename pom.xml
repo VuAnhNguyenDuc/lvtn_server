@@ -140,11 +140,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 				<artifactId>spring-ws-core</artifactId>
 				<version>2.0.2.RELEASE</version>
 			</dependency>
-			<dependency>
+			<!--<dependency>
 				<groupId>opensymphony</groupId>
 				<artifactId>sitemesh</artifactId>
 				<version>2.4.2</version>
-			</dependency>
+			</dependency>-->
 			<dependency>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>jsp-api-2.1-glassfish</artifactId>
