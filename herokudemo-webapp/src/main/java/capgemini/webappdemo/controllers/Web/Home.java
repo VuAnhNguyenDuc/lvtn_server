@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -31,8 +33,8 @@ public class Home {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String loginPostPage(HttpServletRequest request,@Valid LoginForm lgf, BindingResult result, ModelMap model){
-        if(result.hasErrors()){
+    public String loginPostPage(HttpServletRequest request, @ModelAttribute LoginForm lgf, Errors errors, Model model){
+        if(errors.hasErrors()){
             return "web/login";
         } else{
             String usn = lgf.getUsername();
