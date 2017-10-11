@@ -37,7 +37,7 @@ public class AdminRepositoryImpl extends EntityRepositoryImpl<Admin> implements 
 		Query query = session.createQuery(strQuery);
 		query.setParameter("usn",username);
 		query.setParameter("pwd",password);
-		if(query.list() != null){
+		if(query.list() != null && query.list().size() > 0){
 			Admin result = (Admin) query.list().get(0);
 			return result;
 		} else{
