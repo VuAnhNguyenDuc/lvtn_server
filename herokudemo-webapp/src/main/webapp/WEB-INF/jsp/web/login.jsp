@@ -27,7 +27,7 @@
 <div class="container">
     <div class="row" style="height: 15vh;"></div>
     <h2 class="text-center">LVTN SERVER</h2>
-    <form:form modelAttribute="lgf" action="/login" method="post">
+    <form:form modelAttribute="loginForm" action="/login" method="post">
 
         <div class="form-group>">
             <label for="username">Username: </label>

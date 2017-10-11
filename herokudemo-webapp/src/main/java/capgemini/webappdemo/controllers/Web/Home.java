@@ -27,13 +27,12 @@ public class Home {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage(Model model){
-        LoginForm lgf = new LoginForm();
-        model.addAttribute("lgf", lgf);
+        model.addAttribute("loginForm", new LoginForm());
         return "web/login";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String loginPostPage(HttpServletRequest request, @ModelAttribute LoginForm lgf, Errors errors, Model model){
+    public String loginPostPage(HttpServletRequest request, @ModelAttribute("loginForm") LoginForm lgf, Errors errors, Model model){
         if(errors.hasErrors()){
             return "web/login";
         } else{
