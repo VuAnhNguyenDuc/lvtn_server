@@ -24,5 +24,7 @@ public interface UserRepository extends EntityRepository<User> {
 	public List<Appointment> getActiveAppointments(int id);
 
 	public List<Appointment> getAllAppointments(int id);
+
+	public boolean checkUserExist(String username);
 	
 }

@@ -27,8 +27,8 @@ public class UserAjax {
 
     private CommonUtils utils = new CommonUtils();
 
-    @RequestMapping(value = "/ajax/appointment/month", method = RequestMethod.GET, params = {"year","managerid"})
-    public String compareAppointmentByMonth(@PathVariable("year")int year,@PathVariable("managerid") int id){
+    @RequestMapping(value = "/ajax/appointment/month/chart", method = RequestMethod.GET, params = {"year","managerid"})
+    public String compareAppointmentByMonthChart(@PathVariable("year")int year,@PathVariable("managerid") int id){
         String result = "";
         for(int i = 1; i <= 12; i++){
             try {
@@ -41,10 +41,56 @@ public class UserAjax {
         return result;
     }
 
+    @RequestMapping(value = "/ajax/appointment/month", method = RequestMethod.GET, params = {"year","managerid"})
+    public JSONArray getAppointmentsInOneYear(@PathVariable("year")int year,@PathVariable("managerid") int id){
+        List<UserAppointmentView> total = new ArrayList<>();
+        for(int i = 1; i <= 12; i++){
+            try {
+                total.addAll(uavService.getAppointmentsByMonth(i,year,id));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return convertToJSONArray(total);
+    }
+
+    @RequestMapping(value = "/ajax/appointment/year/chart", method = RequestMethod.GET, params = {"from","to","managerid"})
+    public JSONArray compareAppointmentsByYearChart(@PathVariable("from") int from, @PathVariable("to") int to, @PathVariable("managerid") int id){
+        String background = "rgba(255, 99, 132, 0.2)";
+        String border = "rgba(255,99,132,1)";
+        JSONArray array = new JSONArray();
+        JSONObject object;
+
+        List<UserAppointmentView> results = new ArrayList<>();
+        for(int i = from; i <= to; i++){
+            try {
+                results = uavService.getAppointmentsByYear(i,id);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            object = new JSONObject();
+            object.put("amount",results.size());
+            object.put("year",i);
+            object.put("background",background);
+            object.put("border",border);
+
+            array.add(object);
+        }
+        return array;
+    }
+
     @RequestMapping(value = "/ajax/appointment/year", method = RequestMethod.GET, params = {"from","to","managerid"})
     public JSONArray compareAppointmentsByYear(@PathVariable("from") int from, @PathVariable("to") int to, @PathVariable("managerid") int id){
-
-        return null;
+        JSONArray result = new JSONArray();
+        List<UserAppointmentView> total = new ArrayList<>();
+        for(int i = from; i <= to; i++){
+            try {
+                total.addAll(uavService.getAppointmentsByYear(i,id));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return convertToJSONArray(total);
     }
 
     public JSONArray convertToJSONArray(List<UserAppointmentView> appointments){
@@ -67,5 +113,6 @@ public class UserAjax {
         }
         return results;
     }
+
 
 }

@@ -130,7 +130,20 @@ public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements Us
 		return new ArrayList<Appointment>();
 	}
 
-    public String convertDateToString(Date date){
+	@Override
+	public boolean checkUserExist(String username) {
+		Session session = getSession();
+
+		String strQuery = "from User u where u.username = :name";
+		Query query = session.createQuery(strQuery);
+		query.setParameter("name",username);
+		if(query.list().size() > 0){
+			return true;
+		}
+		return false;
+	}
+
+	public String convertDateToString(Date date){
         return dateFormat.format(date);
     }
 }

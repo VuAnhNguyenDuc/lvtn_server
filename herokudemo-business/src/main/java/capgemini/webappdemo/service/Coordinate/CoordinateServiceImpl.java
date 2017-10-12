@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Service
 @Transactional
@@ -28,5 +30,10 @@ public class CoordinateServiceImpl extends EntityServiceImpl<Coordinate> impleme
 	@Override
 	public void deleteAll() {
 		Repository.deleteAll();
+	}
+
+	@Override
+	public List<Coordinate> getCoordsOfDetail(int detailid) {
+		return Repository.getCoordsOfDetail(detailid);
 	}
 }

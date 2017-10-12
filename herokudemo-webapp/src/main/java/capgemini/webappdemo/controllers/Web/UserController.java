@@ -3,6 +3,8 @@ package capgemini.webappdemo.controllers.Web;
 import capgemini.webappdemo.domain.Employee;
 import capgemini.webappdemo.domain.Manager;
 import capgemini.webappdemo.domain.User;
+import capgemini.webappdemo.form.EmployeeForm;
+import capgemini.webappdemo.form.ManagerForm;
 import capgemini.webappdemo.service.Employee.EmployeeService;
 import capgemini.webappdemo.service.Manager.ManagerService;
 import capgemini.webappdemo.service.User.UserService;
@@ -10,11 +12,14 @@ import capgemini.webappdemo.utils.LoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -59,6 +64,40 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "/manager/insert", method = RequestMethod.GET)
+    public String insertManagerGet(HttpSession session, ModelMap model){
+        if(!loginUtil.isLogin(session)){
+            return "redirect:/login";
+        } else{
+            model.addAttribute("managerForm",new ManagerForm());
+            return "web/user/manager";
+        }
+    }
+
+    @RequestMapping(value = "/manager/insert", method = RequestMethod.POST)
+    public String insertManagerPost(@Valid @ModelAttribute("managerForm") ManagerForm managerForm, BindingResult result, ModelMap model){
+        if(result.hasErrors()){
+            return "redirect:web/user/manager_insert";
+        } else{
+            if(service.checkUserExist(managerForm.getUsername())){
+                model.addAttribute("error","This username was used by another user");
+                return "web/user/manager_insert";
+            }
+            User usr = new User();
+            Manager mng = new Manager();
+            usr.setUsername(managerForm.getUsername());
+            usr.setPassword(managerForm.getPassword());
+            usr.setEmail(managerForm.getEmail());
+            usr.setUserType("Manager");
+            usr.setStatus(1);
+            service.add(usr);
+            mng.setStatus(1);
+            mng.setUser_id(usr.getId());
+            mngService.add(mng);
+            return "web/user/manager";
+        }
+    }
+
     @RequestMapping(value = "/employees", method = RequestMethod.GET)
     public String getEmployees(HttpSession session, ModelMap model){
         if(!loginUtil.isLogin(session)){
@@ -73,14 +112,48 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "/employee/insert", method = RequestMethod.GET)
+    public String insertEmployeeGet(HttpSession session, ModelMap model){
+        if(!loginUtil.isLogin(session)){
+            return "redirect:/login";
+        } else{
+            List<Manager> mngs = mngService.getAll();
+            model.addAttribute("mngs",mngs);
+            model.addAttribute("employeeForm",new EmployeeForm());
+            return "web/user/employee_insert";
+        }
+    }
+
+    @RequestMapping(value = "/employee/insert", method = RequestMethod.POST)
+    public String insertEmployeePost(@ModelAttribute("employeeForm") EmployeeForm employeeForm, BindingResult result, ModelMap model){
+        if(result.hasErrors()){
+            return "redirect:/login";
+        }
+        if(service.checkUserExist(employeeForm.getUsername())){
+            model.addAttribute("error","This username was used by another user");
+            return "web/user/employee_insert";
+        }
+        User usr = new User();
+        usr.setUserType("Employee");
+        usr.setUsername(employeeForm.getUsername());
+        usr.setPassword(employeeForm.getPassword());
+        usr.setEmail(employeeForm.getEmail());
+        usr.setStatus(1);
+        service.add(usr);
+        Employee emp = new Employee();
+        emp.setStatus(1);
+        emp.setUser_id(usr.getId());
+        emp.setManager_id(employeeForm.getManager_id());
+        empService.add(emp);
+        return "web/user/employee";
+    }
+
     @RequestMapping(value = "/users/details", method = RequestMethod.GET, params = {"type","id"})
     public String getUserDetails(HttpSession session, @RequestParam("type") String type, @RequestParam("id") int id,ModelMap model){
         if(!loginUtil.isLogin(session)){
             return "redirect:/login";
         } else{
-            User user = service.get(id);
             if(type.equals("manager")){
-                List<Employee> emps = empService.getEmployeesByManagerId(id);
                 Manager mng = getManagerInfo(id);
                 model.addAttribute("id",id);
                 model.addAttribute("mng",mng);
