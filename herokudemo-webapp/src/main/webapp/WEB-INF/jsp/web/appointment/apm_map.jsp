@@ -30,7 +30,7 @@
     function getData(){
         $.ajax({
             type:"GET",
-            url: "${home}ajax/getCoordinates",
+            url: "https://lvtn-server.herokuapp.com/ajax/getCoordinates",
             data : "appointmentid=${id}",
             dataType : "text",
             cache : false,

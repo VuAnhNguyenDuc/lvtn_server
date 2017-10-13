@@ -7,6 +7,7 @@ import capgemini.webappdemo.service.Detail.DetailService;
 import capgemini.webappdemo.service.User.UserService;
 import capgemini.webappdemo.service.UserAppointmentView.UserAppointmentViewService;
 import capgemini.webappdemo.utils.LoginUtil;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -63,7 +64,9 @@ public class AppointmentController {
             app.setUsers(users);
             app.setDetails(details);
             model.addAttribute("pageName","appointment");
-            model.addAttribute("app",app);
+            model.addAttribute("apm",app);
+            model.addAttribute("dts",details);
+            model.addAttribute("mng",userService.get(app.getManager_id()).getUsername());
             return "web/appointment/apm_detail";
         }
     }
