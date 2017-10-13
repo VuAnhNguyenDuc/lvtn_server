@@ -40,6 +40,11 @@
                 <form:input path="email" type="text" class="form-control" id="email"/>
                 <form:errors path="email" cssClass="form-error" class="form-control"/>
             </div>
+            <div class="form-group">
+                <c:if test="${not empty error}">
+                    <label class="form-error">${error}</label>
+                </c:if>
+            </div>
             <div class="text-center" style="margin-top : 60px; margin-bottom: 60px;">
                 <button type="submit" class="btn btn-primary">
                     ADD
