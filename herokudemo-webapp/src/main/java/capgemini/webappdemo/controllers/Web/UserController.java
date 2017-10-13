@@ -179,6 +179,10 @@ public class UserController {
         User user = service.get(id);
         Manager mng = mngService.get(id);
         List<Employee> emps = empService.getEmployeesByManagerId(id);
+        for(Employee emp : emps){
+            User usr = service.get(emp.getUser_id());
+            emp.setUsername(usr.getUsername());
+        }
         mng.setUsername(user.getUsername());
         mng.setEmail(user.getEmail());
         mng.setEmployees(emps);
