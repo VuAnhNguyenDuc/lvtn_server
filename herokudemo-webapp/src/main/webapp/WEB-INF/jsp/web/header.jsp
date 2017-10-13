@@ -41,6 +41,11 @@
         max-height: 300px !important;
     }
 
+    .form-error{
+        color:red !important;
+        font-weight: 700 !important;
+    }
+
     /* On small screens, set height to 'auto' for the grid */
     @media screen and (max-width: 767px) {
         .row.content {height: auto;}

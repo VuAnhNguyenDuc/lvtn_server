@@ -99,7 +99,7 @@ public class UserController {
             mng.setStatus(1);
             mng.setUser_id(usr.getId());
             mngService.add(mng);
-            return "web/user/manager";
+            return "redirect:/managers";
         }
     }
 
@@ -153,7 +153,7 @@ public class UserController {
         emp.setUser_id(usr.getId());
         emp.setManager_id(employeeForm.getManager_id());
         empService.add(emp);
-        return "web/user/employee";
+        return "redirect:/employees";
     }
 
     @RequestMapping(value = "/user/details", method = RequestMethod.GET, params = {"type","id"})
