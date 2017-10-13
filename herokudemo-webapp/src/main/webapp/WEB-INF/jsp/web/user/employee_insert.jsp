@@ -45,7 +45,7 @@
                 <label for="manager_id">Manager: </label>
                 <form:select path="manager_id" class="form-control" id="manager">
                     <c:forEach items="${mngs}" var="mng">
-                        <form:option value="${mng.id}" selected="true">${mng.username}</form:option>
+                        <form:option value="${mng.user_id}" selected="true">${mng.username}</form:option>
                         <%--<c:if test="${mng.id == ID}">
                             <form:option value="${manager.getId()}" selected="true">${manager.getUsername()}</form:option>
                         </c:if>

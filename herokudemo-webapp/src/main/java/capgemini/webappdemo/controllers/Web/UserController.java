@@ -75,7 +75,7 @@ public class UserController {
         } else{
             model.addAttribute("pageName","manager");
             model.addAttribute("managerForm",new ManagerForm());
-            return "web/user/manager";
+            return "web/user/manager_insert";
         }
     }
 
