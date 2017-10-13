@@ -114,6 +114,7 @@ public class UserController {
                 emp.setUsername(info.getUsername());
                 emp.setEmail(info.getEmail());
                 emp.setManager_name(info.getManager_name());
+                emp.setStatus(info.getStatus());
             }
             model.addAttribute("emps",emps);
             return "web/user/employee";
@@ -126,6 +127,10 @@ public class UserController {
             return "redirect:/login";
         } else{
             List<Manager> mngs = mngService.getAll();
+            for(Manager mng : mngs){
+                User usr = service.get(mng.getUser_id());
+                mng.setUsername(usr.getUsername());
+            }
             model.addAttribute("mngs",mngs);
             model.addAttribute("employeeForm",new EmployeeForm());
             return "web/user/employee_insert";

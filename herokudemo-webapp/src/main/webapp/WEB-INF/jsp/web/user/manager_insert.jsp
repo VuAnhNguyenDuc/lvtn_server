@@ -21,7 +21,7 @@
     <jsp:include page="../side_nav.jsp"/>
     <div class="col-sm-9 col-lg-9 col-sm-12 col-xs-12" style="padding-top: 30px">
         <div class="row" style="height: 15vh;"></div>
-        <form:form modelAttribute="managerForm" method="post">
+        <form:form modelAttribute="managerForm" action="/manager/insert" method="post">
 
             <div class="form-group>">
                 <label for="username">Username: </label>
@@ -31,7 +31,7 @@
 
             <div class="form-group>">
                 <label for="password">Password: </label>
-                <form:input path="password" type="text" class="form-control" id="password"/>
+                <form:input path="password" type="password" class="form-control" id="password"/>
                 <form:errors path="password" cssClass="form-error" class="form-control"/>
             </div>
 
