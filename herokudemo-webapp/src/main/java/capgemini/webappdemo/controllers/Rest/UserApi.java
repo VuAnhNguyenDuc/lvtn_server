@@ -72,7 +72,7 @@ public class UserApi {
             }
         } else if(user.getJson_token() != null){
             if(!jsonTokenUtil.validateKey(user.getJson_token())){
-                return new ResponseEntity<Message>(new Message("This is not a correct json key"),HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<Message>(new Message("This is not a correct json key or your json key is outdated, please login again to receive the new key"),HttpStatus.BAD_REQUEST);
             } else{
                 TokenPayload token = jsonTokenUtil.parsePayload(jsonTokenUtil.getPayloadFromKey(user.getJson_token()));
                 int id = token.getUser_id();

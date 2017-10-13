@@ -32,8 +32,8 @@
             <tbody>
             <c:forEach items="${vehicles}" var="vehicle">
                 <tr>
-                    <td>${vehicle.getId()}</td>
-                    <td>${vehicle.getName()}</td>
+                    <td>${vehicle.id}</td>
+                    <td>${vehicle.name}</td>
                 </tr>
             </c:forEach>
             </tbody>
