@@ -7,6 +7,7 @@ import capgemini.webappdemo.repository.User.UserRepository;
 import capgemini.webappdemo.repository.Vehicle.VehicleRepository;
 import capgemini.webappdemo.service.EntityServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,11 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class VehicleServiceImpl extends EntityServiceImpl<Vehicle> implements VehicleService {
 	
-	private VehicleRepository userRepository;
+	private VehicleRepository Repository;
 	@Autowired
-	public void setNameRepository(VehicleRepository userRepository) {
-		this.userRepository = userRepository;
-		repository = userRepository;
+	public void setNameRepository(VehicleRepository Repository) {
+		this.Repository = Repository;
+		repository = Repository;
 	}
 	
 	/**
@@ -27,6 +28,11 @@ public class VehicleServiceImpl extends EntityServiceImpl<Vehicle> implements Ve
 	 */
 	@Override
 	public void deleteAll() {
-		userRepository.deleteAll();
+		Repository.deleteAll();
+	}
+
+	@Override
+	public boolean checkExist(String name) {
+		return Repository.checkExist(name);
 	}
 }

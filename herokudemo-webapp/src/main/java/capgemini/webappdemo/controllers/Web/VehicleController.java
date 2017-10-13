@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,10 +48,14 @@ public class VehicleController {
     }
 
     @RequestMapping(value = "/vehicle/insert", method = RequestMethod.POST)
-    public String insertVehiclePost(@ModelAttribute("vehicle") Vehicle vehicle, BindingResult result, ModelMap model){
+    public String insertVehiclePost(@ModelAttribute("vehicle") @Valid  Vehicle vehicle, BindingResult result, ModelMap model){
         if(result.hasErrors()){
             return "web/vehicle/insertVehicle";
         } else{
+            if(service.checkExist(vehicle.getName())){
+                model.addAttribute("error","This vehicle existed in the database");
+                return "web/vehicle/insertVehicle";
+            }
             service.add(vehicle);
             return "redirect:/vehicles";
         }

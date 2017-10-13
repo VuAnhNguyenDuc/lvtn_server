@@ -13,9 +13,31 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>$Title$</title>
+    <title>VEHICLES</title>
+    <jsp:include page="../header.jsp"/>
 </head>
 <body>
-$END$
+    <jsp:include page="../mobile_nav.jsp"/>
+    <jsp:include page="../side_nav.jsp"/>
+    <div class="col-sm-9 col-lg-9 col-sm-12 col-xs-12" style="padding-top: 30px">
+        <p><a href="/vehicle/insert" class="btn btn-primary">ADD NEW VEHICLE</a></p>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Mã</th>
+                <th>Tên phương tiện</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${vehicles}" var="vehicle">
+                <tr>
+                    <td>${vehicle.getId()}</td>
+                    <td>${vehicle.getName()}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

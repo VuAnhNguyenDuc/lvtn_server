@@ -10,4 +10,6 @@ public interface VehicleService extends EntityService<Vehicle> {
 	 * Our app has a need for a fast method for deleting names
 	 */
 	public void deleteAll();
+
+	public boolean checkExist(String name);
 }

@@ -11,5 +11,7 @@ public interface VehicleRepository extends EntityRepository<Vehicle> {
 	 * Our app has a need for a fast method for deleting names
 	 */
 	public void deleteAll();
+
+	public boolean checkExist(String name);
 	
 }

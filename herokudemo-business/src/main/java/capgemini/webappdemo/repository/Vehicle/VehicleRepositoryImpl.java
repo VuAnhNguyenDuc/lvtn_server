@@ -29,4 +29,17 @@ public class VehicleRepositoryImpl extends EntityRepositoryImpl<Vehicle> impleme
 		Query query = session.createQuery(stringQuery);
 		query.executeUpdate();
 	}
+
+	@Override
+	public boolean checkExist(String name) {
+		Session session = getSession();
+
+		String strQuery = "from Vehicle v where v.name = :name";
+		Query query = session.createQuery(strQuery);
+		query.setParameter("name",name);
+		if(query.list().size() > 0){
+			return true;
+		}
+		return false;
+	}
 }
