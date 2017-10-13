@@ -18,7 +18,7 @@ public class UserAppointmentView implements Serializable {
     private Date start_date;
     @Temporal(TemporalType.TIMESTAMP)
     private Date end_date;
-    private int created_by;
+    private int create_by;
     private int status;
     private String appointment_name;
     @Transient
@@ -44,12 +44,12 @@ public class UserAppointmentView implements Serializable {
         this.status = status;
     }
 
-    public int getCreated_by() {
-        return created_by;
+    public int getCreate_by() {
+        return create_by;
     }
 
-    public void setCreated_by(int created_by) {
-        this.created_by = created_by;
+    public void setCreate_by(int create_by) {
+        this.create_by = create_by;
     }
 
     public Date getStart_date() {

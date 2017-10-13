@@ -34,12 +34,14 @@ public class UserAppointmentViewServiceImpl extends EntityServiceImpl<UserAppoin
 	}
 
 	@Override
-	public List<UserAppointmentView> getAppointmentsByMonth(int month, int year, int manager_id) throws ParseException {
-		return Repository.getAppointmentsByMonth(month, year, manager_id);
+	public List<UserAppointmentView> getAppointmentsByMonth(int month, int year, int id, boolean isCreated) throws ParseException {
+		return Repository.getAppointmentsByMonth(month, year, id, isCreated);
 	}
 
 	@Override
-	public List<UserAppointmentView> getAppointmentsByYear(int year, int manager_id) throws ParseException {
-		return Repository.getAppointmentsByYear(year, manager_id);
+	public List<UserAppointmentView> getAppointmentsByYear(int year, int id, boolean isCreated) throws ParseException {
+		return Repository.getAppointmentsByYear(year, id, isCreated);
 	}
+
+
 }

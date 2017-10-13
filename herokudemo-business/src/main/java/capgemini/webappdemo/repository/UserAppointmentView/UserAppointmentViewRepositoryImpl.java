@@ -37,7 +37,7 @@ public class UserAppointmentViewRepositoryImpl extends EntityRepositoryImpl<User
 	}
 
 	@Override
-	public List<UserAppointmentView> getAppointmentsByMonth(int month, int year, int manager_id) throws ParseException {
+	public List<UserAppointmentView> getAppointmentsByMonth(int month, int year, int id,boolean isCreated) throws ParseException {
 		String start_date = "";
 		String end_date = "";
 		if(month < 10){
@@ -47,31 +47,29 @@ public class UserAppointmentViewRepositoryImpl extends EntityRepositoryImpl<User
 			start_date = "00:00 01-"+month+"-"+year;
 			end_date = "00:00 31-"+month+"-"+year;
 		}
-		return getAppointmentsByPeriod(start_date,end_date,manager_id);
+		return getAppointmentsByPeriod(start_date,end_date,id,isCreated);
 	}
 
 	@Override
-	public List<UserAppointmentView> getAppointmentsByYear(int year, int manager_id) throws ParseException {
+	public List<UserAppointmentView> getAppointmentsByYear(int year, int id,boolean isCreated) throws ParseException {
 		String start_date = "00:00 01-01-"+year;
 		String end_date = "23:59 31-12-"+year;
 
-		return getAppointmentsByPeriod(start_date,end_date,manager_id);
+		return getAppointmentsByPeriod(start_date,end_date,id,isCreated);
 	}
 
-	private List<UserAppointmentView> getAppointmentsByPeriod(String start_date,String end_date, int manager_id) throws ParseException {
+	private List<UserAppointmentView> getAppointmentsByPeriod(String start_date,String end_date, int id,boolean isCreated) throws ParseException {
 		Session session = getSession();
 		String strQuery = "";
-		if(manager_id == 0){
-			strQuery = "from UserAppointmentView a where a.start_date >= :start and a.start_date <= :end";
+		if(!isCreated){
+			strQuery = "from UserAppointmentView a where a.start_date >= :start and a.start_date <= :end and a.user_id = :id";
 		} else{
-			strQuery = "from UserAppointmentView a where a.start_date >= :start and a.start_date <= :end and a.created_by = :managerid";
+			strQuery = "from UserAppointmentView a where a.start_date >= :start and a.start_date <= :end and a.create_by = :id";
 		}
 		Query query = session.createQuery(strQuery);
 		query.setParameter("start",getDate(start_date));
 		query.setParameter("end",getDate(end_date));
-		if(manager_id != 0){
-			query.setParameter("managerid",manager_id);
-		}
+		query.setParameter("id",id);
 		if(query.list().size() > 0){
 			return query.list();
 		} else{

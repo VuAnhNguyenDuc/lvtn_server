@@ -69,8 +69,8 @@
         if(yearInput != ""){
             $.ajax({
                 type:"GET",
-                url: "ajax/appointment/month",
-                data : "id=${ID}&isCreated=false&&year="+yearInput,
+                url: "https://lvtn-server.herokuapp.com/ajax/appointment/month",
+                data : "id=${emp.user_id}&isCreated=false&&year="+yearInput,
                 dataType : "text",
                 cache : false,
                 success: function(result){
@@ -90,7 +90,7 @@
     $("#month-chart").click(function () {
         var yearInput = $("#yearInput").val();
         if(yearInput != ""){
-            var newUrl = "https://lvtn-server.herokuapp.com/"
+            var newUrl = host.concat("ajax/appointment/month/chart?id=",${emp.user_id},"&year=",yearInput,"&isCreated=false");
             console.log(newUrl);
             var newTab = window.open(newUrl);
             if(newTab){
@@ -109,8 +109,8 @@
         if(from != "" && to != ""){
             $.ajax({
                 type:"GET",
-                url: "ajax/year/list",
-                data : "id=${ID}&from="+from+"&to="+to,
+                url: "https://lvtn-server.herokuapp.com/ajax/appointment/year",
+                data : "id=${emp.user_id}&from="+from+"&to="+to+"$isCreated=false",
                 dataType : "text",
                 cache : false,
                 success: function(result){
@@ -131,7 +131,7 @@
         var from = $("#from").val();
         var to = $("#to").val();
         if(from != "" && to != ""){
-            var newUrl = "http://".concat(host,":8080/admin/employee/getAppointmentsByYear?id=",${ID},"&from=",from,"&to=",to);
+            var newUrl = host.concat("?id=",${emp.user_id},"&from=",from,"&to=",to,"&isCreated=true");
             console.log(newUrl);
             var newTab = window.open(newUrl);
             if(newTab){
@@ -150,11 +150,11 @@
         var table_head = "<table class=\"table table-hover\">\n" +
             "        <thead>\n" +
             "        <tr>\n" +
-            "            <th>Mã</th>\n" +
-            "            <th>Tên công tác</th>\n" +
-            "            <th>Người tạo ra</th>\n" +
-            "            <th>Giờ bắt đầu</th>\n" +
-            "            <th>Trạng thái</th>\n" +
+            "            <th>Appointment ID</th>\n" +
+            "            <th>Appointment Name</th>\n" +
+            "            <th>Created By</th>\n" +
+            "            <th>Start Date</th>\n" +                                       "            <th>End Date</th>\n" +
+            "            <th>Status</th>\n" +
             "        </tr>\n" +
             "        </thead>\n" +
             "        <tbody>";
@@ -163,8 +163,9 @@
             table_body += "<tr>\n" +
                 "                <td>"+obj.appointment_id+"</td>\n" +
                 "                <td>"+obj.appointment_name+"</td>\n" +
-                "                <td>"+obj.created_by+"</td>\n" +
+                "                <td>"+obj.create_by+"</td>\n" +
                 "                <td>"+obj.start_date+"</td>\n" +
+                "                <td>"+obj.end_date+"</td>\n" +
                 "                <td>"+obj.status+"</td>\n" +
                 "            </tr>\n";
         }

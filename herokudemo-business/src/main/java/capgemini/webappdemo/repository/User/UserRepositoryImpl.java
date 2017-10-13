@@ -163,8 +163,8 @@ public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements Us
 	private void getUAVInfo(UserAppointmentView uav){
 		Date date = uav.getStart_date();
 		uav.setStart_date_str(convertDateToString(date));
-		uav.setManagerName(mngService.get(uav.getCreated_by()).getUsername());
-		uav.setCreated_by(0);
+		uav.setManagerName(mngService.get(uav.getCreate_by()).getUsername());
+		uav.setCreate_by(0);
 	}
 
 	public String convertDateToString(Date date){

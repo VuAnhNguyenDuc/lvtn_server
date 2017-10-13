@@ -57,6 +57,9 @@
                             <a href="/user/details?id=${emp.user_id}&type=employee" class="btn btn-primary">Details</a>
                         </td>
                     </tr>
+                    <%
+                        i = i + 1;
+                    %>
                 </c:forEach>
                 </tbody>
             </table>

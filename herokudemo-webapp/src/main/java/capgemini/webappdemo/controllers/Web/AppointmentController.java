@@ -44,7 +44,7 @@ public class AppointmentController {
         } else{
             List<UserAppointmentView> apps = service.getAll();
             for(UserAppointmentView app : apps){
-                User mng = userService.get(app.getCreated_by());
+                User mng = userService.get(app.getCreate_by());
                 app.setManagerName(mng.getUsername());
             }
             model.addAttribute("pageName","appointment");
