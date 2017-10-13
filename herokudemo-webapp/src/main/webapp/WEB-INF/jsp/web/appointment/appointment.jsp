@@ -13,9 +13,57 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>$Title$</title>
+    <title>APPOINTMENT</title>
+    <jsp:include page="../header.jsp"/>
 </head>
 <body>
-$END$
+    <jsp:include page="../mobile_nav.jsp"/>
+    <jsp:include page="../side_nav.jsp"/>
+    <div class="col-sm-9 col-lg-9 col-sm-12 col-xs-12" style="padding-top: 30px">
+        <div class="table-responsive" style="width: 100%;">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Appointment Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Start Location</th>
+                    <th>End Location</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <%
+                    int i = 1;
+                %>
+                <c:forEach items="${apms}" var="apm">
+                    <tr>
+                        <td><%= i %></td>
+                        <td>${apm.name}</td>
+                        <td>${apm.start_date_str}</td>
+                        <td>${apm.end_date_str}</td>
+                        <td>${apm.start_location}</td>
+                        <td>${apm.end_location}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${apm.status == 1}">
+                                    Active
+                                </c:when>
+                                <c:otherwise>
+                                    Inactive
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td>
+                            <a href="/appointment?id=${apm.appointment_id}" class="btn btn-primary">Details</a>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>

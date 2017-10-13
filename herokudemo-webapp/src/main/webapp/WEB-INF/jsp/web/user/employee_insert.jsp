@@ -44,7 +44,7 @@
             <div class="form-group>">
                 <label for="manager_id">Manager: </label>
                 <form:select path="manager_id" class="form-control" id="manager">
-                    <c:forEach items="${mngs}" var="mng">
+                    <c:forEach items="${mngSelectList}" var="mng">
                         <form:option value="${mng.user_id}" selected="true">${mng.username}</form:option>
                     </c:forEach>
                 </form:select>

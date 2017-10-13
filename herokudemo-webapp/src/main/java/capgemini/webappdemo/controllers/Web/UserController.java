@@ -126,12 +126,12 @@ public class UserController {
         if(!loginUtil.isLogin(session)){
             return "redirect:/login";
         } else{
-            List<Manager> mngs = mngService.getAll();
+            /*List<Manager> mngs = mngService.getAll();
             for(Manager mng : mngs){
                 User usr = service.get(mng.getUser_id());
                 mng.setUsername(usr.getUsername());
             }
-            model.addAttribute("mngs",mngs);
+            model.addAttribute("mngs",mngs);*/
             model.addAttribute("employeeForm",new EmployeeForm());
             return "web/user/employee_insert";
         }
@@ -159,6 +159,16 @@ public class UserController {
         emp.setManager_id(employeeForm.getManager_id());
         empService.add(emp);
         return "redirect:/employees";
+    }
+
+    @ModelAttribute("mngSelectList")
+    public List<Manager> getManagerList(){
+        List<Manager> mngs = mngService.getAll();
+        for(Manager mng : mngs){
+            User usr = service.get(mng.getUser_id());
+            mng.setUsername(usr.getUsername());
+        }
+        return mngs;
     }
 
     @RequestMapping(value = "/user/details", method = RequestMethod.GET, params = {"type","id"})

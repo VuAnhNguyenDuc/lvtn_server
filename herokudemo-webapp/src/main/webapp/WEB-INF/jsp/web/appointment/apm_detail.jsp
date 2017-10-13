@@ -13,9 +13,85 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>$Title$</title>
+    <title>APPOINTMENT DETAILS</title>
 </head>
 <body>
-$END$
+    <%--
+        name date_str end_date_str start_location end_location
+        status details users manager_id
+    --%>
+
+    <table class="table">
+        <%--<thead>
+        <tr>
+            <th>Thuộc tính</th>
+            <th>Giá trị</th>
+        </tr>
+        </thead>--%>
+        <tbody>
+            <tr>
+                <td>Appointment Name</td>
+                <td>${apm.name}</td>
+            </tr>
+            <tr>
+                <td>Manager Created</td>
+                <td>${mng}</td>
+            </tr>
+            <tr>
+                <td>Start Date</td>
+                <td>${apm.date_str}</td>
+            </tr>
+            <tr>
+                <td>End Date</td>
+                <td>${apm.end_date_str}</td>
+            </tr>
+            <tr>
+                <td>Start Location</td>
+                <td>${apm.start_location}</td>
+            </tr>
+            <tr>
+                <td>End Location</td>
+                <td>${apm.end_location}</td>
+            </tr>
+            <tr>
+                <td>Users Participate</td>
+                <td>${apm.start_location}</td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td>${apm.status}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <%--
+        input_cost image_content vehicle start_time_string end_time_string user_created
+    --%>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Vehicle</th>
+            <th>Created By</th>
+            <th>Input Cost</th>
+            <th>Image Content</th>
+        </tr>
+        </thead>
+        <tbody>
+            <c:forEach items="${dts}" var="dt">
+                <tr>
+                    <td>${dt.start_time_string}</td>
+                    <td>${dt.end_time_string}</td>
+                    <td>${dt.vehicle_name}</td>
+                    <td>${dt.user_created_name}</td>
+                    <td>${dt.input_cost}</td>
+                    <td>Img</td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+
 </body>
 </html>

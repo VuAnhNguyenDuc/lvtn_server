@@ -1,13 +1,11 @@
 package capgemini.webappdemo.controllers.Web;
 
-import capgemini.webappdemo.domain.Appointment;
-import capgemini.webappdemo.domain.Coordinate;
-import capgemini.webappdemo.domain.Detail;
-import capgemini.webappdemo.domain.User;
+import capgemini.webappdemo.domain.*;
 import capgemini.webappdemo.service.Appointment.AppointmentService;
 import capgemini.webappdemo.service.Coordinate.CoordinateService;
 import capgemini.webappdemo.service.Detail.DetailService;
 import capgemini.webappdemo.service.User.UserService;
+import capgemini.webappdemo.service.UserAppointmentView.UserAppointmentViewService;
 import capgemini.webappdemo.utils.LoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +20,10 @@ import java.util.List;
 @Controller
 public class AppointmentController {
     @Autowired
-    private AppointmentService service;
+    private UserAppointmentViewService service;
+
+    @Autowired
+    private AppointmentService appService;
 
     @Autowired
     private UserService userService;
@@ -40,10 +41,10 @@ public class AppointmentController {
         if(!loginUtil.isLogin(session)){
             return "redirect:/login";
         } else{
-            List<Appointment> apps = service.getAll();
-            for(Appointment app : apps){
-                List<User> users = service.getUsersOfAppointment(app.getId());
-                app.setUsers(users);
+            List<UserAppointmentView> apps = service.getAll();
+            for(UserAppointmentView app : apps){
+                User mng = userService.get(app.getCreated_by());
+                app.setManagerName(mng.getUsername());
             }
             model.addAttribute("pageName","appointment");
             model.addAttribute("apps",apps);
@@ -56,8 +57,8 @@ public class AppointmentController {
         if(!loginUtil.isLogin(session)){
             return "redirect:/login";
         } else{
-            Appointment app = service.get(id);
-            List<User> users = service.getUsersOfAppointment(id);
+            Appointment app = appService.get(id);
+            List<User> users = appService.getUsersOfAppointment(id);
             List<Detail> details = detailService.getDetailsOfAppointment(id);
             app.setUsers(users);
             app.setDetails(details);

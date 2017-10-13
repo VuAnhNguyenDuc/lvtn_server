@@ -30,8 +30,12 @@ public class Detail {
     private String start_time_string;
     @Transient
     private String end_time_string;
+    @Transient
+    private String vehicle_name;
 
     private int user_created;
+    @Transient
+    private String user_created_name;
 
     public Date getEnd_time() {
         return end_time;
@@ -141,5 +145,21 @@ public class Detail {
 
     public void setUser_created(int user_created) {
         this.user_created = user_created;
+    }
+
+    public String getVehicle_name() {
+        return vehicle_name;
+    }
+
+    public void setVehicle_name(String vehicle_name) {
+        this.vehicle_name = vehicle_name;
+    }
+
+    public String getUser_created_name() {
+        return user_created_name;
+    }
+
+    public void setUser_created_name(String user_created_name) {
+        this.user_created_name = user_created_name;
     }
 }
