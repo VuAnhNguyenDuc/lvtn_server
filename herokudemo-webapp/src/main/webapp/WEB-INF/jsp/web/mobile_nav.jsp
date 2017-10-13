@@ -32,11 +32,11 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li <% if(pageName.equals("manager")){ %> class="active" <%}%>><a href="/manager">NGƯỜI QUẢN LÝ</a></li>
-                <li <% if(pageName.equals("employee")){ %> class="active" <%}%>><a href="/employee">NHÂN VIÊN</a></li>
-                <li <% if(pageName.equals("appointment")){ %> class="active" <%}%>><a href="/appointment">DANH SÁCH CUỘC HẸN</a></li>
-                <li <% if(pageName.equals("vehicle")){ %> class="active" <%}%>><a href="/vehicle">PHƯƠNG TIỆN</a></li>
-                <li><a href="/logout">ĐĂNG XUẤT</a></li>
+                <li <% if(pageName.equals("manager")){ %> class="active" <%}%>><a href="/manager">MANAGERS</a></li>
+                <li <% if(pageName.equals("employee")){ %> class="active" <%}%>><a href="/employee">EMPLOYEES</a></li>
+                <li <% if(pageName.equals("appointment")){ %> class="active" <%}%>><a href="/appointment">APPOINTMENTS</a></li>
+                <li <% if(pageName.equals("vehicle")){ %> class="active" <%}%>><a href="/vehicle">VEHICLES</a></li>
+                <li><a href="/logout">LOG OUT</a></li>
             </ul>
         </div>
     </div>

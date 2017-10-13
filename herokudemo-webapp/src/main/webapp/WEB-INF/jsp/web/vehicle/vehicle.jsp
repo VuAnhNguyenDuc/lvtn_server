@@ -35,7 +35,7 @@
             %>
             <c:forEach items="${vehicles}" var="vehicle">
                 <tr>
-                    <td>${i}</td>
+                    <td><%= i %></td>
                     <td>${vehicle.name}</td>
                 </tr>
                 <%

@@ -39,7 +39,7 @@
                 %>
                 <c:forEach items="${employees}" var="employee">
                     <tr>
-                        <td>${i}</td>
+                        <td><%= i %></td>
                         <td>${employee.username}</td>
                         <td>${employee.email}</td>
                         <td>${employee.manager_name}</td>
@@ -54,7 +54,7 @@
                             </c:choose>
                         </td>
                         <td>
-                            <a href="/user/details?id=${employee.id}&type=employee" class="btn btn-primary">Details</a>
+                            <a href="/user/details?id=${employee.user_id}&type=employee" class="btn btn-primary">Details</a>
                         </td>
                     </tr>
                 </c:forEach>

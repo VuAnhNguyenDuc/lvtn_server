@@ -22,11 +22,11 @@
 <div class="col-sm-3 sidenav hidden-xs" style="min-height: 100vh;">
     <h2>LVTN SERVER</h2>
     <ul class="nav nav-pills nav-stacked">
-        <li <% if(pageName.equals("manager.jsp")){ %> class="active" <%}%>><a href="/managers">NGƯỜI QUẢN LÝ</a></li>
-        <li <% if(pageName.equals("employee.jsp")){ %> class="active" <%}%>><a href="/employees">NHÂN VIÊN</a></li>
-        <li <% if(pageName.equals("appointment.jsp")){ %> class="active" <%}%>><a href="/appointments">DANH SÁCH CUỘC HẸN</a></li>
-        <li <% if(pageName.equals("vehicle.jsp")){ %> class="active" <%}%>><a href="/vehicles">PHƯƠNG TIỆN</a></li>
-        <li><a href="/logout">ĐĂNG XUẤT</a></li>
+        <li <% if(pageName.equals("manager")){ %> class="active" <%}%>><a href="/managers">MANAGERS</a></li>
+        <li <% if(pageName.equals("employee")){ %> class="active" <%}%>><a href="/employees">EMPLOYEES</a></li>
+        <li <% if(pageName.equals("appointment")){ %> class="active" <%}%>><a href="/appointments">APPOINTMENTS</a></li>
+        <li <% if(pageName.equals("vehicle")){ %> class="active" <%}%>><a href="/vehicles">VEHICLES</a></li>
+        <li><a href="/logout">LOG OUT</a></li>
     </ul><br>
 </div>
 <br>
