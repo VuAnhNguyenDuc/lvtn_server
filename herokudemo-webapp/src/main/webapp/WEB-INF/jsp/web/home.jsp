@@ -14,8 +14,13 @@
 <html>
 <head>
     <title>Home page</title>
+    <jsp:include page="header.jsp"/>
 </head>
 <body>
-    <p>Hello World</p>
+    <jsp:include page="mobile_nav.jsp"/>
+    <jsp:include page="side_nav.jsp"/>
+    <div class="col-sm-9 col-lg-9 col-sm-12 col-xs-12" style="padding-top: 30px">
+        <h1>Welcome, admin</h1>
+    </div>
 </body>
 </html>

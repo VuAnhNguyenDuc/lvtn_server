@@ -59,6 +59,7 @@ public class UserController {
             for(Manager mng : mngs){
                 mng = getManagerInfo(mng.getUser_id());
             }
+            model.addAttribute("pageName","manager");
             model.addAttribute("mngs",mngs);
             return "web/user/manager";
         }
@@ -69,6 +70,7 @@ public class UserController {
         if(!loginUtil.isLogin(session)){
             return "redirect:/login";
         } else{
+            model.addAttribute("pageName","manager");
             model.addAttribute("managerForm",new ManagerForm());
             return "web/user/manager";
         }
