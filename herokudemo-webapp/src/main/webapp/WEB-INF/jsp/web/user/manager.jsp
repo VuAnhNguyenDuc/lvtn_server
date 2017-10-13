@@ -61,7 +61,7 @@
                             </c:choose>
                         </td>
                         <td>
-                            <a href="/user/details?id=${mng.user_id}&type=manager" class="btn btn-primary">Chi tiết</a>
+                            <a href="/user/details?id=${mng.user_id}&type=manager" class="btn btn-primary">Details</a>
                         </td>
                     </tr>
                 </c:forEach>

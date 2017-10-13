@@ -57,7 +57,10 @@ public class UserController {
         } else{
             List<Manager> mngs = mngService.getAll();
             for(Manager mng : mngs){
-                mng = getManagerInfo(mng.getUser_id());
+                Manager info = getManagerInfo(mng.getUser_id());
+                mng.setUsername(info.getUsername());
+                mng.setEmail(info.getEmail());
+                mng.setEmployees(info.getEmployees());
             }
             model.addAttribute("pageName","manager");
             model.addAttribute("mngs",mngs);
@@ -107,7 +110,10 @@ public class UserController {
         } else{
             List<Employee> emps = empService.getAll();
             for(Employee emp : emps){
-                emp = getEmployeeInfo(emp.getUser_id());
+                Employee info = getEmployeeInfo(emp.getUser_id());
+                emp.setUsername(info.getUsername());
+                emp.setEmail(info.getEmail());
+                emp.setManager_name(info.getManager_name());
             }
             model.addAttribute("emps",emps);
             return "web/user/employee";
