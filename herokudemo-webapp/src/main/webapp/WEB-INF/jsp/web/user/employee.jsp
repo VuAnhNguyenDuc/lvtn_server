@@ -37,15 +37,15 @@
                 <%
                     int i = 1;
                 %>
-                <c:forEach items="${employees}" var="employee">
+                <c:forEach items="${emps}" var="emp">
                     <tr>
                         <td><%= i %></td>
-                        <td>${employee.username}</td>
-                        <td>${employee.email}</td>
-                        <td>${employee.manager_name}</td>
+                        <td>${emp.username}</td>
+                        <td>${emp.email}</td>
+                        <td>${emp.manager_name}</td>
                         <td>
                             <c:choose>
-                                <c:when test="${employee.status == 1}">
+                                <c:when test="${emp.status == 1}">
                                     Active
                                 </c:when>
                                 <c:otherwise>
@@ -54,7 +54,7 @@
                             </c:choose>
                         </td>
                         <td>
-                            <a href="/user/details?id=${employee.user_id}&type=employee" class="btn btn-primary">Details</a>
+                            <a href="/user/details?id=${emp.user_id}&type=employee" class="btn btn-primary">Details</a>
                         </td>
                     </tr>
                 </c:forEach>
