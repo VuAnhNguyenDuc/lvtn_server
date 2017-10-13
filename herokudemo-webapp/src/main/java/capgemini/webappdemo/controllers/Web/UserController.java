@@ -77,7 +77,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/manager/insert", method = RequestMethod.POST)
-    public String insertManagerPost(@Valid @ModelAttribute("managerForm") ManagerForm managerForm, BindingResult result, ModelMap model){
+    public String insertManagerPost(@ModelAttribute("managerForm") @Valid ManagerForm managerForm, BindingResult result, ModelMap model){
         if(result.hasErrors()){
             return "redirect:web/user/manager_insert";
         } else{
@@ -127,9 +127,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/employee/insert", method = RequestMethod.POST)
-    public String insertEmployeePost(@ModelAttribute("employeeForm") EmployeeForm employeeForm, BindingResult result, ModelMap model){
+    public String insertEmployeePost(@ModelAttribute("employeeForm") @Valid EmployeeForm employeeForm, BindingResult result, ModelMap model){
         if(result.hasErrors()){
-            return "redirect:/login";
+            return "web/user/employee_insert";
         }
         if(service.checkUserExist(employeeForm.getUsername())){
             model.addAttribute("error","This username was used by another user");
@@ -150,7 +150,7 @@ public class UserController {
         return "web/user/employee";
     }
 
-    @RequestMapping(value = "/users/details", method = RequestMethod.GET, params = {"type","id"})
+    @RequestMapping(value = "/user/details", method = RequestMethod.GET, params = {"type","id"})
     public String getUserDetails(HttpSession session, @RequestParam("type") String type, @RequestParam("id") int id,ModelMap model){
         if(!loginUtil.isLogin(session)){
             return "redirect:/login";

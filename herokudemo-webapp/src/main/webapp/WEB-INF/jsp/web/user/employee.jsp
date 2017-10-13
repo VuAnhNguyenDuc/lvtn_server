@@ -13,9 +13,54 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>$Title$</title>
+    <title>EMPLOYEE</title>
+    <jsp:include page="../header.jsp"/>
 </head>
 <body>
-$END$
+    <jsp:include page="../mobile_nav.jsp"/>
+    <jsp:include page="../side_nav.jsp"/>
+    <div class="col-sm-9 col-lg-9 col-sm-12 col-xs-12" style="padding-top: 30px">
+        <p><a href="/employee/insert" class="btn btn-primary">ADD NEW EMPLOYEE</a></p>
+        <div class="table-responsive" style="width: 100%;">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Employee Name</th>
+                    <th>Email</th>
+                    <th>Employee's Manager</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <%
+                    int i = 1;
+                %>
+                <c:forEach items="${employees}" var="employee">
+                    <tr>
+                        <td>${i}</td>
+                        <td>${employee.username}</td>
+                        <td>${employee.email}</td>
+                        <td>${employee.manager_name}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${employee.status == 1}">
+                                    Active
+                                </c:when>
+                                <c:otherwise>
+                                    Inactive
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td>
+                            <a href="/user/details?id=${employee.id}&type=employee" class="btn btn-primary">Details</a>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>

@@ -48,7 +48,7 @@ public class VehicleController {
     }
 
     @RequestMapping(value = "/vehicle/insert", method = RequestMethod.POST)
-    public String insertVehiclePost(@ModelAttribute("vehicle") @Valid  Vehicle vehicle, BindingResult result, ModelMap model){
+    public String insertVehiclePost(@ModelAttribute("vehicle") @Valid Vehicle vehicle, BindingResult result, ModelMap model){
         if(result.hasErrors()){
             return "web/vehicle/insertVehicle";
         } else{

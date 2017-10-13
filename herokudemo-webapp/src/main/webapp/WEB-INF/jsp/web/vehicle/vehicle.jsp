@@ -24,17 +24,23 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>Mã</th>
-                <th>Tên phương tiện</th>
+                <th>No</th>
+                <th>Name of vehicle</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
+            <%
+                int i = 1;
+            %>
             <c:forEach items="${vehicles}" var="vehicle">
                 <tr>
-                    <td>${vehicle.id}</td>
+                    <td>${i}</td>
                     <td>${vehicle.name}</td>
                 </tr>
+                <%
+                    i = i + 1;
+                %>
             </c:forEach>
             </tbody>
         </table>
