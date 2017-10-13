@@ -1,6 +1,7 @@
 package capgemini.webappdemo.controllers.Rest;
 
 import capgemini.webappdemo.domain.Employee;
+import capgemini.webappdemo.domain.ID;
 import capgemini.webappdemo.domain.User;
 import capgemini.webappdemo.service.Employee.EmployeeService;
 import capgemini.webappdemo.service.Manager.ManagerService;
@@ -8,10 +9,7 @@ import capgemini.webappdemo.service.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,9 +28,12 @@ public class ManagerApi {
     @Autowired
     private EmployeeService employeeService;
 
-    @RequestMapping(value = "/api/manager/{id}/getEmployees", method = RequestMethod.GET)
-    public ResponseEntity<List<User>> getManagedUsers(@PathVariable("id") int id){
-        List<Employee> emps = employeeService.getEmployeesByManagerId(id);
+    @RequestMapping(value = "/api/manager/getEmployees", method = RequestMethod.POST)
+    public ResponseEntity<List<User>> getManagedUsers(@RequestBody ID id){
+        if(id.getId() == 0){
+            return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);
+        }
+        List<Employee> emps = employeeService.getEmployeesByManagerId(id.getId());
         List<User> users = new ArrayList<>();
         for(Employee emp : emps){
             User user = userService.get(emp.getUser_id());

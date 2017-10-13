@@ -20,8 +20,8 @@ public class CoordinateApi {
 
     private Logger logger = LoggerFactory.getLogger(CoordinateApi.class);
 
-    @RequestMapping(value = "/api/detail/{detailid}/addCoordinate", method = RequestMethod.POST)
-    public ResponseEntity<Message> addCoordinate(@PathVariable("detailid")int id,@RequestBody List<Coordinate> coordinates){
+    @RequestMapping(value = "/api/detail/addCoordinate", method = RequestMethod.POST)
+    public ResponseEntity<Message> addCoordinate(@RequestBody List<Coordinate> coordinates){
         logger.info("creating coordinates - Coordinate API");
         Message msg = new Message("");
         boolean flag = true;
@@ -31,7 +31,7 @@ public class CoordinateApi {
                 flag = false;
                 break;
             } else{
-                coor.setDetail_id(id);
+                //coor.setDetail_id();
                 coor.setTime(new Date());
                 coordinateService.add(coor);
                 if(coor.getId() == 0){

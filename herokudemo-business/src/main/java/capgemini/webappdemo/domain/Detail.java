@@ -31,6 +31,8 @@ public class Detail {
     @Transient
     private String end_time_string;
 
+    private int user_created;
+
     public Date getEnd_time() {
         return end_time;
     }
@@ -131,5 +133,13 @@ public class Detail {
 
     public void setImage_content(String image_content) {
         this.image_content = image_content;
+    }
+
+    public int getUser_created() {
+        return user_created;
+    }
+
+    public void setUser_created(int user_created) {
+        this.user_created = user_created;
     }
 }

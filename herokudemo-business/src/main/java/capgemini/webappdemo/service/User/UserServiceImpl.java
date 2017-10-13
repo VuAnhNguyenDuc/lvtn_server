@@ -4,6 +4,7 @@ package capgemini.webappdemo.service.User;
 import capgemini.webappdemo.domain.Appointment;
 import capgemini.webappdemo.domain.Name;
 import capgemini.webappdemo.domain.User;
+import capgemini.webappdemo.domain.UserAppointmentView;
 import capgemini.webappdemo.repository.NameRepository;
 import capgemini.webappdemo.repository.User.UserRepository;
 import capgemini.webappdemo.service.EntityServiceImpl;
@@ -49,17 +50,22 @@ public class UserServiceImpl extends EntityServiceImpl<User> implements UserServ
 	}
 
 	@Override
-	public List<Appointment> getActiveAppointments(int id) {
+	public List<UserAppointmentView> getActiveAppointments(int id) {
 		return Repository.getActiveAppointments(id);
 	}
 
 	@Override
-	public List<Appointment> getAllAppointments(int id) {
+	public List<UserAppointmentView> getAllAppointments(int id) {
 		return Repository.getAllAppointments(id);
 	}
 
 	@Override
 	public boolean checkUserExist(String username) {
 		return Repository.checkUserExist(username);
+	}
+
+	@Override
+	public UserAppointmentView getAppointment(int id) {
+		return Repository.getAppointment(id);
 	}
 }

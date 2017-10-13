@@ -1,8 +1,6 @@
 package capgemini.webappdemo.controllers.Rest;
 
-import capgemini.webappdemo.domain.Appointment;
-import capgemini.webappdemo.domain.Message;
-import capgemini.webappdemo.domain.User;
+import capgemini.webappdemo.domain.*;
 import capgemini.webappdemo.service.User.UserService;
 import capgemini.webappdemo.utils.JsonTokenUtil;
 import capgemini.webappdemo.utils.TokenPayload;
@@ -72,29 +70,53 @@ public class UserApi {
             } else{
                 return new ResponseEntity<Message>(new Message("Incorrect username or password", ""), HttpStatus.OK);
             }
+        } else if(user.getJson_token() != null){
+            if(!jsonTokenUtil.validateKey(user.getJson_token())){
+                return new ResponseEntity<Message>(new Message("This is not a correct json key"),HttpStatus.BAD_REQUEST);
+            } else{
+                TokenPayload token = jsonTokenUtil.parsePayload(jsonTokenUtil.getPayloadFromKey(user.getJson_token()));
+                int id = token.getUser_id();
+                User usr = userService.get(id);
+                return new ResponseEntity<Message>(new Message("success,"+userService.getUserType(usr.getId())+","+usr.getId(), ""), HttpStatus.OK);
+            }
         }
         return new ResponseEntity<Message>(new Message("Username and Password cannot be empty!!", ""), HttpStatus.NO_CONTENT);
     }
 
-    @RequestMapping(value = "/api/getActiveAppointments/{userid}", method = RequestMethod.GET)
-    public ResponseEntity<List<Appointment>> getActiveAps(@PathVariable("userid") int id){
+    @RequestMapping(value = "/api/getActiveAppointments", method = RequestMethod.POST)
+    public ResponseEntity<List<UserAppointmentView>> getActiveAps(@RequestBody ID id,Errors errors){
         logger.info("getting active appointments - User API");
-        List<Appointment> result = userService.getActiveAppointments(id);
+        if(id.getId() == 0){
+            return new ResponseEntity<List<UserAppointmentView>>(HttpStatus.NO_CONTENT);
+        }
+        List<UserAppointmentView> result = userService.getActiveAppointments(id.getId());
         if(result != null && result.size() > 0){
-            return new ResponseEntity<List<Appointment>>(userService.getActiveAppointments(id),HttpStatus.OK);
+            return new ResponseEntity<List<UserAppointmentView>>(userService.getActiveAppointments(id.getId()),HttpStatus.OK);
         } else{
-            return new ResponseEntity<List<Appointment>>(new ArrayList<Appointment>(),HttpStatus.NO_CONTENT);
+            return new ResponseEntity<List<UserAppointmentView>>(new ArrayList<UserAppointmentView>(),HttpStatus.NO_CONTENT);
         }
     }
 
-    @RequestMapping(value = "/api/getAllAppointments/{userid}", method = RequestMethod.GET)
-    public ResponseEntity<List<Appointment>> getAllAps(@PathVariable("userid") int id){
+    @RequestMapping(value = "/api/getAllAppointments", method = RequestMethod.POST)
+    public ResponseEntity<List<UserAppointmentView>> getAllAps(@RequestBody ID id){
         logger.info("getting all appointments - User API");
-        List<Appointment> result = userService.getAllAppointments(id);
+        if(id.getId() == 0){
+            return new ResponseEntity<List<UserAppointmentView>>(HttpStatus.NO_CONTENT);
+        }
+        List<UserAppointmentView> result = userService.getAllAppointments(id.getId());
         if(result != null && result.size() > 0){
-            return new ResponseEntity<List<Appointment>>(userService.getAllAppointments(id),HttpStatus.OK);
+            return new ResponseEntity<List<UserAppointmentView>>(userService.getAllAppointments(id.getId()),HttpStatus.OK);
         } else{
-            return new ResponseEntity<List<Appointment>>(new ArrayList<Appointment>(),HttpStatus.NO_CONTENT);
+            return new ResponseEntity<List<UserAppointmentView>>(new ArrayList<UserAppointmentView>(),HttpStatus.NO_CONTENT);
+        }
+    }
+
+    @RequestMapping(value = "/api/getAppointment", method = RequestMethod.POST)
+    public ResponseEntity<UserAppointmentView> getAppointment(@RequestBody ID id,Errors errors){
+        if(id.getId() == 0){
+            return new ResponseEntity<UserAppointmentView>(HttpStatus.NO_CONTENT);
+        } else{
+            return new ResponseEntity<UserAppointmentView>(userService.getAppointment(id.getId()),HttpStatus.OK);
         }
     }
 

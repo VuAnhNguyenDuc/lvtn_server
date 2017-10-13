@@ -27,8 +27,8 @@ public class DetailApi {
     private Logger logger = LoggerFactory.getLogger(DetailApi.class);
     private CommonUtils commonUtils = new CommonUtils();
 
-    @RequestMapping(value = "/api/{userid}/createDetail", method = RequestMethod.POST)
-    public ResponseEntity<Message> createDetail(@PathVariable("userid") int id, @RequestBody Detail detail){
+    @RequestMapping(value = "/api/createDetail", method = RequestMethod.POST)
+    public ResponseEntity<Message> createDetail(@RequestBody Detail detail){
         logger.info("creating detail - Detail API");
         Message msg = new Message("");
         if(detail.getVehicle_id() == 0){
@@ -36,6 +36,7 @@ public class DetailApi {
         } else if(detail.getAppointment_id() == 0){
             msg.setMessage("please input the appointment of this detail");
         } else {
+            detail.setUser_created(detail.getUser_created());
             detailService.add(detail);
             if(detail.getId() != 0){
                 msg.setMessage("success,"+detail.getId());
@@ -46,7 +47,7 @@ public class DetailApi {
         return new ResponseEntity<Message>(msg, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/api/detail/{detailid}/start", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/detail/start", method = RequestMethod.POST)
     public ResponseEntity<Message> startDetail(@PathVariable("detailid") int id, @RequestBody Detail detail){
         logger.info("starting a detail - Detail API");
         Message msg = new Message("");
@@ -70,7 +71,7 @@ public class DetailApi {
         return new ResponseEntity<Message>(msg,HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/api/detail/{detailid}/end", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/detail/end", method = RequestMethod.POST)
     public ResponseEntity<Message> endDetail(@PathVariable("detailid") int id, @RequestBody Detail detail){
         logger.info("ending a detail - Detail API");
         Message msg = new Message("");
@@ -94,7 +95,7 @@ public class DetailApi {
         return new ResponseEntity<Message>(msg,HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/api/detail/{detailid}/addImage", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/detail/addImage", method = RequestMethod.POST)
     public ResponseEntity<Message> addImage(@PathVariable("detailid") int id, @RequestBody Detail detail){
         logger.info("adding an image to detail - Detail API");
         Message msg = new Message("");
@@ -113,7 +114,7 @@ public class DetailApi {
         return new ResponseEntity<Message>(msg,HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/api/detail/{detailid}/addCost", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/detail/addCost", method = RequestMethod.POST)
     public ResponseEntity<Message> addCost(@PathVariable("detailid") int id, @RequestBody Detail detail){
         logger.info("adding an price cost to detail - Detail API");
         Message msg = new Message("");

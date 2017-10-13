@@ -5,7 +5,9 @@ import capgemini.webappdemo.domain.*;
 import capgemini.webappdemo.repository.EntityRepositoryImpl;
 import capgemini.webappdemo.service.Appointment.AppointmentService;
 import capgemini.webappdemo.service.Detail.DetailService;
+import capgemini.webappdemo.service.Manager.ManagerService;
 import capgemini.webappdemo.service.User.UserService;
+import capgemini.webappdemo.service.UserAppointmentView.UserAppointmentViewService;
 import org.hibernate.Query;
 import org.hibernate.classic.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,12 @@ public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements Us
 
 	@Autowired
 	private DetailService detailService;
+
+	@Autowired
+	private ManagerService mngService;
+
+	@Autowired
+	private UserAppointmentViewService uavService;
 
     private DateFormat dateFormat = new SimpleDateFormat("HH:mm dd-MM-yyyy");
 
@@ -97,10 +105,10 @@ public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements Us
 	}
 
 	@Override
-	public List<Appointment> getActiveAppointments(int id) {
-		List<Appointment> all = getAllAppointments(id);
-		List<Appointment> result = new ArrayList<Appointment>();
-		for(Appointment ap : all){
+	public List<UserAppointmentView> getActiveAppointments(int id) {
+		List<UserAppointmentView> all = getAllAppointments(id);
+		List<UserAppointmentView> result = new ArrayList<UserAppointmentView>();
+		for(UserAppointmentView ap : all){
 			if(ap.getStatus() == 1){
 				result.add(ap);
 			}
@@ -109,25 +117,18 @@ public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements Us
 	}
 
 	@Override
-	public List<Appointment> getAllAppointments(int id) {
+	public List<UserAppointmentView> getAllAppointments(int id) {
 		Session session = getSession();
-		String strQuery = "from UserTakesAppointment uta where uta.user_id = :id";
+
+		String strQuery = "from UserAppointmentView uav where uav.user_id = :id";
 		Query query = session.createQuery(strQuery);
 		query.setParameter("id",id);
-		List<UserTakesAppointment> utaList = query.list();
-		if(utaList != null && utaList.size() > 0){
-			List<Appointment> result = new ArrayList<Appointment>();
-			for(UserTakesAppointment uta : utaList){
-				Appointment ap = appointmentService.get(uta.getAppointment_id());
-				Date date = ap.getStart_date();
-				ap.setDate_str(convertDateToString(date));
-				List<Detail> details = detailService.getDetailsOfAppointment(id);
-				ap.setDetails(details);
-				result.add(ap);
-			}
-			return result;
+
+		List<UserAppointmentView> all = query.list();
+		for(UserAppointmentView ap : all){
+			getUAVInfo(ap);
 		}
-		return new ArrayList<Appointment>();
+		return all;
 	}
 
 	@Override
@@ -141,6 +142,29 @@ public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements Us
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public UserAppointmentView getAppointment(int id) {
+		Session session = getSession();
+
+		String strQuery = "from UserAppointmentView uav where uav.appointment_id = :id";
+		Query query = session.createQuery(strQuery);
+		query.setParameter("id",id);
+		UserAppointmentView uav = (query.list().size() > 0)? (UserAppointmentView) query.list().get(0) : null;
+		if(uav == null){
+			return null;
+		} else {
+			getUAVInfo(uav);
+			return uav;
+		}
+	}
+
+	private void getUAVInfo(UserAppointmentView uav){
+		Date date = uav.getStart_date();
+		uav.setStart_date_str(convertDateToString(date));
+		uav.setManagerName(mngService.get(uav.getCreated_by()).getUsername());
+		uav.setCreated_by(0);
 	}
 
 	public String convertDateToString(Date date){

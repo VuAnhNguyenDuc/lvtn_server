@@ -1,6 +1,7 @@
 package capgemini.webappdemo.controllers.Rest;
 
 import capgemini.webappdemo.domain.Appointment;
+import capgemini.webappdemo.domain.ID;
 import capgemini.webappdemo.domain.Message;
 import capgemini.webappdemo.domain.User;
 import capgemini.webappdemo.service.Appointment.AppointmentService;
@@ -34,10 +35,11 @@ public class AppointmentApi {
 
     private Logger logger = LoggerFactory.getLogger(AppointmentApi.class);
 
-    @RequestMapping(value = "/api/{managerid}/createAppointment", method = RequestMethod.POST)
-    public ResponseEntity<Message> createAppointment(@PathVariable("managerid") int id, @RequestBody Appointment apm){
+    @RequestMapping(value = "/api/createAppointment", method = RequestMethod.POST)
+    public ResponseEntity<Message> createAppointment( @RequestBody Appointment apm){
         logger.info("creating appointment - Appointment API");
         Message msg = new Message("");
+        int id = apm.getManager_id();
         if(!userService.getUserType(id).equals("Manager")){
             return new ResponseEntity<Message>(new Message("This user does not have enough privileges",""),HttpStatus.OK);
         }
@@ -73,6 +75,22 @@ public class AppointmentApi {
             }
         }
         return new ResponseEntity<Message>(msg, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/api/endAppointment", method = RequestMethod.POST)
+    public ResponseEntity<Message> endAppointment(@RequestBody Appointment apm){
+        if(apm.getId() == 0){
+            return new ResponseEntity<Message>(HttpStatus.NO_CONTENT);
+        } else{
+            Appointment ap = apmService.get(apm.getId());
+            try {
+                ap.setEnd_date(commonUtils.convertStringToDate(ap.getEnd_date_str()));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            ap.setStatus(0);
+            return new ResponseEntity<Message>(new Message("appointment ended successfully",""),HttpStatus.OK);
+        }
     }
 
     private boolean within(String value, int min, int max){

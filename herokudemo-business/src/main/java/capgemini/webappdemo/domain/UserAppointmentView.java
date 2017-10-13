@@ -19,6 +19,10 @@ public class UserAppointmentView implements Serializable {
     private int created_by;
     private int status;
     private String appointment_name;
+    @Transient
+    private String managerName;
+    @Transient
+    private String start_date_str = "";
 
     public String getAppointment_name() {
         return appointment_name;
@@ -66,5 +70,21 @@ public class UserAppointmentView implements Serializable {
 
     public void setUser_id(int user_id) {
         this.user_id = user_id;
+    }
+
+    public String getManagerName() {
+        return managerName;
+    }
+
+    public void setManagerName(String managerName) {
+        this.managerName = managerName;
+    }
+
+    public String getStart_date_str() {
+        return start_date_str;
+    }
+
+    public void setStart_date_str(String start_date_str) {
+        this.start_date_str = start_date_str;
     }
 }
