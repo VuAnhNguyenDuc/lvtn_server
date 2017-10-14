@@ -21,7 +21,7 @@ public class UserAppointmentView implements Serializable {
     private int create_by;
     private int status;
     private String appointment_name;
-    private String start_locaiton;
+    private String start_location;
     private String end_location;
     @Transient
     private String managerName;
@@ -110,12 +110,12 @@ public class UserAppointmentView implements Serializable {
         this.end_date_str = end_date_str;
     }
 
-    public String getStart_locaiton() {
-        return start_locaiton;
+    public String getStart_location() {
+        return start_location;
     }
 
-    public void setStart_locaiton(String start_locaiton) {
-        this.start_locaiton = start_locaiton;
+    public void setStart_location(String start_location) {
+        this.start_location = start_location;
     }
 
     public String getEnd_location() {
