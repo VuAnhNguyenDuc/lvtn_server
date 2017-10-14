@@ -3,11 +3,13 @@ package capgemini.webappdemo.controllers.Web;
 import capgemini.webappdemo.domain.Employee;
 import capgemini.webappdemo.domain.Manager;
 import capgemini.webappdemo.domain.User;
+import capgemini.webappdemo.domain.UserAppointmentView;
 import capgemini.webappdemo.form.EmployeeForm;
 import capgemini.webappdemo.form.ManagerForm;
 import capgemini.webappdemo.service.Employee.EmployeeService;
 import capgemini.webappdemo.service.Manager.ManagerService;
 import capgemini.webappdemo.service.User.UserService;
+import capgemini.webappdemo.service.UserAppointmentView.UserAppointmentViewService;
 import capgemini.webappdemo.utils.LoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +35,9 @@ public class UserController {
 
     @Autowired
     private ManagerService mngService;
+
+    @Autowired
+    private UserAppointmentViewService uavService;
 
     private LoginUtil loginUtil = new LoginUtil();
 
@@ -176,15 +181,18 @@ public class UserController {
         if(!loginUtil.isLogin(session)){
             return "redirect:/login";
         } else{
+            List<UserAppointmentView> uavs = service.getAllAppointments(id);
             if(type.equals("manager")){
                 Manager mng = getManagerInfo(id);
                 model.addAttribute("id",id);
                 model.addAttribute("mng",mng);
+                model.addAttribute("total",uavs.size());
                 return "web/user/manager_detail";
             } else{
                 Employee emp = getEmployeeInfo(id);
                 model.addAttribute("id",id);
                 model.addAttribute("emp",emp);
+                model.addAttribute("total",uavs.size());
                 return "web/user/employee_detail";
             }
         }
