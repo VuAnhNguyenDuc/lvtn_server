@@ -68,13 +68,13 @@
     </div>
 </body>
 <script type="application/javascript">
-    var host =  "https://lvtn-server.herokuapp.com/"; // localhost
+    var host =  "http://lvtn-server.herokuapp.com/"; // localhost
     $("#month-list").click(function () {
         var yearInput = $("#yearInput").val();
         if(yearInput != ""){
             $.ajax({
                 type:"GET",
-                url: "https://lvtn-server.herokuapp.com/ajax/appointment/month",
+                url: "http://lvtn-server.herokuapp.com/ajax/appointment/month",
                 data : "id=${emp.user_id}&isCreated=false&&year="+yearInput,
                 dataType : "text",
                 cache : false,
@@ -114,7 +114,7 @@
         if(from != "" && to != ""){
             $.ajax({
                 type:"GET",
-                url: "https://lvtn-server.herokuapp.com/ajax/appointment/year",
+                url: "http://lvtn-server.herokuapp.com/ajax/appointment/year",
                 data : "id=${emp.user_id}&from="+from+"&to="+to+"$isCreated=false",
                 dataType : "text",
                 cache : false,

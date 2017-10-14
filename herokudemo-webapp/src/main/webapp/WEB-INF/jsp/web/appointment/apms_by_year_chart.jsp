@@ -37,7 +37,7 @@
     function getAppointmentsByYear(){
         $.ajax({
             type:"GET",
-            url: "${home}ajax/appointment/year/chart",
+            url: "http://lvtn-server.herokuapp.com/ajax/appointment/year/chart",
             data : "id=${id}&from=${from}&to=${to}&isCreated=${isCreated}",
             dataType : "text",
             cache : false,
