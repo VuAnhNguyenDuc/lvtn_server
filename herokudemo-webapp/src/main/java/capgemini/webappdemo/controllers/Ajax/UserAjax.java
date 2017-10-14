@@ -8,10 +8,7 @@ import capgemini.webappdemo.utils.CommonUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -28,7 +25,7 @@ public class UserAjax {
     private CommonUtils utils = new CommonUtils();
 
     @RequestMapping(value = "/ajax/appointment/month/chart", method = RequestMethod.GET, params = {"year","isCreated","id"})
-    public String compareAppointmentByMonthChart(@PathVariable("year")int year,@PathVariable("id") int id,@PathVariable("isCreated") boolean isCreated){
+    public String compareAppointmentByMonthChart(@RequestParam("year")int year, @RequestParam("id") int id, @RequestParam("isCreated") boolean isCreated){
         String result = "";
         for(int i = 1; i <= 12; i++){
             try {

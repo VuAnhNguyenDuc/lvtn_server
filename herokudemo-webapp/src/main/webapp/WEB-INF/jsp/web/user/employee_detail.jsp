@@ -50,16 +50,16 @@
         <p>Amount of appointment taken compare by months in a year : </p>
         <p>Please input a year</p>
         <input type="number" id="yearInput" />
-        <button type="button" class="btn btn-primary" id="month-list">View as chart</button>
-        <button type="button" class="btn btn-success" id="month-chart">View as list</button>
+        <button type="button" class="btn btn-primary" id="month-chart">View as chart</button>
+        <button type="button" class="btn btn-success" id="month-list">View as list</button>
 
         <p>Amount of appointment taken throughout a period : </p>
         <p>Please input the start year</p>
         <input type="number" id="from" />
         <p>Please input the end year</p>
         <input type="number" id="to" />
-        <button type="button" class="btn btn-primary" id="year-list">View as chart</button>
-        <button type="button" class="btn btn-success" id="year-chart">View as list</button>
+        <button type="button" class="btn btn-primary" id="year-chart">View as chart</button>
+        <button type="button" class="btn btn-success" id="year-list">View as list</button>
 
 
         <div id="result-list">
