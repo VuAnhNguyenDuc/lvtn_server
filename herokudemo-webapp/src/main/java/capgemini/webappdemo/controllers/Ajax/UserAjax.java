@@ -48,7 +48,10 @@ public class UserAjax {
         List<UserAppointmentView> total = new ArrayList<>();
         for(int i = 1; i <= 12; i++){
             try {
-                total.addAll(uavService.getAppointmentsByMonth(i,year,id,isCreated));
+                List<UserAppointmentView> temp = uavService.getAppointmentsByMonth(i,year,id,isCreated);
+                if(temp != null){
+                    total.addAll(temp);
+                }
             } catch (ParseException e) {
                 e.printStackTrace();
             }
