@@ -34,7 +34,6 @@ public class UserApi {
 
     @RequestMapping(value = "/api/changepass", method = RequestMethod.POST)
     public ResponseEntity<Message> changePassword(@RequestBody User user, Errors errors){
-        logger.info("changing password - User API");
         System.out.println("changing password - User API");
         if(errors.hasErrors()){
             for(ObjectError err:errors.getAllErrors()){
@@ -58,7 +57,7 @@ public class UserApi {
 
     @RequestMapping(value = "/api/login", method = RequestMethod.POST)
     public ResponseEntity<Message> loginApi(@RequestBody User user, Errors errors, Model model){
-        logger.info("user login in - User API");
+        System.out.println("user login in - User API");
         if(user.getUsername() != null && user.getPassword() != null){
             User result = userService.checkLogin(user.getUsername(),user.getPassword());
             if(result != null){
@@ -84,8 +83,9 @@ public class UserApi {
     }
 
     @RequestMapping(value = "/api/getActiveAppointments", method = RequestMethod.POST)
-    public ResponseEntity<List<UserAppointmentView>> getActiveAps(@RequestBody Message msg,Errors errors){
-        logger.info("getting active appointments - User API");
+    public ResponseEntity<List<UserAppointmentView>> getActiveAps(@RequestBody Message msg){
+        System.out.println("getting active appointments - User API");
+        System.out.println(msg.getJson_token());
         if(msg.getJson_token().equals("") || !jsonTokenUtil.validateKey(msg.getJson_token())){
             return new ResponseEntity<List<UserAppointmentView>>(HttpStatus.BAD_REQUEST);
         }
@@ -94,13 +94,13 @@ public class UserApi {
         if(result != null && result.size() > 0){
             return new ResponseEntity<List<UserAppointmentView>>(userService.getActiveAppointments(id),HttpStatus.OK);
         } else{
-            return new ResponseEntity<List<UserAppointmentView>>(new ArrayList<UserAppointmentView>(),HttpStatus.NO_CONTENT);
+            return new ResponseEntity<List<UserAppointmentView>>(HttpStatus.NO_CONTENT);
         }
     }
 
     @RequestMapping(value = "/api/getAllAppointments", method = RequestMethod.POST)
     public ResponseEntity<List<UserAppointmentView>> getAllAps(@RequestBody Message msg){
-        logger.info("getting all appointments - User API");
+        System.out.println("getting all appointments - User API");
         if(msg.getJson_token().equals("") || !jsonTokenUtil.validateKey(msg.getJson_token())){
             return new ResponseEntity<List<UserAppointmentView>>(HttpStatus.BAD_REQUEST);
         }
