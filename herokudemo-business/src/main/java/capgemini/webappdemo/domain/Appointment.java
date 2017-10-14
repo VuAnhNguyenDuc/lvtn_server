@@ -15,8 +15,9 @@ public class Appointment {
     private Date start_date;
     @Temporal(TemporalType.TIMESTAMP)
     private Date end_date;
-    private String start_location;
-    private String end_location;
+    /*private String start_location;
+    private String end_location;*/
+    private String destination;
     private Integer status;
 
     @Transient
@@ -49,18 +50,6 @@ public class Appointment {
         this.id = 0;
     }
 
-    public Appointment(Integer id, String name, Date start_date, String start_location, String end_location, Integer status, List<Detail> details, List<User> users, List<Image> images) {
-        this.id = id;
-        this.name = name;
-        this.start_date = start_date;
-        this.start_location = start_location;
-        this.end_location = end_location;
-        this.status = status;
-        this.details = details;
-        this.users = users;
-        this.images = images;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -85,20 +74,12 @@ public class Appointment {
         this.start_date = start_date;
     }
 
-    public String getStart_location() {
-        return start_location;
+    public String getDestination() {
+        return destination;
     }
 
-    public void setStart_location(String start_location) {
-        this.start_location = start_location;
-    }
-
-    public String getEnd_location() {
-        return end_location;
-    }
-
-    public void setEnd_location(String end_location) {
-        this.end_location = end_location;
+    public void setDestination(String destination) {
+        this.destination = destination;
     }
 
     public Integer getStatus() {

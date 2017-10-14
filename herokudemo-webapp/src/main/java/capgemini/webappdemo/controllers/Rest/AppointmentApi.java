@@ -51,10 +51,8 @@ public class AppointmentApi {
 
         if(apm.getName() == null || !within(apm.getName(),8,32)){
             msg = new Message("appointment name must not be empty and within 8 to 32 characters");
-        } else if(apm.getStart_location() == null){
-            msg.setMessage("appointment start location must not be empty");
-        } else if(apm.getEnd_location() == null){
-            msg.setMessage("appointment end location must not be empty");
+        } else if(apm.getDestination() == null){
+            msg.setMessage("appointment destination must not be empty");
         } else if(apm.getUsers() == null){
             msg.setMessage("please input at least one user who will take this appointment");
         } else if(apm.getDate_str() == null){

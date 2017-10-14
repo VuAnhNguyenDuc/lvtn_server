@@ -25,13 +25,12 @@ public class DetailApi {
     @Autowired
     private VehicleService vehicleService;
 
-    private Logger logger = LoggerFactory.getLogger(DetailApi.class);
     private CommonUtils commonUtils = new CommonUtils();
     private JsonTokenUtil jsonTokenUtil = new JsonTokenUtil();
 
     @RequestMapping(value = "/api/createDetail", method = RequestMethod.POST)
     public ResponseEntity<Message> createDetail(@RequestBody Detail detail){
-        logger.info("creating detail - Detail API");
+        System.out.println("creating detail - Detail API");
         if(detail.getJson_token().equals("") || !jsonTokenUtil.validateKey(detail.getJson_token())){
             return new ResponseEntity<Message>(new Message("invalid json token"), HttpStatus.BAD_REQUEST);
         }
@@ -56,7 +55,7 @@ public class DetailApi {
 
     @RequestMapping(value = "/api/detail/start", method = RequestMethod.POST)
     public ResponseEntity<Message> startDetail(@RequestBody Detail detail){
-        logger.info("starting a detail - Detail API");
+        System.out.println("starting a detail - Detail API");
         if(detail.getJson_token().equals("") || !jsonTokenUtil.validateKey(detail.getJson_token())){
             return new ResponseEntity<Message>(new Message("invalid json token"), HttpStatus.BAD_REQUEST);
         }
@@ -74,7 +73,7 @@ public class DetailApi {
                     result.setStart_time(commonUtils.convertStringToDate(detail.getStart_time_string()));
                     detailService.update(result);
                 } catch (ParseException e) {
-                    logger.info(e.getMessage());
+                    e.printStackTrace();
                 }
                 msg.setMessage("success");
             }
@@ -84,7 +83,7 @@ public class DetailApi {
 
     @RequestMapping(value = "/api/detail/end", method = RequestMethod.POST)
     public ResponseEntity<Message> endDetail(@RequestBody Detail detail){
-        logger.info("ending a detail - Detail API");
+        System.out.println("ending a detail - Detail API");
         if(detail.getJson_token().equals("") || !jsonTokenUtil.validateKey(detail.getJson_token())){
             return new ResponseEntity<Message>(new Message("invalid json token"), HttpStatus.BAD_REQUEST);
         }
@@ -102,7 +101,7 @@ public class DetailApi {
                     result.setEnd_time(commonUtils.convertStringToDate(detail.getEnd_time_string()));
                     detailService.update(result);
                 } catch (ParseException e) {
-                    logger.info(e.getMessage());
+                    e.printStackTrace();
                 }
                 msg.setMessage("success");
             }
@@ -112,7 +111,7 @@ public class DetailApi {
 
     @RequestMapping(value = "/api/detail/addImage", method = RequestMethod.POST)
     public ResponseEntity<Message> addImage(@RequestBody Detail detail){
-        logger.info("adding an image to detail - Detail API");
+        System.out.println("adding an image to detail - Detail API");
         if(detail.getJson_token().equals("") || !jsonTokenUtil.validateKey(detail.getJson_token())){
             return new ResponseEntity<Message>(new Message("invalid json token"), HttpStatus.BAD_REQUEST);
         }
@@ -135,7 +134,7 @@ public class DetailApi {
 
     @RequestMapping(value = "/api/detail/addCost", method = RequestMethod.POST)
     public ResponseEntity<Message> addCost(@RequestBody Detail detail){
-        logger.info("adding a price cost to detail - Detail API");
+        System.out.println("adding a price cost to detail - Detail API");
         if(detail.getJson_token().equals("") || !jsonTokenUtil.validateKey(detail.getJson_token())){
             return new ResponseEntity<Message>(new Message("invalid json token"), HttpStatus.BAD_REQUEST);
         }
@@ -152,6 +151,44 @@ public class DetailApi {
                 detailService.update(result);
                 msg.setMessage("success");
             }
+        }
+        return new ResponseEntity<Message>(msg,HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/api/detail/addDescription", method = RequestMethod.POST)
+    public ResponseEntity<Message> addDescription(@RequestBody Detail detail){
+        System.out.println("adding a price cost to detail - Detail API");
+        if(detail.getJson_token().equals("") || !jsonTokenUtil.validateKey(detail.getJson_token())){
+            return new ResponseEntity<Message>(new Message("invalid json token"), HttpStatus.BAD_REQUEST);
+        }
+        Message msg = new Message("");
+        if(detail.getId() == 0){
+            msg.setMessage("please input a valid detail id");
+        } else if(detail.getDescription() == null && detail.getDescription().equals("")){
+            msg.setMessage("please input valid description");
+        } else{
+            Detail dt = detailService.get(detail.getId());
+            dt.setDescription(detail.getDescription());
+            msg.setMessage("success");
+        }
+        return new ResponseEntity<Message>(msg,HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/api/detail/addEndLocation", method = RequestMethod.POST)
+    public ResponseEntity<Message> addEndLocation(@RequestBody Detail detail){
+        System.out.println("adding a price cost to detail - Detail API");
+        if(detail.getJson_token().equals("") || !jsonTokenUtil.validateKey(detail.getJson_token())){
+            return new ResponseEntity<Message>(new Message("invalid json token"), HttpStatus.BAD_REQUEST);
+        }
+        Message msg = new Message("");
+        if(detail.getId() == 0){
+            msg.setMessage("please input a valid detail id");
+        } else if(detail.getEnd_location() == null && detail.getEnd_location().equals("")){
+            msg.setMessage("please input valid end location");
+        } else{
+            Detail dt = detailService.get(detail.getId());
+            dt.setEnd_location(detail.getEnd_location());
+            msg.setMessage("success");
         }
         return new ResponseEntity<Message>(msg,HttpStatus.OK);
     }

@@ -21,6 +21,10 @@ public class Detail {
     private int appointment_id;
     private int vehicle_id;
 
+    private String start_location;
+    private String end_location;
+    private String description;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date start_time;
     @Temporal(TemporalType.TIMESTAMP)
@@ -171,5 +175,29 @@ public class Detail {
 
     public void setJson_token(String json_token) {
         this.json_token = json_token;
+    }
+
+    public String getStart_location() {
+        return start_location;
+    }
+
+    public void setStart_location(String start_location) {
+        this.start_location = start_location;
+    }
+
+    public String getEnd_location() {
+        return end_location;
+    }
+
+    public void setEnd_location(String end_location) {
+        this.end_location = end_location;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
