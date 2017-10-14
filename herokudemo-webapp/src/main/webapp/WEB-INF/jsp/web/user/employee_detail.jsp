@@ -75,7 +75,7 @@
             $.ajax({
                 type:"GET",
                 url: "http://lvtn-server.herokuapp.com/ajax/appointment/month",
-                data : "id=${emp.user_id}&isCreated=false&&year="+yearInput,
+                data : "id=${emp.user_id}&isCreated=false&year="+yearInput,
                 dataType : "text",
                 cache : false,
                 success: function(result){
@@ -115,7 +115,7 @@
             $.ajax({
                 type:"GET",
                 url: "http://lvtn-server.herokuapp.com/ajax/appointment/year",
-                data : "id=${emp.user_id}&from="+from+"&to="+to+"$isCreated=false",
+                data : "id=${emp.user_id}&from="+from+"&to="+to+"&isCreated=false",
                 dataType : "text",
                 cache : false,
                 success: function(result){
