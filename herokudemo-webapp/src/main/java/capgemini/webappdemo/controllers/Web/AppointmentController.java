@@ -6,6 +6,7 @@ import capgemini.webappdemo.service.Coordinate.CoordinateService;
 import capgemini.webappdemo.service.Detail.DetailService;
 import capgemini.webappdemo.service.User.UserService;
 import capgemini.webappdemo.service.UserAppointmentView.UserAppointmentViewService;
+import capgemini.webappdemo.utils.CommonUtils;
 import capgemini.webappdemo.utils.LoginUtil;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,8 @@ public class AppointmentController {
 
     private LoginUtil loginUtil = new LoginUtil();
 
+    private CommonUtils commonUtils = new CommonUtils();
+
     @RequestMapping(value = "/appointments", method = RequestMethod.GET)
     public String getAppointments(HttpSession session,ModelMap model){
         if(!loginUtil.isLogin(session)){
@@ -46,9 +49,13 @@ public class AppointmentController {
             for(UserAppointmentView app : apps){
                 User mng = userService.get(app.getCreate_by());
                 app.setManagerName(mng.getUsername());
+                app.setStart_date_str(commonUtils.convertDateToString(app.getStart_date()));
+                if(app.getEnd_date()!=null){
+                    app.setEnd_date_str(commonUtils.convertDateToString(app.getEnd_date()));
+                }
             }
             model.addAttribute("pageName","appointment");
-            model.addAttribute("apps",apps);
+            model.addAttribute("apms",apps);
             return "web/appointment/appointment";
         }
     }
