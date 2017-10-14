@@ -32,11 +32,11 @@ public class ManagerApi {
     private JsonTokenUtil jsonTokenUtil = new JsonTokenUtil();
 
     @RequestMapping(value = "/api/manager/getEmployees", method = RequestMethod.POST)
-    public ResponseEntity<List<User>> getManagedUsers(@RequestBody Message msg){
-        if(msg.getJson_token().equals("") || !jsonTokenUtil.validateKey(msg.getJson_token())){
+    public ResponseEntity<List<User>> getManagedUsers(@RequestBody User usr){
+        if(usr.getJson_token().equals("") || !jsonTokenUtil.validateKey(usr.getJson_token())){
             return new ResponseEntity<List<User>>(HttpStatus.BAD_REQUEST);
         }
-        int id = jsonTokenUtil.getUserIdFromJsonKey(msg.getJson_token());
+        int id = jsonTokenUtil.getUserIdFromJsonKey(usr.getJson_token());
         List<Employee> emps = employeeService.getEmployeesByManagerId(id);
         List<User> users = new ArrayList<>();
         for(Employee emp : emps){

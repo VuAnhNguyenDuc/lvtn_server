@@ -17,4 +17,6 @@ public interface AppointmentRepository extends EntityRepository<Appointment> {
 	public void deleteAll();
 
 	public List<User> getUsersOfAppointment(int id);
+
+	public void updateAppointment(Appointment apm,boolean changeUsers);
 }

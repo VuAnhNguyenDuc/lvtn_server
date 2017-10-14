@@ -31,7 +31,7 @@ public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements Us
 	private DetailService detailService;
 
 	@Autowired
-	private ManagerService mngService;
+	private UserService userService;
 
 	@Autowired
 	private UserAppointmentViewService uavService;
@@ -163,8 +163,11 @@ public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements Us
 	private void getUAVInfo(UserAppointmentView uav){
 		Date date = uav.getStart_date();
 		uav.setStart_date_str(convertDateToString(date));
-		uav.setManagerName(mngService.get(uav.getCreate_by()).getUsername());
-		uav.setCreate_by(0);
+		uav.setManagerName(userService.get(uav.getCreate_by()).getUsername());
+		if(uav.getEnd_date() != null){
+			uav.setEnd_date_str(convertDateToString(uav.getEnd_date()));
+		}
+		//uav.setCreate_by(0);
 	}
 
 	public String convertDateToString(Date date){

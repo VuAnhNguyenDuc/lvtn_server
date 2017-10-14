@@ -37,4 +37,9 @@ public class AppointmentServiceImpl extends EntityServiceImpl<Appointment> imple
 	public List<User> getUsersOfAppointment(int id) {
 		return Repository.getUsersOfAppointment(id);
 	}
+
+	@Override
+	public void updateAppointment(Appointment apm,boolean changeUsers) {
+		Repository.updateAppointment(apm,changeUsers);
+	}
 }

@@ -1,6 +1,7 @@
 package capgemini.webappdemo.controllers.Rest;
 
 import capgemini.webappdemo.domain.*;
+import capgemini.webappdemo.service.Appointment.AppointmentService;
 import capgemini.webappdemo.service.User.UserService;
 import capgemini.webappdemo.utils.JsonTokenUtil;
 import capgemini.webappdemo.utils.TokenPayload;
@@ -27,6 +28,9 @@ import java.util.List;
 public class UserApi {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private AppointmentService apmService;
 
     private static final Logger logger = LoggerFactory.getLogger(UserApi.class);
 
@@ -56,7 +60,7 @@ public class UserApi {
     }
 
     @RequestMapping(value = "/api/login", method = RequestMethod.POST)
-    public ResponseEntity<Message> loginApi(@RequestBody User user, Errors errors, Model model){
+    public ResponseEntity<Message> loginApi(@RequestBody User user){
         System.out.println("user login in - User API");
         if(user.getUsername() != null && user.getPassword() != null){
             User result = userService.checkLogin(user.getUsername(),user.getPassword());
@@ -120,6 +124,33 @@ public class UserApi {
         } else{
             //int id = jsonTokenUtil.getUserIdFromJsonKey(usr.getJson_token());
             return new ResponseEntity<UserAppointmentView>(userService.getAppointment(apm.getId()),HttpStatus.OK);
+        }
+    }
+
+    @RequestMapping(value = "/api/updateAppointment", method = RequestMethod.POST)
+    public ResponseEntity<Message> updateAppointment(@RequestBody Appointment apm){
+        if(apm.getJson_token().equals("") || !jsonTokenUtil.validateKey(apm.getJson_token())){
+            return new ResponseEntity<Message>(HttpStatus.BAD_REQUEST);
+        } else{
+            Message msg = new Message("");
+            int id = jsonTokenUtil.getUserIdFromJsonKey(apm.getJson_token());
+            if(!userService.getUserType(id).equals("Manager")){
+                msg.setMessage("This user does not have enough priviledge to use this funciton");
+            } else{
+                Appointment curr = apmService.get(apm.getId());
+                if(curr != null){
+                    msg.setMessage("this appointment does not exist");
+                } else{
+                    List<User> usrs = apmService.getUsersOfAppointment(apm.getId());
+                    if(usrs.equals(apm.getUsers())){
+                        apmService.updateAppointment(apm,false);
+                    } else{
+                        apmService.updateAppointment(apm,true);
+                    }
+                    msg.setMessage("success");
+                }
+            }
+            return new ResponseEntity<Message>(msg,HttpStatus.OK);
         }
     }
 

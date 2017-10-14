@@ -70,6 +70,25 @@ public class AppointmentRepositoryImpl extends EntityRepositoryImpl<Appointment>
 		}
 	}
 
+	@Override
+	public void updateAppointment(Appointment apm,boolean changeUsers) {
+		Session session = getSession();
+		session.merge(apm);
+
+		if(changeUsers){
+			List<User> usrs = apm.getUsers();
+
+			String strQuery = "delete from UserTakesAppointment uta where uta.appointment_id =:apmid";
+			Query query = session.createQuery(strQuery);
+			query.setParameter("apmid",apm.getId());
+			for(User usr : usrs){
+				UserTakesAppointment uta = new UserTakesAppointment(apm.getId(),usr.getId());
+				utaService.add(uta);
+			}
+		}
+
+	}
+
 	private Date getDate() throws ParseException {
 		Date date = new Date();
 		String strDate = dateFormat.format(date);
