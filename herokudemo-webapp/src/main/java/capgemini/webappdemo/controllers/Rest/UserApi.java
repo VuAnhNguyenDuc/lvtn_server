@@ -66,7 +66,7 @@ public class UserApi {
                 TokenPayload token = new TokenPayload(result.getId(),userType);
                 String payload = jsonTokenUtil.createPayload(token);
                 String jsonKey = jsonTokenUtil.createJWT(payload);
-                return new ResponseEntity<Message>(new Message("success,"+userService.getUserType(result.getId())+","+result.getId(), jsonKey), HttpStatus.OK);
+                return new ResponseEntity<Message>(new Message("success",jsonKey,userService.getUserType(result.getId()),result.getId()), HttpStatus.OK);
             } else{
                 return new ResponseEntity<Message>(new Message("failed", ""), HttpStatus.OK);
             }
@@ -77,7 +77,7 @@ public class UserApi {
                 TokenPayload token = jsonTokenUtil.parsePayload(jsonTokenUtil.getPayloadFromKey(user.getJson_token()));
                 int id = token.getUser_id();
                 User usr = userService.get(id);
-                return new ResponseEntity<Message>(new Message("success,"+userService.getUserType(usr.getId())+","+usr.getId(), ""), HttpStatus.OK);
+                return new ResponseEntity<Message>(new Message("success",user.getJson_token(),userService.getUserType(usr.getId()),usr.getId()), HttpStatus.OK);
             }
         }
         return new ResponseEntity<Message>(new Message("Username and Password cannot be empty!!", ""), HttpStatus.NO_CONTENT);

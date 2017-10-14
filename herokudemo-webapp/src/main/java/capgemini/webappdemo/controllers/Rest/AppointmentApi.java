@@ -76,7 +76,8 @@ public class AppointmentApi {
                 for(User user:users){
                     mngService.assignAppointmentToUser(apm.getId(),user.getId());
                 }
-                msg.setMessage("success,"+apm.getId());
+                msg.setMessage("success");
+                msg.setId(apm.getId());
             }
         }
         return new ResponseEntity<Message>(msg, HttpStatus.OK);

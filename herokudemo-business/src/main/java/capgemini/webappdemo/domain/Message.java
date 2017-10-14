@@ -5,7 +5,9 @@ public class Message {
 
     private String json_token;
 
-    private String user_type;
+    private String type;
+
+    private int id;
 
 
     public Message(String message) {
@@ -16,6 +18,13 @@ public class Message {
     public Message(String message, String json_token) {
         this.message = message;
         this.json_token = json_token;
+    }
+
+    public Message(String message, String json_token, String type, int id) {
+        this.message = message;
+        this.json_token = json_token;
+        this.type = type;
+        this.id = id;
     }
 
     public String getMessage() {
@@ -34,11 +43,19 @@ public class Message {
         this.json_token = json_token;
     }
 
-    public String getUser_type() {
-        return user_type;
+    public String getType() {
+        return type;
     }
 
-    public void setUser_type(String user_type) {
-        this.user_type = user_type;
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
