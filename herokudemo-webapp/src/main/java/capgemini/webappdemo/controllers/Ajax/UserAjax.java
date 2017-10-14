@@ -74,7 +74,11 @@ public class UserAjax {
                 e.printStackTrace();
             }
             object = new JSONObject();
-            object.put("amount",results.size());
+            if(results == null){
+                object.put("amount",0);
+            } else{
+                object.put("amount",results.size());
+            }
             object.put("year",i);
             object.put("background",background);
             object.put("border",border);
@@ -90,7 +94,10 @@ public class UserAjax {
         List<UserAppointmentView> total = new ArrayList<>();
         for(int i = from; i <= to; i++){
             try {
-                total.addAll(uavService.getAppointmentsByYear(i,id,isCreated));
+                List<UserAppointmentView> temp = uavService.getAppointmentsByYear(i,id,isCreated);
+                if(temp != null){
+                    total.addAll(temp);
+                }
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -98,7 +105,7 @@ public class UserAjax {
         return convertToJSONArray(total);
     }
 
-    public JSONArray convertToJSONArray(List<UserAppointmentView> appointments){
+    private JSONArray convertToJSONArray(List<UserAppointmentView> appointments){
         JSONArray results = new JSONArray();
         for (UserAppointmentView appointment1 : appointments) {
             JSONObject object = new JSONObject();
