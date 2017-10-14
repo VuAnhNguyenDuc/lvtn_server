@@ -30,7 +30,12 @@ public class UserAjax {
         for(int i = 1; i <= 12; i++){
             try {
                 List<UserAppointmentView> uavs = uavService.getAppointmentsByMonth(i,year,id,isCreated);
-                result += uavs.size() + " ";
+                if(uavs == null || uavs.size() == 0){
+                    result += "0 ";
+                } else{
+                    result += uavs.size() + " ";
+                }
+
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -39,7 +44,7 @@ public class UserAjax {
     }
 
     @RequestMapping(value = "/ajax/appointment/month", method = RequestMethod.GET, params = {"year","isCreated","id"})
-    public JSONArray getAppointmentsInOneYear(@PathVariable("year")int year,@PathVariable("id") int id,@PathVariable("isCreated") boolean isCreated){
+    public JSONArray getAppointmentsInOneYear(@RequestParam("year")int year,@RequestParam("id") int id,@RequestParam("isCreated") boolean isCreated){
         List<UserAppointmentView> total = new ArrayList<>();
         for(int i = 1; i <= 12; i++){
             try {
@@ -52,7 +57,7 @@ public class UserAjax {
     }
 
     @RequestMapping(value = "/ajax/appointment/year/chart", method = RequestMethod.GET, params = {"from","to","id","isCreated"})
-    public JSONArray compareAppointmentsByYearChart(@PathVariable("from") int from, @PathVariable("to") int to, @PathVariable("id") int id,@PathVariable("isCreated") boolean isCreated){
+    public JSONArray compareAppointmentsByYearChart(@RequestParam("from") int from, @RequestParam("to") int to, @RequestParam("id") int id,@RequestParam("isCreated") boolean isCreated){
         String background = "rgba(255, 99, 132, 0.2)";
         String border = "rgba(255,99,132,1)";
         JSONArray array = new JSONArray();
@@ -77,7 +82,7 @@ public class UserAjax {
     }
 
     @RequestMapping(value = "/ajax/appointment/year", method = RequestMethod.GET, params = {"from","to","id"})
-    public JSONArray compareAppointmentsByYear(@PathVariable("from") int from, @PathVariable("to") int to, @PathVariable("id") int id,@PathVariable("isCreated") boolean isCreated){
+    public JSONArray compareAppointmentsByYear(@RequestParam("from") int from, @RequestParam("to") int to, @RequestParam("id") int id,@RequestParam("isCreated") boolean isCreated){
         JSONArray result = new JSONArray();
         List<UserAppointmentView> total = new ArrayList<>();
         for(int i = from; i <= to; i++){
