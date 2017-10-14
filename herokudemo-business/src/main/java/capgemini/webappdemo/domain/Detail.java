@@ -36,6 +36,8 @@ public class Detail {
     private int user_created;
     @Transient
     private String user_created_name;
+    @Transient
+    private String json_token;
 
     public Date getEnd_time() {
         return end_time;
@@ -161,5 +163,13 @@ public class Detail {
 
     public void setUser_created_name(String user_created_name) {
         this.user_created_name = user_created_name;
+    }
+
+    public String getJson_token() {
+        return json_token;
+    }
+
+    public void setJson_token(String json_token) {
+        this.json_token = json_token;
     }
 }

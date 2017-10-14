@@ -41,8 +41,8 @@ public class UserApi {
                 System.out.println(err.toString());
             }
         }
-        if(!jsonTokenUtil.validateKey(user.getJson_token())){
-            return new ResponseEntity<Message>(new Message("invalid json token key"), HttpStatus.NO_CONTENT);
+        if(user.getJson_token().equals("") || !jsonTokenUtil.validateKey(user.getJson_token())){
+            return new ResponseEntity<Message>(new Message("invalid json token key"), HttpStatus.BAD_REQUEST);
         } else{
             String decoded = jsonTokenUtil.getPayloadFromKey(user.getJson_token());
             TokenPayload token = jsonTokenUtil.parsePayload(decoded);
@@ -68,7 +68,7 @@ public class UserApi {
                 String jsonKey = jsonTokenUtil.createJWT(payload);
                 return new ResponseEntity<Message>(new Message("success,"+userService.getUserType(result.getId())+","+result.getId(), jsonKey), HttpStatus.OK);
             } else{
-                return new ResponseEntity<Message>(new Message("Incorrect username or password", ""), HttpStatus.OK);
+                return new ResponseEntity<Message>(new Message("failed", ""), HttpStatus.OK);
             }
         } else if(user.getJson_token() != null){
             if(!jsonTokenUtil.validateKey(user.getJson_token())){
@@ -84,39 +84,42 @@ public class UserApi {
     }
 
     @RequestMapping(value = "/api/getActiveAppointments", method = RequestMethod.POST)
-    public ResponseEntity<List<UserAppointmentView>> getActiveAps(@RequestBody ID id,Errors errors){
+    public ResponseEntity<List<UserAppointmentView>> getActiveAps(@RequestBody Message msg,Errors errors){
         logger.info("getting active appointments - User API");
-        if(id.getId() == 0){
-            return new ResponseEntity<List<UserAppointmentView>>(HttpStatus.NO_CONTENT);
+        if(msg.getJson_token().equals("") || !jsonTokenUtil.validateKey(msg.getJson_token())){
+            return new ResponseEntity<List<UserAppointmentView>>(HttpStatus.BAD_REQUEST);
         }
-        List<UserAppointmentView> result = userService.getActiveAppointments(id.getId());
+        int id = jsonTokenUtil.getUserIdFromJsonKey(msg.getJson_token());
+        List<UserAppointmentView> result = userService.getActiveAppointments(id);
         if(result != null && result.size() > 0){
-            return new ResponseEntity<List<UserAppointmentView>>(userService.getActiveAppointments(id.getId()),HttpStatus.OK);
+            return new ResponseEntity<List<UserAppointmentView>>(userService.getActiveAppointments(id),HttpStatus.OK);
         } else{
             return new ResponseEntity<List<UserAppointmentView>>(new ArrayList<UserAppointmentView>(),HttpStatus.NO_CONTENT);
         }
     }
 
     @RequestMapping(value = "/api/getAllAppointments", method = RequestMethod.POST)
-    public ResponseEntity<List<UserAppointmentView>> getAllAps(@RequestBody ID id){
+    public ResponseEntity<List<UserAppointmentView>> getAllAps(@RequestBody Message msg){
         logger.info("getting all appointments - User API");
-        if(id.getId() == 0){
-            return new ResponseEntity<List<UserAppointmentView>>(HttpStatus.NO_CONTENT);
+        if(msg.getJson_token().equals("") || !jsonTokenUtil.validateKey(msg.getJson_token())){
+            return new ResponseEntity<List<UserAppointmentView>>(HttpStatus.BAD_REQUEST);
         }
-        List<UserAppointmentView> result = userService.getAllAppointments(id.getId());
+        int id = jsonTokenUtil.getUserIdFromJsonKey(msg.getJson_token());
+        List<UserAppointmentView> result = userService.getAllAppointments(id);
         if(result != null && result.size() > 0){
-            return new ResponseEntity<List<UserAppointmentView>>(userService.getAllAppointments(id.getId()),HttpStatus.OK);
+            return new ResponseEntity<List<UserAppointmentView>>(userService.getAllAppointments(id),HttpStatus.OK);
         } else{
-            return new ResponseEntity<List<UserAppointmentView>>(new ArrayList<UserAppointmentView>(),HttpStatus.NO_CONTENT);
+            return new ResponseEntity<List<UserAppointmentView>>(HttpStatus.NO_CONTENT);
         }
     }
 
     @RequestMapping(value = "/api/getAppointment", method = RequestMethod.POST)
-    public ResponseEntity<UserAppointmentView> getAppointment(@RequestBody ID id,Errors errors){
-        if(id.getId() == 0){
-            return new ResponseEntity<UserAppointmentView>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<UserAppointmentView> getAppointment(@RequestBody Message msg,Errors errors){
+        if(msg.getJson_token().equals("") || !jsonTokenUtil.validateKey(msg.getJson_token())){
+            return new ResponseEntity<UserAppointmentView>(HttpStatus.BAD_REQUEST);
         } else{
-            return new ResponseEntity<UserAppointmentView>(userService.getAppointment(id.getId()),HttpStatus.OK);
+            int id = jsonTokenUtil.getUserIdFromJsonKey(msg.getJson_token());
+            return new ResponseEntity<UserAppointmentView>(userService.getAppointment(id),HttpStatus.OK);
         }
     }
 

@@ -1,13 +1,13 @@
 package capgemini.webappdemo.controllers.Rest;
 
 import capgemini.webappdemo.domain.Appointment;
-import capgemini.webappdemo.domain.ID;
 import capgemini.webappdemo.domain.Message;
 import capgemini.webappdemo.domain.User;
 import capgemini.webappdemo.service.Appointment.AppointmentService;
 import capgemini.webappdemo.service.Manager.ManagerService;
 import capgemini.webappdemo.service.User.UserService;
 import capgemini.webappdemo.utils.CommonUtils;
+import capgemini.webappdemo.utils.JsonTokenUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +31,19 @@ public class AppointmentApi {
     @Autowired
     private UserService userService;
 
+    private JsonTokenUtil jsonTokenUtil = new JsonTokenUtil();
+
     private CommonUtils commonUtils = new CommonUtils();
 
     private Logger logger = LoggerFactory.getLogger(AppointmentApi.class);
 
     @RequestMapping(value = "/api/createAppointment", method = RequestMethod.POST)
-    public ResponseEntity<Message> createAppointment( @RequestBody Appointment apm){
+    public ResponseEntity<Message> createAppointment(@RequestBody Appointment apm){
         logger.info("creating appointment - Appointment API");
         Message msg = new Message("");
+        if(apm.getJson_token().equals("") || jsonTokenUtil.validateKey(apm.getJson_token())){
+            return new ResponseEntity<Message>(new Message("invalid json token"),HttpStatus.BAD_REQUEST);
+        }
         int id = apm.getManager_id();
         if(!userService.getUserType(id).equals("Manager")){
             return new ResponseEntity<Message>(new Message("This user does not have enough privileges",""),HttpStatus.OK);
@@ -79,6 +84,9 @@ public class AppointmentApi {
 
     @RequestMapping(value = "/api/endAppointment", method = RequestMethod.POST)
     public ResponseEntity<Message> endAppointment(@RequestBody Appointment apm){
+        if(apm.getJson_token().equals("") || jsonTokenUtil.validateKey(apm.getJson_token())){
+            return new ResponseEntity<Message>(new Message("invalid json token"),HttpStatus.BAD_REQUEST);
+        }
         if(apm.getId() == 0){
             return new ResponseEntity<Message>(HttpStatus.NO_CONTENT);
         } else{
@@ -89,7 +97,7 @@ public class AppointmentApi {
                 e.printStackTrace();
             }
             ap.setStatus(0);
-            return new ResponseEntity<Message>(new Message("appointment ended successfully",""),HttpStatus.OK);
+            return new ResponseEntity<Message>(new Message("success",""),HttpStatus.OK);
         }
     }
 

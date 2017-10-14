@@ -27,7 +27,7 @@ public class CoordinateApi {
         boolean flag = true;
         for(Coordinate coor : coordinates){
             if(coor.getLongtitude() == 0 || coor.getLattitude() == 0){
-                msg.setMessage("please input lattitude and longtitude for every coordinate you sent");
+                msg.setMessage("please input latitude and longtitude for every coordinate you sent");
                 flag = false;
                 break;
             } else{
@@ -42,7 +42,7 @@ public class CoordinateApi {
             }
         }
         if(flag){
-            msg.setMessage("coordinates created successfully for this detail");
+            msg.setMessage("success");
         }
         return new ResponseEntity<Message>(msg, HttpStatus.OK);
     }

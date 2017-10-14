@@ -82,6 +82,13 @@ public class JsonTokenUtil {
         return jwt.getSubject();
     }
 
+    public int getUserIdFromJsonKey(String jsonKey){
+        String decoded = getPayloadFromKey(jsonKey);
+
+        TokenPayload temp = parsePayload(decoded);
+        return temp.getUser_id();
+    }
+
     /*public static void main(String[] args){
         JsonTokenUtil jsonTokenUtil = new JsonTokenUtil();
 

@@ -1,13 +1,16 @@
 package capgemini.webappdemo.domain;
 
 public class Message {
-    String message;
+    private String message;
 
-    String json_token;
+    private String json_token;
+
+    private String user_type;
 
 
     public Message(String message) {
         this.message = message;
+        this.json_token = "";
     }
 
     public Message(String message, String json_token) {
@@ -29,5 +32,13 @@ public class Message {
 
     public void setJson_token(String json_token) {
         this.json_token = json_token;
+    }
+
+    public String getUser_type() {
+        return user_type;
+    }
+
+    public void setUser_type(String user_type) {
+        this.user_type = user_type;
     }
 }
