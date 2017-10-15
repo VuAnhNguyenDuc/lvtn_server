@@ -44,7 +44,8 @@ public class AppointmentApi {
         if(apm.getJson_token().equals("") || !jsonTokenUtil.validateKey(apm.getJson_token())){
             return new ResponseEntity<Message>(new Message("invalid json token"),HttpStatus.BAD_REQUEST);
         }
-        int id = apm.getManager_id();
+
+        int id = jsonTokenUtil.getUserIdFromJsonKey(apm.getJson_token());
         if(!userService.getUserType(id).equals("Manager")){
             return new ResponseEntity<Message>(new Message("This user does not have enough privileges",""),HttpStatus.OK);
         }
