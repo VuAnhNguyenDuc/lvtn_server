@@ -5,13 +5,15 @@ import java.io.Serializable;
 public class TokenPayload implements Serializable {
     private int user_id;
     private String type;    // manager or employee
+    private String password;
 
     public TokenPayload() {
     }
 
-    public TokenPayload(int user_id,String type) {
+    public TokenPayload(int user_id,String type,String password) {
         this.user_id = user_id;
         this.type = type;
+        this.password = password;
     }
 
     public int getUser_id() {
@@ -31,4 +33,11 @@ public class TokenPayload implements Serializable {
         this.type = type;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

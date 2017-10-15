@@ -1,6 +1,7 @@
 package capgemini.webappdemo.controllers.Rest;
 
 import capgemini.webappdemo.domain.*;
+import capgemini.webappdemo.form.ChangePasswordForm;
 import capgemini.webappdemo.service.Appointment.AppointmentService;
 import capgemini.webappdemo.service.User.UserService;
 import capgemini.webappdemo.utils.JsonTokenUtil;
@@ -37,7 +38,7 @@ public class UserApi {
     private JsonTokenUtil jsonTokenUtil = new JsonTokenUtil();
 
     @RequestMapping(value = "/api/changepass", method = RequestMethod.POST)
-    public ResponseEntity<Message> changePassword(@RequestBody User user, Errors errors){
+    public ResponseEntity<Message> changePassword(@RequestBody ChangePasswordForm user, Errors errors){
         System.out.println("changing password - User API");
         if(errors.hasErrors()){
             for(ObjectError err:errors.getAllErrors()){
@@ -51,8 +52,19 @@ public class UserApi {
             TokenPayload token = jsonTokenUtil.parsePayload(decoded);
             if(token.getUser_id() != 0){
                 int id = token.getUser_id();
-                String pwd = user.getPassword();
-                return new ResponseEntity<Message>(new Message(userService.changePassword(id,pwd),""), HttpStatus.OK);
+                String pwd = user.getOld_pass();
+                User usr = userService.get(id);
+                if(!usr.getPassword().equals(pwd)){
+                    return new ResponseEntity<Message>(new Message("old password does not match"),HttpStatus.OK);
+                } else{
+                    String userType = userService.getUserType(usr.getId());
+                    TokenPayload new_token = new TokenPayload(usr.getId(),userType,user.getNew_pass());
+                    String payload = jsonTokenUtil.createPayload(new_token);
+                    String jsonKey = jsonTokenUtil.createJWT(payload);
+
+                    userService.changePassword(id,user.getNew_pass());
+                    return new ResponseEntity<Message>(new Message("success",jsonKey), HttpStatus.OK);
+                }
             } else{
                 return new ResponseEntity<Message>(new Message("invalid json token key"), HttpStatus.NO_CONTENT);
             }
@@ -66,7 +78,7 @@ public class UserApi {
             User result = userService.checkLogin(user.getUsername(),user.getPassword());
             if(result != null){
                 String userType = userService.getUserType(result.getId());
-                TokenPayload token = new TokenPayload(result.getId(),userType);
+                TokenPayload token = new TokenPayload(result.getId(),userType,user.getPassword());
                 String payload = jsonTokenUtil.createPayload(token);
                 String jsonKey = jsonTokenUtil.createJWT(payload);
                 return new ResponseEntity<Message>(new Message("success",jsonKey,userService.getUserType(result.getId()),result.getId()), HttpStatus.OK);
