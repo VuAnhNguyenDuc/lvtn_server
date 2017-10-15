@@ -41,7 +41,7 @@ public class AppointmentApi {
     public ResponseEntity<Message> createAppointment(@RequestBody Appointment apm){
         logger.info("creating appointment - Appointment API");
         Message msg = new Message("");
-        if(apm.getJson_token().equals("") || jsonTokenUtil.validateKey(apm.getJson_token())){
+        if(apm.getJson_token().equals("") || !jsonTokenUtil.validateKey(apm.getJson_token())){
             return new ResponseEntity<Message>(new Message("invalid json token"),HttpStatus.BAD_REQUEST);
         }
         int id = apm.getManager_id();
