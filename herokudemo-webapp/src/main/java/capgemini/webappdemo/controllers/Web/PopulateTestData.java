@@ -1,10 +1,8 @@
 package capgemini.webappdemo.controllers.Web;
 
-import capgemini.webappdemo.domain.Admin;
-import capgemini.webappdemo.domain.Employee;
-import capgemini.webappdemo.domain.Manager;
-import capgemini.webappdemo.domain.User;
+import capgemini.webappdemo.domain.*;
 import capgemini.webappdemo.service.Admin.AdminService;
+import capgemini.webappdemo.service.Appointment.AppointmentService;
 import capgemini.webappdemo.service.Employee.EmployeeService;
 import capgemini.webappdemo.service.Manager.ManagerService;
 import capgemini.webappdemo.service.User.UserService;
@@ -12,6 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Vu Anh Nguyen Duc on 10/15/2017.
@@ -29,6 +34,11 @@ public class PopulateTestData {
 
     @Autowired
     private EmployeeService employeeService;
+
+    @Autowired
+    private AppointmentService apmService;
+
+    private DateFormat dateFormat = new SimpleDateFormat("HH:mm dd-MM-yyyy");
 
 
     @RequestMapping(value = "/populateData", method = RequestMethod.GET)
@@ -61,5 +71,27 @@ public class PopulateTestData {
         empE.setStatus(1);
         empE.setManager_id(mng.getId());
         empE.setEmployee_type("Employee");
+        employeeService.add(empE);
+
+        Appointment apm = new Appointment();
+        apm.setName("Appointment 1");
+        apm.setManager_id(mng.getId());
+        apm.setDestination("destination 1");
+        try {
+            apm.setStart_date(dateFormat.parse("15:00 15-10-2017"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        apm.setStatus(1);
+        List<User> usrs = new ArrayList<>();
+        usrs.add(emp);
+        apm.setUsers(usrs);
+        apmService.add(apm);
+        if(apm.getId() != 0){
+            List<User> users = apm.getUsers();
+            for(User user:users){
+                managerService.assignAppointmentToUser(apm.getId(),user.getId());
+            }
+        }
     }
 }

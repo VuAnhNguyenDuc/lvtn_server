@@ -23,13 +23,9 @@ public class Appointment {
     @Transient
     private String date_str;
     @Transient
-    private String end_date_str;
-    @Transient
     private List<Detail> details;
     @Transient
     private List<User> users;
-    @Transient
-    private List<Image> images;
     @Transient
     private String json_token;
 
@@ -106,14 +102,6 @@ public class Appointment {
         this.users = users;
     }
 
-    public List<Image> getImages() {
-        return images;
-    }
-
-    public void setImages(List<Image> images) {
-        this.images = images;
-    }
-
     public String getDate_str() {
         return date_str;
     }
@@ -129,14 +117,6 @@ public class Appointment {
     public void setEnd_date(Date end_date) {
         this.end_date = end_date;
     }*/
-
-    public String getEnd_date_str() {
-        return end_date_str;
-    }
-
-    public void setEnd_date_str(String end_date_str) {
-        this.end_date_str = end_date_str;
-    }
 
     public String getJson_token() {
         return json_token;
