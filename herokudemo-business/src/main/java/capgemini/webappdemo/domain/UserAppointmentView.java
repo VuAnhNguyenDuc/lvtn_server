@@ -19,6 +19,7 @@ public class UserAppointmentView implements Serializable {
     private int create_by;
     private int status;
     private String appointment_name;
+    private String destination;
     @Transient
     private String managerName;
     @Transient
@@ -88,4 +89,11 @@ public class UserAppointmentView implements Serializable {
         this.start_date_str = start_date_str;
     }
 
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
 }
