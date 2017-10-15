@@ -13,8 +13,8 @@ public class Appointment {
     private String name;
     @Temporal(TemporalType.TIMESTAMP)
     private Date start_date;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date end_date;
+    /*@Temporal(TemporalType.TIMESTAMP)
+    private Date end_date;*/
     /*private String start_location;
     private String end_location;*/
     private String destination;
@@ -122,13 +122,13 @@ public class Appointment {
         this.date_str = date_str;
     }
 
-    public Date getEnd_date() {
+    /*public Date getEnd_date() {
         return end_date;
     }
 
     public void setEnd_date(Date end_date) {
         this.end_date = end_date;
-    }
+    }*/
 
     public String getEnd_date_str() {
         return end_date_str;

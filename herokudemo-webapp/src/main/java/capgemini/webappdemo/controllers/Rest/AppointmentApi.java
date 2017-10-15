@@ -90,11 +90,6 @@ public class AppointmentApi {
             return new ResponseEntity<Message>(HttpStatus.NO_CONTENT);
         } else{
             Appointment ap = apmService.get(apm.getId());
-            try {
-                ap.setEnd_date(commonUtils.convertStringToDate(ap.getEnd_date_str()));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
             ap.setStatus(0);
             return new ResponseEntity<Message>(new Message("success",""),HttpStatus.OK);
         }
