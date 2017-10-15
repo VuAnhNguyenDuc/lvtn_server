@@ -16,8 +16,6 @@ public class UserAppointmentView implements Serializable {
     private int appointment_id;
     @Temporal(TemporalType.TIMESTAMP)
     private Date start_date;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date end_date;
     private int create_by;
     private int status;
     private String appointment_name;
@@ -27,8 +25,6 @@ public class UserAppointmentView implements Serializable {
     private String managerName;
     @Transient
     private String start_date_str;
-    @Transient
-    private String end_date_str;
 
     public String getAppointment_name() {
         return appointment_name;
@@ -92,22 +88,6 @@ public class UserAppointmentView implements Serializable {
 
     public void setStart_date_str(String start_date_str) {
         this.start_date_str = start_date_str;
-    }
-
-    public Date getEnd_date() {
-        return end_date;
-    }
-
-    public void setEnd_date(Date end_date) {
-        this.end_date = end_date;
-    }
-
-    public String getEnd_date_str() {
-        return end_date_str;
-    }
-
-    public void setEnd_date_str(String end_date_str) {
-        this.end_date_str = end_date_str;
     }
 
     public String getStart_location() {

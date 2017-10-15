@@ -43,7 +43,6 @@
                         <td><%= i %></td>
                         <td>${apm.appointment_name}</td>
                         <td>${apm.start_date_str}</td>
-                        <td>${apm.end_date_str}</td>
                         <td>${apm.start_location}</td>
                         <td>${apm.end_location}</td>
                         <td>

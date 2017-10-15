@@ -170,7 +170,6 @@
                 "                <td>"+obj.appointment_name+"</td>\n" +
                 "                <td>"+obj.create_by+"</td>\n" +
                 "                <td>"+obj.start_date+"</td>\n" +
-                "                <td>"+obj.end_date+"</td>\n" +
                 "                <td>"+obj.status+"</td>\n" +
                 "            </tr>\n";
         }

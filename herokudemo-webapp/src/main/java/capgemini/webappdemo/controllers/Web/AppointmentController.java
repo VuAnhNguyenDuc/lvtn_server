@@ -50,9 +50,6 @@ public class AppointmentController {
                 User mng = userService.get(app.getCreate_by());
                 app.setManagerName(mng.getUsername());
                 app.setStart_date_str(commonUtils.convertDateToString(app.getStart_date()));
-                if(app.getEnd_date()!=null){
-                    app.setEnd_date_str(commonUtils.convertDateToString(app.getEnd_date()));
-                }
             }
             model.addAttribute("pageName","appointment");
             model.addAttribute("apms",apps);

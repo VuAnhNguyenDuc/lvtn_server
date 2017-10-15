@@ -17,7 +17,7 @@
 </head>
 <body>
     <%--
-        name date_str end_date_str start_location end_location
+        name date_str start_location end_location
         status details users manager_id
     --%>
 
@@ -40,10 +40,6 @@
             <tr>
                 <td>Start Date</td>
                 <td>${apm.date_str}</td>
-            </tr>
-            <tr>
-                <td>End Date</td>
-                <td>${apm.end_date_str}</td>
             </tr>
             <tr>
                 <td>Start Location</td>
