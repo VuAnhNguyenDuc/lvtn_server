@@ -42,14 +42,6 @@
                 <td>${apm.date_str}</td>
             </tr>
             <tr>
-                <td>Start Location</td>
-                <td>${apm.start_location}</td>
-            </tr>
-            <tr>
-                <td>End Location</td>
-                <td>${apm.end_location}</td>
-            </tr>
-            <tr>
                 <td>Users Participate</td>
                 <td>${apm.start_location}</td>
             </tr>

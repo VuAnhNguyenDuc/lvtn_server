@@ -28,8 +28,6 @@
                     <th>Appointment Name</th>
                     <th>Start Date</th>
                     <th>End Date</th>
-                    <th>Start Location</th>
-                    <th>End Location</th>
                     <th>Status</th>
                     <th></th>
                 </tr>
@@ -43,8 +41,6 @@
                         <td><%= i %></td>
                         <td>${apm.appointment_name}</td>
                         <td>${apm.start_date_str}</td>
-                        <td>${apm.start_location}</td>
-                        <td>${apm.end_location}</td>
                         <td>
                             <c:choose>
                                 <c:when test="${apm.status == 1}">
