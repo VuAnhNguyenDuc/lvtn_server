@@ -132,7 +132,7 @@
         var from = $("#from").val();
         var to = $("#to").val();
         if(from != "" && to != ""){
-            var newUrl = host.concat("user/chart/year?id=",${emp.user_id},"&from=",from,"&to=",to,"&isCreated=true");
+            var newUrl = host.concat("user/chart/year?id=",${emp.user_id},"&from=",from,"&to=",to,"&isCreated=false");
             console.log(newUrl);
             var newTab = window.open(newUrl);
             if(newTab){
