@@ -37,4 +37,14 @@ public class ManagerRepositoryImpl extends EntityRepositoryImpl<Manager> impleme
 	public void assignAppointmentToUser(int apmID, int userID) {
 		utaService.add(new UserTakesAppointment(apmID,userID));
 	}
+
+	@Override
+	public int getCreatedAppointments(int mngID) {
+		Session session = getSession();
+
+		String strQuery = "from UserAppointmentView uav where uav.create_by = :mngID";
+		Query query = session.createQuery(strQuery);
+		query.setParameter("mngID",mngID);
+		return query.list().size();
+	}
 }

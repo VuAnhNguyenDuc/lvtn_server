@@ -12,4 +12,6 @@ public interface ManagerService extends EntityService<Manager> {
 	public void deleteAll();
 
 	public void assignAppointmentToUser(int apmID, int userID);
+
+	public int getCreatedAppointments(int mngID);
 }

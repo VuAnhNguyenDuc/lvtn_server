@@ -188,6 +188,7 @@ public class UserController {
                 model.addAttribute("id",id);
                 model.addAttribute("mng",mng);
                 model.addAttribute("total",uavs.size());
+                model.addAttribute("created",mngService.getCreatedAppointments(id));
                 return "web/user/manager_detail";
             } else{
                 Employee emp = getEmployeeInfo(id);

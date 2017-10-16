@@ -34,4 +34,9 @@ public class ManagerServiceImpl extends EntityServiceImpl<Manager> implements Ma
 	public void assignAppointmentToUser(int apmID, int userID) {
 		Repository.assignAppointmentToUser(apmID,userID);
 	}
+
+	@Override
+	public int getCreatedAppointments(int mngID) {
+		return Repository.getCreatedAppointments(mngID);
+	}
 }

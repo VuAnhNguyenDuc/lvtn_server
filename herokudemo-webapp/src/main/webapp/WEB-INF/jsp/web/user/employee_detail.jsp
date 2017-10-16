@@ -121,7 +121,7 @@
                 success: function(result){
                     var dataArr = $.parseJSON(result);
                     $("#result-list").html("");
-                    $("#result-list").html(populateReseltList(dataArr));
+                    $("#result-list").html(populateResultList(dataArr));
                 },
                 error: function (xhr) {
                     var err = eval("(" + xhr.responseText + ")");
@@ -149,7 +149,7 @@
         }
     });
 
-    function populateReseltList(data){
+    function populateResultList(data){
         var table = "";
         var table_body = "";
         var table_head = "<table class=\"table table-hover\">\n" +
