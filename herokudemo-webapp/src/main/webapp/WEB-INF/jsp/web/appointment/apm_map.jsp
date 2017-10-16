@@ -23,7 +23,7 @@
 
 <script type="text/javascript">
 
-    jQuery(document).ready(function($){
+    jQuery(document).ready(function(){
         renderMap(${coords});
     });
 

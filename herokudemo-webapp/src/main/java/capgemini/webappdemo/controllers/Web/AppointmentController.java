@@ -84,7 +84,7 @@ public class AppointmentController {
             List<Coordinate> coords = coorService.getCoordsOfDetail(id);
             model.addAttribute("pageName","appointment");
             model.addAttribute("coords",coorService.parseCoords(coords));
-            return "web/detail/detail";
+            return "web/appointment/map";
         }
     }
 }
