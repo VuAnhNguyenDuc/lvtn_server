@@ -24,7 +24,7 @@
 <script type="text/javascript">
 
     jQuery(document).ready(function($){
-        getData();
+        renderMap(${coords});
     });
 
     function getData(){

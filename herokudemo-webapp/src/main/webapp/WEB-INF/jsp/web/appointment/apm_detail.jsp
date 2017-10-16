@@ -14,82 +14,76 @@
 <html>
 <head>
     <title>APPOINTMENT DETAILS</title>
+    <jsp:include page="../header.jsp"/>
 </head>
 <body>
-    <%--
-        name date_str start_location end_location
-        status details users manager_id
-    --%>
-
-    <table class="table">
-        <%--<thead>
-        <tr>
-            <th>Thuộc tính</th>
-            <th>Giá trị</th>
-        </tr>
-        </thead>--%>
-        <tbody>
-            <tr>
-                <td>Appointment Name</td>
-                <td>${apm.name}</td>
-            </tr>
-            <tr>
-                <td>Manager Created</td>
-                <td>${mng}</td>
-            </tr>
-            <tr>
-                <td>Start Date</td>
-                <td>${apm.date_str}</td>
-            </tr>
-            <tr>
-                <td>Users Participate</td>
-                <td>
-                    <c:forEach items="${apm.users}" var="usr">
-                        <ul>
-                            <li>${usr.username}</li>
-                        </ul>
-                    </c:forEach>
-                </td>
-            </tr>
-            <tr>
-                <td>Status</td>
-                <td>${apm.status}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <%--
-        input_cost image_content vehicle start_time_string end_time_string user_created
-    --%>
-
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Start Time</th>
-            <th>End Time</th>
-            <th>Start Location</th>
-            <th>End Location</th>
-            <th>Vehicle</th>
-            <th>Created By</th>
-            <th>Input Cost</th>
-            <th>Image Content</th>
-        </tr>
-        </thead>
-        <tbody>
-            <c:forEach items="${dts}" var="dt">
+    <jsp:include page="../mobile_nav.jsp"/>
+    <jsp:include page="../side_nav.jsp"/>
+    <div class="col-sm-9 col-lg-9 col-sm-12 col-xs-12" style="padding-top: 30px">
+        <p><a href="/appointment/viewMap?id=${apm.id}" class="btn btn-primary">VIEW MAP</a></p>
+        <div class="table-responsive" style="width: 100%;">
+            <table class="table table-hover">
+                <tbody>
                 <tr>
-                    <td>${dt.start_time_string}</td>
-                    <td>${dt.end_time_string}</td>
-                    <td>${dt.start_location}</td>
-                    <td>${dt.end_location}</td>
-                    <td>${dt.vehicle_name}</td>
-                    <td>${dt.user_created_name}</td>
-                    <td>${dt.input_cost}</td>
-                    <td>Img</td>
+                    <td>Appointment Name</td>
+                    <td>${apm.name}</td>
                 </tr>
-            </c:forEach>
-        </tbody>
-    </table>
+                <tr>
+                    <td>Manager Created</td>
+                    <td>${mng}</td>
+                </tr>
+                <tr>
+                    <td>Start Date</td>
+                    <td>${apm.date_str}</td>
+                </tr>
+                <tr>
+                    <td>Users Participate</td>
+                    <td>
+                        <c:forEach items="${apm.users}" var="usr">
+                            <ul>
+                                <li>${usr.username}</li>
+                            </ul>
+                        </c:forEach>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Status</td>
+                    <td>${apm.status}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
+        <div class="table-responsive" style="width: 100%;">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Start Location</th>
+                    <th>End Location</th>
+                    <th>Vehicle</th>
+                    <th>Created By</th>
+                    <th>Input Cost</th>
+                    <th>Image Content</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${dts}" var="dt">
+                    <tr>
+                        <td>${dt.start_time_string}</td>
+                        <td>${dt.end_time_string}</td>
+                        <td>${dt.start_location}</td>
+                        <td>${dt.end_location}</td>
+                        <td>${dt.vehicle_name}</td>
+                        <td>${dt.user_created_name}</td>
+                        <td>${dt.input_cost}</td>
+                        <td>Img</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>

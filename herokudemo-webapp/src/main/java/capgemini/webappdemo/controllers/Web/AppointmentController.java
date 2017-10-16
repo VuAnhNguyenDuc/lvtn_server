@@ -76,12 +76,12 @@ public class AppointmentController {
     }
 
     // Show the road of a detail
-    @RequestMapping(value = "/details", method = RequestMethod.GET, params = {"detail_id"})
-    public String getDetail(HttpSession session,  @RequestParam("detail_id") int detail_id,ModelMap model){
+    @RequestMapping(value = "/appointment/viewMap", method = RequestMethod.GET, params = {"id"})
+    public String getDetail(HttpSession session,  @RequestParam("id") int id,ModelMap model){
         if(!loginUtil.isLogin(session)){
             return "redirect:/login";
         } else{
-            List<Coordinate> coords = coorService.getCoordsOfDetail(detail_id);
+            List<Coordinate> coords = coorService.getCoordsOfDetail(id);
             model.addAttribute("pageName","appointment");
             model.addAttribute("coords",coorService.parseCoords(coords));
             return "web/detail/detail";
