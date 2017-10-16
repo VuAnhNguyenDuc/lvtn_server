@@ -166,7 +166,7 @@
 
 
     $("#month-chart-created").click(function () {
-        var year = $("#year-created").val();
+        var yearInput = $("#year-created").val();
         if(yearInput != ""){
             var newUrl = host.concat("user/chart/month?id=",${mng.user_id},"&year=",yearInput,"&isCreated=true");
             console.log(newUrl);

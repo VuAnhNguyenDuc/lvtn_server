@@ -43,7 +43,13 @@
             </tr>
             <tr>
                 <td>Users Participate</td>
-                <td>${apm.start_location}</td>
+                <td>
+                    <c:forEach items="${apm.users}" var="usr">
+                        <ul>
+                            <li>${usr.username}</li>
+                        </ul>
+                    </c:forEach>
+                </td>
             </tr>
             <tr>
                 <td>Status</td>
@@ -61,6 +67,8 @@
         <tr>
             <th>Start Time</th>
             <th>End Time</th>
+            <th>Start Location</th>
+            <th>End Location</th>
             <th>Vehicle</th>
             <th>Created By</th>
             <th>Input Cost</th>
@@ -72,6 +80,8 @@
                 <tr>
                     <td>${dt.start_time_string}</td>
                     <td>${dt.end_time_string}</td>
+                    <td>${dt.start_location}</td>
+                    <td>${dt.end_location}</td>
                     <td>${dt.vehicle_name}</td>
                     <td>${dt.user_created_name}</td>
                     <td>${dt.input_cost}</td>
