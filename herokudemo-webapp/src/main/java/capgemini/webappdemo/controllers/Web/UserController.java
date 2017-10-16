@@ -13,6 +13,7 @@ import capgemini.webappdemo.service.UserAppointmentView.UserAppointmentViewServi
 import capgemini.webappdemo.utils.LoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -195,6 +196,31 @@ public class UserController {
                 model.addAttribute("total",uavs.size());
                 return "web/user/employee_detail";
             }
+        }
+    }
+
+    @RequestMapping(value = "/user/chart/month", method = RequestMethod.GET, params = {"year","id","isCreated"})
+    public String drawApmChartMonth(HttpSession session, @RequestParam("year") int year, @RequestParam("id") int id,@RequestParam("isCreated") Boolean isCreated,  Model model){
+        if(!loginUtil.isLogin(session)){
+            return "redirect:/login";
+        } else{
+            model.addAttribute("id",id);
+            model.addAttribute("year",year);
+            model.addAttribute("isCreated",isCreated);
+            return "web/appointment/apms_by_month_chart";
+        }
+    }
+
+    @RequestMapping(value = "/user/chart/year", method = RequestMethod.GET, params = {"from","to","id","isCreated"})
+    public String drawApmChartYear(HttpSession session, @RequestParam("from") int from, @RequestParam("to") int to, @RequestParam("id") int id,@RequestParam("isCreated") Boolean isCreated,  Model model){
+        if(!loginUtil.isLogin(session)){
+            return "redirect:/login";
+        } else{
+            model.addAttribute("id",id);
+            model.addAttribute("from",from);
+            model.addAttribute("to",to);
+            model.addAttribute("isCreated",isCreated);
+            return "web/appointment/apms_by_year_chart";
         }
     }
 

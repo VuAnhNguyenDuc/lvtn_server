@@ -91,7 +91,7 @@
     $("#month-chart").click(function () {
         var yearInput = $("#yearInput").val();
         if(yearInput != ""){
-            var newUrl = host.concat("ajax/appointment/month/chart?id=",${emp.user_id},"&year=",yearInput,"&isCreated=false");
+            var newUrl = host.concat("user/chart/month?id=",${emp.user_id},"&year=",yearInput,"&isCreated=false");
             console.log(newUrl);
             var newTab = window.open(newUrl);
             if(newTab){
@@ -132,7 +132,7 @@
         var from = $("#from").val();
         var to = $("#to").val();
         if(from != "" && to != ""){
-            var newUrl = host.concat("?id=",${emp.user_id},"&from=",from,"&to=",to,"&isCreated=true");
+            var newUrl = host.concat("user/chart/year?id=",${emp.user_id},"&from=",from,"&to=",to,"&isCreated=true");
             console.log(newUrl);
             var newTab = window.open(newUrl);
             if(newTab){

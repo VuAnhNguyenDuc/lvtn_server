@@ -30,7 +30,7 @@
 <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js"></script>
 
 <script>
-    jQuery(document).ready(function($){
+    jQuery(document).ready(function(){
         getAppointmentsByMonth();
     });
 
@@ -38,7 +38,7 @@
         $.ajax({
             type:"GET",
             url: "http://lvtn-server.herokuapp.com/ajax/appointment/month/chart",
-            data : "id=${id}&year=${yearInput}&isCreated=${isCreated}",
+            data : "id=${id}&year=${year}&isCreated=${isCreated}",
             dataType : "text",
             cache : false,
             success: function(result){
