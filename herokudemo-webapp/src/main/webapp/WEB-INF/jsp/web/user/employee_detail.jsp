@@ -158,7 +158,7 @@
             "            <th>Appointment ID</th>\n" +
             "            <th>Appointment Name</th>\n" +
             "            <th>Created By</th>\n" +
-            "            <th>Start Date</th>\n" +                                       "            <th>End Date</th>\n" +
+            "            <th>Start Date</th>\n" +
             "            <th>Status</th>\n" +
             "        </tr>\n" +
             "        </thead>\n" +

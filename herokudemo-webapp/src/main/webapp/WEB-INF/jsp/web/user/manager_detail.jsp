@@ -85,11 +85,11 @@
     var host =  "http://lvtn-server.herokuapp.com/";
     $("#month-list").click(function () {
         var yearInput = $("#yearInput").val();
-        if(typeof yearInput == "number"){
+        if(yearInput != ""){
             $.ajax({
                 type:"GET",
                 url: "http://lvtn-server.herokuapp.com/ajax/appointment/month",
-                data : "id=${emp.user_id}&isCreated=false&year="+yearInput,
+                data : "id=${mng.user_id}&isCreated=false&year="+yearInput,
                 dataType : "text",
                 cache : false,
                 success: function(result){
@@ -108,8 +108,8 @@
     });
     $("#month-chart").click(function () {
         var yearInput = $("#yearInput").val();
-        if(typeof yearInput == "number"){
-            var newUrl = host.concat("user/chart/month?id=",${emp.user_id},"&year=",yearInput,"&isCreated=false");
+        if(yearInput != ""){
+            var newUrl = host.concat("user/chart/month?id=",${mng.user_id},"&year=",yearInput,"&isCreated=false");
             console.log(newUrl);
             var newTab = window.open(newUrl);
             if(newTab){
@@ -125,11 +125,11 @@
     $("#year-list").click(function () {
         var from = $("#from").val();
         var to = $("#to").val();
-        if(typeof from == "number" && typeof to == "number"){
+        if(from != "" && year != ""){
             $.ajax({
                 type:"GET",
                 url: "http://lvtn-server.herokuapp.com/ajax/appointment/year",
-                data : "id=${emp.user_id}&from="+from+"&to="+to+"&isCreated=false",
+                data : "id=${mng.user_id}&from="+from+"&to="+to+"&isCreated=false",
                 dataType : "text",
                 cache : false,
                 success: function(result){
@@ -149,8 +149,8 @@
     $("#year-chart").click(function () {
         var from = $("#from").val();
         var to = $("#to").val();
-        if(typeof from == "number" && typeof to == "number"){
-            var newUrl = host.concat("user/chart/year?id=",${emp.user_id},"&from=",from,"&to=",to,"&isCreated=false");
+        if(from != "" && year != ""){
+            var newUrl = host.concat("user/chart/year?id=",${mng.user_id},"&from=",from,"&to=",to,"&isCreated=false");
             console.log(newUrl);
             var newTab = window.open(newUrl);
             if(newTab){
@@ -167,8 +167,8 @@
 
     $("#month-chart-created").click(function () {
         var year = $("#year-created").val();
-        if(typeof year == "number"){
-            var newUrl = host.concat("user/chart/month?id=",${emp.user_id},"&year=",yearInput,"&isCreated=true");
+        if(yearInput != ""){
+            var newUrl = host.concat("user/chart/month?id=",${mng.user_id},"&year=",yearInput,"&isCreated=true");
             console.log(newUrl);
             var newTab = window.open(newUrl);
             if(newTab){
@@ -182,11 +182,11 @@
     });
     $("#month-list-created").click(function () {
         var yearInput = $("#year-created").val();
-        if(typeof year == "number"){
+        if(yearInput != ""){
             $.ajax({
                 type:"GET",
                 url: "http://lvtn-server.herokuapp.com/ajax/appointment/month",
-                data : "id=${emp.user_id}&isCreated=true&year="+yearInput,
+                data : "id=${mng.user_id}&isCreated=true&year="+yearInput,
                 dataType : "text",
                 cache : false,
                 success: function(result){
@@ -207,11 +207,11 @@
     $("#year-list-created").click(function () {
         var from = $("#from-created").val();
         var to = $("#to-created").val();
-        if(typeof from == "number" && typeof to == "number"){
+        if(from != "" && year != ""){
             $.ajax({
                 type:"GET",
                 url: "http://lvtn-server.herokuapp.com/ajax/appointment/year",
-                data : "id=${emp.user_id}&from="+from+"&to="+to+"&isCreated=true",
+                data : "id=${mng.user_id}&from="+from+"&to="+to+"&isCreated=true",
                 dataType : "text",
                 cache : false,
                 success: function(result){
@@ -231,8 +231,8 @@
     $("#year-chart-created").click(function () {
         var from = $("#from-created").val();
         var to = $("#to-created").val();
-        if(typeof from == "number" && typeof to == "number"){
-            var newUrl = host.concat("user/chart/year?id=",${emp.user_id},"&from=",from,"&to=",to,"&isCreated=true");
+        if(from != "" && year != ""){
+            var newUrl = host.concat("user/chart/year?id=",${mng.user_id},"&from=",from,"&to=",to,"&isCreated=true");
             console.log(newUrl);
             var newTab = window.open(newUrl);
             if(newTab){
@@ -254,7 +254,7 @@
                 "            <th>Appointment ID</th>\n" +
                 "            <th>Appointment Name</th>\n" +
                 "            <th>Created By</th>\n" +
-                "            <th>Start Date</th>\n" +                                       "            <th>End Date</th>\n" +
+                "            <th>Start Date</th>\n" +
                 "            <th>Status</th>\n" +
                 "        </tr>\n" +
                 "        </thead>\n" +
