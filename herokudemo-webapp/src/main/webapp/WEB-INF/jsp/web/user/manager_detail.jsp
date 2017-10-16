@@ -50,30 +50,30 @@
         <p>Amount of appointment taken compare by months in a year : </p>
         <p>Please input a year</p>
         <input type="number" id="yearInput" />
-        <button type="button" class="btn btn-primary" id="month-list">View as chart</button>
-        <button type="button" class="btn btn-success" id="month-chart">View as list</button>
+        <button type="button" class="btn btn-primary" id="month-chart">View as chart</button>
+        <button type="button" class="btn btn-success" id="month-list">View as list</button>
 
         <p>Amount of appointment taken throughout a period : </p>
         <p>Please input the start year</p>
         <input type="number" id="from" />
         <p>Please input the end year</p>
         <input type="number" id="to" />
-        <button type="button" class="btn btn-primary" id="year-list">View as chart</button>
-        <button type="button" class="btn btn-success" id="year-chart">View as list</button>
+        <button type="button" class="btn btn-primary" id="year-chart">View as chart</button>
+        <button type="button" class="btn btn-success" id="year-list">View as list</button>
 
         <p>Amount of appointment created compare by months in a year : </p>
         <p>Please input a year</p>
         <input type="number" id="year-created" />
-        <button type="button" class="btn btn-primary" id="month-list-created">View as chart</button>
-        <button type="button" class="btn btn-success" id="month-chart-created">View as list</button>
+        <button type="button" class="btn btn-primary" id="month-chart-created">View as chart</button>
+        <button type="button" class="btn btn-success" id="month-list-created">View as list</button>
 
         <p>Amount of appointment created throughout a period : </p>
         <p>Please input the start year</p>
         <input type="number" id="from-created" />
         <p>Please input the end year</p>
         <input type="number" id="to-created" />
-        <button type="button" class="btn btn-primary" id="year-list-created">View as chart</button>
-        <button type="button" class="btn btn-success" id="year-chart-created">View as list</button>
+        <button type="button" class="btn btn-primary" id="year-chart-created">View as chart</button>
+        <button type="button" class="btn btn-success" id="year-list-created">View as list</button>
 
 
         <div id="result-list">
@@ -125,7 +125,7 @@
     $("#year-list").click(function () {
         var from = $("#from").val();
         var to = $("#to").val();
-        if(from != "" && year != ""){
+        if(from != "" && to != ""){
             $.ajax({
                 type:"GET",
                 url: "http://lvtn-server.herokuapp.com/ajax/appointment/year",
@@ -149,7 +149,7 @@
     $("#year-chart").click(function () {
         var from = $("#from").val();
         var to = $("#to").val();
-        if(from != "" && year != ""){
+        if(from != "" && to != ""){
             var newUrl = host.concat("user/chart/year?id=",${mng.user_id},"&from=",from,"&to=",to,"&isCreated=false");
             console.log(newUrl);
             var newTab = window.open(newUrl);
@@ -207,7 +207,7 @@
     $("#year-list-created").click(function () {
         var from = $("#from-created").val();
         var to = $("#to-created").val();
-        if(from != "" && year != ""){
+        if(from != "" && to != ""){
             $.ajax({
                 type:"GET",
                 url: "http://lvtn-server.herokuapp.com/ajax/appointment/year",
@@ -231,7 +231,7 @@
     $("#year-chart-created").click(function () {
         var from = $("#from-created").val();
         var to = $("#to-created").val();
-        if(from != "" && year != ""){
+        if(from != "" && to != ""){
             var newUrl = host.concat("user/chart/year?id=",${mng.user_id},"&from=",from,"&to=",to,"&isCreated=true");
             console.log(newUrl);
             var newTab = window.open(newUrl);
