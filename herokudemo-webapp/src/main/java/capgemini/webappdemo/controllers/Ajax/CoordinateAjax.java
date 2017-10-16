@@ -39,8 +39,8 @@ public class CoordinateAjax {
             List<Coordinate> coords = service.getCoordsOfDetail(dt.getId());
             for(Coordinate coord : coords){
                 JSONObject obj = new JSONObject();
-                obj.put("longtitude",coord.getLongtitude());
-                obj.put("latitude",coord.getLattitude());
+                obj.put("longitude",coord.getLongitude());
+                obj.put("latitude",coord.getLatitude());
                 obj.put("time",convertDateToString(coord.getTime()));
                 road.add(coord);
             }

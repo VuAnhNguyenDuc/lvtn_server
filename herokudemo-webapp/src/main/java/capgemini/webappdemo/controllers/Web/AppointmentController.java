@@ -66,6 +66,7 @@ public class AppointmentController {
             List<User> users = appService.getUsersOfAppointment(id);
             List<Detail> details = detailService.getDetailsOfAppointment(id);
             app.setUsers(users);
+            app.setDate_str(commonUtils.convertDateToString(app.getStart_date()));
             app.setDetails(details);
             model.addAttribute("pageName","appointment");
             model.addAttribute("apm",app);
@@ -84,7 +85,7 @@ public class AppointmentController {
             List<Coordinate> coords = coorService.getCoordsOfDetail(id);
             model.addAttribute("pageName","appointment");
             model.addAttribute("coords",coorService.parseCoords(coords));
-            return "web/appointment/map";
+            return "web/appointment/apm_map";
         }
     }
 }

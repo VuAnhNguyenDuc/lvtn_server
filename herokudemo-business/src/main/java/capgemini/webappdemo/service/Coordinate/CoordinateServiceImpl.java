@@ -44,8 +44,8 @@ public class CoordinateServiceImpl extends EntityServiceImpl<Coordinate> impleme
 		JSONArray result = new JSONArray();
 		for(Coordinate coord : coords){
 			JSONObject obj = new JSONObject();
-			obj.put("latitude",coord.getLattitude());
-			obj.put("longtitude",coord.getLongtitude());
+			obj.put("latitude",coord.getLatitude());
+			obj.put("longitude",coord.getLongitude());
 			result.add(obj);
 		}
 		return result;

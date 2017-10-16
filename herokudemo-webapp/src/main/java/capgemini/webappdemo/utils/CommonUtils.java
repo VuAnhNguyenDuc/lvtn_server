@@ -15,4 +15,8 @@ public class CommonUtils {
     public String convertDateToString(Date date){
         return dateFormat.format(date);
     }
+
+    public long getSeconds(Date d1,Date d2){
+        return (d2.getTime() - d1.getTime())/1000;
+    }
 }

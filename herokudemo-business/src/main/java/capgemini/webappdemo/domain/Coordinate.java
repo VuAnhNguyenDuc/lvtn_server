@@ -11,8 +11,8 @@ public class Coordinate {
     private Integer id;
     @Temporal(TemporalType.TIMESTAMP)
     private Date time;
-    private float longtitude;
-    private float lattitude;
+    private float longitude;
+    private float latitude;
     private int detail_id;
 
     @Transient
@@ -30,12 +30,12 @@ public class Coordinate {
         this.id = 0;
     }
 
-    public Coordinate(Integer id, Date time, float longtitude, float lattitude, int detail_id) {
-        this.id = id;
+    public Coordinate(Date time, float longitude, float latitude, int detail_id, String time_str) {
         this.time = time;
-        this.longtitude = longtitude;
-        this.lattitude = lattitude;
+        this.longitude = longitude;
+        this.latitude = latitude;
         this.detail_id = detail_id;
+        this.time_str = time_str;
     }
 
     public Integer getId() {
@@ -54,20 +54,20 @@ public class Coordinate {
         this.time = time;
     }
 
-    public float getLongtitude() {
-        return longtitude;
+    public float getLongitude() {
+        return longitude;
     }
 
-    public void setLongtitude(float longtitude) {
-        this.longtitude = longtitude;
+    public void setLongitude(float longitude) {
+        this.longitude = longitude;
     }
 
-    public float getLattitude() {
-        return lattitude;
+    public float getLatitude() {
+        return latitude;
     }
 
-    public void setLattitude(float lattitude) {
-        this.lattitude = lattitude;
+    public void setLatitude(float latitude) {
+        this.latitude = latitude;
     }
 
     public String getTime_str() {

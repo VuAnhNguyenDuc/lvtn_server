@@ -49,7 +49,7 @@
 
     function renderMap(locations){
         var startLat = locations[0].latitude;
-        var startLong = locations[0].longtitude;
+        var startLong = locations[0].longitude;
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 15,
             center: new google.maps.LatLng(startLat, startLong),
@@ -62,7 +62,7 @@
 
         for (i = 0; i < locations.length; i++) {
             marker = new google.maps.Marker({
-                position: new google.maps.LatLng(locations[i].latitude, locations[i].longtitude),
+                position: new google.maps.LatLng(locations[i].latitude, locations[i].longitude),
                 map: map
             });
 

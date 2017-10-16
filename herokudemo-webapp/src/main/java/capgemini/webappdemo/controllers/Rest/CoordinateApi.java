@@ -26,8 +26,8 @@ public class CoordinateApi {
         Message msg = new Message("");
         boolean flag = true;
         for(Coordinate coor : coordinates){
-            if(coor.getLongtitude() == 0 || coor.getLattitude() == 0){
-                msg.setMessage("please input latitude and longtitude for every coordinate you sent");
+            if(coor.getLongitude() == 0 || coor.getLatitude() == 0){
+                msg.setMessage("please input latitude and longitude for every coordinate you sent");
                 flag = false;
                 break;
             } else{
