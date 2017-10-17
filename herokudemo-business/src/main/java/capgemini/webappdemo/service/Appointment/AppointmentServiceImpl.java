@@ -39,6 +39,16 @@ public class AppointmentServiceImpl extends EntityServiceImpl<Appointment> imple
 	}
 
 	@Override
+	public boolean checkAppointmentExist(String name) {
+		return Repository.checkAppointmentExist(name);
+	}
+
+	@Override
+	public Appointment getApmByName(String name) {
+		return Repository.getApmByName(name);
+	}
+
+	@Override
 	public void updateAppointment(Appointment apm,boolean changeUsers) {
 		Repository.updateAppointment(apm,changeUsers);
 	}

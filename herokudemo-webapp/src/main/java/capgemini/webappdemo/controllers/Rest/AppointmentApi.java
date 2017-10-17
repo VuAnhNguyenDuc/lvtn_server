@@ -73,6 +73,8 @@ public class AppointmentApi {
             result.put("description","please input at least one user who will take this appointment");
         } else if(startDate == null){
             result.put("description","please input the start date of this appointment");
+        } else if(apmService.checkAppointmentExist(name)){
+            result.put("description","an appointment with the same name already existed");
         } else{
             Appointment apm = new Appointment();
             apm.setName(name);

@@ -16,5 +16,9 @@ public interface AppointmentService extends EntityService<Appointment> {
 
 	public List<User> getUsersOfAppointment(int id);
 
+	public boolean checkAppointmentExist(String name);
+
+	public Appointment getApmByName(String name);
+
 	public void updateAppointment(Appointment apm,boolean changeUsers);
 }

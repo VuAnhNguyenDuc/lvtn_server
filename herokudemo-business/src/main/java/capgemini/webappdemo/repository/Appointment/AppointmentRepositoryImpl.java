@@ -71,6 +71,27 @@ public class AppointmentRepositoryImpl extends EntityRepositoryImpl<Appointment>
 	}
 
 	@Override
+	public boolean checkAppointmentExist(String name) {
+		if(getApmByName(name)!=null){
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public Appointment getApmByName(String name) {
+		Session session = getSession();
+
+		String strQuery = "from Appointment a where a.name = :name";
+		Query query = session.createQuery(strQuery);
+		query.setParameter("name",name);
+		if(query.list().size() == 1){
+			return (Appointment) query.list().get(0);
+		}
+		return null;
+	}
+
+	@Override
 	public void updateAppointment(Appointment apm,boolean changeUsers) {
 		Session session = getSession();
 		session.merge(apm);

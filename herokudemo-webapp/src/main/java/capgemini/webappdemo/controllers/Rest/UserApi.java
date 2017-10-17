@@ -1,11 +1,14 @@
 package capgemini.webappdemo.controllers.Rest;
 
 import capgemini.webappdemo.domain.*;
+import capgemini.webappdemo.form.AppointmentForm;
 import capgemini.webappdemo.form.ChangePasswordForm;
 import capgemini.webappdemo.service.Appointment.AppointmentService;
 import capgemini.webappdemo.service.User.UserService;
+import capgemini.webappdemo.utils.CommonUtils;
 import capgemini.webappdemo.utils.JsonTokenUtil;
 import capgemini.webappdemo.utils.TokenPayload;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +21,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +41,8 @@ public class UserApi {
     private static final Logger logger = LoggerFactory.getLogger(UserApi.class);
 
     private JsonTokenUtil jsonTokenUtil = new JsonTokenUtil();
+
+    private CommonUtils commonUtils = new CommonUtils();
 
     @RequestMapping(value = "/api/changepass", method = RequestMethod.POST)
     public ResponseEntity<JSONObject> changePassword(@RequestBody JSONObject input){
@@ -72,8 +78,6 @@ public class UserApi {
 
                 }
             }
-            //result.put("message",0);
-            //result.put("description","invalid json key");
         }
         return new ResponseEntity<JSONObject>(result, HttpStatus.OK);
     }
@@ -121,70 +125,118 @@ public class UserApi {
     }
 
     @RequestMapping(value = "/api/getActiveAppointments", method = RequestMethod.POST)
-    public ResponseEntity<List<UserAppointmentView>> getActiveAps(@RequestBody User usr){
+    public ResponseEntity<JSONObject> getActiveAps(@RequestBody JSONObject input){
         System.out.println("getting active appointments - User API");
-        System.out.println(usr.getJson_token());
-        if(usr.getJson_token().equals("") || !jsonTokenUtil.validateKey(usr.getJson_token())){
-            return new ResponseEntity<List<UserAppointmentView>>(HttpStatus.BAD_REQUEST);
+        String jsonToken = input.get("json_token").toString();
+        JSONObject result = new JSONObject();
+
+        if(jsonToken.equals("") || !jsonTokenUtil.validateKey(jsonToken)){
+            result.put("message",0);
+            result.put("description","invalid json key");
+            return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
         }
-        int id = jsonTokenUtil.getUserIdFromJsonKey(usr.getJson_token());
-        List<UserAppointmentView> result = userService.getActiveAppointments(id);
-        if(result != null && result.size() > 0){
-            return new ResponseEntity<List<UserAppointmentView>>(userService.getActiveAppointments(id),HttpStatus.OK);
-        } else{
-            return new ResponseEntity<List<UserAppointmentView>>(HttpStatus.NO_CONTENT);
+        int id = jsonTokenUtil.getUserIdFromJsonKey(jsonToken);
+        List<UserAppointmentView> uavs = userService.getActiveAppointments(id);
+        JSONArray uavList = new JSONArray();
+        for(UserAppointmentView uav : uavs){
+            JSONObject obj = new JSONObject();
+            obj.put("id",uav.getAppointment_id());
+            obj.put("destination",uav.getDestination());
+            obj.put("start_date",commonUtils.convertDateToString(uav.getStart_date()));
+            uavList.add(obj);
         }
+        result.put("message",1);
+        result.put("listActiveAppointments",uavList);
+        return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
     }
 
     @RequestMapping(value = "/api/getAllAppointments", method = RequestMethod.POST)
-    public ResponseEntity<List<UserAppointmentView>> getAllAps(@RequestBody User usr){
+    public ResponseEntity<JSONObject> getAllAps(@RequestBody JSONObject input){
         System.out.println("getting all appointments - User API");
-        if(usr.getJson_token().equals("") || !jsonTokenUtil.validateKey(usr.getJson_token())){
-            return new ResponseEntity<List<UserAppointmentView>>(HttpStatus.BAD_REQUEST);
+        String jsonToken = input.get("json_token").toString();
+        JSONObject result = new JSONObject();
+        if(jsonToken.equals("") || !jsonTokenUtil.validateKey(jsonToken)){
+            result.put("message",0);
+            result.put("description","invalid json token");
+            return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
         }
-        int id = jsonTokenUtil.getUserIdFromJsonKey(usr.getJson_token());
-        List<UserAppointmentView> result = userService.getAllAppointments(id);
-        if(result != null && result.size() > 0){
-            return new ResponseEntity<List<UserAppointmentView>>(userService.getAllAppointments(id),HttpStatus.OK);
-        } else{
-            return new ResponseEntity<List<UserAppointmentView>>(HttpStatus.NO_CONTENT);
+        int id = jsonTokenUtil.getUserIdFromJsonKey(jsonToken);
+        List<UserAppointmentView> uavs = userService.getAllAppointments(id);
+        JSONArray uavList = new JSONArray();
+        for(UserAppointmentView uav : uavs){
+            JSONObject obj = new JSONObject();
+            obj.put("id",uav.getAppointment_id());
+            obj.put("destination",uav.getDestination());
+            obj.put("start_date",commonUtils.convertDateToString(uav.getStart_date()));
+            obj.put("end_date","asdw");
+            obj.put("total_cost",100);
+            uavList.add(obj);
         }
+        result.put("message",1);
+        result.put("completedAppoiments",uavList);
+        return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
     }
 
     @RequestMapping(value = "/api/getAppointment", method = RequestMethod.POST)
-    public ResponseEntity<UserAppointmentView> getAppointment(@RequestBody Appointment apm){
-        if(apm.getJson_token().equals("") || !jsonTokenUtil.validateKey(apm.getJson_token())){
-            return new ResponseEntity<UserAppointmentView>(HttpStatus.BAD_REQUEST);
+    public ResponseEntity<JSONObject> getAppointment(@RequestBody JSONObject input){
+        String jsonToken = input.get("json_token").toString();
+        int id = (int) input.get("appointment_id");
+        JSONObject result = new JSONObject();
+
+        if(jsonToken.equals("") || !jsonTokenUtil.validateKey(jsonToken)){
+            result.put("message",0);
+            result.put("description","invalid json key");
+            return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
         } else{
-            //int id = jsonTokenUtil.getUserIdFromJsonKey(usr.getJson_token());
-            return new ResponseEntity<UserAppointmentView>(userService.getAppointment(apm.getId()),HttpStatus.OK);
+            UserAppointmentView uav = userService.getAppointment(id);
+            JSONObject obj = new JSONObject();
+            obj.put("id",uav.getAppointment_id());
+            obj.put("destination",uav.getDestination());
+            obj.put("start_date",commonUtils.convertDateToString(uav.getStart_date()));
+            //result.put("end_date",commonUtils.convertDateToString())
+            result.put("message",1);
+            result.put("appointment",obj);
+            return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
         }
     }
 
     @RequestMapping(value = "/api/updateAppointment", method = RequestMethod.POST)
-    public ResponseEntity<Message> updateAppointment(@RequestBody Appointment apm){
-        if(apm.getJson_token().equals("") || !jsonTokenUtil.validateKey(apm.getJson_token())){
-            return new ResponseEntity<Message>(HttpStatus.BAD_REQUEST);
+    public ResponseEntity<JSONObject> updateAppointment(@RequestBody AppointmentForm input) throws ParseException {
+        JSONObject result = new JSONObject();
+        String jsonToken = input.getJson_token();
+        String name = input.getName();
+        String destination = input.getDestination();
+        String startDate = input.getStart_date();
+        int status = input.getStatus();
+        List<User> users = input.getUsers();
+
+        if(jsonToken.equals("") || !jsonTokenUtil.validateKey(jsonToken)){
+            result.put("message",0);
+            result.put("description","invalid json token");
+            return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
         } else{
-            Message msg = new Message("");
-            int id = jsonTokenUtil.getUserIdFromJsonKey(apm.getJson_token());
+            result.put("message",0);
+            int id = jsonTokenUtil.getUserIdFromJsonKey(input.getJson_token());
             if(!userService.getUserType(id).equals("Manager")){
-                msg.setMessage("This user does not have enough priviledge to use this funciton");
+                result.put("description","This user does not have enough priviledge to use this funciton");
             } else{
-                Appointment curr = apmService.get(apm.getId());
-                if(curr != null){
-                    msg.setMessage("this appointment does not exist");
+                Appointment apm = apmService.getApmByName(name);
+                if(apm == null){
+                    result.put("description","this appointment does not exist");
                 } else{
+                    apm.setDestination(destination);
+                    apm.setStart_date(commonUtils.convertStringToDate(startDate));
+                    apm.setStatus(status);
                     List<User> usrs = apmService.getUsersOfAppointment(apm.getId());
-                    if(usrs.equals(apm.getUsers())){
+                    if(usrs.equals(users)){
                         apmService.updateAppointment(apm,false);
                     } else{
                         apmService.updateAppointment(apm,true);
                     }
-                    msg.setMessage("success");
+                    result.put("message",1);
                 }
             }
-            return new ResponseEntity<Message>(msg,HttpStatus.OK);
+            return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
         }
     }
 
