@@ -54,6 +54,7 @@ public class CalculateMoney {
                         cost = 24 + 11*s + 0.3*t/60;
                     }
                     break;
+            default: cost = 0; break;
         }
         return cost;
     }
