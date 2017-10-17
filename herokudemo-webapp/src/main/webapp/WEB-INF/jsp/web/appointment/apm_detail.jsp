@@ -20,7 +20,7 @@
     <jsp:include page="../mobile_nav.jsp"/>
     <jsp:include page="../side_nav.jsp"/>
     <div class="col-sm-9 col-lg-9 col-sm-12 col-xs-12" style="padding-top: 30px">
-        <p><a href="/appointment/viewMap?id=${apm.id}" class="btn btn-primary">VIEW MAP</a></p>
+        <p><button type="button" class="btn btn-primary" id="viewMap">VIEW MAP</button><a href="/appointment/viewMap?id=${apm.id}" class="btn btn-primary">VIEW MAP</a></p>
         <div class="table-responsive" style="width: 100%;">
             <table class="table table-hover">
                 <tbody>
@@ -90,4 +90,18 @@
         </div>
     </div>
 </body>
+<
+<script>
+    var host =  "http://lvtn-server.herokuapp.com/";
+    $("#view-map").click(function () {
+        var newUrl = host.concat("appointment/viewMap?id=",${apm.id});
+        console.log(newUrl);
+        var newTab = window.open(newUrl);
+        if(newTab){
+            newTab.focus();
+        } else{
+            alert("Cannot create a new tab");
+        }
+    });
+</script>
 </html>
