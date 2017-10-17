@@ -34,6 +34,7 @@ public class VehicleController {
         } else{
             model.addAttribute("vehicles", new ArrayList<>());
         }
+        model.addAttribute("pageName","vehicle");
         return "web/vehicle/vehicle";
     }
 
@@ -43,6 +44,7 @@ public class VehicleController {
             return "redirect:/login";
         } else{
             model.addAttribute("vehicle", new Vehicle());
+            model.addAttribute("pageName","vehicle");
             return "web/vehicle/insertVehicle";
         }
     }

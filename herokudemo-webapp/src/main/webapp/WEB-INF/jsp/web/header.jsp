@@ -32,7 +32,7 @@
 
     /* Set gray background color and 100% height */
     .sidenav {
-        background-color: gray;
+        background-color: #ececec;
         align-items: stretch;
     }
 

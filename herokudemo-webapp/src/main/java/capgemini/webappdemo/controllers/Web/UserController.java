@@ -122,6 +122,7 @@ public class UserController {
                 emp.setManager_name(info.getManager_name());
                 emp.setStatus(info.getStatus());
             }
+            model.addAttribute("pageName","employee");
             model.addAttribute("emps",emps);
             return "web/user/employee";
         }
@@ -138,6 +139,7 @@ public class UserController {
                 mng.setUsername(usr.getUsername());
             }
             model.addAttribute("mngs",mngs);*/
+            model.addAttribute("pageName","employee");
             model.addAttribute("employeeForm",new EmployeeForm());
             return "web/user/employee_insert";
         }
@@ -189,12 +191,14 @@ public class UserController {
                 model.addAttribute("mng",mng);
                 model.addAttribute("total",uavs.size());
                 model.addAttribute("created",mngService.getCreatedAppointments(id));
+                model.addAttribute("pageName","manager");
                 return "web/user/manager_detail";
             } else{
                 Employee emp = getEmployeeInfo(id);
                 model.addAttribute("id",id);
                 model.addAttribute("emp",emp);
                 model.addAttribute("total",uavs.size());
+                model.addAttribute("pageName","employee");
                 return "web/user/employee_detail";
             }
         }

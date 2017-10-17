@@ -6,6 +6,7 @@ import capgemini.webappdemo.service.Appointment.AppointmentService;
 import capgemini.webappdemo.service.User.UserService;
 import capgemini.webappdemo.utils.JsonTokenUtil;
 import capgemini.webappdemo.utils.TokenPayload;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,64 +39,86 @@ public class UserApi {
     private JsonTokenUtil jsonTokenUtil = new JsonTokenUtil();
 
     @RequestMapping(value = "/api/changepass", method = RequestMethod.POST)
-    public ResponseEntity<Message> changePassword(@RequestBody ChangePasswordForm user, Errors errors){
+    public ResponseEntity<JSONObject> changePassword(@RequestBody JSONObject input){
         System.out.println("changing password - User API");
-        if(errors.hasErrors()){
-            for(ObjectError err:errors.getAllErrors()){
-                System.out.println(err.toString());
-            }
-        }
-        if(user.getJson_token().equals("") || !jsonTokenUtil.validateKey(user.getJson_token())){
-            return new ResponseEntity<Message>(new Message("invalid json token key"), HttpStatus.BAD_REQUEST);
+        String oldpass = input.get("old_pass").toString();
+        String newpass = input.get("new_pass").toString();
+        String jsonkey = input.get("json_token").toString();
+
+        JSONObject result = new JSONObject();
+
+        if(jsonkey.equals("") || !jsonTokenUtil.validateKey(jsonkey)){
+            result.put("message",0);
+            result.put("description","invalid json key");
         } else{
-            String decoded = jsonTokenUtil.getPayloadFromKey(user.getJson_token());
+
+            String decoded = jsonTokenUtil.getPayloadFromKey(jsonkey);
             TokenPayload token = jsonTokenUtil.parsePayload(decoded);
             if(token.getUser_id() != 0){
                 int id = token.getUser_id();
-                String pwd = user.getOld_pass();
+                String pwd = oldpass;
                 User usr = userService.get(id);
                 if(!usr.getPassword().equals(pwd)){
-                    return new ResponseEntity<Message>(new Message("old password does not match"),HttpStatus.OK);
+                    result.put("message",0);
+                    result.put("description","old password does not match");
                 } else{
                     String userType = userService.getUserType(usr.getId());
-                    TokenPayload new_token = new TokenPayload(usr.getId(),userType,user.getNew_pass());
+                    TokenPayload new_token = new TokenPayload(usr.getId(),userType,newpass);
                     String payload = jsonTokenUtil.createPayload(new_token);
                     String jsonKey = jsonTokenUtil.createJWT(payload);
 
-                    userService.changePassword(id,user.getNew_pass());
-                    return new ResponseEntity<Message>(new Message("success",jsonKey), HttpStatus.OK);
+                    userService.changePassword(id,newpass);
+                    result.put("message",1);
+                    result.put("new_json_token",jsonKey);
+
                 }
-            } else{
-                return new ResponseEntity<Message>(new Message("invalid json token key"), HttpStatus.NO_CONTENT);
             }
+            result.put("message",0);
+            result.put("description","invalid json key");
         }
+        return new ResponseEntity<JSONObject>(result, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/api/login", method = RequestMethod.POST)
-    public ResponseEntity<Message> loginApi(@RequestBody User user){
+    public ResponseEntity<JSONObject> loginApi(@RequestBody JSONObject input){
         System.out.println("user login in - User API");
-        if(user.getUsername() != null && user.getPassword() != null){
-            User result = userService.checkLogin(user.getUsername(),user.getPassword());
-            if(result != null){
-                String userType = userService.getUserType(result.getId());
-                TokenPayload token = new TokenPayload(result.getId(),userType,user.getPassword());
+        String username = input.get("username").toString();
+        String password = input.get("password").toString();
+
+        JSONObject result = new JSONObject();
+
+        if(username != null && password != null){
+            User usr = userService.checkLogin(username,password);
+            if(usr != null){
+                String userType = userService.getUserType(usr.getId());
+                TokenPayload token = new TokenPayload(usr.getId(),userType,password);
                 String payload = jsonTokenUtil.createPayload(token);
                 String jsonKey = jsonTokenUtil.createJWT(payload);
-                return new ResponseEntity<Message>(new Message("success",jsonKey,userService.getUserType(result.getId()),result.getId()), HttpStatus.OK);
+                result.put("message",1);
+                result.put("id",usr.getId());
+                result.put("type",userType);
+                result.put("json_token",jsonKey);
             } else{
-                return new ResponseEntity<Message>(new Message("failed", ""), HttpStatus.OK);
+                result.put("message",0);
             }
-        } else if(user.getJson_token() != null){
-            if(!jsonTokenUtil.validateKey(user.getJson_token())){
-                return new ResponseEntity<Message>(new Message("This is not a correct json key or your json key is outdated, please login again to receive the new key"),HttpStatus.BAD_REQUEST);
+        } else{
+            String jsonToken = input.get("json_token").toString();
+            if(jsonToken == null){
+                result.put("message",0);
+            }
+            if(!jsonTokenUtil.validateKey(jsonToken)){
+                result.put("message",0);
+                result.put("description","this is a valid json key, please try to login again with username and password");
             } else{
-                TokenPayload token = jsonTokenUtil.parsePayload(jsonTokenUtil.getPayloadFromKey(user.getJson_token()));
+                TokenPayload token = jsonTokenUtil.parsePayload(jsonTokenUtil.getPayloadFromKey(jsonToken));
                 int id = token.getUser_id();
                 User usr = userService.get(id);
-                return new ResponseEntity<Message>(new Message("success",user.getJson_token(),userService.getUserType(usr.getId()),usr.getId()), HttpStatus.OK);
+                result.put("message",1);
+                result.put("id",usr.getId());
+                result.put("type",userService.getUserType(usr.getId()));
             }
         }
-        return new ResponseEntity<Message>(new Message("Username and Password cannot be empty!!", ""), HttpStatus.NO_CONTENT);
+        return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
     }
 
     @RequestMapping(value = "/api/getActiveAppointments", method = RequestMethod.POST)
