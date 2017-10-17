@@ -20,7 +20,7 @@
     <jsp:include page="../mobile_nav.jsp"/>
     <jsp:include page="../side_nav.jsp"/>
     <div class="col-sm-9 col-lg-9 col-sm-12 col-xs-12" style="padding-top: 30px">
-        <p><button type="button" class="btn btn-primary" id="viewMap">VIEW MAP</button><a href="/appointment/viewMap?id=${apm.id}" class="btn btn-primary">VIEW MAP</a></p>
+        <p><button type="button" class="btn btn-primary" id="view-map">VIEW MAP</button></p>
         <div class="table-responsive" style="width: 100%;">
             <table class="table table-hover">
                 <tbody>
