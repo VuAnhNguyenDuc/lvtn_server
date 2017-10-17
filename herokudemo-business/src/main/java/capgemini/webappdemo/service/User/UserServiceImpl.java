@@ -60,6 +60,11 @@ public class UserServiceImpl extends EntityServiceImpl<User> implements UserServ
 	}
 
 	@Override
+	public List<UserAppointmentView> getAllAppointments(int id) {
+		return Repository.getAllAppointments(id);
+	}
+
+	@Override
 	public boolean checkUserExist(String username) {
 		return Repository.checkUserExist(username);
 	}

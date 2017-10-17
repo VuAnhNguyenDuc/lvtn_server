@@ -25,6 +25,8 @@ public interface UserService extends EntityService<User> {
 
 	public List<UserAppointmentView> getCompletedAppointments(int id);
 
+	public List<UserAppointmentView> getAllAppointments(int id);
+
 	public boolean checkUserExist(String username);
 
 	public UserAppointmentView getAppointment(int id);

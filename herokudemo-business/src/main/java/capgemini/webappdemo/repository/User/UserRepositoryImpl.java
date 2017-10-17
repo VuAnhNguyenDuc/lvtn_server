@@ -136,6 +136,21 @@ public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements Us
 	}
 
 	@Override
+	public List<UserAppointmentView> getAllAppointments(int id) {
+		Session session = getSession();
+
+		String strQuery = "from UserAppointmentView uav where uav.user_id = :id";
+		Query query = session.createQuery(strQuery);
+		query.setParameter("id",id);
+
+		List<UserAppointmentView> all = query.list();
+		for(UserAppointmentView ap : all){
+			getUAVInfo(ap);
+		}
+		return all;
+	}
+
+	@Override
 	public boolean checkUserExist(String username) {
 		Session session = getSession();
 
