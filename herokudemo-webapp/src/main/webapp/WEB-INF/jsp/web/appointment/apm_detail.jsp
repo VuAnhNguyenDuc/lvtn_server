@@ -97,7 +97,7 @@
         </div>
     </div>
 </body>
-<
+
 <script>
     var host =  "http://lvtn-server.herokuapp.com/";
     $("#view-map").click(function () {

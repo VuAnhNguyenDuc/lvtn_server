@@ -21,7 +21,7 @@
     <jsp:include page="../mobile_nav.jsp"/>
     <jsp:include page="../side_nav.jsp"/>
     <div class="col-sm-9 col-lg-9 col-sm-12 col-xs-12" style="padding-top: 30px">
-        <div id="map" style="width: 500px; height: 400px;"></div>
+        <div id="map" style="width: 100%; height: 400px;"></div>
     </div>
 </body>
 <script src="http://maps.google.com/maps/api/js?sensor=false&key=AIzaSyDhlcbvdlgCkj5u5tLUqzeeyx0a3Dp_nlo&"
