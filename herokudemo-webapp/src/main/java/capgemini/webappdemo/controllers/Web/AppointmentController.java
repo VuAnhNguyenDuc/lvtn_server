@@ -6,6 +6,8 @@ import capgemini.webappdemo.service.Coordinate.CoordinateService;
 import capgemini.webappdemo.service.Detail.DetailService;
 import capgemini.webappdemo.service.User.UserService;
 import capgemini.webappdemo.service.UserAppointmentView.UserAppointmentViewService;
+import capgemini.webappdemo.utils.CalculateDistance;
+import capgemini.webappdemo.utils.CalculateMoney;
 import capgemini.webappdemo.utils.CommonUtils;
 import capgemini.webappdemo.utils.LoginUtil;
 import org.apache.commons.codec.binary.Base64;
@@ -40,6 +42,10 @@ public class AppointmentController {
 
     private CommonUtils commonUtils = new CommonUtils();
 
+    private CalculateDistance cd = new CalculateDistance();
+
+    private CalculateMoney cm = new CalculateMoney();
+
     @RequestMapping(value = "/appointments", method = RequestMethod.GET)
     public String getAppointments(HttpSession session,ModelMap model){
         if(!loginUtil.isLogin(session)){
@@ -65,6 +71,9 @@ public class AppointmentController {
             Appointment app = appService.get(id);
             List<User> users = appService.getUsersOfAppointment(id);
             List<Detail> details = detailService.getDetailsOfAppointment(id);
+            for(Detail dt : details){
+                calculateDetail(dt);
+            }
             app.setUsers(users);
             app.setDate_str(commonUtils.convertDateToString(app.getStart_date()));
             app.setDetails(details);
@@ -76,7 +85,7 @@ public class AppointmentController {
         }
     }
 
-    // Show the road of a detail
+    // Show the road of an appointment
     @RequestMapping(value = "/appointment/viewMap", method = RequestMethod.GET, params = {"id"})
     public String getDetail(HttpSession session,  @RequestParam("id") int id,ModelMap model){
         if(!loginUtil.isLogin(session)){
@@ -86,6 +95,17 @@ public class AppointmentController {
             model.addAttribute("pageName","appointment");
             model.addAttribute("coords",coorService.parseCoords(coords));
             return "web/appointment/apm_map";
+        }
+    }
+
+    private void calculateDetail(Detail dt){
+        List<Coordinate> coords = coorService.getCoordsOfDetail(dt.getId());
+        if(coords.size() > 0){
+            double length = cd.getTotalDistance(coords);
+            long time = commonUtils.getSeconds(dt.getStart_time(),dt.getEnd_time());
+            double total = cm.getEstimateCost(dt.getVehicle_name(),length,time);
+            dt.setTotal_length(length);
+            dt.setEstimate_cost(total);
         }
     }
 }

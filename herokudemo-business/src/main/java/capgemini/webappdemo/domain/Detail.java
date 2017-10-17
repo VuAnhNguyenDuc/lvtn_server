@@ -12,8 +12,8 @@ public class Detail {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
-    //private Integer estimate_cost;
-    private Integer input_cost;
+    private double estimate_cost;
+    private double input_cost;
     @Type(type = "text")
     private String image_content;
     @Transient
@@ -42,6 +42,9 @@ public class Detail {
     private String user_created_name;
     @Transient
     private String json_token;
+    @Transient
+    private double total_length;
+
 
     public Date getEnd_time() {
         return end_time;
@@ -97,20 +100,20 @@ public class Detail {
         this.id = id;
     }
 
-    /*public Integer getEstimate_cost() {
-        return estimate_cost;
-    }
-
-    public void setEstimate_cost(Integer estimate_cost) {
-        this.estimate_cost = estimate_cost;
-    }*/
-
-    public Integer getInput_cost() {
+    public double getInput_cost() {
         return input_cost;
     }
 
-    public void setInput_cost(Integer input_cost) {
+    public void setInput_cost(double input_cost) {
         this.input_cost = input_cost;
+    }
+
+    public double getEstimate_cost() {
+        return estimate_cost;
+    }
+
+    public void setEstimate_cost(double estimate_cost) {
+        this.estimate_cost = estimate_cost;
     }
 
     public List<Coordinate> getCoordinates() {
@@ -199,5 +202,13 @@ public class Detail {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public double getTotal_length() {
+        return total_length;
+    }
+
+    public void setTotal_length(double total_length) {
+        this.total_length = total_length;
     }
 }
