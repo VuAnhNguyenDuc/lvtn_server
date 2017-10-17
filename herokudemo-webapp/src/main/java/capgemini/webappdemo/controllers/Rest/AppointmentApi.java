@@ -2,6 +2,8 @@ package capgemini.webappdemo.controllers.Rest;
 
 import capgemini.webappdemo.domain.Appointment;
 import capgemini.webappdemo.domain.Message;
+import capgemini.webappdemo.domain.User;
+import capgemini.webappdemo.form.AppointmentForm;
 import capgemini.webappdemo.service.Appointment.AppointmentService;
 import capgemini.webappdemo.service.Manager.ManagerService;
 import capgemini.webappdemo.service.User.UserService;
@@ -40,17 +42,14 @@ public class AppointmentApi {
     private Logger logger = LoggerFactory.getLogger(AppointmentApi.class);
 
     @RequestMapping(value = "/api/createAppointment", method = RequestMethod.POST)
-    public ResponseEntity<JSONObject> createAppointment(@RequestBody JSONObject input){
+    public ResponseEntity<JSONObject> createAppointment(@RequestBody AppointmentForm input){
         JSONObject result = new JSONObject();
-        String jsonToken = input.get("json_token").toString();
-        String name = input.get("name").toString();
-        String destination = input.get("destination").toString();
-        String startDate = input.get("start_date").toString();
-        System.out.println(input.get("users"));
-        JSONArray users = (JSONArray) input.get("users");
-        Iterator<JSONObject> ite = users.iterator();
-
-        int status = (int) input.get("status");
+        String jsonToken = input.getJson_token();
+        String name = input.getName();
+        String destination = input.getDestination();
+        String startDate = input.getStart_date();
+        List<User> users = input.getUsers();
+        int status = input.getStatus();
 
         if(jsonToken.equals("") || !jsonTokenUtil.validateKey(jsonToken)){
             result.put("message",0);
@@ -90,9 +89,8 @@ public class AppointmentApi {
             if(apm.getId() == 0){
                 result.put("description","something went wrong when creating appointment");
             } else{
-                while(ite.hasNext()){
-                    JSONObject usr = ite.next();
-                    mngService.assignAppointmentToUser(apm.getId(), (Integer) usr.get("id"));
+                for(User usr : users){
+                    mngService.assignAppointmentToUser(apm.getId(),usr.getId());
                 }
 
                 result.put("message",1);
