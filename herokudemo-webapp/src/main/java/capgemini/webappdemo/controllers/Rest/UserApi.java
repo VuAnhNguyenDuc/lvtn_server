@@ -51,7 +51,6 @@ public class UserApi {
             result.put("message",0);
             result.put("description","invalid json key");
         } else{
-
             String decoded = jsonTokenUtil.getPayloadFromKey(jsonkey);
             TokenPayload token = jsonTokenUtil.parsePayload(decoded);
             if(token.getUser_id() != 0){
@@ -73,8 +72,8 @@ public class UserApi {
 
                 }
             }
-            result.put("message",0);
-            result.put("description","invalid json key");
+            //result.put("message",0);
+            //result.put("description","invalid json key");
         }
         return new ResponseEntity<JSONObject>(result, HttpStatus.OK);
     }

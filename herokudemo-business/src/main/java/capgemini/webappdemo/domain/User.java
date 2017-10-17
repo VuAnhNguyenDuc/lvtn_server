@@ -13,6 +13,7 @@ public class User{
     private String password;
     private String email;
     private int status;
+    private String fullname;
     @Transient
     private String userType;
     @Transient
@@ -82,5 +83,13 @@ public class User{
 
     public void setJson_token(String json_token) {
         this.json_token = json_token;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 }

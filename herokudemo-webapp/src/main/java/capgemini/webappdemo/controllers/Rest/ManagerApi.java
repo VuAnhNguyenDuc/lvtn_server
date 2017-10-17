@@ -7,6 +7,8 @@ import capgemini.webappdemo.service.Employee.EmployeeService;
 import capgemini.webappdemo.service.Manager.ManagerService;
 import capgemini.webappdemo.service.User.UserService;
 import capgemini.webappdemo.utils.JsonTokenUtil;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,20 +34,38 @@ public class ManagerApi {
     private JsonTokenUtil jsonTokenUtil = new JsonTokenUtil();
 
     @RequestMapping(value = "/api/manager/getEmployees", method = RequestMethod.POST)
-    public ResponseEntity<List<User>> getManagedUsers(@RequestBody User usr){
-        if(usr.getJson_token().equals("") || !jsonTokenUtil.validateKey(usr.getJson_token())){
-            return new ResponseEntity<List<User>>(HttpStatus.BAD_REQUEST);
+    public ResponseEntity<JSONObject> getManagedUsers(@RequestBody JSONObject input){
+        String jsonToken = input.get("json_token").toString();
+        JSONObject result = new JSONObject();
+
+        if(jsonToken.equals("") || !jsonTokenUtil.validateKey(jsonToken)){
+            result.put("message",0);
+            result.put("description","invalid json token");
+        } else{
+            int id = jsonTokenUtil.getUserIdFromJsonKey(jsonToken);
+            if(userService.getUserType(id).equals("Employee")){
+                result.put("message",0);
+                result.put("description","this user does not have enough priveledges");
+            } else{
+                List<Employee> emps = employeeService.getEmployeesByManagerId(id);
+                List<User> users = new ArrayList<>();
+                JSONArray empList = new JSONArray();
+                result.put("message",1);
+                for(Employee emp : emps){
+                    User user = userService.get(emp.getUser_id());
+                    JSONObject obj = new JSONObject();
+                    obj.put("id",user.getId());
+                    obj.put("username",user.getUsername());
+                    obj.put("fullname",user.getFullname());
+                    obj.put("email",user.getEmail());
+                    obj.put("status",user.getStatus());
+                    obj.put("type",userService.getUserType(user.getId()));
+                    empList.add(obj);
+                }
+                result.put("listEmployees",empList);
+            }
         }
-        int id = jsonTokenUtil.getUserIdFromJsonKey(usr.getJson_token());
-        List<Employee> emps = employeeService.getEmployeesByManagerId(id);
-        List<User> users = new ArrayList<>();
-        for(Employee emp : emps){
-            User user = userService.get(emp.getUser_id());
-            user.setPassword("");
-            user.setUserType("Employee");
-            users.add(user);
-        }
-        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 

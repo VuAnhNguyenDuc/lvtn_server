@@ -43,7 +43,19 @@ public class PopulateTestData {
 
     @RequestMapping(value = "/populateData", method = RequestMethod.GET)
     public void populateData(){
-        Admin admin = new Admin();
+
+        User mng = userService.get(3);
+        mng.setFullname("Tran Van A");
+        userService.update(mng);
+
+        User dung = userService.get(4);
+        dung.setFullname("Tran Van B");
+        userService.update(dung);
+
+        User dam = userService.get(5);
+        dam.setFullname("Trang Van C");
+        userService.update(dam);
+        /*Admin admin = new Admin();
         admin.setUsername("admin");
         admin.setPassword("admin");
         adminService.add(admin);
@@ -92,6 +104,6 @@ public class PopulateTestData {
             for(User user:users){
                 managerService.assignAppointmentToUser(apm.getId(),user.getId());
             }
-        }
+        }*/
     }
 }
