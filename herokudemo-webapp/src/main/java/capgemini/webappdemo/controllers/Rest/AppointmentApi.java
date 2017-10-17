@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @RestController
@@ -40,13 +41,15 @@ public class AppointmentApi {
 
     @RequestMapping(value = "/api/createAppointment", method = RequestMethod.POST)
     public ResponseEntity<JSONObject> createAppointment(@RequestBody JSONObject input){
-        logger.info("creating appointment - Appointment API");
         JSONObject result = new JSONObject();
         String jsonToken = input.get("json_token").toString();
         String name = input.get("name").toString();
         String destination = input.get("destination").toString();
         String startDate = input.get("start_date").toString();
-        List<JSONObject> users = (List<JSONObject>) input.get("users");
+        System.out.println(input.get("users"));
+        JSONArray users = (JSONArray) input.get("users");
+        Iterator<JSONObject> ite = users.iterator();
+
         int status = (int) input.get("status");
 
         if(jsonToken.equals("") || !jsonTokenUtil.validateKey(jsonToken)){
@@ -87,8 +90,8 @@ public class AppointmentApi {
             if(apm.getId() == 0){
                 result.put("description","something went wrong when creating appointment");
             } else{
-                for(int i = 0; i < users.size(); i++){
-                    JSONObject usr = users.get(i);
+                while(ite.hasNext()){
+                    JSONObject usr = ite.next();
                     mngService.assignAppointmentToUser(apm.getId(), (Integer) usr.get("id"));
                 }
 
