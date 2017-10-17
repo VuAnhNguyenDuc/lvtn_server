@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 public class AppointmentApi {
@@ -45,7 +46,7 @@ public class AppointmentApi {
         String name = input.get("name").toString();
         String destination = input.get("destination").toString();
         String startDate = input.get("start_date").toString();
-        JSONArray users = (JSONArray) input.get("users");
+        List<JSONObject> users = (List<JSONObject>) input.get("users");
         int status = (int) input.get("status");
 
         if(jsonToken.equals("") || !jsonTokenUtil.validateKey(jsonToken)){
@@ -87,7 +88,7 @@ public class AppointmentApi {
                 result.put("description","something went wrong when creating appointment");
             } else{
                 for(int i = 0; i < users.size(); i++){
-                    JSONObject usr = (JSONObject) users.get(i);
+                    JSONObject usr = users.get(i);
                     mngService.assignAppointmentToUser(apm.getId(), (Integer) usr.get("id"));
                 }
 
