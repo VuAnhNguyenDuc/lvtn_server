@@ -24,7 +24,8 @@
 <script type="text/javascript">
 
     jQuery(document).ready(function(){
-        renderMap(${coords});
+        /*renderMap(*/<%--${coords}--%>/*);*/
+        renderMap(locations);
     });
 
     function getData(){
@@ -60,9 +61,23 @@
 
         var marker, i;
 
-        for (i = 0; i < locations.length; i++) {
+        /*for (i = 0; i < locations.length; i++) {
             marker = new google.maps.Marker({
                 position: new google.maps.LatLng(locations[i].latitude, locations[i].longitude),
+                map: map
+            });
+
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                    infowindow.setContent(locations[i][0]);
+                    infowindow.open(map, marker);
+                }
+            })(marker, i));
+        }*/
+
+        for (i = 0; i < locations.length; i++) {
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(locations[i][1], locations[i][2]),
                 map: map
             });
 
