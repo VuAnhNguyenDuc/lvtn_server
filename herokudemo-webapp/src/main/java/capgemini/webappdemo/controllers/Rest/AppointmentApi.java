@@ -2,12 +2,13 @@ package capgemini.webappdemo.controllers.Rest;
 
 import capgemini.webappdemo.domain.Appointment;
 import capgemini.webappdemo.domain.Message;
-import capgemini.webappdemo.domain.User;
 import capgemini.webappdemo.service.Appointment.AppointmentService;
 import capgemini.webappdemo.service.Manager.ManagerService;
 import capgemini.webappdemo.service.User.UserService;
 import capgemini.webappdemo.utils.CommonUtils;
 import capgemini.webappdemo.utils.JsonTokenUtil;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.util.Date;
-import java.util.List;
 
 @RestController
 public class AppointmentApi {
@@ -38,48 +38,64 @@ public class AppointmentApi {
     private Logger logger = LoggerFactory.getLogger(AppointmentApi.class);
 
     @RequestMapping(value = "/api/createAppointment", method = RequestMethod.POST)
-    public ResponseEntity<Message> createAppointment(@RequestBody Appointment apm){
+    public ResponseEntity<JSONObject> createAppointment(@RequestBody JSONObject input){
         logger.info("creating appointment - Appointment API");
-        Message msg = new Message("");
-        if(apm.getJson_token().equals("") || !jsonTokenUtil.validateKey(apm.getJson_token())){
-            return new ResponseEntity<Message>(new Message("invalid json token"),HttpStatus.BAD_REQUEST);
+        JSONObject result = new JSONObject();
+        String jsonToken = input.get("json_token").toString();
+        String name = input.get("name").toString();
+        String destination = input.get("destination").toString();
+        String startDate = input.get("start_date").toString();
+        JSONArray users = (JSONArray) input.get("users");
+        int status = (int) input.get("status");
+
+        if(jsonToken.equals("") || !jsonTokenUtil.validateKey(jsonToken)){
+            result.put("message",0);
+            result.put("description","invalid json token");
+            return new ResponseEntity<>(result,HttpStatus.OK);
         }
 
-        int id = jsonTokenUtil.getUserIdFromJsonKey(apm.getJson_token());
+        int id = jsonTokenUtil.getUserIdFromJsonKey(jsonToken);
         if(!userService.getUserType(id).equals("Manager")){
-            return new ResponseEntity<Message>(new Message("This user does not have enough privileges",""),HttpStatus.OK);
+            result.put("message",0);
+            result.put("description","this user does not have enough priviledges");
+            return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
         }
 
-        if(apm.getName() == null || !within(apm.getName(),8,32)){
-            msg = new Message("appointment name must not be empty and within 8 to 32 characters");
-        } else if(apm.getDestination() == null){
-            msg.setMessage("appointment destination must not be empty");
-        } else if(apm.getUsers() == null){
-            msg.setMessage("please input at least one user who will take this appointment");
-        } else if(apm.getDate_str() == null){
-            msg.setMessage("please input the start date of this appointment with column date_str");
+        result.put("message",0);
+        if(name == null || !within(name,8,32)){
+            result.put("description","appointment name must not be empty and within 8 to 32 characters");
+        } else if(destination == null){
+            result.put("description","appointment destination must not be empty");
+        } else if(users == null){
+            result.put("description","please input at least one user who will take this appointment");
+        } else if(startDate == null){
+            result.put("description","please input the start date of this appointment");
         } else{
+            Appointment apm = new Appointment();
+            apm.setName(name);
+            apm.setDestination(destination);
             apm.setManager_id(id);
-            apm.setStatus(1);
+            apm.setStatus(status);
             try {
-                Date date = commonUtils.convertStringToDate(apm.getDate_str());
+                Date date = commonUtils.convertStringToDate(startDate);
                 apm.setStart_date(date);
                 apmService.add(apm);
             } catch (ParseException e) {
                 logger.info(e.getMessage());
             }
             if(apm.getId() == 0){
-                msg.setMessage("something went wrong when creating appointment");
+                result.put("description","something went wrong when creating appointment");
             } else{
-                List<User> users = apm.getUsers();
-                for(User user:users){
-                    mngService.assignAppointmentToUser(apm.getId(),user.getId());
+                for(int i = 0; i < users.size(); i++){
+                    JSONObject usr = (JSONObject) users.get(i);
+                    mngService.assignAppointmentToUser(apm.getId(), (Integer) usr.get("id"));
                 }
-                msg.setMessage("success");
-                msg.setId(apm.getId());
+
+                result.put("message",1);
+                result.put("appointment_id",apm.getId());
             }
         }
-        return new ResponseEntity<Message>(msg, HttpStatus.OK);
+        return new ResponseEntity<JSONObject>(result, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/api/endAppointment", method = RequestMethod.POST)
