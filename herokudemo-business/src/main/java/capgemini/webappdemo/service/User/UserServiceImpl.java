@@ -55,8 +55,8 @@ public class UserServiceImpl extends EntityServiceImpl<User> implements UserServ
 	}
 
 	@Override
-	public List<UserAppointmentView> getAllAppointments(int id) {
-		return Repository.getAllAppointments(id);
+	public List<UserAppointmentView> getCompletedAppointments(int id) {
+		return Repository.getCompletedAppointments(id);
 	}
 
 	@Override

@@ -1,15 +1,15 @@
 package capgemini.webappdemo.controllers.Rest;
 
+import capgemini.webappdemo.domain.Coordinate;
 import capgemini.webappdemo.domain.Detail;
-import capgemini.webappdemo.domain.Message;
 import capgemini.webappdemo.domain.Vehicle;
 import capgemini.webappdemo.service.Detail.DetailService;
 import capgemini.webappdemo.service.Vehicle.VehicleService;
+import capgemini.webappdemo.utils.CalculateDistance;
+import capgemini.webappdemo.utils.CalculateMoney;
 import capgemini.webappdemo.utils.CommonUtils;
 import capgemini.webappdemo.utils.JsonTokenUtil;
 import org.json.simple.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +28,8 @@ public class DetailApi {
 
     private CommonUtils commonUtils = new CommonUtils();
     private JsonTokenUtil jsonTokenUtil = new JsonTokenUtil();
+    private CalculateDistance cd = new CalculateDistance();
+    private CalculateMoney cm = new CalculateMoney();
 
     @RequestMapping(value = "/api/createDetail", method = RequestMethod.POST)
     public ResponseEntity<JSONObject> createDetail(@RequestBody JSONObject input) throws ParseException {
@@ -136,6 +138,7 @@ public class DetailApi {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+                calculate(id,dt.getCoordinates());
                 result.put("message",1);
             }
         }
@@ -234,6 +237,19 @@ public class DetailApi {
     @RequestMapping(value = "/api/getVehicles", method = RequestMethod.GET)
     public ResponseEntity<List<Vehicle>> getVehicles(){
         return new ResponseEntity<List<Vehicle>>(vehicleService.getAll(),HttpStatus.OK);
+    }
+
+    private void calculate(int detail_id,List<Coordinate> coords){
+        Detail dt = detailService.get(detail_id);
+        // total_length in km
+        double total_length = cd.getTotalDistance(coords);
+        // time in seconds
+        long total_time = commonUtils.getSeconds(dt.getStart_time(),dt.getEnd_time());
+        dt.setTotal_length(total_length);
+        dt.setEstimate_cost(cm.getEstimateCost(vehicleService.get(dt.getVehicle_id()).getName(),total_length,total_time));
+        // velocity km/h
+        dt.setAverage_velocity((total_length*3600)/total_time);
+        detailService.update(dt);
     }
 }
 

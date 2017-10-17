@@ -114,10 +114,17 @@ public class UserAjax {
             object.put("appointment_id", ap.getAppointment_id());
             object.put("appointment_name", ap.getAppointment_name());
             object.put("start_date", utils.convertDateToString(ap.getStart_date()));
+            if(ap.getEnd_date() != null){
+                object.put("end_date", utils.convertDateToString(ap.getEnd_date()));
+            } else{
+                object.put("end_date","");
+            }
             object.put("create_by", mng.getUsername());
 
             if(ap.getStatus() == 1){
                 object.put("status","Active");
+            } else if(ap.getStatus() == 2){
+                object.put("status","Note");
             } else{
                 object.put("status","Finished");
             }

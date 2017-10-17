@@ -1,26 +1,30 @@
 package capgemini.webappdemo.controllers.Rest;
 
 import capgemini.webappdemo.domain.Coordinate;
-import capgemini.webappdemo.domain.Message;
+import capgemini.webappdemo.domain.Detail;
 import capgemini.webappdemo.form.CoordinateForm;
 import capgemini.webappdemo.service.Coordinate.CoordinateService;
+import capgemini.webappdemo.service.Detail.DetailService;
+import capgemini.webappdemo.utils.CalculateDistance;
+import capgemini.webappdemo.utils.CalculateMoney;
 import capgemini.webappdemo.utils.CommonUtils;
 import org.json.simple.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class CoordinateApi {
     @Autowired
     private CoordinateService coordinateService;
+
+    @Autowired
+    private DetailService dtService;
 
     private CommonUtils commonUtils = new CommonUtils();
 
@@ -30,6 +34,7 @@ public class CoordinateApi {
         int detailId = input.getDetail_id();
         List<CoordinateForm.Coor> coordinates = input.getCoordinates();
 
+        List<Coordinate> coords = new ArrayList<>();
         JSONObject result = new JSONObject();
 
         boolean flag = true;
@@ -43,6 +48,7 @@ public class CoordinateApi {
             co.setLatitude(latitude);
             co.setLongitude(longitude);
             co.setDetail_id(detailId);
+            coords.add(co);
             coordinateService.add(co);
             if(co.getId() == 0){
                 result.put("message",0);
@@ -52,6 +58,7 @@ public class CoordinateApi {
             }
         }
         if(flag){
+
             result.put("message",1);
         }
         return new ResponseEntity<JSONObject>(result, HttpStatus.OK);

@@ -34,7 +34,11 @@
                 </tr>
                 <tr>
                     <td>Start Date</td>
-                    <td>${apm.date_str}</td>
+                    <td>${apm.start_date_str}</td>
+                </tr>
+                <tr>
+                    <td>End Date</td>
+                    <td>${apm.end_date_str}</td>
                 </tr>
                 <tr>
                     <td>Users Participate</td>
@@ -64,9 +68,11 @@
                     <th>End Location</th>
                     <th>Vehicle</th>
                     <th>Created By</th>
-                    <th>Total Length</th>
+                    <th>Total Length (km)</th>
+                    <th>Average Velocity (km/h)</th>
                     <th>Input Cost</th>
                     <th>Estimate Cost</th>
+
                     <th>Image Content</th>
                 </tr>
                 </thead>
@@ -80,6 +86,7 @@
                         <td>${dt.vehicle_name}</td>
                         <td>${dt.user_created_name}</td>
                         <td>${dt.total_length}</td>
+                        <td>${dt.average_velocity}</td>
                         <td>${dt.input_cost}</td>
                         <td>${dt.estimate_cost}</td>
                         <td>Img</td>

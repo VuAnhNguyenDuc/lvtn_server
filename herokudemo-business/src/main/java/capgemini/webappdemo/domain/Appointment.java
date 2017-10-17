@@ -19,17 +19,16 @@ public class Appointment {
     private Integer status;
 
     @Transient
-    private String date_str;
-    @Transient
     private List<Detail> details;
     @Transient
     private List<User> users;
-    @Transient
-    private String json_token;
 
     private int manager_id;
 
-    //private String jsonKey;
+    @Transient
+    private String start_date_str;
+    @Transient
+    private String end_date_str;
 
 
     public int getManager_id() {
@@ -108,19 +107,19 @@ public class Appointment {
         this.users = users;
     }
 
-    public String getDate_str() {
-        return date_str;
+    public String getStart_date_str() {
+        return start_date_str;
     }
 
-    public void setDate_str(String date_str) {
-        this.date_str = date_str;
+    public void setStart_date_str(String start_date_str) {
+        this.start_date_str = start_date_str;
     }
 
-    public String getJson_token() {
-        return json_token;
+    public String getEnd_date_str() {
+        return end_date_str;
     }
 
-    public void setJson_token(String json_token) {
-        this.json_token = json_token;
+    public void setEnd_date_str(String end_date_str) {
+        this.end_date_str = end_date_str;
     }
 }

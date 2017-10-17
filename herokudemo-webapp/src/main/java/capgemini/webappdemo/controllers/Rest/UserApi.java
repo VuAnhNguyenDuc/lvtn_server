@@ -2,9 +2,10 @@ package capgemini.webappdemo.controllers.Rest;
 
 import capgemini.webappdemo.domain.*;
 import capgemini.webappdemo.form.AppointmentForm;
-import capgemini.webappdemo.form.ChangePasswordForm;
 import capgemini.webappdemo.service.Appointment.AppointmentService;
 import capgemini.webappdemo.service.User.UserService;
+import capgemini.webappdemo.service.Vehicle.VehicleService;
+import capgemini.webappdemo.utils.CalculateDistance;
 import capgemini.webappdemo.utils.CommonUtils;
 import capgemini.webappdemo.utils.JsonTokenUtil;
 import capgemini.webappdemo.utils.TokenPayload;
@@ -16,13 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -37,6 +34,9 @@ public class UserApi {
 
     @Autowired
     private AppointmentService apmService;
+
+    @Autowired
+    private VehicleService vehicleService;
 
     private static final Logger logger = LoggerFactory.getLogger(UserApi.class);
 
@@ -150,7 +150,7 @@ public class UserApi {
         return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/api/getAllAppointments", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/getCompletedAppointments", method = RequestMethod.POST)
     public ResponseEntity<JSONObject> getAllAps(@RequestBody JSONObject input){
         System.out.println("getting all appointments - User API");
         String jsonToken = input.get("json_token").toString();
@@ -161,14 +161,14 @@ public class UserApi {
             return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
         }
         int id = jsonTokenUtil.getUserIdFromJsonKey(jsonToken);
-        List<UserAppointmentView> uavs = userService.getAllAppointments(id);
+        List<UserAppointmentView> uavs = userService.getCompletedAppointments(id);
         JSONArray uavList = new JSONArray();
         for(UserAppointmentView uav : uavs){
             JSONObject obj = new JSONObject();
             obj.put("id",uav.getAppointment_id());
             obj.put("destination",uav.getDestination());
             obj.put("start_date",commonUtils.convertDateToString(uav.getStart_date()));
-            obj.put("end_date","asdw");
+            obj.put("end_date",commonUtils.convertDateToString(uav.getEnd_date()));
             obj.put("total_cost",100);
             uavList.add(obj);
         }
@@ -191,8 +191,24 @@ public class UserApi {
             UserAppointmentView uav = userService.getAppointment(id);
             JSONObject obj = new JSONObject();
             obj.put("id",uav.getAppointment_id());
+            obj.put("status",uav.getStatus());
             obj.put("destination",uav.getDestination());
             obj.put("start_date",commonUtils.convertDateToString(uav.getStart_date()));
+            if(uav.getStatus() == 0){
+                Appointment ap = apmService.get(uav.getAppointment_id());
+                List<Detail> dts = ap.getDetails();
+                CalculateDistance cd = new CalculateDistance();
+                double length = 0;
+                JSONArray vehicles = new JSONArray();
+                for(Detail dt:dts){
+                    length+= cd.getTotalDistance(dt.getCoordinates());
+                    JSONObject temp = new JSONObject();
+                    temp.put("name",vehicleService.get(dt.getVehicle_id()));
+                    vehicles.add(temp);
+                }
+                obj.put("distance",length);
+                obj.put("vehicles",vehicles);
+            }
             //result.put("end_date",commonUtils.convertDateToString())
             result.put("message",1);
             result.put("appointment",obj);

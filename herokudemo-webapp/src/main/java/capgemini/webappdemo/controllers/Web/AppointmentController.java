@@ -75,7 +75,10 @@ public class AppointmentController {
                 calculateDetail(dt);
             }
             app.setUsers(users);
-            app.setDate_str(commonUtils.convertDateToString(app.getStart_date()));
+            app.setStart_date_str(commonUtils.convertDateToString(app.getStart_date()));
+            if(app.getEnd_date() != null){
+                app.setEnd_date_str(commonUtils.convertDateToString(app.getEnd_date()));
+            }
             app.setDetails(details);
             model.addAttribute("pageName","appointment");
             model.addAttribute("apm",app);

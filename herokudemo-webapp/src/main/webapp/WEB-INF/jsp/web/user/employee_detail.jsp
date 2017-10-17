@@ -159,6 +159,7 @@
             "            <th>Appointment Name</th>\n" +
             "            <th>Created By</th>\n" +
             "            <th>Start Date</th>\n" +
+            "            <th>End Date</th>\n" +
             "            <th>Status</th>\n" +
             "        </tr>\n" +
             "        </thead>\n" +
@@ -170,6 +171,7 @@
                 "                <td>"+obj.appointment_name+"</td>\n" +
                 "                <td>"+obj.create_by+"</td>\n" +
                 "                <td>"+obj.start_date+"</td>\n" +
+                "                <td>"+obj.end_date+"</td>\n" +
                 "                <td>"+obj.status+"</td>\n" +
                 "            </tr>\n";
         }

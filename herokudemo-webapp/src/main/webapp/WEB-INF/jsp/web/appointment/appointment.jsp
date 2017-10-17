@@ -41,6 +41,7 @@
                         <td><%= i %></td>
                         <td>${apm.appointment_name}</td>
                         <td>${apm.start_date_str}</td>
+                        <td>${apm.end_date_str}</td>
                         <td>
                             <c:choose>
                                 <c:when test="${apm.status == 1}">

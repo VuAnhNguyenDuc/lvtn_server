@@ -1,7 +1,6 @@
 package capgemini.webappdemo.controllers.Rest;
 
 import capgemini.webappdemo.domain.Appointment;
-import capgemini.webappdemo.domain.Message;
 import capgemini.webappdemo.domain.User;
 import capgemini.webappdemo.form.AppointmentForm;
 import capgemini.webappdemo.service.Appointment.AppointmentService;
@@ -9,7 +8,6 @@ import capgemini.webappdemo.service.Manager.ManagerService;
 import capgemini.webappdemo.service.User.UserService;
 import capgemini.webappdemo.utils.CommonUtils;
 import capgemini.webappdemo.utils.JsonTokenUtil;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 @RestController
@@ -103,16 +100,26 @@ public class AppointmentApi {
     }
 
     @RequestMapping(value = "/api/endAppointment", method = RequestMethod.POST)
-    public ResponseEntity<Message> endAppointment(@RequestBody Appointment apm){
-        if(apm.getJson_token().equals("") || jsonTokenUtil.validateKey(apm.getJson_token())){
-            return new ResponseEntity<Message>(new Message("invalid json token"),HttpStatus.BAD_REQUEST);
+    public ResponseEntity<JSONObject> endAppointment(@RequestBody JSONObject input) throws ParseException {
+        JSONObject result = new JSONObject();
+        String jsonToken = input.get("json_token").toString();
+        int id = (int) input.get("id");
+        String endDate = input.get("end_date").toString();
+
+        result.put("message",0);
+        if(jsonToken.equals("") || jsonTokenUtil.validateKey(jsonToken)){
+            result.put("description","invalid json token");
+            return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
         }
-        if(apm.getId() == 0){
-            return new ResponseEntity<Message>(HttpStatus.NO_CONTENT);
+        if(id == 0){
+            result.put("description","please input proper id value");
+            return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
         } else{
-            Appointment ap = apmService.get(apm.getId());
+            Appointment ap = apmService.get(id);
             ap.setStatus(0);
-            return new ResponseEntity<Message>(new Message("success",""),HttpStatus.OK);
+            ap.setEnd_date(commonUtils.convertStringToDate(endDate));
+            result.put("message",1);
+            return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
         }
     }
 

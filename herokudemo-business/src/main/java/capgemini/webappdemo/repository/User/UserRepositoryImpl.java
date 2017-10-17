@@ -106,21 +106,25 @@ public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements Us
 
 	@Override
 	public List<UserAppointmentView> getActiveAppointments(int id) {
-		List<UserAppointmentView> all = getAllAppointments(id);
-		List<UserAppointmentView> result = new ArrayList<UserAppointmentView>();
-		for(UserAppointmentView ap : all){
-			if(ap.getStatus() == 1){
-				result.add(ap);
+		Session session = getSession();
+
+		String strQuery = "from UserAppointmentView uav where uav.user_id = :id and uav.status = 1";
+		Query query = session.createQuery(strQuery);
+		query.setParameter("id",id);
+		List<UserAppointmentView> result = query.list();
+		if(result.size() > 0){
+			for(UserAppointmentView uav : result){
+				getUAVInfo(uav);
 			}
 		}
 		return result;
 	}
 
 	@Override
-	public List<UserAppointmentView> getAllAppointments(int id) {
+	public List<UserAppointmentView> getCompletedAppointments(int id) {
 		Session session = getSession();
 
-		String strQuery = "from UserAppointmentView uav where uav.user_id = :id";
+		String strQuery = "from UserAppointmentView uav where uav.user_id = :id and uav.status = 0";
 		Query query = session.createQuery(strQuery);
 		query.setParameter("id",id);
 

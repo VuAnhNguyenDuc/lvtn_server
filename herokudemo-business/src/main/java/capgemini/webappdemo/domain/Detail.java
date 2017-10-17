@@ -31,19 +31,15 @@ public class Detail {
     private Date end_time;
 
     @Transient
-    private String start_time_string;
-    @Transient
-    private String end_time_string;
-    @Transient
     private String vehicle_name;
 
     private int user_created;
     @Transient
     private String user_created_name;
-    @Transient
-    private String json_token;
-    @Transient
+
     private double total_length;
+
+    private double average_velocity;
 
 
     public Date getEnd_time() {
@@ -124,22 +120,6 @@ public class Detail {
         this.coordinates = coordinates;
     }
 
-    public String getStart_time_string() {
-        return start_time_string;
-    }
-
-    public void setStart_time_string(String start_time_string) {
-        this.start_time_string = start_time_string;
-    }
-
-    public String getEnd_time_string() {
-        return end_time_string;
-    }
-
-    public void setEnd_time_string(String end_time_string) {
-        this.end_time_string = end_time_string;
-    }
-
     public String getImage_content() {
         return image_content;
     }
@@ -172,14 +152,6 @@ public class Detail {
         this.user_created_name = user_created_name;
     }
 
-    public String getJson_token() {
-        return json_token;
-    }
-
-    public void setJson_token(String json_token) {
-        this.json_token = json_token;
-    }
-
     public String getStart_location() {
         return start_location;
     }
@@ -210,5 +182,13 @@ public class Detail {
 
     public void setTotal_length(double total_length) {
         this.total_length = total_length;
+    }
+
+    public double getAverage_velocity() {
+        return average_velocity;
+    }
+
+    public void setAverage_velocity(double average_velocity) {
+        this.average_velocity = average_velocity;
     }
 }

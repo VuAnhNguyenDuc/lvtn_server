@@ -15,9 +15,6 @@ public class Coordinate {
     private double latitude;
     private int detail_id;
 
-    @Transient
-    private String time_str;
-
     public int getDetail_id() {
         return detail_id;
     }
@@ -30,12 +27,11 @@ public class Coordinate {
         this.id = 0;
     }
 
-    public Coordinate(Date time, float longitude, float latitude, int detail_id, String time_str) {
+    public Coordinate(Date time, float longitude, float latitude, int detail_id) {
         this.time = time;
         this.longitude = longitude;
         this.latitude = latitude;
         this.detail_id = detail_id;
-        this.time_str = time_str;
     }
 
     public Integer getId() {
@@ -68,13 +64,5 @@ public class Coordinate {
 
     public void setLatitude(double latitude) {
         this.latitude = latitude;
-    }
-
-    public String getTime_str() {
-        return time_str;
-    }
-
-    public void setTime_str(String time_str) {
-        this.time_str = time_str;
     }
 }
