@@ -52,7 +52,13 @@
                 </tr>
                 <tr>
                     <td>Status</td>
-                    <td>${apm.status}</td>
+                    <c:when test="${apm.status == 1}">
+                        <td>Active</td>
+                    </c:when>
+                    <c:otherwise>
+                        <td>Inactive</td>
+                    </c:otherwise>
+                    <%--<td>${apm.status}</td>--%>
                 </tr>
                 </tbody>
             </table>
