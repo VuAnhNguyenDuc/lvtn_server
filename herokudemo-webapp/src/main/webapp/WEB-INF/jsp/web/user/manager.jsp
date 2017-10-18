@@ -31,6 +31,7 @@
                     <th>Employees Managed</th>
                     <th>Status</th>
                     <th></th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -62,6 +63,8 @@
                         </td>
                         <td>
                             <a href="/user/details?id=${mng.user_id}&type=manager" class="btn btn-primary">Details</a>
+                        </td>
+                        <td>
                             <a href="/manager/update?id=${emp.user_id}" class="btn btn-danger">Update</a>
                         </td>
                     </tr>
