@@ -118,6 +118,7 @@ public class UserController {
             User usr = service.get(id);
             ManagerForm mngF = new ManagerForm();
             mngF.setEmail(usr.getEmail());
+            mngF.setPassword(usr.getPassword());
             mngF.setUsername(usr.getUsername());
             mngF.setFull_name(usr.getFullname());
             mngF.setStatus(usr.getStatus());
@@ -132,13 +133,8 @@ public class UserController {
         if(result.hasErrors()){
             return "web/user/manager_update";
         }
-        /*if(service.checkUserExist(managerForm.getUsername())){
-            model.addAttribute("error","This username was used by another user");
-            return "web/user/manager_update";
-        }*/
         User usr = service.get(id);
         usr.setUserType("Manager");
-        usr.setUsername(managerForm.getUsername());
         usr.setEmail(managerForm.getEmail());
         usr.setStatus(managerForm.getStatus());
         usr.setFullname(managerForm.getFull_name());
@@ -241,7 +237,6 @@ public class UserController {
         }*/
         User usr = service.get(id);
         usr.setUserType("Employee");
-        usr.setUsername(employeeForm.getUsername());
         usr.setEmail(employeeForm.getEmail());
         usr.setStatus(usr.getStatus());
         usr.setFullname(employeeForm.getFull_name());

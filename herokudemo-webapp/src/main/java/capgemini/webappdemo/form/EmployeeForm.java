@@ -1,10 +1,22 @@
 package capgemini.webappdemo.form;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class EmployeeForm {
+    @NotNull
+    @Size(min = 4, max = 32,message = "username must be from between 4 to 32 characters")
     private String username;
+    @NotNull
+    @Size(min = 4, max = 32,message = "password must be from between 4 to 32 characters")
     private String password;
+    @NotNull
+    @Size(min = 4, max = 32,message = "full name must be from between 4 to 32 characters")
     private String full_name;
+    @NotNull
     private int manager_id;
+    @NotNull
+    @Size(min = 4, max = 32,message = "email must be from between 4 to 32 characters")
     private String email;
     private int status;
 

@@ -24,7 +24,7 @@
         <form:form modelAttribute="employeeForm" method="post">
             <div class="form-group>">
                 <label for="username">Full name: </label>
-                <form:input path="full_name" type="text" class="form-control" id="full_name" value="${employeeForm.full_name}"/>
+                <form:input path="full_name" type="text" class="form-control" id="full_name" value="${employeeForm.full_name}" readonly="true"/>
                 <form:errors path="full_name" cssClass="form-error" class="form-control"/>
             </div>
 
