@@ -31,7 +31,7 @@
                     <th>Employee's Manager</th>
                     <th>Status</th>
                     <th></th>
-                    <th></th>
+                    <%--<th></th>--%>
                 </tr>
                 </thead>
                 <tbody>
@@ -56,10 +56,11 @@
                         </td>
                         <td>
                             <a href="/user/details?id=${emp.user_id}&type=employee" class="btn btn-primary">Details</a>
-                        </td>
-                        <td>
                             <a href="/employee/update?id=${emp.user_id}" class="btn btn-danger">Update</a>
                         </td>
+                        <%--<td>
+                            <a href="/employee/update?id=${emp.user_id}" class="btn btn-danger">Update</a>
+                        </td>--%>
                     </tr>
                     <%
                         i = i + 1;

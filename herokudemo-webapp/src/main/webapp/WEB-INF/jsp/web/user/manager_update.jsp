@@ -25,19 +25,19 @@
 
             <div class="form-group>">
                 <label for="username">Full name: </label>
-                <form:input path="full_name" type="text" class="form-control" id="full_name" value = "${managerForm.getFull_name()}"/>
+                <form:input path="full_name" type="text" class="form-control" id="full_name" value = "${managerForm.full_name}"/>
                 <form:errors path="full_name" cssClass="form-error" class="form-control"/>
             </div>
 
             <div class="form-group>">
                 <label for="username">Username: </label>
-                <form:input path="username" type="text" class="form-control" id="username" value = "${managerForm.getUsername()}"/>
+                <form:input path="username" type="text" class="form-control" id="username" value = "${managerForm.username}"/>
                 <form:errors path="username" cssClass="form-error" class="form-control"/>
             </div>
 
             <div class="form-group>">
                 <label for="email">Email: </label>
-                <form:input path="email" type="text" class="form-control" id="email" value = "${managerForm.getEmail()}"/>
+                <form:input path="email" type="text" class="form-control" id="email" value = "${managerForm.email}"/>
                 <form:errors path="email" cssClass="form-error" class="form-control"/>
             </div>
 
@@ -45,7 +45,7 @@
                 <label for="status">Status: </label>
                 <form:select path="status" class="form-control" id="status">
                     <c:choose>
-                        <c:when test="${managerForm.getStatus() == 1}">
+                        <c:when test="${managerForm.status == 1}">
                             <form:option value="1" selected="true">Active</form:option>
                             <form:option value="-1">Inactive</form:option>
                         </c:when>
