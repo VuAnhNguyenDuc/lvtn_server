@@ -85,8 +85,8 @@ public class UserApi {
     @RequestMapping(value = "/api/login", method = RequestMethod.POST)
     public ResponseEntity<JSONObject> loginApi(@RequestBody JSONObject input){
         System.out.println("user login in - User API");
-        String username = input.get("username").toString();
-        String password = input.get("password").toString();
+        String username = (input.get("username")!=null)? input.get("username").toString() : null;
+        String password = (input.get("password")!=null)? input.get("password").toString() :null;
 
         JSONObject result = new JSONObject();
 
