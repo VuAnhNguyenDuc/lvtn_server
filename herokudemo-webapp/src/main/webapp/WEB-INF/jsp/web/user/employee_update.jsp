@@ -30,8 +30,9 @@
 
             <div class="form-group>">
                 <label for="username">Username: </label>
-                <form:input path="username" type="text" class="form-control" id="username" value="${employeeForm.username}" disabled="true"/>
-                <form:errors path="username" cssClass="form-error" class="form-control"/>
+                <%--<form:input path="username" type="text" class="form-control" id="username" value="${employeeForm.username}" disabled="true"/>
+                <form:errors path="username" cssClass="form-error" class="form-control"/>--%>
+                <input type="text" class="form-control" id="username" value="${employeeForm.username}" disabled="true" readonly="readonly"/>
             </div>
 
             <div class="form-group>">
