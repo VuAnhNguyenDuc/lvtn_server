@@ -116,20 +116,20 @@ public class UserController {
             return "redirect:/login";
         } else{
             User usr = service.get(id);
-            ManagerForm mngF = new ManagerForm();
-            mngF.setEmail(usr.getEmail());
-            mngF.setPassword(usr.getPassword());
-            mngF.setUsername(usr.getUsername());
-            mngF.setFull_name(usr.getFullname());
-            mngF.setStatus(usr.getStatus());
+            ManagerForm managerForm = new ManagerForm();
+            managerForm.setEmail(usr.getEmail());
+            managerForm.setPassword(usr.getPassword());
+            managerForm.setUsername(usr.getUsername());
+            managerForm.setFull_name(usr.getFullname());
+            managerForm.setStatus(usr.getStatus());
             model.addAttribute("pageName","manager");
-            model.addAttribute("managerForm",mngF);
+            model.addAttribute("managerForm",managerForm);
             return "web/user/manager_update";
         }
     }
 
     @RequestMapping(value = "/manager/update", method = RequestMethod.POST,params = "id")
-    public String updateManagerPost(@ModelAttribute("employeeForm") @Valid ManagerForm managerForm, BindingResult result, ModelMap model,@RequestParam("id") int id){
+    public String updateManagerPost(@ModelAttribute("managerForm") @Valid ManagerForm managerForm, BindingResult result, ModelMap model,@RequestParam("id") int id){
         if(result.hasErrors()){
             return "web/user/manager_update";
         }
@@ -214,14 +214,14 @@ public class UserController {
         } else{
             User usr = service.get(id);
             Employee emp = empService.get(id);
-            EmployeeForm empF = new EmployeeForm();
-            empF.setEmail(usr.getEmail());
-            empF.setUsername(usr.getUsername());
-            empF.setFull_name(usr.getFullname());
-            empF.setManager_id(emp.getManager_id());
-            empF.setStatus(usr.getStatus());
+            EmployeeForm employeeForm = new EmployeeForm();
+            employeeForm.setEmail(usr.getEmail());
+            employeeForm.setUsername(usr.getUsername());
+            employeeForm.setFull_name(usr.getFullname());
+            employeeForm.setManager_id(emp.getManager_id());
+            employeeForm.setStatus(usr.getStatus());
             model.addAttribute("pageName","employee");
-            model.addAttribute("employeeForm",empF);
+            model.addAttribute("employeeForm",employeeForm);
             return "web/user/employee_update";
         }
     }
