@@ -49,7 +49,6 @@ public class CoordinateApi {
             co.setLatitude(latitude);
             co.setLongitude(longitude);
             co.setDetail_id(detailId);
-            coords.add(co);
             coordinateService.add(co);
             if(co.getId() == 0){
                 result.put("message",0);
