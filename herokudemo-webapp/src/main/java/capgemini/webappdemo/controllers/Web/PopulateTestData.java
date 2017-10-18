@@ -77,6 +77,7 @@ public class PopulateTestData {
         mng.setPassword("mng");
         mng.setFullname("Vu Anh");
         mng.setEmail("mng@mgial.com");
+        mng.setStatus(1);
         userService.add(mng);
 
         Manager mngM = new Manager();
@@ -90,6 +91,7 @@ public class PopulateTestData {
         emp.setPassword("emp");
         emp.setFullname("Tran Van A");
         emp.setEmail("emp@gmail.com");
+        emp.setStatus(1);
         userService.add(emp);
 
         Employee empE = new Employee();
@@ -104,6 +106,7 @@ public class PopulateTestData {
         dung.setPassword("dung");
         dung.setFullname("Tran Van B");
         dung.setEmail("dung@gmail.com");
+        dung.setStatus(1);
         userService.add(dung);
 
         empE = new Employee();
@@ -118,6 +121,7 @@ public class PopulateTestData {
         dam.setPassword("dam");
         dam.setFullname("Tran Van C");
         dam.setEmail("dam@gmail.com");
+        dam.setStatus(1);
         userService.add(dam);
 
         empE = new Employee();
