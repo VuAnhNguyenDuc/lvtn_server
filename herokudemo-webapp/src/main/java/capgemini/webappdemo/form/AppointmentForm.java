@@ -13,6 +13,7 @@ public class AppointmentForm {
     private String start_date;
     private List<User> users;
     private int status;
+    private int appointment_id;
 
     public String getJson_token() {
         return json_token;
@@ -60,5 +61,13 @@ public class AppointmentForm {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getAppointment_id() {
+        return appointment_id;
+    }
+
+    public void setAppointment_id(int appointment_id) {
+        this.appointment_id = appointment_id;
     }
 }

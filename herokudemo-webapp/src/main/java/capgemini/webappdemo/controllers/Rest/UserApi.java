@@ -225,6 +225,7 @@ public class UserApi {
         String destination = input.getDestination();
         String startDate = input.getStart_date();
         int status = input.getStatus();
+        int appointment_id = input.getAppointment_id();
         List<User> users = input.getUsers();
 
         if(jsonToken.equals("") || !jsonTokenUtil.validateKey(jsonToken)){
@@ -237,17 +238,19 @@ public class UserApi {
             if(!userService.getUserType(id).equals("Manager")){
                 result.put("description","This user does not have enough priviledge to use this funciton");
             } else{
-                Appointment apm = apmService.getApmByName(name);
+                Appointment apm = apmService.get(appointment_id);
                 if(apm == null){
                     result.put("description","this appointment does not exist");
                 } else{
+                    apm.setName(name);
                     apm.setDestination(destination);
                     apm.setStart_date(commonUtils.convertStringToDate(startDate));
                     apm.setStatus(status);
                     List<User> usrs = apmService.getUsersOfAppointment(apm.getId());
-                    if(usrs.equals(users)){
+                    if(compareUsers(usrs,users)){
                         apmService.updateAppointment(apm,false);
                     } else{
+                        apm.setUsers(users);
                         apmService.updateAppointment(apm,true);
                     }
                     result.put("message",1);
@@ -255,6 +258,21 @@ public class UserApi {
             }
             return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
         }
+    }
+
+    private boolean compareUsers(List<User> u1,List<User> u2){
+        int s1 = u1.size();
+        int s2 = u2.size();
+        if(s1 != s2){
+            return false;
+        } else{
+            for(int i = 0; i < s1; i++){
+                if(u1.get(i).getId() != u2.get(i).getId()){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 }
