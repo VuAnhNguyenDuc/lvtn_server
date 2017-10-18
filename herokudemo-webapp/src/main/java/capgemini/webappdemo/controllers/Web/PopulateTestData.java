@@ -50,8 +50,8 @@ public class PopulateTestData {
     public void populateData() throws ParseException {
         Coordinate coor = new Coordinate();
         coor.setDetail_id(1);
-        coor.setLongitude(123.123);
-        coor.setLatitude(123.123);
+        coor.setLongitude(123);
+        coor.setLatitude(123);
         coor.setTime(cu.convertStringToDate("11:00 18-10-2017"));
         coorService.add(coor);
 
