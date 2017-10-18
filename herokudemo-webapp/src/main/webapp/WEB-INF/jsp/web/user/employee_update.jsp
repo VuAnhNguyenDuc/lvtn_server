@@ -23,14 +23,14 @@
         <div class="row" style="height: 15vh;"></div>
         <form:form modelAttribute="employeeForm" method="post">
             <div class="form-group>">
-                <label for="username">Full name: </label>
-                <form:input path="full_name" type="text" class="form-control" id="full_name" value="${employeeForm.full_name}" disabled="true"/>
+                <label for="full_name">Full name: </label>
+                <form:input path="full_name" type="text" class="form-control" id="full_name" value="${employeeForm.full_name}"/>
                 <form:errors path="full_name" cssClass="form-error" class="form-control"/>
             </div>
 
             <div class="form-group>">
                 <label for="username">Username: </label>
-                <form:input path="username" type="text" class="form-control" id="username" value="${employeeForm.username}"/>
+                <form:input path="username" type="text" class="form-control" id="username" value="${employeeForm.username}" disabled="true"/>
                 <form:errors path="username" cssClass="form-error" class="form-control"/>
             </div>
 

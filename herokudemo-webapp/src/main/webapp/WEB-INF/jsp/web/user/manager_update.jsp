@@ -24,14 +24,14 @@
         <form:form modelAttribute="managerForm" method="post">
 
             <div class="form-group>">
-                <label for="username">Full name: </label>
-                <form:input path="full_name" type="text" class="form-control" id="full_name" value = "${managerForm.full_name}" disabled="true"/>
+                <label for="full_name">Full name: </label>
+                <form:input path="full_name" type="text" class="form-control" id="full_name" value = "${managerForm.full_name}"/>
                 <form:errors path="full_name" cssClass="form-error" class="form-control"/>
             </div>
 
             <div class="form-group>">
                 <label for="username">Username: </label>
-                <form:input path="username" type="text" class="form-control" id="username" value = "${managerForm.username}"/>
+                <form:input path="username" type="text" class="form-control" id="username" value = "${managerForm.username}" disabled="true"/>
                 <form:errors path="username" cssClass="form-error" class="form-control"/>
             </div>
 
