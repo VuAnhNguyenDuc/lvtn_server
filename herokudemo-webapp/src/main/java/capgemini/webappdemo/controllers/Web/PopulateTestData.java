@@ -48,14 +48,14 @@ public class PopulateTestData {
 
     @RequestMapping(value = "/populateData", method = RequestMethod.GET)
     public void populateData() throws ParseException {
-        Coordinate coor = new Coordinate();
+        /*Coordinate coor = new Coordinate();
         coor.setDetail_id(1);
         coor.setLongitude(123);
         coor.setLatitude(123);
         coor.setTime(cu.convertStringToDate("11:00 18-10-2017"));
-        coorService.add(coor);
+        coorService.add(coor);*/
 
-        /*User mng = userService.get(3);
+       /* User mng = userService.get(3);
         mng.setFullname("Tran Van A");
         userService.update(mng);
 
@@ -66,7 +66,8 @@ public class PopulateTestData {
         User dam = userService.get(5);
         dam.setFullname("Trang Van C");
         userService.update(dam);*/
-        /*Admin admin = new Admin();
+
+        Admin admin = new Admin();
         admin.setUsername("admin");
         admin.setPassword("admin");
         adminService.add(admin);
@@ -74,6 +75,7 @@ public class PopulateTestData {
         User mng = new User();
         mng.setUsername("mng");
         mng.setPassword("mng");
+        mng.setFullname("Vu Anh");
         mng.setEmail("mng@mgial.com");
         userService.add(mng);
 
@@ -86,6 +88,7 @@ public class PopulateTestData {
         User emp = new User();
         emp.setUsername("emp");
         emp.setPassword("emp");
+        emp.setFullname("Tran Van A");
         emp.setEmail("emp@gmail.com");
         userService.add(emp);
 
@@ -95,6 +98,35 @@ public class PopulateTestData {
         empE.setManager_id(mng.getId());
         empE.setEmployee_type("Employee");
         employeeService.add(empE);
+
+        User dung = new User();
+        dung.setUsername("dung");
+        dung.setPassword("dung");
+        dung.setFullname("Tran Van B");
+        dung.setEmail("dung@gmail.com");
+        userService.add(dung);
+
+        empE = new Employee();
+        empE.setUser_id(dung.getId());
+        empE.setStatus(1);
+        empE.setManager_id(dung.getId());
+        empE.setEmployee_type("Employee");
+        employeeService.add(empE);
+
+        User dam = new User();
+        dam.setUsername("dam");
+        dam.setPassword("dam");
+        dam.setFullname("Tran Van C");
+        dam.setEmail("dam@gmail.com");
+        userService.add(dam);
+
+        empE = new Employee();
+        empE.setUser_id(dam.getId());
+        empE.setStatus(1);
+        empE.setManager_id(dam.getId());
+        empE.setEmployee_type("Employee");
+        employeeService.add(empE);
+
 
         Appointment apm = new Appointment();
         apm.setName("Appointment 1");
@@ -115,6 +147,28 @@ public class PopulateTestData {
             for(User user:users){
                 managerService.assignAppointmentToUser(apm.getId(),user.getId());
             }
-        }*/
+        }
+
+        Appointment apm2 = new Appointment();
+        apm2.setName("Appointment 2");
+        apm2.setManager_id(mng.getId());
+        apm2.setDestination("destination 2");
+        try {
+            apm2.setStart_date(dateFormat.parse("18:00 15-10-2017"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        apm2.setStatus(1);
+        usrs = new ArrayList<>();
+        usrs.add(dam);
+        usrs.add(dung);
+        apm2.setUsers(usrs);
+        apmService.add(apm2);
+        if(apm2.getId() != 0){
+            List<User> users = apm2.getUsers();
+            for(User user:users){
+                managerService.assignAppointmentToUser(apm2.getId(),user.getId());
+            }
+        }
     }
 }
