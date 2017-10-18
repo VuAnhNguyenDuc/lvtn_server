@@ -82,7 +82,6 @@
                     <th>Average Velocity (km/h)</th>
                     <th>Input Cost</th>
                     <th>Estimate Cost</th>
-
                     <th>Image Content</th>
                 </tr>
                 </thead>

@@ -138,8 +138,12 @@ public class DetailApi {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                calculate(id,dt.getCoordinates());
-                result.put("message",1);
+                if(dt.getCoordinates() == null || dt.getInput_cost() == 0){
+                    result.put("description","please input the coordinates and cost of this detail before end it");
+                } else{
+                    calculate(id,dt.getCoordinates());
+                    result.put("message",1);
+                }
             }
         }
         return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
@@ -180,8 +184,8 @@ public class DetailApi {
         System.out.println("adding a price cost to detail - Detail API");
         String jsonToken = input.get("json_token").toString();
         int id = (int) input.get("id");
-        double inputCost = (double) input.get("input_cost");
-
+        int inputCost = (int) input.get("input_cost");
+        //double convertCost =  inputCost;
         JSONObject result = new JSONObject();
 
         result.put("message",0);
