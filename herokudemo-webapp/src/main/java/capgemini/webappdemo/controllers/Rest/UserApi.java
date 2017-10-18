@@ -142,6 +142,7 @@ public class UserApi {
         for(UserAppointmentView uav : uavs){
             JSONObject obj = new JSONObject();
             obj.put("id",uav.getAppointment_id());
+            obj.put("name",uav.getAppointment_name());
             obj.put("destination",uav.getDestination());
             obj.put("start_date",commonUtils.convertDateToString(uav.getStart_date()));
             uavList.add(obj);
@@ -167,6 +168,7 @@ public class UserApi {
         for(UserAppointmentView uav : uavs){
             JSONObject obj = new JSONObject();
             obj.put("id",uav.getAppointment_id());
+            obj.put("name",uav.getAppointment_name());
             obj.put("destination",uav.getDestination());
             obj.put("start_date",commonUtils.convertDateToString(uav.getStart_date()));
             obj.put("end_date",commonUtils.convertDateToString(uav.getEnd_date()));
@@ -190,6 +192,11 @@ public class UserApi {
             return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
         } else{
             UserAppointmentView uav = userService.getAppointment(id);
+            if(uav == null){
+                result.put("message",0);
+                result.put("description","this appointment does not exist");
+                return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
+            }
             JSONObject obj = new JSONObject();
             obj.put("id",uav.getAppointment_id());
             obj.put("status",uav.getStatus());
@@ -241,6 +248,8 @@ public class UserApi {
                 Appointment apm = apmService.get(appointment_id);
                 if(apm == null){
                     result.put("description","this appointment does not exist");
+                } else if(apm.getManager_id() != id){
+                  result.put("description","this manager did not created this appointment");
                 } else{
                     apm.setName(name);
                     apm.setDestination(destination);

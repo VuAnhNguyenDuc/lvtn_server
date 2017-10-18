@@ -41,6 +41,11 @@ public class Detail {
 
     private double average_velocity;
 
+    @Transient
+    private String start_time_str;
+    @Transient
+    private String end_time_str;
+
 
     public Date getEnd_time() {
         return end_time;
@@ -190,5 +195,21 @@ public class Detail {
 
     public void setAverage_velocity(double average_velocity) {
         this.average_velocity = average_velocity;
+    }
+
+    public String getStart_time_str() {
+        return start_time_str;
+    }
+
+    public void setStart_time_str(String start_time_str) {
+        this.start_time_str = start_time_str;
+    }
+
+    public String getEnd_time_str() {
+        return end_time_str;
+    }
+
+    public void setEnd_time_str(String end_time_str) {
+        this.end_time_str = end_time_str;
     }
 }

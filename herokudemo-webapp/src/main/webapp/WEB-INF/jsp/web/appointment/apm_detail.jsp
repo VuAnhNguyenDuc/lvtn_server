@@ -89,8 +89,8 @@
                 <tbody>
                 <c:forEach items="${dts}" var="dt">
                     <tr>
-                        <td>${dt.start_time_string}</td>
-                        <td>${dt.end_time_string}</td>
+                        <td>${dt.start_time_str}</td>
+                        <td>${dt.end_time_str}</td>
                         <td>${dt.start_location}</td>
                         <td>${dt.end_location}</td>
                         <td>${dt.vehicle_name}</td>

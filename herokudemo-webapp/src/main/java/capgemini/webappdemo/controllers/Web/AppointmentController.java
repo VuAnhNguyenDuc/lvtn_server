@@ -73,6 +73,12 @@ public class AppointmentController {
             List<Detail> details = detailService.getDetailsOfAppointment(id);
             for(Detail dt : details){
                 calculateDetail(dt);
+                if(dt.getStart_time() != null){
+                    dt.setStart_time_str(commonUtils.convertDateToString(dt.getStart_time()));
+                }
+                if(dt.getEnd_time() != null){
+                    dt.setEnd_time_str(commonUtils.convertDateToString(dt.getEnd_time()));
+                }
             }
             app.setUsers(users);
             app.setStart_date_str(commonUtils.convertDateToString(app.getStart_date()));
@@ -109,6 +115,9 @@ public class AppointmentController {
             double total = cm.getEstimateCost(dt.getVehicle_name(),length,time);
             dt.setTotal_length(length);
             dt.setEstimate_cost(total);
+        } else{
+            dt.setTotal_length(0);
+            dt.setAverage_velocity(0);
         }
     }
 }
