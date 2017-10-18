@@ -99,6 +99,7 @@ public class UserController {
             usr.setUsername(managerForm.getUsername());
             usr.setPassword(managerForm.getPassword());
             usr.setEmail(managerForm.getEmail());
+            usr.setFullname(managerForm.getFull_name());
             usr.setUserType("Manager");
             usr.setStatus(1);
             service.add(usr);
@@ -107,6 +108,45 @@ public class UserController {
             mngService.add(mng);
             return "redirect:/managers";
         }
+    }
+
+    @RequestMapping(value = "/manager/update", method = RequestMethod.GET,params = "id")
+    public String updateManagerGet(HttpSession session, ModelMap model,@RequestParam("id") int id){
+        if(!loginUtil.isLogin(session)){
+            return "redirect:/login";
+        } else{
+            User usr = service.get(id);
+            ManagerForm mngF = new ManagerForm();
+            mngF.setEmail(usr.getEmail());
+            mngF.setFull_name(usr.getFullname());
+            mngF.setStatus(usr.getStatus());
+            model.addAttribute("pageName","manager");
+            model.addAttribute("managerForm",mngF);
+            return "web/user/manager_update";
+        }
+    }
+
+    @RequestMapping(value = "/manager/update", method = RequestMethod.POST,params = "id")
+    public String updateManagerPost(@ModelAttribute("employeeForm") @Valid ManagerForm managerForm, BindingResult result, ModelMap model,@RequestParam("id") int id){
+        if(result.hasErrors()){
+            return "web/user/manager_update";
+        }
+        if(service.checkUserExist(managerForm.getUsername())){
+            model.addAttribute("error","This username was used by another user");
+            return "web/user/manager_update";
+        }
+        User usr = service.get(id);
+        usr.setUserType("Manager");
+        usr.setUsername(managerForm.getUsername());
+        usr.setEmail(managerForm.getEmail());
+        usr.setStatus(managerForm.getStatus());
+        usr.setFullname(managerForm.getFull_name());
+        service.add(usr);
+        Manager mng = new Manager();
+        mng.setStatus(managerForm.getStatus());
+        mng.setUser_id(usr.getId());
+        mngService.add(mng);
+        return "redirect:/managers";
     }
 
     @RequestMapping(value = "/employees", method = RequestMethod.GET)
@@ -160,9 +200,52 @@ public class UserController {
         usr.setPassword(employeeForm.getPassword());
         usr.setEmail(employeeForm.getEmail());
         usr.setStatus(1);
+        usr.setFullname(employeeForm.getFull_name());
         service.add(usr);
         Employee emp = new Employee();
         emp.setStatus(1);
+        emp.setUser_id(usr.getId());
+        emp.setManager_id(employeeForm.getManager_id());
+        empService.add(emp);
+        return "redirect:/employees";
+    }
+
+    @RequestMapping(value = "/employee/update", method = RequestMethod.GET,params = "id")
+    public String updateEmployeeGet(HttpSession session, ModelMap model,@RequestParam("id") int id){
+        if(!loginUtil.isLogin(session)){
+            return "redirect:/login";
+        } else{
+            User usr = service.get(id);
+            Employee emp = empService.get(id);
+            EmployeeForm empF = new EmployeeForm();
+            empF.setEmail(usr.getEmail());
+            empF.setFull_name(usr.getFullname());
+            empF.setManager_id(emp.getManager_id());
+            empF.setStatus(usr.getStatus());
+            model.addAttribute("pageName","employee");
+            model.addAttribute("employeeForm",empF);
+            return "web/user/employee_update";
+        }
+    }
+
+    @RequestMapping(value = "/employee/update", method = RequestMethod.POST,params = "id")
+    public String updateEmployeePost(@ModelAttribute("employeeForm") @Valid EmployeeForm employeeForm, BindingResult result, ModelMap model,@RequestParam("id") int id){
+        if(result.hasErrors()){
+            return "web/user/employee_update";
+        }
+        if(service.checkUserExist(employeeForm.getUsername())){
+            model.addAttribute("error","This username was used by another user");
+            return "web/user/employee_update";
+        }
+        User usr = service.get(id);
+        usr.setUserType("Employee");
+        usr.setUsername(employeeForm.getUsername());
+        usr.setEmail(employeeForm.getEmail());
+        usr.setStatus(usr.getStatus());
+        usr.setFullname(employeeForm.getFull_name());
+        service.add(usr);
+        Employee emp = new Employee();
+        emp.setStatus(employeeForm.getStatus());
         emp.setUser_id(usr.getId());
         emp.setManager_id(employeeForm.getManager_id());
         empService.add(emp);

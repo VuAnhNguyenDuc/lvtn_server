@@ -62,6 +62,7 @@
                         </td>
                         <td>
                             <a href="/user/details?id=${mng.user_id}&type=manager" class="btn btn-primary">Details</a>
+                            <a href="/manager/update?id=${emp.user_id}" class="btn btn-danger">Update</a>
                         </td>
                     </tr>
                     <%

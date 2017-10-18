@@ -3,8 +3,10 @@ package capgemini.webappdemo.form;
 public class EmployeeForm {
     private String username;
     private String password;
+    private String full_name;
     private int manager_id;
     private String email;
+    private int status;
 
     public String getUsername() {
         return username;
@@ -36,5 +38,21 @@ public class EmployeeForm {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getFull_name() {
+        return full_name;
+    }
+
+    public void setFull_name(String full_name) {
+        this.full_name = full_name;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

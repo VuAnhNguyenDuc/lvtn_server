@@ -24,6 +24,12 @@
         <form:form modelAttribute="managerForm" action="/manager/insert" method="post">
 
             <div class="form-group>">
+                <label for="username">Full name: </label>
+                <form:input path="full_name" type="text" class="form-control" id="full_name"/>
+                <form:errors path="full_name" cssClass="form-error" class="form-control"/>
+            </div>
+
+            <div class="form-group>">
                 <label for="username">Username: </label>
                 <form:input path="username" type="text" class="form-control" id="username"/>
                 <form:errors path="username" cssClass="form-error" class="form-control"/>

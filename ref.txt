@@ -10,3 +10,5 @@ https://stackoverflow.com/questions/4676162/how-hibernate-retrieve-data-from-exi
 Reset counter to 1
 https://stackoverflow.com/questions/5342440/reset-auto-increment-counter-in-postgres
 TRUNCATE TABLE public.appointment RESTART IDENTITY;
+
+https://stackoverflow.com/questions/7718585/how-to-set-auto-increment-primary-key-in-postgresql
