@@ -2,12 +2,14 @@ package capgemini.webappdemo.controllers.Rest;
 
 import capgemini.webappdemo.domain.Coordinate;
 import capgemini.webappdemo.domain.Detail;
+import capgemini.webappdemo.form.Coor;
 import capgemini.webappdemo.form.CoordinateForm;
 import capgemini.webappdemo.service.Coordinate.CoordinateService;
 import capgemini.webappdemo.service.Detail.DetailService;
 import capgemini.webappdemo.utils.CalculateDistance;
 import capgemini.webappdemo.utils.CalculateMoney;
 import capgemini.webappdemo.utils.CommonUtils;
+import capgemini.webappdemo.utils.JsonTokenUtil;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,18 +29,24 @@ public class CoordinateApi {
     private DetailService dtService;
 
     private CommonUtils commonUtils = new CommonUtils();
+    private JsonTokenUtil jsonTokenUtil = new JsonTokenUtil();
 
     @RequestMapping(value = "/api/detail/addCoordinate", method = RequestMethod.POST)
     public ResponseEntity<JSONObject> addCoordinate(@RequestBody CoordinateForm input) throws ParseException {
 
         int detailId = input.getDetail_id();
-        List<CoordinateForm.Coor> coordinates = input.getCoordinates();
-
+        List<Coor> coordinates = input.getCoordinates();
+        String jsonToken = input.getJson_token();
         List<Coordinate> coords = new ArrayList<>();
         JSONObject result = new JSONObject();
 
+        result.put("message",0);
+        if(jsonToken.equals("") || jsonTokenUtil.validateKey(jsonToken)){
+            result.put("description","invalid json token");
+            return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
+        }
         boolean flag = true;
-        for(CoordinateForm.Coor coor : coordinates){
+        for(Coor coor : coordinates){
             String time = coor.getTime();
             double latitude = coor.getLatitude();
             double longitude = coor.getLongitude();
@@ -58,7 +66,6 @@ public class CoordinateApi {
             }
         }
         if(flag){
-
             result.put("message",1);
         }
         return new ResponseEntity<JSONObject>(result, HttpStatus.OK);

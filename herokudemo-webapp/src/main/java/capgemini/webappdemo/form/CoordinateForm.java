@@ -3,37 +3,9 @@ package capgemini.webappdemo.form;
 import java.util.List;
 
 public class CoordinateForm {
-    public class Coor {
-        private double latitude;
-        private double longitude;
-        private String time;
-
-        public double getLatitude() {
-            return latitude;
-        }
-
-        public void setLatitude(double latitude) {
-            this.latitude = latitude;
-        }
-
-        public double getLongitude() {
-            return longitude;
-        }
-
-        public void setLongitude(double longitude) {
-            this.longitude = longitude;
-        }
-
-        public String getTime() {
-            return time;
-        }
-
-        public void setTime(String time) {
-            this.time = time;
-        }
-    }
     private int detail_id;
     private List<Coor> coordinates;
+    private String json_token;
 
     public int getDetail_id() {
         return detail_id;
@@ -49,5 +21,13 @@ public class CoordinateForm {
 
     public void setCoordinates(List<Coor> coordinates) {
         this.coordinates = coordinates;
+    }
+
+    public String getJson_token() {
+        return json_token;
+    }
+
+    public void setJson_token(String json_token) {
+        this.json_token = json_token;
     }
 }
