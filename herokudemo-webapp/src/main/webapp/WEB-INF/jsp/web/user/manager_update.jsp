@@ -67,7 +67,7 @@
 
             <div class="text-center" style="margin-top : 60px; margin-bottom: 60px;">
                 <button type="submit" class="btn btn-primary">
-                    ADD
+                    UPDATE
                 </button>
             </div>
         </form:form>

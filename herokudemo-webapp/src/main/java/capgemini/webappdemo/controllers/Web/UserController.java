@@ -118,6 +118,7 @@ public class UserController {
             User usr = service.get(id);
             ManagerForm mngF = new ManagerForm();
             mngF.setEmail(usr.getEmail());
+            mngF.setUsername(usr.getUsername());
             mngF.setFull_name(usr.getFullname());
             mngF.setStatus(usr.getStatus());
             model.addAttribute("pageName","manager");
@@ -219,6 +220,7 @@ public class UserController {
             Employee emp = empService.get(id);
             EmployeeForm empF = new EmployeeForm();
             empF.setEmail(usr.getEmail());
+            empF.setUsername(usr.getUsername());
             empF.setFull_name(usr.getFullname());
             empF.setManager_id(emp.getManager_id());
             empF.setStatus(usr.getStatus());
