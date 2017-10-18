@@ -21,7 +21,7 @@
     <jsp:include page="../side_nav.jsp"/>
     <div class="col-sm-9 col-lg-9 col-sm-12 col-xs-12" style="padding-top: 30px">
         <div class="row" style="height: 15vh;"></div>
-        <form:form modelAttribute="employeeForm" action="/employee/insert" method="post">
+        <form:form modelAttribute="employeeForm" method="post">
             <div class="form-group>">
                 <label for="username">Full name: </label>
                 <form:input path="full_name" type="text" class="form-control" id="full_name" value="${employeeForm.full_name}"/>

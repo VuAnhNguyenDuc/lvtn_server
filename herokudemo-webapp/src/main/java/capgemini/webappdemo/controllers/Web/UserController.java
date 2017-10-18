@@ -132,10 +132,10 @@ public class UserController {
         if(result.hasErrors()){
             return "web/user/manager_update";
         }
-        if(service.checkUserExist(managerForm.getUsername())){
+        /*if(service.checkUserExist(managerForm.getUsername())){
             model.addAttribute("error","This username was used by another user");
             return "web/user/manager_update";
-        }
+        }*/
         User usr = service.get(id);
         usr.setUserType("Manager");
         usr.setUsername(managerForm.getUsername());
@@ -235,10 +235,10 @@ public class UserController {
         if(result.hasErrors()){
             return "web/user/employee_update";
         }
-        if(service.checkUserExist(employeeForm.getUsername())){
+        /*if(service.checkUserExist(employeeForm.getUsername())){
             model.addAttribute("error","This username was used by another user");
             return "web/user/employee_update";
-        }
+        }*/
         User usr = service.get(id);
         usr.setUserType("Employee");
         usr.setUsername(employeeForm.getUsername());
