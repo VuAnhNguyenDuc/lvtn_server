@@ -33,7 +33,7 @@ public class CoordinateApi {
         JSONObject result = new JSONObject();
 
         result.put("message",0);
-        if(jsonToken.equals("") || jsonTokenUtil.validateKey(jsonToken)){
+        if(jsonToken.equals("") || !jsonTokenUtil.validateKey(jsonToken)){
             result.put("description","invalid json token");
             return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
         }

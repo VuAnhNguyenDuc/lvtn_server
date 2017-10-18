@@ -3,9 +3,11 @@ package capgemini.webappdemo.controllers.Web;
 import capgemini.webappdemo.domain.*;
 import capgemini.webappdemo.service.Admin.AdminService;
 import capgemini.webappdemo.service.Appointment.AppointmentService;
+import capgemini.webappdemo.service.Coordinate.CoordinateService;
 import capgemini.webappdemo.service.Employee.EmployeeService;
 import capgemini.webappdemo.service.Manager.ManagerService;
 import capgemini.webappdemo.service.User.UserService;
+import capgemini.webappdemo.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,13 +40,22 @@ public class PopulateTestData {
     @Autowired
     private AppointmentService apmService;
 
-    private DateFormat dateFormat = new SimpleDateFormat("HH:mm dd-MM-yyyy");
+    @Autowired
+    private CoordinateService coorService;
 
+    private DateFormat dateFormat = new SimpleDateFormat("HH:mm dd-MM-yyyy");
+    private CommonUtils cu = new CommonUtils();
 
     @RequestMapping(value = "/populateData", method = RequestMethod.GET)
-    public void populateData(){
+    public void populateData() throws ParseException {
+        Coordinate coor = new Coordinate();
+        coor.setDetail_id(1);
+        coor.setLongitude(123.123);
+        coor.setLatitude(123.123);
+        coor.setTime(cu.convertStringToDate("11:00 18-10-2017"));
+        coorService.add(coor);
 
-        User mng = userService.get(3);
+        /*User mng = userService.get(3);
         mng.setFullname("Tran Van A");
         userService.update(mng);
 
@@ -54,7 +65,7 @@ public class PopulateTestData {
 
         User dam = userService.get(5);
         dam.setFullname("Trang Van C");
-        userService.update(dam);
+        userService.update(dam);*/
         /*Admin admin = new Admin();
         admin.setUsername("admin");
         admin.setPassword("admin");
