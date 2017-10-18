@@ -103,6 +103,7 @@ public class UserApi {
                 result.put("json_token",jsonKey);
             } else{
                 result.put("message",0);
+                result.put("description","incorrect username or password");
             }
         } else{
             String jsonToken = input.get("json_token").toString();
