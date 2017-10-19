@@ -14,8 +14,7 @@ public class Vehicle {
         this.id = 0;
     }
 
-    public Vehicle(Integer id, String name) {
-        this.id = id;
+    public Vehicle(String name) {
         this.name = name;
     }
 

@@ -7,6 +7,7 @@ import capgemini.webappdemo.service.Coordinate.CoordinateService;
 import capgemini.webappdemo.service.Employee.EmployeeService;
 import capgemini.webappdemo.service.Manager.ManagerService;
 import capgemini.webappdemo.service.User.UserService;
+import capgemini.webappdemo.service.Vehicle.VehicleService;
 import capgemini.webappdemo.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,31 +44,15 @@ public class PopulateTestData {
     @Autowired
     private CoordinateService coorService;
 
+    @Autowired
+    private VehicleService vhcService;
+
     private DateFormat dateFormat = new SimpleDateFormat("HH:mm dd-MM-yyyy");
     private CommonUtils cu = new CommonUtils();
 
     @RequestMapping(value = "/populateData", method = RequestMethod.GET)
     public void populateData() throws ParseException {
-        /*Coordinate coor = new Coordinate();
-        coor.setDetail_id(1);
-        coor.setLongitude(123);
-        coor.setLatitude(123);
-        coor.setTime(cu.convertStringToDate("11:00 18-10-2017"));
-        coorService.add(coor);*/
-
-       /* User mng = userService.get(3);
-        mng.setFullname("Tran Van A");
-        userService.update(mng);
-
-        User dung = userService.get(4);
-        dung.setFullname("Tran Van B");
-        userService.update(dung);
-
-        User dam = userService.get(5);
-        dam.setFullname("Trang Van C");
-        userService.update(dam);*/
-
-        Admin admin = new Admin();
+        /*Admin admin = new Admin();
         admin.setUsername("admin");
         admin.setPassword("admin");
         adminService.add(admin);
@@ -173,6 +158,23 @@ public class PopulateTestData {
             for(User user:users){
                 managerService.assignAppointmentToUser(apm2.getId(),user.getId());
             }
-        }
+        }*/
+
+        Vehicle v1 = new Vehicle("Uber X");
+        Vehicle v2 = new Vehicle("Uber Black");
+        Vehicle v3 = new Vehicle("Uber SUV");
+        Vehicle v4 = new Vehicle("Uber MOTO");
+        Vehicle v5 = new Vehicle("Grab Bike");
+        Vehicle v6 = new Vehicle("Grab Bike Premium");
+        Vehicle v7 = new Vehicle("Grab Car 4 seats");
+        Vehicle v8 = new Vehicle("Grab Car 7 seats");
+        vhcService.add(v1);
+        vhcService.add(v2);
+        vhcService.add(v3);
+        vhcService.add(v4);
+        vhcService.add(v5);
+        vhcService.add(v6);
+        vhcService.add(v7);
+        vhcService.add(v8);
     }
 }
