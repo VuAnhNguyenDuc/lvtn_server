@@ -21,7 +21,7 @@
     <jsp:include page="../mobile_nav.jsp"/>
     <jsp:include page="../side_nav.jsp"/>
     <div class="col-sm-9 col-lg-9 col-sm-12 col-xs-12" style="padding-top: 30px">
-        <div id="map" style="width: 100%; height: 500px;"></div>
+        <div id="map" style="width: 100%; max-height: 800px;"></div>
     </div>
 </body>
 
@@ -70,8 +70,8 @@ https://developers.google.com/maps/documentation/javascript/examples/polyline-si
         console.log("long = " + startLong);
 
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 3,
-            center: {lat: 37.772, lng: -122.214},
+            zoom: 10,
+            center: {lat: parseFloat(startLat), lng: parseFloat(startLong)},
             mapTypeId: 'terrain'
         });
 
