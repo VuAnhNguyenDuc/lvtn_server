@@ -68,6 +68,7 @@ public class UserController {
                 mng.setUsername(info.getUsername());
                 mng.setEmail(info.getEmail());
                 mng.setEmployees(info.getEmployees());
+                mng.setStatus(info.getStatus());
             }
             model.addAttribute("pageName","manager");
             model.addAttribute("mngs",mngs);
