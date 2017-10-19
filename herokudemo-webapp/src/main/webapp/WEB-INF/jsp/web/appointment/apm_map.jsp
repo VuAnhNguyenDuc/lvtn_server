@@ -71,7 +71,7 @@ https://developers.google.com/maps/documentation/javascript/examples/polyline-si
 
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 10,
-            center: {lat: 37.772, lng: -122.214},
+            center: {lat: startLat, lng: startLong},
             mapTypeId: 'terrain'
         });
 
