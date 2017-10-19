@@ -64,6 +64,7 @@ public class UserController {
             List<Manager> mngs = mngService.getAll();
             for(Manager mng : mngs){
                 Manager info = getManagerInfo(mng.getUser_id());
+                mng.setFull_name(info.getFull_name());
                 mng.setUsername(info.getUsername());
                 mng.setEmail(info.getEmail());
                 mng.setEmployees(info.getEmployees());
@@ -154,6 +155,7 @@ public class UserController {
             List<Employee> emps = empService.getAll();
             for(Employee emp : emps){
                 Employee info = getEmployeeInfo(emp.getUser_id());
+                emp.setFull_name(info.getFull_name());
                 emp.setUsername(info.getUsername());
                 emp.setEmail(info.getEmail());
                 emp.setManager_name(info.getManager_name());

@@ -41,7 +41,7 @@
                 <c:forEach items="${emps}" var="emp">
                     <tr>
                         <td><%= i %></td>
-                        <td>${emp.username}</td>
+                        <td>${emp.full_name}</td>
                         <td>${emp.email}</td>
                         <td>${emp.manager_name}</td>
                         <td>

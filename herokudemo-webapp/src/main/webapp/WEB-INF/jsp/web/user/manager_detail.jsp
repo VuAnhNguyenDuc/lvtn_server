@@ -34,7 +34,7 @@
             </tr>
             <tr>
                 <td>Full name</td>
-                <td>${emp.full_name}</td>
+                <td>${mng.full_name}</td>
             </tr>
             <tr>
                 <td>Email</td>

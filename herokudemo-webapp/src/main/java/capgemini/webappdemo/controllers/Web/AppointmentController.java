@@ -56,6 +56,11 @@ public class AppointmentController {
                 User mng = userService.get(app.getCreate_by());
                 app.setManagerName(mng.getUsername());
                 app.setStart_date_str(commonUtils.convertDateToString(app.getStart_date()));
+                if(app.getEnd_date() != null){
+                    app.setEnd_date_str(commonUtils.convertDateToString(app.getEnd_date()));
+                } else{
+                    app.setEnd_date_str("");
+                }
             }
             model.addAttribute("pageName","appointment");
             model.addAttribute("apms",apps);
@@ -89,7 +94,7 @@ public class AppointmentController {
             model.addAttribute("pageName","appointment");
             model.addAttribute("apm",app);
             model.addAttribute("dts",details);
-            model.addAttribute("mng",userService.get(app.getManager_id()).getUsername());
+            model.addAttribute("mng",userService.get(app.getManager_id()).getFullname());
             return "web/appointment/apm_detail";
         }
     }

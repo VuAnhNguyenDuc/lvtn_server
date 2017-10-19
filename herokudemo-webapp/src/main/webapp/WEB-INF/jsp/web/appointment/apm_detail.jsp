@@ -30,7 +30,7 @@
                 </tr>
                 <tr>
                     <td>Manager Created</td>
-                    <td>${mng}</td>
+                    <td>${mng.fullname}</td>
                 </tr>
                 <tr>
                     <td>Start Date</td>
