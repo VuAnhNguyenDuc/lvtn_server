@@ -12,3 +12,7 @@ https://stackoverflow.com/questions/5342440/reset-auto-increment-counter-in-post
 TRUNCATE TABLE public.appointment RESTART IDENTITY;
 
 https://stackoverflow.com/questions/7718585/how-to-set-auto-increment-primary-key-in-postgresql
+
+Google Map Tracker :
+https://stackoverflow.com/questions/5868850/creating-list-of-objects-in-javascript
+https://developers.google.com/maps/documentation/javascript/examples/polyline-simple
