@@ -1,9 +1,12 @@
 package capgemini.webappdemo.controllers.Rest;
 
 import capgemini.webappdemo.domain.Appointment;
+import capgemini.webappdemo.domain.Detail;
 import capgemini.webappdemo.domain.User;
 import capgemini.webappdemo.form.AppointmentForm;
 import capgemini.webappdemo.service.Appointment.AppointmentService;
+import capgemini.webappdemo.service.Coordinate.CoordinateService;
+import capgemini.webappdemo.service.Detail.DetailService;
 import capgemini.webappdemo.service.Manager.ManagerService;
 import capgemini.webappdemo.service.User.UserService;
 import capgemini.webappdemo.utils.CommonUtils;
@@ -31,6 +34,12 @@ public class AppointmentApi {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private DetailService dtService;
+
+    @Autowired
+    private CoordinateService coorService;
 
     private JsonTokenUtil jsonTokenUtil = new JsonTokenUtil();
 
@@ -116,9 +125,25 @@ public class AppointmentApi {
             return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
         } else{
             Appointment ap = apmService.get(id);
-            ap.setStatus(0);
-            ap.setEnd_date(commonUtils.convertStringToDate(endDate));
-            result.put("message",1);
+            if(ap == null){
+                result.put("message","this appointment does not exist");
+            } else {
+                List<Detail> dts = dtService.getDetailsOfAppointment(id);
+                if(dts.size() == 0){
+                    result.put("message","this appointment has no schedules");
+                } else{
+                    for(Detail dt : dts){
+                        if(coorService.getCoordsOfDetail(dt.getId()).size() == 0){
+                            result.put("message","a detail in this appointment has no coordinates");
+                            return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
+                        }
+                    }
+                }
+                ap.setStatus(0);
+                ap.setEnd_date(commonUtils.convertStringToDate(endDate));
+                result.put("message",1);
+            }
+
             return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
         }
     }
