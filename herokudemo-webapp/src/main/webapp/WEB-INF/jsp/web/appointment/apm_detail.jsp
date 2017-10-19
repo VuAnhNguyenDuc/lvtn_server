@@ -58,7 +58,7 @@
                                 Active
                             </c:when>
                             <c:otherwise>
-                                Inactive
+                                Finished
                             </c:otherwise>
                         </c:choose>
                     </td>
