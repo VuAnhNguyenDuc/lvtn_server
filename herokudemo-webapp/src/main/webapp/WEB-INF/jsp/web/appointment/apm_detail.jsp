@@ -45,7 +45,7 @@
                     <td>
                         <c:forEach items="${apm.users}" var="usr">
                             <ul>
-                                <li>${usr.full_name}</li>
+                                <li>${usr.fullname}</li>
                             </ul>
                         </c:forEach>
                     </td>
