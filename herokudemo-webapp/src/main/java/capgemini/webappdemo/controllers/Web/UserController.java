@@ -238,7 +238,7 @@ public class UserController {
         User usr = service.get(id);
         usr.setUserType("Employee");
         usr.setEmail(employeeForm.getEmail());
-        usr.setStatus(usr.getStatus());
+        usr.setStatus(employeeForm.getStatus());
         usr.setFullname(employeeForm.getFull_name());
         service.update(usr);
         Employee emp = empService.get(id);
