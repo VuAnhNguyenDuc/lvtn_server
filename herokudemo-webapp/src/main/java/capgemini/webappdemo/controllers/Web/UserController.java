@@ -315,7 +315,7 @@ public class UserController {
         List<Employee> emps = empService.getEmployeesByManagerId(id);
         for(Employee emp : emps){
             User usr = service.get(emp.getUser_id());
-            emp.setUsername(usr.getUsername());
+            emp.setFull_name(usr.getFullname());
         }
         mng.setFull_name(user.getFullname());
         mng.setUsername(user.getUsername());

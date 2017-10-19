@@ -46,7 +46,7 @@
                         <td>
                             <c:forEach items="${mng.employees}" var="emp">
                                 <ul>
-                                    <li>${emp.username}</li>
+                                    <li>${emp.full_name}</li>
                                 </ul>
                             </c:forEach>
                         </td>

@@ -41,6 +41,16 @@
                 <td>${mng.email}</td>
             </tr>
             <tr>
+                <td>Employees Managed</td>
+                <td>
+                    <c:forEach items="${mng.employees}" var="emp">
+                        <ul>
+                            <li>${emp.full_name}</li>
+                        </ul>
+                    </c:forEach>
+                </td>
+            </tr>
+            <tr>
                 <td>Total amount of appointment taken</td>
                 <td>${total}</td>
             </tr>
