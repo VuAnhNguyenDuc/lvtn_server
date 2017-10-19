@@ -33,7 +33,7 @@
                 <label for="username">Username: </label>
                 <%--<form:input path="username" type="text" class="form-control" id="username" value = "${managerForm.username}" disabled="true"/>
                 <form:errors path="username" cssClass="form-error" class="form-control"/>--%>
-                <input type="text" class="form-control" id="username" value="${managerForm.username}" disabled="true" readonly="readonly"/>
+                <input type="text" class="form-control" id="username" value="${managerForm.username}" readonly="readonly"/>
             </div>
 
             <div class="form-group>">

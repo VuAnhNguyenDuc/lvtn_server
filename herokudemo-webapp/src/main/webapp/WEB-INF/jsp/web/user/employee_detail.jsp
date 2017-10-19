@@ -33,6 +33,10 @@
                 <td>${emp.username}</td>
             </tr>
             <tr>
+                <td>Full name</td>
+                <td>${emp.full_name}</td>
+            </tr>
+            <tr>
                 <td>Email</td>
                 <td>${emp.email}</td>
             </tr>

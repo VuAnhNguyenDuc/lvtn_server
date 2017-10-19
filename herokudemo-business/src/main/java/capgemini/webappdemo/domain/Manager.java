@@ -18,7 +18,10 @@ public class Manager {
     private String email;
     @Transient
     private List<Employee> employees;
+    @Transient
     private int status;
+    @Transient
+    private String full_name;
 
     public Manager(int user_id, int number_of_employees) {
         this.user_id = user_id;
@@ -74,5 +77,13 @@ public class Manager {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getFull_name() {
+        return full_name;
+    }
+
+    public void setFull_name(String full_name) {
+        this.full_name = full_name;
     }
 }

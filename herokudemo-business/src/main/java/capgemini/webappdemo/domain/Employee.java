@@ -17,6 +17,8 @@ public class Employee {
     private String manager_name;
     @Transient
     private int status;
+    @Transient
+    private String full_name;
 
     public Employee(int user_id, String employee_type, int manager_id) {
         this.user_id = user_id;
@@ -81,5 +83,13 @@ public class Employee {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getFull_name() {
+        return full_name;
+    }
+
+    public void setFull_name(String full_name) {
+        this.full_name = full_name;
     }
 }

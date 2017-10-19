@@ -317,6 +317,7 @@ public class UserController {
             User usr = service.get(emp.getUser_id());
             emp.setUsername(usr.getUsername());
         }
+        mng.setFull_name(user.getFullname());
         mng.setUsername(user.getUsername());
         mng.setEmail(user.getEmail());
         mng.setEmployees(emps);
@@ -328,7 +329,8 @@ public class UserController {
         User user = service.get(id);
         Employee emp = empService.get(id);
         User mng = service.get(emp.getManager_id());
-        emp.setManager_name(mng.getUsername());
+        emp.setFull_name(user.getFullname());
+        emp.setManager_name(mng.getFullname());
         emp.setUsername(user.getUsername());
         emp.setEmail(user.getEmail());
         emp.setStatus(user.getStatus());
