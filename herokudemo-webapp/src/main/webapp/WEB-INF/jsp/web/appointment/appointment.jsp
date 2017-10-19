@@ -53,7 +53,7 @@
                             </c:choose>
                         </td>
                         <td>
-                            <a href="/appointment/details?appointment_id=${apm.appointment_id}" class="btn btn-primary">Details</a>
+                            <a href="/appointment/details?appointment_id=${apm.id}" class="btn btn-primary">Details</a>
                         </td>
                     </tr>
                     <% i = i + 1; %>
