@@ -51,10 +51,10 @@ public class AppointmentController {
         if(!loginUtil.isLogin(session)){
             return "redirect:/login";
         } else{
-            List<UserAppointmentView> apps = service.getAll();
-            for(UserAppointmentView app : apps){
-                User mng = userService.get(app.getCreate_by());
-                app.setManagerName(mng.getUsername());
+            List<Appointment> apps = appService.getAll();
+            for(Appointment app : apps){
+                User mng = userService.get(app.getManager_id());
+                app.setManager_name(mng.getFullname());
                 app.setStart_date_str(commonUtils.convertDateToString(app.getStart_date()));
                 if(app.getEnd_date() != null){
                     app.setEnd_date_str(commonUtils.convertDateToString(app.getEnd_date()));

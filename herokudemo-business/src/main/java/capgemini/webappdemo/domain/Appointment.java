@@ -26,6 +26,8 @@ public class Appointment {
     private int manager_id;
 
     @Transient
+    private String manager_name;
+    @Transient
     private String start_date_str;
     @Transient
     private String end_date_str;
@@ -121,5 +123,13 @@ public class Appointment {
 
     public void setEnd_date_str(String end_date_str) {
         this.end_date_str = end_date_str;
+    }
+
+    public String getManager_name() {
+        return manager_name;
+    }
+
+    public void setManager_name(String manager_name) {
+        this.manager_name = manager_name;
     }
 }

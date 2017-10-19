@@ -39,7 +39,7 @@
                 <c:forEach items="${apms}" var="apm">
                     <tr>
                         <td><%= i %></td>
-                        <td>${apm.appointment_name}</td>
+                        <td>${apm.name}</td>
                         <td>${apm.start_date_str}</td>
                         <td>${apm.end_date_str}</td>
                         <td>
