@@ -21,11 +21,11 @@
     <jsp:include page="../mobile_nav.jsp"/>
     <jsp:include page="../side_nav.jsp"/>
     <div class="col-sm-9 col-lg-9 col-sm-12 col-xs-12" style="padding-top: 30px">
-        <div id="map" style="width: 100%; height: 400px;"></div>
+        <div id="map" style="width: 100%; height: 100%;"></div>
     </div>
 </body>
-<%--<script src="http://maps.google.com/maps/api/js?sensor=false&key=AIzaSyDhlcbvdlgCkj5u5tLUqzeeyx0a3Dp_nlo&"
-        type="text/javascript"></script>--%>
+
+<%--https://stackoverflow.com/questions/5868850/creating-list-of-objects-in-javascript--%>
 
 <script type="text/javascript">
 
@@ -55,20 +55,25 @@
     }
 
     function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 3,
-            center: {lat: 0, lng: -180},
-            mapTypeId: 'terrain'
-        });
-
-        var flightPlanCoordinates = [
+        var coordinates = [
             {lat: 37.772, lng: -122.214},
             {lat: 21.291, lng: -157.821},
             {lat: -18.142, lng: 178.431},
             {lat: -27.467, lng: 153.027}
         ];
+        var startLat = coordinates[1].lat;
+        var startLong = coordinates[1].lng;
+        console.log("lat = " + startLat);
+        console.log("long = " + startLong);
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 10,
+            center: {lat: startLat, lng: startLong},
+            mapTypeId: 'terrain'
+        });
+
         var flightPath = new google.maps.Polyline({
-            path: flightPlanCoordinates,
+            path: coordinates,
             geodesic: true,
             strokeColor: '#FF0000',
             strokeOpacity: 1.0,
