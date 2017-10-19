@@ -26,7 +26,7 @@
                 <thead>
                 <tr>
                     <th>No</th>
-                    <th>Username</th>
+                    <th>Manager Name</th>
                     <th>Email</th>
                     <th>Employees Managed</th>
                     <th>Status</th>
