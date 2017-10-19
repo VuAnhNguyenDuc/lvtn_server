@@ -138,11 +138,11 @@ public class UserController {
         usr.setEmail(managerForm.getEmail());
         usr.setStatus(managerForm.getStatus());
         usr.setFullname(managerForm.getFull_name());
-        service.add(usr);
-        Manager mng = new Manager();
+        service.update(usr);
+        Manager mng = mngService.get(id);
         mng.setStatus(managerForm.getStatus());
         mng.setUser_id(usr.getId());
-        mngService.add(mng);
+        mngService.update(mng);
         return "redirect:/managers";
     }
 
@@ -240,12 +240,12 @@ public class UserController {
         usr.setEmail(employeeForm.getEmail());
         usr.setStatus(usr.getStatus());
         usr.setFullname(employeeForm.getFull_name());
-        service.add(usr);
-        Employee emp = new Employee();
+        service.update(usr);
+        Employee emp = empService.get(id);
         emp.setStatus(employeeForm.getStatus());
         emp.setUser_id(usr.getId());
         emp.setManager_id(employeeForm.getManager_id());
-        empService.add(emp);
+        empService.update(emp);
         return "redirect:/employees";
     }
 
