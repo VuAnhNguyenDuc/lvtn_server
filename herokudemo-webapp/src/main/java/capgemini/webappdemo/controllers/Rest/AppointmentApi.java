@@ -126,15 +126,15 @@ public class AppointmentApi {
         } else{
             Appointment ap = apmService.get(id);
             if(ap == null){
-                result.put("message","this appointment does not exist");
+                result.put("description","this appointment does not exist");
             } else {
                 List<Detail> dts = dtService.getDetailsOfAppointment(id);
                 if(dts.size() == 0){
-                    result.put("message","this appointment has no schedules");
+                    result.put("description","this appointment has no schedules");
                 } else{
                     for(Detail dt : dts){
                         if(coorService.getCoordsOfDetail(dt.getId()).size() == 0){
-                            result.put("message","a detail in this appointment has no coordinates");
+                            result.put("description","a detail in this appointment has no coordinates");
                             return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
                         }
                     }
