@@ -21,7 +21,7 @@
     <jsp:include page="../mobile_nav.jsp"/>
     <jsp:include page="../side_nav.jsp"/>
     <div class="col-sm-9 col-lg-9 col-sm-12 col-xs-12" style="padding-top: 30px">
-        <div id="map" style="width: 100%; max-height: 800px;"></div>
+        <div id="map" style="width: 100%; height: 600px;"></div>
     </div>
 </body>
 
