@@ -3,6 +3,7 @@ package capgemini.webappdemo.repository;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,19 +64,31 @@ public class EntityRepositoryImpl<T> implements EntityRepository<T> {
 	@Override
 	public void add(T entity) {
 		Session session = getSession();
-		session.save(entity);
+		try {
+			session.save(entity);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void update(T entity) {
 		Session session = getSession();
-		session.merge(entity);
+		try {
+			session.merge(entity);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void remove(T entity) {
 		Session session = getSession();
-		session.delete(entity);
+		try {
+			session.delete(entity);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
