@@ -52,7 +52,7 @@ public class PopulateTestData {
 
     @RequestMapping(value = "/populateData", method = RequestMethod.GET)
     public void populateData() throws ParseException {
-        /*Admin admin = new Admin();
+        Admin admin = new Admin();
         admin.setUsername("admin");
         admin.setPassword("admin");
         adminService.add(admin);
@@ -129,6 +129,8 @@ public class PopulateTestData {
         apm.setStatus(1);
         List<User> usrs = new ArrayList<>();
         usrs.add(emp);
+        usrs.add(dung);
+        usrs.add(dam);
         apm.setUsers(usrs);
         apmService.add(apm);
         if(apm.getId() != 0){
@@ -158,7 +160,55 @@ public class PopulateTestData {
             for(User user:users){
                 managerService.assignAppointmentToUser(apm2.getId(),user.getId());
             }
-        }*/
+        }
+
+        Appointment apm3 = new Appointment();
+        apm3.setName("Appointment 3");
+        apm3.setManager_id(mng.getId());
+        apm3.setDestination("destination 3");
+        try {
+            apm3.setStart_date(dateFormat.parse("18:00 15-10-2017"));
+            apm3.setEnd_date(dateFormat.parse("20:00 15-10-2017"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        apm3.setStatus(0);
+        apm3.setTotal_cost(100);
+        usrs = new ArrayList<>();
+        usrs.add(dam);
+        usrs.add(dung);
+        apm3.setUsers(usrs);
+        apmService.add(apm3);
+        if(apm3.getId() != 0){
+            List<User> users = apm3.getUsers();
+            for(User user:users){
+                managerService.assignAppointmentToUser(apm3.getId(),user.getId());
+            }
+        }
+
+        Appointment apm4 = new Appointment();
+        apm4.setName("Appointment 4");
+        apm4.setManager_id(mng.getId());
+        apm4.setDestination("destination 4");
+        try {
+            apm4.setStart_date(dateFormat.parse("18:00 15-10-2017"));
+            apm4.setEnd_date(dateFormat.parse("20:00 15-10-2017"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        apm4.setStatus(0);
+        apm4.setTotal_cost(500);
+        usrs = new ArrayList<>();
+        usrs.add(dam);
+        usrs.add(dung);
+        apm4.setUsers(usrs);
+        apmService.add(apm4);
+        if(apm4.getId() != 0){
+            List<User> users = apm4.getUsers();
+            for(User user:users){
+                managerService.assignAppointmentToUser(apm4.getId(),user.getId());
+            }
+        }
 
         Vehicle v1 = new Vehicle("Uber X");
         Vehicle v2 = new Vehicle("Uber Black");
