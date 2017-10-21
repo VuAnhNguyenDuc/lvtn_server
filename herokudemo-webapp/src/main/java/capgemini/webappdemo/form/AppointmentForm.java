@@ -11,7 +11,8 @@ public class AppointmentForm {
     private String name;
     private String destination;
     private String start_date;
-    private List<User> users;
+    /*private List<User> users;*/
+    private String users;
     private int status;
     private int appointment_id;
 
@@ -47,11 +48,19 @@ public class AppointmentForm {
         this.start_date = start_date;
     }
 
-    public List<User> getUsers() {
+    /*public List<User> getUsers() {
         return users;
     }
 
     public void setUsers(List<User> users) {
+        this.users = users;
+    }*/
+
+    public String getUsers() {
+        return users;
+    }
+
+    public void setUsers(String users) {
         this.users = users;
     }
 

@@ -54,7 +54,8 @@ public class AppointmentApi {
         String name = input.getName();
         String destination = input.getDestination();
         String startDate = input.getStart_date();
-        List<User> users = input.getUsers();
+        //List<User> users = input.getUsers();
+        String users = input.getUsers();
         int status = input.getStatus();
 
         if(jsonToken.equals("") || !jsonTokenUtil.validateKey(jsonToken)){
@@ -97,10 +98,10 @@ public class AppointmentApi {
             if(apm.getId() == 0){
                 result.put("description","something went wrong when creating appointment");
             } else{
-                for(User usr : users){
-                    mngService.assignAppointmentToUser(apm.getId(),usr.getId());
+                int[] usrs = convertStringToArray(users);
+                for (int usr : usrs) {
+                    mngService.assignAppointmentToUser(apm.getId(), usr);
                 }
-
                 result.put("message",1);
                 result.put("appointment_id",apm.getId());
             }
@@ -130,7 +131,7 @@ public class AppointmentApi {
             } else {
                 List<Detail> dts = dtService.getDetailsOfAppointment(id);
                 if(dts.size() == 0){
-                    result.put("description","this appointment has no schedules");
+                    result.put("description","this appointment has no schedules (details)");
                 } else{
                     for(Detail dt : dts){
                         if(coorService.getCoordsOfDetail(dt.getId()).size() == 0){
@@ -147,6 +148,21 @@ public class AppointmentApi {
 
             return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
         }
+    }
+
+    private int[] convertStringToArray(String arr){
+        String[] items = arr.replaceAll("\\[", "").replaceAll("\\]", "").replaceAll("\\s", "").split(",");
+
+        int[] results = new int[items.length];
+
+        for (int i = 0; i < items.length; i++) {
+            try {
+                results[i] = Integer.parseInt(items[i]);
+            } catch (NumberFormatException nfe) {
+                //NOTE: write something here if you need to recover from formatting errors
+            };
+        }
+        return results;
     }
 
     private boolean within(String value, int min, int max){
