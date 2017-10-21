@@ -56,7 +56,7 @@ public class AppointmentApi {
         String startDate = input.getStart_date();
         //List<User> users = input.getUsers();
         String users = input.getUsers();
-        int status = input.getStatus();
+        //int status = input.getStatus();
 
         if(jsonToken.equals("") || !jsonTokenUtil.validateKey(jsonToken)){
             result.put("message",0);
@@ -87,7 +87,7 @@ public class AppointmentApi {
             apm.setName(name);
             apm.setDestination(destination);
             apm.setManager_id(id);
-            apm.setStatus(status);
+            apm.setStatus(1);
             try {
                 Date date = commonUtils.convertStringToDate(startDate);
                 apm.setStart_date(date);
