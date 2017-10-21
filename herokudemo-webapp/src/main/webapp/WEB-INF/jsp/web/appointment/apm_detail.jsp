@@ -41,6 +41,10 @@
                     <td>${apm.end_date_str}</td>
                 </tr>
                 <tr>
+                    <td>Total Cost (thousands vnđ)</td>
+                    <td>${apm.total_cost}</td>
+                </tr>
+                <tr>
                     <td>Users Participate</td>
                     <td>
                         <c:forEach items="${apm.users}" var="usr">
@@ -57,6 +61,9 @@
                             <c:when test="${apm.status == 1}">
                                 Active
                             </c:when>
+                            <c:when test="${apm.status == -1}">
+                                <p style="color:red">Warning</p>
+                            </c:when>
                             <c:otherwise>
                                 Finished
                             </c:otherwise>
@@ -72,6 +79,7 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
+                    <th>No</th>
                     <th>Start Time</th>
                     <th>End Time</th>
                     <th>Start Location</th>
@@ -83,11 +91,16 @@
                     <th>Input Cost</th>
                     <th>Estimate Cost</th>
                     <th>Image Content</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
+                <%
+                    int i = 1;
+                %>
                 <c:forEach items="${dts}" var="dt">
                     <tr>
+                        <td><%= i %></td>
                         <td>${dt.start_time_str}</td>
                         <td>${dt.end_time_str}</td>
                         <td>${dt.start_location}</td>
@@ -99,7 +112,9 @@
                         <td>${dt.input_cost}</td>
                         <td>${dt.estimate_cost}</td>
                         <td>Img</td>
+                        <td><a href="/login" target="_blank" class="btn btn-primary">VIEW MAP</a></td>
                     </tr>
+                    <% i = i + 1; %>
                 </c:forEach>
                 </tbody>
             </table>

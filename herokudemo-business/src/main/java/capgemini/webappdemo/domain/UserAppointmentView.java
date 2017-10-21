@@ -22,6 +22,7 @@ public class UserAppointmentView implements Serializable {
     private int status;
     private String appointment_name;
     private String destination;
+    private int total_cost;
 
     @Transient
     private String managerName;
@@ -116,5 +117,13 @@ public class UserAppointmentView implements Serializable {
 
     public void setEnd_date_str(String end_date_str) {
         this.end_date_str = end_date_str;
+    }
+
+    public int getTotal_cost() {
+        return total_cost;
+    }
+
+    public void setTotal_cost(int total_cost) {
+        this.total_cost = total_cost;
     }
 }
