@@ -9,6 +9,7 @@ import capgemini.webappdemo.utils.CalculateDistance;
 import capgemini.webappdemo.utils.CommonUtils;
 import capgemini.webappdemo.utils.JsonTokenUtil;
 import capgemini.webappdemo.utils.TokenPayload;
+import org.eclipse.jetty.util.ajax.JSON;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -225,15 +227,15 @@ public class UserApi {
     }
 
     @RequestMapping(value = "/api/updateAppointment", method = RequestMethod.POST)
-    public ResponseEntity<JSONObject> updateAppointment(@RequestBody AppointmentForm input) throws ParseException {
+    public ResponseEntity<JSONObject> updateAppointment(@RequestBody JSONObject input) throws ParseException {
         JSONObject result = new JSONObject();
-        String jsonToken = input.getJson_token();
-        String name = input.getName();
-        String destination = input.getDestination();
-        String startDate = input.getStart_date();
-        int status = input.getStatus();
-        int appointment_id = input.getAppointment_id();
-        List<User> users = input.getUsers();
+        String jsonToken = input.get("json_token").toString();
+        String name = input.get("name").toString();
+        String destination = input.get("destination").toString();
+        String startDate = input.get("start_date").toString();
+        int appointment_id = (int) input.get("appointment_id");
+        int status = (int) input.get("status");
+        String users = input.get("users").toString();
 
         if(jsonToken.equals("") || !jsonTokenUtil.validateKey(jsonToken)){
             result.put("message",0);
@@ -241,7 +243,7 @@ public class UserApi {
             return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
         } else{
             result.put("message",0);
-            int id = jsonTokenUtil.getUserIdFromJsonKey(input.getJson_token());
+            int id = jsonTokenUtil.getUserIdFromJsonKey(jsonToken);
             if(!userService.getUserType(id).equals("Manager")){
                 result.put("description","This user does not have enough priviledge to use this funciton");
             } else{
@@ -256,10 +258,18 @@ public class UserApi {
                     apm.setStart_date(commonUtils.convertStringToDate(startDate));
                     apm.setStatus(status);
                     List<User> usrs = apmService.getUsersOfAppointment(apm.getId());
-                    if(compareUsers(usrs,users)){
+                    List<User> userArray = new ArrayList<>();
+                    int[] temp = commonUtils.convertStringToArray(users);
+                    for(int usr : temp){
+                        User user = new User();
+                        user.setId(usr);
+                        userArray.add(user);
+                    }
+
+                    if(compareUsers(usrs,userArray)){
                         apmService.updateAppointment(apm,false);
                     } else{
-                        apm.setUsers(users);
+                        apm.setUsers(userArray);
                         apmService.updateAppointment(apm,true);
                     }
                     result.put("message",1);

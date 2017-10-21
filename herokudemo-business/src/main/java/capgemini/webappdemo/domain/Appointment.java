@@ -17,6 +17,7 @@ public class Appointment {
     private Date end_date;
     private String destination;
     private Integer status;
+    private Integer total_cost;
 
     @Transient
     private List<Detail> details;
@@ -131,5 +132,13 @@ public class Appointment {
 
     public void setManager_name(String manager_name) {
         this.manager_name = manager_name;
+    }
+
+    public Integer getTotal_cost() {
+        return total_cost;
+    }
+
+    public void setTotal_cost(Integer total_cost) {
+        this.total_cost = total_cost;
     }
 }

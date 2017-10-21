@@ -48,14 +48,14 @@ public class AppointmentApi {
     private Logger logger = LoggerFactory.getLogger(AppointmentApi.class);
 
     @RequestMapping(value = "/api/createAppointment", method = RequestMethod.POST)
-    public ResponseEntity<JSONObject> createAppointment(@RequestBody AppointmentForm input){
+    public ResponseEntity<JSONObject> createAppointment(@RequestBody JSONObject input){
         JSONObject result = new JSONObject();
-        String jsonToken = input.getJson_token();
-        String name = input.getName();
-        String destination = input.getDestination();
-        String startDate = input.getStart_date();
+        String jsonToken = input.get("json_token").toString();
+        String name = input.get("name").toString();
+        String destination = input.get("destination").toString();
+        String startDate = input.get("start_date").toString();
         //List<User> users = input.getUsers();
-        String users = input.getUsers();
+        String users = input.get("users").toString();
         //int status = input.getStatus();
 
         if(jsonToken.equals("") || !jsonTokenUtil.validateKey(jsonToken)){
@@ -88,6 +88,7 @@ public class AppointmentApi {
             apm.setDestination(destination);
             apm.setManager_id(id);
             apm.setStatus(1);
+            apm.setTotal_cost(0);
             try {
                 Date date = commonUtils.convertStringToDate(startDate);
                 apm.setStart_date(date);
@@ -98,7 +99,7 @@ public class AppointmentApi {
             if(apm.getId() == 0){
                 result.put("description","something went wrong when creating appointment");
             } else{
-                int[] usrs = convertStringToArray(users);
+                int[] usrs = commonUtils.convertStringToArray(users);
                 for (int usr : usrs) {
                     mngService.assignAppointmentToUser(apm.getId(), usr);
                 }
@@ -148,21 +149,6 @@ public class AppointmentApi {
 
             return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
         }
-    }
-
-    private int[] convertStringToArray(String arr){
-        String[] items = arr.replaceAll("\\[", "").replaceAll("\\]", "").replaceAll("\\s", "").split(",");
-
-        int[] results = new int[items.length];
-
-        for (int i = 0; i < items.length; i++) {
-            try {
-                results[i] = Integer.parseInt(items[i]);
-            } catch (NumberFormatException nfe) {
-                //NOTE: write something here if you need to recover from formatting errors
-            };
-        }
-        return results;
     }
 
     private boolean within(String value, int min, int max){

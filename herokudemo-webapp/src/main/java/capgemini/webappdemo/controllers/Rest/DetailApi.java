@@ -1,8 +1,10 @@
 package capgemini.webappdemo.controllers.Rest;
 
+import capgemini.webappdemo.domain.Appointment;
 import capgemini.webappdemo.domain.Coordinate;
 import capgemini.webappdemo.domain.Detail;
 import capgemini.webappdemo.domain.Vehicle;
+import capgemini.webappdemo.service.Appointment.AppointmentService;
 import capgemini.webappdemo.service.Detail.DetailService;
 import capgemini.webappdemo.service.Vehicle.VehicleService;
 import capgemini.webappdemo.utils.CalculateDistance;
@@ -25,6 +27,9 @@ public class DetailApi {
 
     @Autowired
     private VehicleService vehicleService;
+
+    @Autowired
+    private AppointmentService apmService;
 
     private CommonUtils commonUtils = new CommonUtils();
     private JsonTokenUtil jsonTokenUtil = new JsonTokenUtil();
@@ -204,6 +209,8 @@ public class DetailApi {
             } else{
                 dt.setInput_cost(inputCost);
                 detailService.update(dt);
+                Appointment ap = apmService.get(dt.getAppointment_id());
+                ap.setTotal_cost(ap.getTotal_cost() + inputCost);
                 result.put("message",1);
             }
         }
