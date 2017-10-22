@@ -46,8 +46,8 @@ https://developers.google.com/maps/documentation/javascript/examples/polyline-si
             dataType : "text",
             cache : false,
             success: function(result){
-                console.log(result);
                 var coordinates = $.parseJSON(result);
+                console.log(coordinates);
                 initMap(coordinates);
             },
             error: function (xhr) {
