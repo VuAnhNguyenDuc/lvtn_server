@@ -85,7 +85,6 @@
                     <th>Start Location</th>
                     <th>End Location</th>
                     <th>Vehicle</th>
-                    <th>Created By</th>
                     <th>Total Length (km)</th>
                     <th>Average Velocity (km/h)</th>
                     <th>Input Cost</th>
@@ -106,7 +105,6 @@
                         <td>${dt.start_location}</td>
                         <td>${dt.end_location}</td>
                         <td>${dt.vehicle_name}</td>
-                        <td>${dt.user_created_name}</td>
                         <td>${dt.total_length}</td>
                         <td>${dt.average_velocity}</td>
                         <td>${dt.input_cost}</td>

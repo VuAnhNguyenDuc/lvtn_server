@@ -140,7 +140,10 @@ public class AppointmentApi {
                             return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
                         }
                     }
-                    ap.setStatus(0);
+                    // warning
+                    if(ap.getStatus() != -1){
+                        ap.setStatus(0);
+                    }
                     ap.setEnd_date(commonUtils.convertStringToDate(endDate));
                     apmService.update(ap);
                     result.put("message",1);

@@ -16,5 +16,4 @@ public interface CoordinateService extends EntityService<Coordinate> {
 
 	public List<Coordinate> getCoordsOfDetail(int detailid);
 
-	public JSONArray parseCoords(List<Coordinate> coords);
 }

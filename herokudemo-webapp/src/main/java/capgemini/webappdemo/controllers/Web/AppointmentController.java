@@ -6,11 +6,14 @@ import capgemini.webappdemo.service.Coordinate.CoordinateService;
 import capgemini.webappdemo.service.Detail.DetailService;
 import capgemini.webappdemo.service.User.UserService;
 import capgemini.webappdemo.service.UserAppointmentView.UserAppointmentViewService;
+import capgemini.webappdemo.service.Vehicle.VehicleService;
 import capgemini.webappdemo.utils.CalculateDistance;
 import capgemini.webappdemo.utils.CalculateMoney;
 import capgemini.webappdemo.utils.CommonUtils;
 import capgemini.webappdemo.utils.LoginUtil;
 import org.apache.commons.codec.binary.Base64;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -37,6 +40,9 @@ public class AppointmentController {
 
     @Autowired
     private CoordinateService coorService;
+
+    @Autowired
+    private VehicleService vhService;
 
     private LoginUtil loginUtil = new LoginUtil();
 
@@ -78,6 +84,7 @@ public class AppointmentController {
             List<Detail> details = detailService.getDetailsOfAppointment(id);
             for(Detail dt : details){
                 //calculateDetail(dt);
+                dt.setVehicle_name(vhService.get(dt.getVehicle_id()).getName());
                 if(dt.getStart_time() != null){
                     dt.setStart_time_str(commonUtils.convertDateToString(dt.getStart_time()));
                 }
@@ -107,9 +114,20 @@ public class AppointmentController {
         } else{
             List<Coordinate> coords = coorService.getCoordsOfDetail(id);
             model.addAttribute("pageName","appointment");
-            model.addAttribute("coords",coorService.parseCoords(coords));
+            model.addAttribute("coords",parseCoords(coords));
             return "web/appointment/apm_map";
         }
+    }
+
+    private JSONArray parseCoords(List<Coordinate> coords){
+        JSONArray result = new JSONArray();
+        for(Coordinate coord : coords){
+            JSONObject obj = new JSONObject();
+            obj.put("lat",coord.getLatitude());
+            obj.put("lng",coord.getLongitude());
+            result.add(obj);
+        }
+        return result;
     }
 
     /*private void calculateDetail(Detail dt){

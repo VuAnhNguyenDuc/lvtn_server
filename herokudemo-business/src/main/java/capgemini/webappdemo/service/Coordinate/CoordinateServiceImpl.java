@@ -39,15 +39,4 @@ public class CoordinateServiceImpl extends EntityServiceImpl<Coordinate> impleme
 		return Repository.getCoordsOfDetail(detailid);
 	}
 
-	@Override
-	public JSONArray parseCoords(List<Coordinate> coords) {
-		JSONArray result = new JSONArray();
-		for(Coordinate coord : coords){
-			JSONObject obj = new JSONObject();
-			obj.put("latitude",coord.getLatitude());
-			obj.put("longitude",coord.getLongitude());
-			result.add(obj);
-		}
-		return result;
-	}
 }
