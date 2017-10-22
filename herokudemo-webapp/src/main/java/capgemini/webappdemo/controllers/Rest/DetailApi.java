@@ -218,6 +218,7 @@ public class DetailApi {
                 detailService.update(dt);
                 Appointment ap = apmService.get(dt.getAppointment_id());
                 ap.setTotal_cost(ap.getTotal_cost() + inputCost);
+                apmService.update(ap);
                 result.put("message",1);
             }
         }
@@ -247,6 +248,7 @@ public class DetailApi {
         } else{
             Detail dt = detailService.get(id);
             dt.setDescription(description);
+            detailService.update(dt);
             result.put("message",1);
         }
         return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
