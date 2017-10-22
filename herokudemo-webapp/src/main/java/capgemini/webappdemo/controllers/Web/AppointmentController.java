@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -112,9 +113,16 @@ public class AppointmentController {
         if(!loginUtil.isLogin(session)){
             return "redirect:/login";
         } else{
-            List<Coordinate> coords = coorService.getCoordsOfDetail(id);
+            List<Detail> dts = detailService.getDetailsOfAppointment(id);
+            List<Coordinate> total_coords = new ArrayList<>();
+            if(dts.size() > 0){
+                for(Detail dt : dts){
+                    List<Coordinate> coords = coorService.getCoordsOfDetail(dt.getId());
+                    total_coords.addAll(coords);
+                }
+            }
+            model.addAttribute("coords",parseCoords(total_coords));
             model.addAttribute("pageName","appointment");
-            model.addAttribute("coords",parseCoords(coords));
             return "web/appointment/apm_map";
         }
     }
