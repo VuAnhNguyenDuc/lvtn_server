@@ -64,7 +64,8 @@ https://developers.google.com/maps/documentation/javascript/examples/polyline-si
             {lat: -18.142, lng: 178.431},
             {lat: -27.467, lng: 153.027}
         ];*/
-        var coordinates = $.parseJSON(${coords});
+        //var coordinates = $.parseJSON(${coords});
+        var coordinates = ${coords};
         var startLat = coordinates[0].lat;
         var startLong = coordinates[0].lng;
         console.log("lat = " + startLat);
