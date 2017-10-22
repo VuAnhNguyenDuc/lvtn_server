@@ -8,6 +8,7 @@ import capgemini.webappdemo.service.Employee.EmployeeService;
 import capgemini.webappdemo.service.Manager.ManagerService;
 import capgemini.webappdemo.service.User.UserService;
 import capgemini.webappdemo.service.Vehicle.VehicleService;
+import capgemini.webappdemo.service.VehiclePrice.VehiclePriceService;
 import capgemini.webappdemo.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,12 +48,18 @@ public class PopulateTestData {
     @Autowired
     private VehicleService vhcService;
 
+    @Autowired
+    private VehiclePriceService vhpService;
+
     private DateFormat dateFormat = new SimpleDateFormat("HH:mm dd-MM-yyyy");
     private CommonUtils cu = new CommonUtils();
 
     @RequestMapping(value = "/populateData", method = RequestMethod.GET)
     public void populateData() throws ParseException {
-        Admin admin = new Admin();
+        double a = vhpService.getValue("uberX_start");
+        System.out.println(a);
+
+        /*Admin admin = new Admin();
         admin.setUsername("admin");
         admin.setPassword("admin");
         adminService.add(admin);
@@ -225,6 +232,6 @@ public class PopulateTestData {
         vhcService.add(v5);
         vhcService.add(v6);
         vhcService.add(v7);
-        vhcService.add(v8);
+        vhcService.add(v8);*/
     }
 }

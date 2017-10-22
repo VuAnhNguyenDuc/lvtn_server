@@ -21,55 +21,38 @@ public class CalculateMoney {
     public double getEstimateCost(String vehicle, double s, long t){
         double cost = 0;
 
-        double uberX_start = vp.getValue("uberX_start");
-        double uberX_length = vp.getValue("uberX_length");
-        double uberX_time = vp.getValue("uberX_time");
-
-        double uberBlack_start = vp.getValue("uberBlack_start");
-        double uberBlack_length = vp.getValue("uberBlack_length");
-        double uberBlack_time = vp.getValue("uberBlack_time");
-
-        double uberSUV_start = vp.getValue("uberSUV_start");
-        double uberSUV_length = vp.getValue("uberSUV_length");
-        double uberSUV_time = vp.getValue("uberSUV_time");
-
-        double uberMoto_start = vp.getValue("uberMoto_start");
-        double uberMoto_length = vp.getValue("uberMoto_length");
-        double uberMoto_time = vp.getValue("uberMoto_time");
-
-        double grabBike_min = vp.getValue("grabBike_min");
-        double grabBike_length = vp.getValue("grabBike_length");
-
-        double grabBikePre_min = vp.getValue("grabBikePre_min");
-        double grabBikePre_length = vp.getValue("grabBikePre_length");
-
-        double grab4Seats_min = vp.getValue("grab4Seats_min");
-        double grab4Seats_length = vp.getValue("grab4Seats_length");
-        double grab4Seats_time = vp.getValue("grab4Seats_time");
-
-        double grab7Seats_min = vp.getValue("grab7Seats_start");
-        double grab7Seats_length = vp.getValue("grab7Seats_length");
-        double grab7Seats_time = vp.getValue("grab7Seats_time");
-
-
         switch (vehicle){
             case "Uber X":
+                    double uberX_start = vp.getValue("uberX_start");
+                    double uberX_length = vp.getValue("uberX_length");
+                     double uberX_time = vp.getValue("uberX_time");
                     cost = uberX_start + uberX_length*s + uberX_time*t/60;
                     //cost = 15 + 7.5*s + 0.3*t/60;
                     break;
             case "Uber Black" :
+                    double uberBlack_start = vp.getValue("uberBlack_start");
+                    double uberBlack_length = vp.getValue("uberBlack_length");
+                    double uberBlack_time = vp.getValue("uberBlack_time");
                     cost = uberBlack_start + uberBlack_length*s + uberBlack_time*t/60;
                     //cost = 5 + 9.597*s + 0.8*t/60;
                     break;
             case "Uber SUV" :
+                    double uberSUV_start = vp.getValue("uberSUV_start");
+                    double uberSUV_length = vp.getValue("uberSUV_length");
+                    double uberSUV_time = vp.getValue("uberSUV_time");
                     cost = uberSUV_start + uberSUV_length*s + uberSUV_time*t/60;
                     //cost = 5 + 9.597*s + 0.8*t/60;
                     break;
             case "Uber MOTO" :
+                    double uberMoto_start = vp.getValue("uberMoto_start");
+                    double uberMoto_length = vp.getValue("uberMoto_length");
+                    double uberMoto_time = vp.getValue("uberMoto_time");
                     cost = uberMoto_start + uberMoto_length*s + uberMoto_time*t/60;
                     //cost = 10 + 3.7*s + 0.2*t/60;
                     break;
             case "Grab Bike":
+                    double grabBike_min = vp.getValue("grabBike_min");
+                    double grabBike_length = vp.getValue("grabBike_length");
                     if(s <= 2){
                         cost = grabBike_min;
                         //cost = 12;
@@ -79,6 +62,8 @@ public class CalculateMoney {
                     }
                     break;
             case "Grab Bike Premium":
+                    double grabBikePre_min = vp.getValue("grabBikePre_min");
+                    double grabBikePre_length = vp.getValue("grabBikePre_length");
                     if(s <= 2){
                         cost = grabBikePre_min;
                         //cost = 20;
@@ -88,6 +73,9 @@ public class CalculateMoney {
                     }
                     break;
             case "Grab Car 4 seats":
+                    double grab4Seats_min = vp.getValue("grab4Seats_min");
+                    double grab4Seats_length = vp.getValue("grab4Seats_length");
+                    double grab4Seats_time = vp.getValue("grab4Seats_time");
                     if(s <= 2){
                         cost = grab4Seats_min + grab4Seats_time*t/60;
                         //cost = 20 + 0.3*t/60;
@@ -97,6 +85,9 @@ public class CalculateMoney {
                     }
                     break;
             case "Grab Car 7 seats":
+                    double grab7Seats_min = vp.getValue("grab7Seats_start");
+                    double grab7Seats_length = vp.getValue("grab7Seats_length");
+                    double grab7Seats_time = vp.getValue("grab7Seats_time");
                     if(s <= 2){
                         cost = grab7Seats_min + grab7Seats_time*t/60;
                         //cost = 24 + 0.3*t/60;

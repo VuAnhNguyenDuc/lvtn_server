@@ -77,7 +77,7 @@ public class AppointmentController {
             List<User> users = appService.getUsersOfAppointment(id);
             List<Detail> details = detailService.getDetailsOfAppointment(id);
             for(Detail dt : details){
-                calculateDetail(dt);
+                //calculateDetail(dt);
                 if(dt.getStart_time() != null){
                     dt.setStart_time_str(commonUtils.convertDateToString(dt.getStart_time()));
                 }
@@ -112,7 +112,7 @@ public class AppointmentController {
         }
     }
 
-    private void calculateDetail(Detail dt){
+    /*private void calculateDetail(Detail dt){
         List<Coordinate> coords = coorService.getCoordsOfDetail(dt.getId());
         if(coords.size() > 0){
             double length = cd.getTotalDistance(coords);
@@ -124,5 +124,5 @@ public class AppointmentController {
             dt.setTotal_length(0);
             dt.setAverage_velocity(0);
         }
-    }
+    }*/
 }
