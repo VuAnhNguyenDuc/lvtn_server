@@ -67,6 +67,7 @@ public class DetailApi {
             //detail.setDescription(description);
             detail.setStart_location(startLocation);
             detail.setUser_created(id);
+            detail.setWarning(false);
             detailService.add(detail);
             if(detail.getId() != 0){
                 result.put("message",1);
@@ -256,10 +257,18 @@ public class DetailApi {
         double total_length = cd.getTotalDistance(coords);
         // time in seconds
         long total_time = commonUtils.getSeconds(dt.getStart_time(),dt.getEnd_time());
+        // estimate cost
+        double estimate_cost = cm.getEstimateCost(vehicleService.get(dt.getVehicle_id()).getName(),total_length,total_time);
         dt.setTotal_length(total_length);
-        dt.setEstimate_cost(cm.getEstimateCost(vehicleService.get(dt.getVehicle_id()).getName(),total_length,total_time));
+        dt.setEstimate_cost(estimate_cost);
         // velocity km/h
         dt.setAverage_velocity((total_length*3600)/total_time);
+        if(estimate_cost * 1.5 <= dt.getInput_cost()){
+            dt.setWarning(true);
+            Appointment apm = apmService.get(dt.getAppointment_id());
+            apm.setStatus(-1);
+            apmService.update(apm);
+        }
         detailService.update(dt);
     }
 }

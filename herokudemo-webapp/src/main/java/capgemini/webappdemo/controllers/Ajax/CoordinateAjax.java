@@ -37,12 +37,19 @@ public class CoordinateAjax {
         List<Detail> dts = dtService.getDetailsOfAppointment(id);
         for(Detail dt:dts){
             List<Coordinate> coords = service.getCoordsOfDetail(dt.getId());
-            for(Coordinate coord : coords){
+            if(coords.size() > 0){
+                for(Coordinate coord : coords){
+                    JSONObject obj = new JSONObject();
+                    obj.put("lng",coord.getLongitude());
+                    obj.put("lat",coord.getLatitude());
+                    //obj.put("time",convertDateToString(coord.getTime()));
+                    road.add(obj);
+                }
+            } else{
                 JSONObject obj = new JSONObject();
-                obj.put("longitude",coord.getLongitude());
-                obj.put("latitude",coord.getLatitude());
-                obj.put("time",convertDateToString(coord.getTime()));
-                road.add(coord);
+                obj.put("lng",0);
+                obj.put("lat",0);
+                road.add(obj);
             }
         }
         return road;

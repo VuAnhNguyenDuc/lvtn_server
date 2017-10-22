@@ -41,6 +41,8 @@ public class Detail {
 
     private double average_velocity;
 
+    private boolean warning;
+
     @Transient
     private String start_time_str;
     @Transient
@@ -211,5 +213,13 @@ public class Detail {
 
     public void setEnd_time_str(String end_time_str) {
         this.end_time_str = end_time_str;
+    }
+
+    public boolean isWarning() {
+        return warning;
+    }
+
+    public void setWarning(boolean warning) {
+        this.warning = warning;
     }
 }

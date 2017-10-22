@@ -47,6 +47,9 @@
                                 <c:when test="${apm.status == 1}">
                                     Active
                                 </c:when>
+                                <c:when test="${apm.status == -1}">
+                                    <p style="color: red">Warning</p>
+                                </c:when>
                                 <c:otherwise>
                                     Finished
                                 </c:otherwise>

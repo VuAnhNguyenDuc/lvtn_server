@@ -35,6 +35,7 @@ https://developers.google.com/maps/documentation/javascript/examples/polyline-si
     jQuery(document).ready(function(){
         /*renderMap(*/<%--${coords}--%>/*);*/
         //renderMap();
+        getData();
     });
 
     function getData(){
@@ -46,8 +47,8 @@ https://developers.google.com/maps/documentation/javascript/examples/polyline-si
             cache : false,
             success: function(result){
                 console.log(result);
-                var locations = $.parseJSON(result);
-                renderMap(locations);
+                var coordinates = $.parseJSON(result);
+                initMap(coordinates);
             },
             error: function (xhr) {
                 var err = eval("(" + xhr.responseText + ")");
@@ -57,13 +58,19 @@ https://developers.google.com/maps/documentation/javascript/examples/polyline-si
         return temp;
     }
 
-    function initMap() {
-        var coordinates = [
+    function initMap(coordinates) {
+        /*var coordinates = [
             {lat: 37.772, lng: -122.214},
             {lat: 21.291, lng: -157.821},
             {lat: -18.142, lng: 178.431},
             {lat: -27.467, lng: 153.027}
-        ];
+        ];*/
+        /*var coordinates = [
+            {lat: 37.772, lng: -122.214},
+            {lat: 21.291, lng: -157.821},
+            {lat: -18.142, lng: 178.431},
+            {lat: -27.467, lng: 153.027}
+        ];*/
         var startLat = coordinates[0].lat;
         var startLong = coordinates[0].lng;
         console.log("lat = " + startLat);
@@ -86,7 +93,7 @@ https://developers.google.com/maps/documentation/javascript/examples/polyline-si
         flightPath.setMap(map);
     }
     
-    function renderMap () {
+    /*function renderMap () {
         var locations = [
             ['Bondi Beach', -33.890542, 151.274856, 4],
             ['Coogee Beach', -33.923036, 151.259052, 5],
@@ -118,7 +125,7 @@ https://developers.google.com/maps/documentation/javascript/examples/polyline-si
                 }
             })(marker, i));
         }
-    }
+    }*/
 
     /*function renderMap(locations){
         var startLat = locations[0].latitude;

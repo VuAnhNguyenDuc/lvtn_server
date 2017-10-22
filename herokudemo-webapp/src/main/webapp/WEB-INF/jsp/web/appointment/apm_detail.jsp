@@ -112,7 +112,14 @@
                         <td>${dt.input_cost}</td>
                         <td>${dt.estimate_cost}</td>
                         <td>Img</td>
-                        <td><a href="/login" target="_blank" class="btn btn-primary">VIEW MAP</a></td>
+                        <%--<td><a href="/login" target="_blank" class="btn btn-primary">VIEW MAP</a></td>--%>
+                        <td>
+                            <c:choose>
+                                <c:when test="${dt.warning}">
+                                    <p style="color:red">Warning</p>
+                                </c:when>
+                            </c:choose>
+                        </td>
                     </tr>
                     <% i = i + 1; %>
                 </c:forEach>
