@@ -5,6 +5,7 @@ import capgemini.webappdemo.domain.Coordinate;
 import capgemini.webappdemo.domain.Detail;
 import capgemini.webappdemo.domain.Vehicle;
 import capgemini.webappdemo.service.Appointment.AppointmentService;
+import capgemini.webappdemo.service.Coordinate.CoordinateService;
 import capgemini.webappdemo.service.Detail.DetailService;
 import capgemini.webappdemo.service.Vehicle.VehicleService;
 import capgemini.webappdemo.utils.CalculateDistance;
@@ -30,6 +31,9 @@ public class DetailApi {
 
     @Autowired
     private AppointmentService apmService;
+
+    @Autowired
+    private CoordinateService coordService;
 
     private CommonUtils commonUtils = new CommonUtils();
     private JsonTokenUtil jsonTokenUtil = new JsonTokenUtil();
@@ -144,9 +148,11 @@ public class DetailApi {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                if(dt.getCoordinates() == null || dt.getInput_cost() == 0){
+                List<Coordinate> coords = coordService.getCoordsOfDetail(id);
+                if(coords.size() == 0 || dt.getInput_cost() == 0){
                     result.put("description","please input the coordinates and cost of this detail before end it");
                 } else{
+                    dt.setCoordinates(coords);
                     calculate(id,dt.getCoordinates());
                     result.put("message",1);
                 }
