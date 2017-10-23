@@ -66,21 +66,39 @@ public class CoordinateApi {
     }
 
     @RequestMapping(value = "/api/detail/addCoordinate/str", method = RequestMethod.POST)
-    public ResponseEntity<JSONObject> addCoorStr(@RequestBody CoorFormString input) throws org.json.simple.parser.ParseException {
+    public ResponseEntity<JSONObject> addCoorStr(@RequestBody CoorFormString input) throws org.json.simple.parser.ParseException, ParseException {
         int detailid = input.getDetail_id();
         String jsonToken = input.getJson_token();
         ArrayList<String> coords = input.getCoordinates();
         JSONObject result = new JSONObject();
-        result.put("detailid",detailid);
-        result.put("json_token",jsonToken);
+
+        result.put("message",0);
+        boolean flag = true;
+
         for(String coor : coords){
             String temp = coor.replaceAll("\'","\\\"");
-            result.put("replaced",temp);
-
             JSONParser parser = new JSONParser();
             JSONObject json = (JSONObject) parser.parse(temp);
-            result.put("lat",json.get("latitude").toString());
-            //result.put("coor",coor);
+            double latitude = (double) json.get("latitude");
+            double longitude = (double) json.get("longitude");
+            String time = json.get("time").toString();
+
+            Coordinate co = new Coordinate();
+            DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
+            co.setTime(dateFormat.parse(time));
+            co.setLatitude(latitude);
+            co.setLongitude(longitude);
+            co.setDetail_id(detailid);
+            coordinateService.add(co);
+            if(co.getId() == 0){
+                result.put("message",0);
+                result.put("description","something went wrong when creating new coordinate, please check logs for more information");
+                flag = false;
+                break;
+            }
+            if(flag){
+                result.put("message",1);
+            }
         }
         return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
     }
