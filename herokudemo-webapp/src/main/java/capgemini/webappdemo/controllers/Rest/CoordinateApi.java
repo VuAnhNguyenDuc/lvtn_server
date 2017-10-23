@@ -2,10 +2,12 @@ package capgemini.webappdemo.controllers.Rest;
 
 import capgemini.webappdemo.domain.Coordinate;
 import capgemini.webappdemo.form.Coor;
+import capgemini.webappdemo.form.CoorFormString;
 import capgemini.webappdemo.form.CoordinateForm;
 import capgemini.webappdemo.service.Coordinate.CoordinateService;
 import capgemini.webappdemo.utils.JsonTokenUtil;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,5 +63,21 @@ public class CoordinateApi {
             result.put("message",1);
         }
         return new ResponseEntity<JSONObject>(result, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/api/detail/addCoordinate/str", method = RequestMethod.POST)
+    public ResponseEntity<JSONObject> addCoorStr(@RequestBody CoorFormString input) throws org.json.simple.parser.ParseException {
+        int detailid = input.getDetail_id();
+        String jsonToken = input.getJson_token();
+        ArrayList<String> coords = input.getCoordinates();
+        JSONObject result = new JSONObject();
+        result.put("detailid",detailid);
+        result.put("json_token",jsonToken);
+        for(String coor : coords){
+            JSONParser parser = new JSONParser();
+            JSONObject json = (JSONObject) parser.parse(coor);
+            result.put("lat",json.get("latitude").toString());
+        }
+        return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
     }
 }
