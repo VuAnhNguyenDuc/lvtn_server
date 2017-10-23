@@ -74,8 +74,9 @@ public class CoordinateApi {
         result.put("detailid",detailid);
         result.put("json_token",jsonToken);
         for(String coor : coords){
-            coor.replaceAll("'","\\\"");
-            result.put("replaced",coor);
+            String temp = coor.replaceAll("\'","\\\"");
+            result.put("replaced",temp);
+
             /*JSONParser parser = new JSONParser();
             JSONObject json = (JSONObject) parser.parse(coor);
             result.put("lat",json.get("latitude").toString());*/
