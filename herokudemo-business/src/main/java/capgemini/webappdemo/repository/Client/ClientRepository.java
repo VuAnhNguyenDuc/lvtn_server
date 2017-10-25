@@ -12,4 +12,5 @@ public interface ClientRepository extends EntityRepository<Client> {
 	 */
 	public void deleteAll();
 
+	public Client checkClientByName(String name);
 }

@@ -3,6 +3,7 @@ package capgemini.webappdemo.controllers.Rest;
 import capgemini.webappdemo.domain.*;
 import capgemini.webappdemo.form.AppointmentForm;
 import capgemini.webappdemo.service.Appointment.AppointmentService;
+import capgemini.webappdemo.service.Client.ClientService;
 import capgemini.webappdemo.service.User.UserService;
 import capgemini.webappdemo.service.Vehicle.VehicleService;
 import capgemini.webappdemo.utils.CalculateDistance;
@@ -40,7 +41,8 @@ public class UserApi {
     @Autowired
     private VehicleService vehicleService;
 
-    private static final Logger logger = LoggerFactory.getLogger(UserApi.class);
+    @Autowired
+    private ClientService clService;
 
     private JsonTokenUtil jsonTokenUtil = new JsonTokenUtil();
 
@@ -147,6 +149,17 @@ public class UserApi {
             obj.put("name",uav.getAppointment_name());
             obj.put("destination",uav.getDestination());
             obj.put("start_date",commonUtils.convertDateToString(uav.getStart_date()));
+
+            int clientId = uav.getClient_id();
+            Client cl = clService.get(clientId);
+            JSONObject client = new JSONObject();
+            client.put("id",cl.getId());
+            client.put("name",cl.getName());
+            client.put("phone_number",cl.getPhone_number());
+            client.put("address",cl.getAddress());
+            client.put("email",cl.getEmail());
+
+            obj.put("client",client);
             uavList.add(obj);
         }
         result.put("message",1);
@@ -174,7 +187,18 @@ public class UserApi {
             obj.put("destination",uav.getDestination());
             obj.put("start_date",commonUtils.convertDateToString(uav.getStart_date()));
             obj.put("end_date",commonUtils.convertDateToString(uav.getEnd_date()));
-            obj.put("total_cost",100);
+            obj.put("total_cost",uav.getTotal_cost());
+
+            int clientId = uav.getClient_id();
+            Client cl = clService.get(clientId);
+            JSONObject client = new JSONObject();
+            client.put("id",cl.getId());
+            client.put("name",cl.getName());
+            client.put("phone_number",cl.getPhone_number());
+            client.put("address",cl.getAddress());
+            client.put("email",cl.getEmail());
+
+            obj.put("client",client);
             uavList.add(obj);
         }
         result.put("message",1);
@@ -204,6 +228,7 @@ public class UserApi {
             obj.put("status",uav.getStatus());
             obj.put("destination",uav.getDestination());
             obj.put("start_date",commonUtils.convertDateToString(uav.getStart_date()));
+
             if(uav.getStatus() == 0){
                 Appointment ap = apmService.get(uav.getAppointment_id());
                 List<Detail> dts = ap.getDetails();
@@ -216,10 +241,21 @@ public class UserApi {
                     temp.put("name",vehicleService.get(dt.getVehicle_id()));
                     vehicles.add(temp);
                 }
+                obj.put("end_date",commonUtils.convertDateToString(uav.getEnd_date()));
                 obj.put("distance",length);
                 obj.put("vehicles",vehicles);
             }
-            //result.put("end_date",commonUtils.convertDateToString())
+
+            int clientId = uav.getClient_id();
+            Client cl = clService.get(clientId);
+            JSONObject client = new JSONObject();
+            client.put("id",cl.getId());
+            client.put("name",cl.getName());
+            client.put("phone_number",cl.getPhone_number());
+            client.put("address",cl.getAddress());
+            client.put("email",cl.getEmail());
+            obj.put("client",client);
+
             result.put("message",1);
             result.put("appointment",obj);
             return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
@@ -234,7 +270,7 @@ public class UserApi {
         String destination = input.get("destination").toString();
         String startDate = input.get("start_date").toString();
         int appointment_id = (int) input.get("appointment_id");
-        int status = (int) input.get("status");
+        int clientId = (int) input.get("client_id");
         String users = input.get("users").toString();
 
         if(jsonToken.equals("") || !jsonTokenUtil.validateKey(jsonToken)){
@@ -256,7 +292,7 @@ public class UserApi {
                     apm.setName(name);
                     apm.setDestination(destination);
                     apm.setStart_date(commonUtils.convertStringToDate(startDate));
-                    apm.setStatus(status);
+                    apm.setClient_id(clientId);
                     List<User> usrs = apmService.getUsersOfAppointment(apm.getId());
                     List<User> userArray = new ArrayList<>();
                     int[] temp = commonUtils.convertStringToArray(users);

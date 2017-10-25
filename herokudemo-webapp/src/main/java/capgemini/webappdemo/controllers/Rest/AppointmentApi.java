@@ -5,10 +5,12 @@ import capgemini.webappdemo.domain.Detail;
 import capgemini.webappdemo.domain.User;
 import capgemini.webappdemo.form.AppointmentForm;
 import capgemini.webappdemo.service.Appointment.AppointmentService;
+import capgemini.webappdemo.service.Client.ClientService;
 import capgemini.webappdemo.service.Coordinate.CoordinateService;
 import capgemini.webappdemo.service.Detail.DetailService;
 import capgemini.webappdemo.service.Manager.ManagerService;
 import capgemini.webappdemo.service.User.UserService;
+import capgemini.webappdemo.service.Vehicle.VehicleService;
 import capgemini.webappdemo.utils.CommonUtils;
 import capgemini.webappdemo.utils.JsonTokenUtil;
 import org.json.simple.JSONObject;
@@ -41,6 +43,9 @@ public class AppointmentApi {
     @Autowired
     private CoordinateService coorService;
 
+    @Autowired
+    private VehicleService vhService;
+
     private JsonTokenUtil jsonTokenUtil = new JsonTokenUtil();
 
     private CommonUtils commonUtils = new CommonUtils();
@@ -54,9 +59,8 @@ public class AppointmentApi {
         String name = input.get("name").toString();
         String destination = input.get("destination").toString();
         String startDate = input.get("start_date").toString();
-        //List<User> users = input.getUsers();
         String users = input.get("users").toString();
-        //int status = input.getStatus();
+        int clientId = (int) input.get("client_id");
 
         if(jsonToken.equals("") || !jsonTokenUtil.validateKey(jsonToken)){
             result.put("message",0);
@@ -89,6 +93,7 @@ public class AppointmentApi {
             apm.setManager_id(id);
             apm.setStatus(1);
             apm.setTotal_cost(0);
+            apm.setClient_id(clientId);
             try {
                 Date date = commonUtils.convertStringToDate(startDate);
                 apm.setStart_date(date);
@@ -134,12 +139,6 @@ public class AppointmentApi {
                 if(dts.size() == 0){
                     result.put("description","this appointment has no schedules (details)");
                 } else{
-                    for(Detail dt : dts){
-                        if(coorService.getCoordsOfDetail(dt.getId()).size() == 0){
-                            result.put("description","a detail in this appointment has no coordinates");
-                            return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
-                        }
-                    }
                     // warning
                     if(ap.getStatus() != -1){
                         ap.setStatus(0);

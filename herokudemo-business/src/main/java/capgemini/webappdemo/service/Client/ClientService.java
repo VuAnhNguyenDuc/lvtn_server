@@ -11,4 +11,6 @@ public interface ClientService extends EntityService<Client> {
 	 */
 	public void deleteAll();
 
+	public Client checkClientByName(String name);
+
 }

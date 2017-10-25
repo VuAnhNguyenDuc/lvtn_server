@@ -29,4 +29,17 @@ public class ClientRepositoryImpl extends EntityRepositoryImpl<Client> implement
 		Query query = session.createQuery(stringQuery);
 		query.executeUpdate();
 	}
+
+	@Override
+	public Client checkClientByName(String name) {
+		Session session = getSession();
+
+		String strQuery = "from Client c where c.name = :name";
+		Query query = session.createQuery(strQuery);
+		query.setParameter("name",name);
+		if(query.list().size() > 0){
+			return (Client) query.list().get(0);
+		}
+		return null;
+	}
 }

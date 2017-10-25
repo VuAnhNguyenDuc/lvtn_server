@@ -30,4 +30,9 @@ public class ClientServiceImpl extends EntityServiceImpl<Client> implements Clie
 		Repository.deleteAll();
 	}
 
+	@Override
+	public Client checkClientByName(String name) {
+		return Repository.checkClientByName(name);
+	}
+
 }

@@ -49,10 +49,6 @@ public class AppointmentController {
 
     private CommonUtils commonUtils = new CommonUtils();
 
-    private CalculateDistance cd = new CalculateDistance();
-
-    private CalculateMoney cm = new CalculateMoney();
-
     @RequestMapping(value = "/appointments", method = RequestMethod.GET)
     public String getAppointments(HttpSession session,ModelMap model){
         if(!loginUtil.isLogin(session)){
@@ -138,17 +134,4 @@ public class AppointmentController {
         return result;
     }
 
-    /*private void calculateDetail(Detail dt){
-        List<Coordinate> coords = coorService.getCoordsOfDetail(dt.getId());
-        if(coords.size() > 0){
-            double length = cd.getTotalDistance(coords);
-            long time = commonUtils.getSeconds(dt.getStart_time(),dt.getEnd_time());
-            double total = cm.getEstimateCost(dt.getVehicle_name(),length,time);
-            dt.setTotal_length(length);
-            dt.setEstimate_cost(total);
-        } else{
-            dt.setTotal_length(0);
-            dt.setAverage_velocity(0);
-        }
-    }*/
 }

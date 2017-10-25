@@ -18,6 +18,7 @@ public class Appointment {
     private String destination;
     private Integer status;
     private Integer total_cost;
+    private Integer client_id;
 
     @Transient
     private List<Detail> details;
@@ -140,5 +141,13 @@ public class Appointment {
 
     public void setTotal_cost(Integer total_cost) {
         this.total_cost = total_cost;
+    }
+
+    public Integer getClient_id() {
+        return client_id;
+    }
+
+    public void setClient_id(Integer client_id) {
+        this.client_id = client_id;
     }
 }
