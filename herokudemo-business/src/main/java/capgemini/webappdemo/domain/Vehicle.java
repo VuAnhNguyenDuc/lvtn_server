@@ -9,7 +9,7 @@ public class Vehicle {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
     private String name;
-    private boolean isCalculatable;
+    private boolean is_calculatable;
 
     public Vehicle() {
         this.id = 0;
@@ -35,11 +35,11 @@ public class Vehicle {
         this.name = name;
     }
 
-    public boolean isCalculatable() {
-        return isCalculatable;
+    public boolean is_calculatable() {
+        return is_calculatable;
     }
 
-    public void setCalculatable(boolean calculatable) {
-        isCalculatable = calculatable;
+    public void setIs_calculatable(boolean is_calculatable) {
+        this.is_calculatable = is_calculatable;
     }
 }
