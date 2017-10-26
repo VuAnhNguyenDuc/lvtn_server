@@ -25,6 +25,7 @@ public class ClientController {
     @RequestMapping(value = "/clients", method = RequestMethod.GET)
     public String getClients(HttpSession session, ModelMap model){
         if(!loginUtil.isLogin(session)){
+            System.out.println("login failed");
             return "redirect:/login";
         } else{
             model.addAttribute("pageName","client");
