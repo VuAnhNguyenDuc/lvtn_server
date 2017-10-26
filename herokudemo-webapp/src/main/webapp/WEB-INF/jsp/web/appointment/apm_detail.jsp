@@ -20,59 +20,62 @@
     <jsp:include page="../mobile_nav.jsp"/>
     <jsp:include page="../side_nav.jsp"/>
     <div class="col-sm-9 col-lg-9 col-sm-12 col-xs-12" style="padding-top: 30px">
-        <p><button type="button" class="btn btn-primary" id="view-map">VIEW MAP</button></p>
-        <div class="table-responsive" style="width: 100%;">
-            <table class="table table-hover">
-                <tbody>
-                <tr>
-                    <td>Appointment Name</td>
-                    <td>${apm.name}</td>
-                </tr>
-                <tr>
-                    <td>Manager Created</td>
-                    <td>${mng}</td>
-                </tr>
-                <tr>
-                    <td>Start Date</td>
-                    <td>${apm.start_date_str}</td>
-                </tr>
-                <tr>
-                    <td>End Date</td>
-                    <td>${apm.end_date_str}</td>
-                </tr>
-                <tr>
-                    <td>Total Cost (thousands vnđ)</td>
-                    <td>${apm.total_cost}</td>
-                </tr>
-                <tr>
-                    <td>Users Participate</td>
-                    <td>
-                        <c:forEach items="${apm.users}" var="usr">
-                            <ul>
-                                <li>${usr.fullname}</li>
-                            </ul>
-                        </c:forEach>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Status</td>
-                    <td>
-                        <c:choose>
-                            <c:when test="${apm.status == 1}">
-                                Active
-                            </c:when>
-                            <c:when test="${apm.status == -1}">
-                                <p style="color:red">Warning</p>
-                            </c:when>
-                            <c:otherwise>
-                                Finished
-                            </c:otherwise>
-                        </c:choose>
-                    </td>
-                    <%--<td>${apm.status}</td>--%>
-                </tr>
-                </tbody>
-            </table>
+        <%--<p><button type="button" class="btn btn-primary" id="view-map">VIEW MAP</button></p>--%>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6 col-md-6 col-xs-12">
+                <table class="table table-hover">
+                    <tbody>
+                    <tr>
+                        <td>Appointment Name</td>
+                        <td>${apm.name}</td>
+                    </tr>
+                    <tr>
+                        <td>Manager Created</td>
+                        <td>${mng}</td>
+                    </tr>
+                    <tr>
+                        <td>Start Date</td>
+                        <td>${apm.start_date_str}</td>
+                    </tr>
+                    <tr>
+                        <td>End Date</td>
+                        <td>${apm.end_date_str}</td>
+                    </tr>
+                    <tr>
+                        <td>Total Cost (thousands vnđ)</td>
+                        <td>${apm.total_cost}</td>
+                    </tr>
+                    <tr>
+                        <td>Users Participate</td>
+                        <td>
+                            <c:forEach items="${apm.users}" var="usr">
+                                <ul>
+                                    <li>${usr.fullname}</li>
+                                </ul>
+                            </c:forEach>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Status</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${apm.status == 1}">
+                                    Active
+                                </c:when>
+                                <c:when test="${apm.status == -1}">
+                                    <p style="color:red">Warning</p>
+                                </c:when>
+                                <c:otherwise>
+                                    Finished
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-6 col-lg-6 col-md-6 col-xs-12" id="map" style="min-height:400px">
+            </div>
         </div>
 
         <div class="table-responsive" style="width: 100%;">
@@ -139,5 +142,35 @@
             alert("Cannot create a new tab");
         }
     });
+    function initMap() {
+        var coordinates = [
+            {lat: 37.772, lng: -122.214},
+            {lat: 21.291, lng: -157.821},
+            {lat: -18.142, lng: 178.431},
+            {lat: -27.467, lng: 153.027}
+        ];
+        //var coordinates = $.parseJSON(${coords});
+        //var coordinates = ${coords};
+        var startLat = coordinates[0].lat;
+        var startLong = coordinates[0].lng;
+        console.log("lat = " + startLat);
+        console.log("long = " + startLong);
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 10,
+            center: {lat: startLat, lng: startLong},
+            mapTypeId: 'terrain'
+        });
+
+        var flightPath = new google.maps.Polyline({
+            path: coordinates,
+            geodesic: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+        });
+
+        flightPath.setMap(map);
+    }
 </script>
 </html>

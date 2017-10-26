@@ -51,7 +51,7 @@
             </tbody>
         </table>
 
-        <p>Amount of appointment taken compare by months in a year : </p>
+        <%--<p>Amount of appointment taken compare by months in a year : </p>
         <p>Please input a year</p>
         <input type="number" id="yearInput" />
         <button type="button" class="btn btn-primary" id="month-chart">View as chart</button>
@@ -63,8 +63,30 @@
         <p>Please input the end year</p>
         <input type="number" id="to" />
         <button type="button" class="btn btn-primary" id="year-chart">View as chart</button>
-        <button type="button" class="btn btn-success" id="year-list">View as list</button>
+        <button type="button" class="btn btn-success" id="year-list">View as list</button>--%>
 
+        <div class="form-group">
+            <label for="select-time">Select period:</label>
+            <select class="form-control" id="select-time">
+                <option value="month">By months within a year</option>
+                <option value="year">By many years</option>
+            </select>
+        </div>
+
+        <div id="month-div">
+            <p>Please input a year</p>
+            <input type="number" id="yearInput"/>
+        </div>
+
+        <div id="year-div" hidden>
+            <p>Please input the start year</p>
+            <input type="number" id="from"/>
+            <p>Please input the end year</p>
+            <input type="number" id="to"/>
+        </div>
+        <br><br><br>
+        <button type="button" class="btn btn-primary" id="chart-btn">View as chart</button>
+        <button type="button" class="btn btn-success" id="list-btn">View as list</button>
 
         <div id="result-list">
 
@@ -72,7 +94,18 @@
     </div>
 </body>
 <script type="application/javascript">
-    var host =  "http://lvtn-server.herokuapp.com/"; // localhost
+    $('#select-time').change(function(){
+        var data = $(this).val();
+        if(data == 'month'){
+            $('#month-div').show();
+            $('#year-div').css("display","none");
+        } else{
+            $('#year-div').show();
+            $('#month-div').css("display","none");
+        }
+    });
+
+    var host =  "http://lvtn-server.herokuapp.com/";
     $("#month-list").click(function () {
         var yearInput = $("#yearInput").val();
         if(yearInput != ""){
