@@ -9,9 +9,11 @@ public class Vehicle {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
     private String name;
+    @Column(name = "status")
+    private Integer status;
     @Column(name = "is_calculatable")
     private boolean calculatable;
-    private int status;
+
 
     public Vehicle() {
         this.id = 0;
