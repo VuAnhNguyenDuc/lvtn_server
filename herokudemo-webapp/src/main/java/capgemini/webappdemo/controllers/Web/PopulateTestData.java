@@ -56,8 +56,14 @@ public class PopulateTestData {
 
     @RequestMapping(value = "/populateData", method = RequestMethod.GET)
     public void populateData() throws ParseException {
-        double a = vhpService.getValue("uberX_start");
-        System.out.println(a);
+        List<Vehicle> total = vhcService.getAll();
+        for(Vehicle vh : total){
+            vh.setStatus(1);
+            vhcService.update(vh);
+        }
+
+        /*double a = vhpService.getValue("uberX_start");
+        System.out.println(a);*/
 
         /*Admin admin = new Admin();
         admin.setUsername("admin");
