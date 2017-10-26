@@ -46,7 +46,7 @@ public class VehicleController {
         } else{
             model.addAttribute("vehicle", new Vehicle());
             model.addAttribute("pageName","vehicle");
-            return "web/vehicle/insertVehicle";
+            return "web/vehicle/vehicle_insert";
         }
     }
 
@@ -57,7 +57,7 @@ public class VehicleController {
         } else{
             if(service.checkExist(vehicle.getName())){
                 model.addAttribute("error","This vehicle existed in the database");
-                return "web/vehicle/insertVehicle";
+                return "web/vehicle/vehicle_insert";
             }
             service.add(vehicle);
             return "redirect:/vehicles";
