@@ -50,6 +50,7 @@
                             </c:otherwise>
                         </c:choose>
                     </td>
+                    <td><a href="/vehicle/update?id=${vehicle.id}" class="btn btn-danger">Update</a></td>
                 </tr>
                 <%
                     i = i + 1;

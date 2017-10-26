@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -59,6 +60,29 @@ public class VehicleController {
                 return "web/vehicle/insertVehicle";
             }
             service.add(vehicle);
+            return "redirect:/vehicles";
+        }
+    }
+
+    @RequestMapping(value = "/vehicle/update", method = RequestMethod.GET, params = "id")
+    public String updateVehicleGet(@RequestParam("id") int id, HttpSession session, ModelMap model){
+        if(!loginUtil.isLogin(session)){
+            return "redirect:/login";
+        } else{
+            Vehicle vehicle = service.get(id);
+            model.addAttribute("vehicle",vehicle);
+            return "web/vehicle/vehicle_update";
+        }
+    }
+
+    @RequestMapping(value = "/vehicle/update", method = RequestMethod.POST, params = "id")
+    public String updateVehiclePost(@ModelAttribute("vehicle") @Valid Vehicle vehicle,BindingResult result,@RequestParam("id") int id, ModelMap model){
+        if(result.hasErrors()){
+            return "web/vehicle/vehicle_update";
+        } else{
+            Vehicle old = service.get(id);
+            old.setStatus(vehicle.getStatus());
+            service.update(old);
             return "redirect:/vehicles";
         }
     }
