@@ -129,6 +129,29 @@ public class UserApi {
         return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/api/getInfo", method = RequestMethod.POST)
+    public ResponseEntity<JSONObject> getInfo(@RequestBody JSONObject input){
+        String jsonToken = input.get("json_token").toString();
+        JSONObject result = new JSONObject();
+        result.put("message",0);
+        if(!jsonTokenUtil.validateKey(jsonToken)){
+            result.put("description","invalid json token");
+        } else{
+            int id = jsonTokenUtil.getUserIdFromJsonKey(jsonToken);
+            User usr = userService.get(id);
+            if(usr == null){
+                result.put("description","this user does not exist");
+            } else{
+                result.put("message",1);
+                result.put("id",usr.getId());
+                result.put("username",usr.getUsername());
+                result.put("full_name",usr.getFullname());
+                result.put("type",userService.getUserType(id));
+            }
+        }
+        return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/api/getActiveAppointments", method = RequestMethod.POST)
     public ResponseEntity<JSONObject> getActiveAps(@RequestBody JSONObject input){
         System.out.println("getting active appointments - User API");
