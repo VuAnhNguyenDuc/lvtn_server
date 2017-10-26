@@ -89,7 +89,7 @@ public class ClientController {
             old.setEmail(client.getEmail());
             old.setName(client.getName());
             service.update(old);
-            return "web/client/clients";
+            return "redirect:/clients";
         }
     }
 }
