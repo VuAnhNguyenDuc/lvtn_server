@@ -16,3 +16,6 @@ https://stackoverflow.com/questions/7718585/how-to-set-auto-increment-primary-ke
 Google Map Tracker :
 https://stackoverflow.com/questions/5868850/creating-list-of-objects-in-javascript
 https://developers.google.com/maps/documentation/javascript/examples/polyline-simple
+
+
+https://docs.google.com/document/d/16hxQ96ecBtLRJyOOWxoRgGbJ3L8mHKIMsffJI5EHW9Q/edit
