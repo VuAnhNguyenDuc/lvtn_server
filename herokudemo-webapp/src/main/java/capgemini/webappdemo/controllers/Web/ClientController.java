@@ -83,8 +83,13 @@ public class ClientController {
         if(result.hasErrors()){
             return "web/client/client_update";
         } else{
-            service.update(client);
-            return "web/client/client_update";
+            Client old = service.get(id);
+            old.setPhone_number(client.getPhone_number());
+            old.setAddress(client.getAddress());
+            old.setEmail(client.getEmail());
+            old.setName(client.getName());
+            service.update(old);
+            return "web/client/clients";
         }
     }
 }
