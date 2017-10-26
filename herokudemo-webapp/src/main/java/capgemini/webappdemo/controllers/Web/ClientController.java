@@ -22,7 +22,7 @@ public class ClientController {
     private ClientService service;
     private LoginUtil loginUtil = new LoginUtil();
 
-    @RequestMapping(value = "/clients", method = RequestMethod.POST)
+    @RequestMapping(value = "/clients", method = RequestMethod.GET)
     public String getClients(HttpSession session, ModelMap model){
         if(!loginUtil.isLogin(session)){
             return "redirect:/login";
