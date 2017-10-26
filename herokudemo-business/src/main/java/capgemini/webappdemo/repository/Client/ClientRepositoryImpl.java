@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ClientRepositoryImpl extends EntityRepositoryImpl<Client> implements ClientRepository {
 	
 	public ClientRepositoryImpl() {
-		super(Admin.class);
+		super(Client.class);
 	}
 	
 	/**
