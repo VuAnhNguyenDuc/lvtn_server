@@ -12,6 +12,7 @@ import capgemini.webappdemo.utils.CalculateDistance;
 import capgemini.webappdemo.utils.CalculateMoney;
 import capgemini.webappdemo.utils.CommonUtils;
 import capgemini.webappdemo.utils.JsonTokenUtil;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -149,7 +151,7 @@ public class DetailApi {
                     e.printStackTrace();
                 }
                 List<Coordinate> coords = coordService.getCoordsOfDetail(id);
-                if(vehicleService.get(dt.getId()).is_calculatable() && (coords.size() == 0 || dt.getInput_cost() == 0)){
+                if(vehicleService.get(dt.getId()).isCalculatable() && (coords.size() == 0 || dt.getInput_cost() == 0)){
                     result.put("description","please input the coordinates and cost of this detail before end it");
                 } else{
                     dt.setCoordinates(coords);
@@ -255,8 +257,16 @@ public class DetailApi {
     }
 
     @RequestMapping(value = "/api/getVehicles", method = RequestMethod.GET)
-    public ResponseEntity<List<Vehicle>> getVehicles(){
-        return new ResponseEntity<List<Vehicle>>(vehicleService.getAll(),HttpStatus.OK);
+    public ResponseEntity<JSONArray> getVehicles(){
+        List<Vehicle> total = vehicleService.getAll();
+        JSONArray vehicles = new JSONArray();
+        for(Vehicle temp : total){
+            JSONObject obj = new JSONObject();
+            obj.put("id",temp.getId());
+            obj.put("name",temp.getName());
+            vehicles.add(obj);
+        }
+        return new ResponseEntity<JSONArray>(vehicles,HttpStatus.OK);
     }
 
     private void calculate(int detail_id,List<Coordinate> coords){

@@ -26,6 +26,8 @@
             <tr>
                 <th>No</th>
                 <th>Name of vehicle</th>
+                <th>Is Calculatable</th>
+                <th>Status</th>
                 <th></th>
             </tr>
             </thead>
@@ -37,6 +39,17 @@
                 <tr>
                     <td><%= i %></td>
                     <td>${vehicle.name}</td>
+                    <td>${vehicle.calculatable}</td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${vehicle.status == 1}">
+                                Active
+                            </c:when>
+                            <c:otherwise>
+                                Inactive
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
                 </tr>
                 <%
                     i = i + 1;

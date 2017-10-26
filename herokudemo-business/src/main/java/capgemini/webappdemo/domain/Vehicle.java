@@ -9,7 +9,9 @@ public class Vehicle {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
     private String name;
-    private boolean is_calculatable;
+    @Column(name = "is_calculatable")
+    private boolean calculatable;
+    private int status;
 
     public Vehicle() {
         this.id = 0;
@@ -35,11 +37,19 @@ public class Vehicle {
         this.name = name;
     }
 
-    public boolean is_calculatable() {
-        return is_calculatable;
+    public boolean isCalculatable() {
+        return calculatable;
     }
 
-    public void setIs_calculatable(boolean is_calculatable) {
-        this.is_calculatable = is_calculatable;
+    public void setCalculatable(boolean calculatable) {
+        this.calculatable = calculatable;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

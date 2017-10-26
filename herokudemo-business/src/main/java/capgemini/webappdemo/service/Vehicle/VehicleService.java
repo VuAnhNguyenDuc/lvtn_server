@@ -4,6 +4,8 @@ import capgemini.webappdemo.domain.User;
 import capgemini.webappdemo.domain.Vehicle;
 import capgemini.webappdemo.service.EntityService;
 
+import java.util.List;
+
 public interface VehicleService extends EntityService<Vehicle> {
 	
 	/**
@@ -12,4 +14,6 @@ public interface VehicleService extends EntityService<Vehicle> {
 	public void deleteAll();
 
 	public boolean checkExist(String name);
+
+	public List<Vehicle> getActiveVehicles();
 }

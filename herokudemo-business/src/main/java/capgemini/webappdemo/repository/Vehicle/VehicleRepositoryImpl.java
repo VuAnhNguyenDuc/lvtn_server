@@ -9,6 +9,8 @@ import org.hibernate.classic.Session;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Repository
 @Transactional
@@ -41,5 +43,14 @@ public class VehicleRepositoryImpl extends EntityRepositoryImpl<Vehicle> impleme
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public List<Vehicle> getActiveVehicles() {
+		Session session = getSession();
+
+		String strQuery = "from Vehicle v where v.status = 1";
+		Query query = session.createQuery(strQuery);
+		return query.list();
 	}
 }

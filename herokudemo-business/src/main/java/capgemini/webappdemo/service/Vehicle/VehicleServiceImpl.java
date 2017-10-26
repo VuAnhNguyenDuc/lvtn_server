@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Service
 @Transactional
@@ -34,5 +36,10 @@ public class VehicleServiceImpl extends EntityServiceImpl<Vehicle> implements Ve
 	@Override
 	public boolean checkExist(String name) {
 		return Repository.checkExist(name);
+	}
+
+	@Override
+	public List<Vehicle> getActiveVehicles() {
+		return Repository.getActiveVehicles();
 	}
 }

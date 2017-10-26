@@ -4,6 +4,8 @@ import capgemini.webappdemo.domain.User;
 import capgemini.webappdemo.domain.Vehicle;
 import capgemini.webappdemo.repository.EntityRepository;
 
+import java.util.List;
+
 
 public interface VehicleRepository extends EntityRepository<Vehicle> {
 	
@@ -13,5 +15,7 @@ public interface VehicleRepository extends EntityRepository<Vehicle> {
 	public void deleteAll();
 
 	public boolean checkExist(String name);
+
+	public List<Vehicle> getActiveVehicles();
 	
 }
