@@ -25,13 +25,12 @@ public class ClientController {
     @RequestMapping(value = "/clients", method = RequestMethod.GET)
     public String getClients(HttpSession session, ModelMap model){
         if(!loginUtil.isLogin(session)){
-            System.out.println("login failed");
             return "redirect:/login";
         } else{
             model.addAttribute("pageName","client");
             List<Client> cls = service.getAll();
             model.addAttribute("cls",cls);
-            return "client/client";
+            return "web/client/client";
         }
     }
 
@@ -42,14 +41,14 @@ public class ClientController {
         } else{
             Client client = new Client();
             model.addAttribute("client",client);
-            return "client/client_insert";
+            return "web/client/client_insert";
         }
     }
 
     @RequestMapping(value = "/client/insert", method = RequestMethod.POST)
     public String insertClientPost(@ModelAttribute("client") @Valid Client client, BindingResult result, ModelMap model){
         if(result.hasErrors()){
-            return "client/client_insert";
+            return "web/client/client_insert";
         } else{
             String name = client.getName();
             /*String phone = client.getPhone_number();
@@ -61,7 +60,7 @@ public class ClientController {
 
             if(cl != null){
                 model.addAttribute("error","this client was created in the database");
-                return "client/client_insert";
+                return "web/client/client_insert";
             } else{
                 service.add(client);
                 return "redirect:/clients";
@@ -76,16 +75,16 @@ public class ClientController {
         }
         Client client = service.get(id);
         model.addAttribute("client",client);
-        return "client/client_update";
+        return "web/client/client_update";
     }
 
     @RequestMapping(value = "/client/update", method = RequestMethod.POST, params = "client_id")
     public String updateClientPost(@ModelAttribute("client") Client client,BindingResult result,@RequestParam("client_id") int id, ModelMap model){
         if(result.hasErrors()){
-            return "client/client_update";
+            return "web/client/client_update";
         } else{
             service.update(client);
-            return "client/client_update";
+            return "web/client/client_update";
         }
     }
 }
