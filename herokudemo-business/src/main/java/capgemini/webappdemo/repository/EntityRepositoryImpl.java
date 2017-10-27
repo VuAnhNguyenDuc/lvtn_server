@@ -1,6 +1,6 @@
 package capgemini.webappdemo.repository;
 
-import java.util.List;
+import java.util.*;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -58,6 +58,20 @@ public class EntityRepositoryImpl<T> implements EntityRepository<T> {
 	public List<T> getAll() {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(clazz);
+		Collections.sort(criteria.list(), new Comparator() {
+			@Override
+			public int compare(Object o1, Object o2) {
+				Object id1 = new Object();
+				Object id2 = new Object();
+				try {
+					id1 = o1.getClass().getField("id");
+					id2 = o2.getClass().getField("id");
+				} catch (NoSuchFieldException e) {
+					e.printStackTrace();
+				}
+				return (Integer) id1 < (Integer) id2? -1 : 1;
+			}
+		});
 		return criteria.list();
 	}
 
