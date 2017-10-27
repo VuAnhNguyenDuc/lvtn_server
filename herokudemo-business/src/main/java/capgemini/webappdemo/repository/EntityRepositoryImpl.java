@@ -66,11 +66,16 @@ public class EntityRepositoryImpl<T> implements EntityRepository<T> {
 				try {
 					id1 = o1.getClass().getField("id");
 					id2 = o2.getClass().getField("id");
-					System.out.println(id1);
-					System.out.println(id2);
 				} catch (NoSuchFieldException e) {
-					e.printStackTrace();
+					try {
+						id1 = o1.getClass().getField("user_id");
+						id2 = o2.getClass().getField("user_id");
+					} catch (NoSuchFieldException e1) {
+						e1.printStackTrace();
+					}
 				}
+				System.out.println(id1);
+				System.out.println(id2);
 				return (Integer) id1 < (Integer) id2? -1 : 1;
 			}
 		});
