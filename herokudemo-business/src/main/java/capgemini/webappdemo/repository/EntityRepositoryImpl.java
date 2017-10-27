@@ -72,23 +72,23 @@ public class EntityRepositoryImpl<T> implements EntityRepository<T> {
 						Field field = o1.getClass()
 .getDeclaredField("id");
 						field.setAccessible(true);
-						id1 = field.getInt(o1.getClass());
+						id1 = field.get(o1.getClass());
 						field.setAccessible(false);
 
 						field = o2.getClass().getDeclaredField("id");
 						field.setAccessible(true);
-						id2 = field.getInt(o2.getClass());
+						id2 = field.get(o2.getClass());
 						field.setAccessible(false);
 					} else{
 						Field field = o1.getClass()
 							.getDeclaredField("user_id");
 						field.setAccessible(true);
-						id1 = field.getInt(o1.getClass());
+						id1 = field.get(o1.getClass());
 						field.setAccessible(false);
 
 						field = o2.getClass().getDeclaredField("user_id");
 						field.setAccessible(true);
-						id2 = field.getInt(o2.getClass());
+						id2 = field.get(o2.getClass());
 						field.setAccessible(false);
 					}
 				} catch (Exception e) {
