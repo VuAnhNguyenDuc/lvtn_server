@@ -62,7 +62,8 @@ public class EntityRepositoryImpl<T> implements EntityRepository<T> {
 	public List<T> getAll() {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(clazz);
-		Collections.sort(criteria.list(), new Comparator() {
+		List<T> result = criteria.list();
+		Collections.sort(result, new Comparator() {
 			@Override
 			public int compare(Object o1, Object o2) {
 				int id1 = 0;
@@ -100,7 +101,7 @@ public class EntityRepositoryImpl<T> implements EntityRepository<T> {
 				return id1 < id2? -1 : 1;
 			}
 		});
-		return criteria.list();
+		return result;
 	}
 
 	@Override

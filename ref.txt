@@ -19,3 +19,9 @@ https://developers.google.com/maps/documentation/javascript/examples/polyline-si
 
 
 https://docs.google.com/document/d/16hxQ96ecBtLRJyOOWxoRgGbJ3L8mHKIMsffJI5EHW9Q/edit
+
+
+Sort a Java List :
+https://stackoverflow.com/questions/16252269/how-to-sort-an-arraylist
+https://stackoverflow.com/questions/4066538/sort-an-arraylist-based-on-an-object-field
+https://stackoverflow.com/questions/6911427/is-it-possible-to-invoke-private-attributes-or-methods-via-reflection
