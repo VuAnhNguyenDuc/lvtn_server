@@ -65,30 +65,30 @@ public class EntityRepositoryImpl<T> implements EntityRepository<T> {
 		Collections.sort(criteria.list(), new Comparator() {
 			@Override
 			public int compare(Object o1, Object o2) {
-				Object id1 = new Object();
-				Object id2 = new Object();
+				Integer id1 = 0;
+				Integer id2 = 0;
 				try {
 					if(!o1.getClass().equals(Employee.class) && !o1.getClass().equals(Manager.class) && !o1.getClass().equals(UserAppointmentView.class) && !o1.getClass().equals(UserTakesAppointment.class)){
 						Field field = o1.getClass()
 .getDeclaredField("id");
 						field.setAccessible(true);
-						id1 = field.get(o1.getClass());
+						id1 = (Integer) field.get(o1.getClass());
 						field.setAccessible(false);
 
 						field = o2.getClass().getDeclaredField("id");
 						field.setAccessible(true);
-						id2 = field.get(o2.getClass());
+						id2 = (Integer) field.get(o2.getClass());
 						field.setAccessible(false);
 					} else{
 						Field field = o1.getClass()
 							.getDeclaredField("user_id");
 						field.setAccessible(true);
-						id1 = field.get(o1.getClass());
+						id1 = (Integer) field.get(o1.getClass());
 						field.setAccessible(false);
 
 						field = o2.getClass().getDeclaredField("user_id");
 						field.setAccessible(true);
-						id2 = field.get(o2.getClass());
+						id2 = (Integer) field.get(o2.getClass());
 						field.setAccessible(false);
 					}
 				} catch (Exception e) {
@@ -97,7 +97,7 @@ public class EntityRepositoryImpl<T> implements EntityRepository<T> {
 
 				System.out.println(id1);
 				System.out.println(id2);
-				return (Integer) id1 < (Integer) id2? -1 : 1;
+				return id1 < id2? -1 : 1;
 			}
 		});
 		return criteria.list();
