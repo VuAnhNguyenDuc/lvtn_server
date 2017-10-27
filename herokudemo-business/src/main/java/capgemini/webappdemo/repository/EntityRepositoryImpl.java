@@ -2,6 +2,10 @@ package capgemini.webappdemo.repository;
 
 import java.util.*;
 
+import capgemini.webappdemo.domain.Employee;
+import capgemini.webappdemo.domain.Manager;
+import capgemini.webappdemo.domain.UserAppointmentView;
+import capgemini.webappdemo.domain.UserTakesAppointment;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -63,10 +67,14 @@ public class EntityRepositoryImpl<T> implements EntityRepository<T> {
 			public int compare(Object o1, Object o2) {
 				Object id1 = new Object();
 				Object id2 = new Object();
-				try {
-					id1 = o1.getClass().getField("id");
-					id2 = o2.getClass().getField("id");
-				} catch (NoSuchFieldException e) {
+				if(!o1.getClass().equals(Employee.class) && !o1.getClass().equals(Manager.class) && !o1.getClass().equals(UserAppointmentView.class) && !o1.getClass().equals(UserTakesAppointment.class)){
+					try {
+						id1 = o1.getClass().getField("id");
+						id2 = o2.getClass().getField("id");
+					} catch (NoSuchFieldException e) {
+						e.printStackTrace();
+					}
+				} else{
 					try {
 						id1 = o1.getClass().getField("user_id");
 						id2 = o2.getClass().getField("user_id");

@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "employee")
 public class Employee {
     @Id
-    private int user_id;
+    private Integer user_id;
     private String employee_type;
     private int manager_id;
     @Transient

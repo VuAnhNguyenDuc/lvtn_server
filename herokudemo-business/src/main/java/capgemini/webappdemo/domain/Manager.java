@@ -10,7 +10,7 @@ import java.util.List;
 @Table(name = "manager")
 public class Manager {
     @Id
-    private int user_id;
+    private Integer user_id;
     private int number_of_employees;
     @Transient
     private String username;
