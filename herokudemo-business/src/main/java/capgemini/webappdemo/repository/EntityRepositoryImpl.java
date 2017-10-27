@@ -69,21 +69,21 @@ public class EntityRepositoryImpl<T> implements EntityRepository<T> {
 				Object id2 = new Object();
 				if(!o1.getClass().equals(Employee.class) && !o1.getClass().equals(Manager.class) && !o1.getClass().equals(UserAppointmentView.class) && !o1.getClass().equals(UserTakesAppointment.class)){
 					try {
-						id1 = o1.getClass().getField("id");
-						id2 = o2.getClass().getField("id");
+						id1 = o1.getClass().getDeclaredField("id");
+						id2 = o2.getClass().getDeclaredField("id");
 					} catch (NoSuchFieldException e) {
 						e.printStackTrace();
 					}
 				} else{
 					try {
-						id1 = o1.getClass().getField("user_id");
-						id2 = o2.getClass().getField("user_id");
+						id1 = o1.getClass().getDeclaredField("user_id");
+						id2 = o2.getClass().getDeclaredField("user_id");
 					} catch (NoSuchFieldException e1) {
 						e1.printStackTrace();
 					}
 				}
-				System.out.println(id1);
-				System.out.println(id2);
+				System.out.println((Integer)id1);
+				System.out.println((Integer)id2);
 				return (Integer) id1 < (Integer) id2? -1 : 1;
 			}
 		});
