@@ -11,7 +11,7 @@ import java.util.List;
 public class Detail {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
+    private int id;
     private double estimate_cost;
     private double input_cost;
     @Type(type = "text")
@@ -85,7 +85,7 @@ public class Detail {
         this.id = 0;
     }
 
-    public Detail(Integer id, Integer input_cost, List<Coordinate> coordinates, int appointment_id, int vehicle_id, Date start_time, Date end_time) {
+    public Detail(int id, Integer input_cost, List<Coordinate> coordinates, int appointment_id, int vehicle_id, Date start_time, Date end_time) {
         this.id = id;
         this.input_cost = input_cost;
         this.coordinates = coordinates;
@@ -95,11 +95,11 @@ public class Detail {
         this.end_time = end_time;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

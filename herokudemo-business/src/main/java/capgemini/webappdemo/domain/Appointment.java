@@ -9,7 +9,7 @@ import java.util.List;
 public class Appointment {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
+    private int id;
     private String name;
     @Temporal(TemporalType.TIMESTAMP)
     private Date start_date;
@@ -47,11 +47,11 @@ public class Appointment {
         this.id = 0;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
