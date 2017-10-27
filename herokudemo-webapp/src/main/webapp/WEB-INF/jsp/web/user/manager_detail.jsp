@@ -61,33 +61,6 @@
             </tbody>
         </table>
 
-        <%--<p>Amount of appointment taken compare by months in a year : </p>
-        <p>Please input a year</p>
-        <input type="number" id="yearInput" />
-        <button type="button" class="btn btn-primary" id="month-chart">View as chart</button>
-        <button type="button" class="btn btn-success" id="month-list">View as list</button>
-
-        <p>Amount of appointment taken throughout a period : </p>
-        <p>Please input the start year</p>
-        <input type="number" id="from" />
-        <p>Please input the end year</p>
-        <input type="number" id="to" />
-        <button type="button" class="btn btn-primary" id="year-chart">View as chart</button>
-        <button type="button" class="btn btn-success" id="year-list">View as list</button>
-
-        <p>Amount of appointment created compare by months in a year : </p>
-        <p>Please input a year</p>
-        <input type="number" id="year-created" />
-        <button type="button" class="btn btn-primary" id="month-chart-created">View as chart</button>
-        <button type="button" class="btn btn-success" id="month-list-created">View as list</button>
-
-        <p>Amount of appointment created throughout a period : </p>
-        <p>Please input the start year</p>
-        <input type="number" id="from-created" />
-        <p>Please input the end year</p>
-        <input type="number" id="to-created" />
-        <button type="button" class="btn btn-primary" id="year-chart-created">View as chart</button>
-        <button type="button" class="btn btn-success" id="year-list-created">View as list</button>--%>
         <div class="form-group">
             <label for="select-appointment">Select appointment type:</label>
             <select class="form-control" id="select-appointment">
@@ -210,10 +183,10 @@
                 alert("Please input year value");
             }
         } else if(period == 'year'){
+            var from = $("#from").val();
+            var to = $("#to").val();
             if(from != "" && to != ""){
-                var from = $("#from").val();
-                var to = $("#to").val();
-                var newUrl = host.concat("user/chart/year?id=",${mng.user_id},"&from=",from,"&to=",to,"&isCreated=false");
+                var newUrl = host.concat("user/chart/year?id=",${mng.user_id},"&from=",from,"&to=",to,"&isCreated="+isCreated);
                 console.log(newUrl);
                 var newTab = window.open(newUrl);
                 if(newTab){
@@ -226,168 +199,6 @@
             }
         }
     });
-
-    $("#month-list").click(function () {
-        var yearInput = $("#yearInput").val();
-        if(yearInput != ""){
-            $.ajax({
-                type:"GET",
-                url: "http://lvtn-server.herokuapp.com/ajax/appointment/month",
-                data : "id=${mng.user_id}&isCreated=false&year="+yearInput,
-                dataType : "text",
-                cache : false,
-                success: function(result){
-                    var dataArr = $.parseJSON(result);
-                    $("#result-list").html("");
-                    $("#result-list").html(populateResultList(dataArr));
-                },
-                error: function (xhr) {
-                    var err = eval("(" + xhr.responseText + ")");
-                    alert(err.Message);
-                }
-            });
-        } else{
-            alert("Please input year value");
-        }
-    });
-    $("#month-chart").click(function () {
-        var yearInput = $("#yearInput").val();
-        if(yearInput != ""){
-            var newUrl = host.concat("user/chart/month?id=",${mng.user_id},"&year=",yearInput,"&isCreated=false");
-            console.log(newUrl);
-            var newTab = window.open(newUrl);
-            if(newTab){
-                newTab.focus();
-            } else{
-                alert("Cannot create a new tab");
-            }
-        } else{
-            alert("Please input year value");
-        }
-    });
-
-    $("#year-list").click(function () {
-        var from = $("#from").val();
-        var to = $("#to").val();
-        if(from != "" && to != ""){
-            $.ajax({
-                type:"GET",
-                url: "http://lvtn-server.herokuapp.com/ajax/appointment/year",
-                data : "id=${mng.user_id}&from="+from+"&to="+to+"&isCreated=false",
-                dataType : "text",
-                cache : false,
-                success: function(result){
-                    var dataArr = $.parseJSON(result);
-                    $("#result-list").html("");
-                    $("#result-list").html(populateResultList(dataArr));
-                },
-                error: function (xhr) {
-                    var err = eval("(" + xhr.responseText + ")");
-                    alert(err.Message);
-                }
-            });
-        } else{
-            alert("Please input year value");
-        }
-    });
-    $("#year-chart").click(function () {
-        var from = $("#from").val();
-        var to = $("#to").val();
-        if(from != "" && to != ""){
-            var newUrl = host.concat("user/chart/year?id=",${mng.user_id},"&from=",from,"&to=",to,"&isCreated=false");
-            console.log(newUrl);
-            var newTab = window.open(newUrl);
-            if(newTab){
-                newTab.focus();
-            } else{
-                alert("Cannot create a new tab");
-            }
-        } else{
-            alert("Please input year values");
-        }
-    });
-
-
-
-    /*$("#month-chart-created").click(function () {
-        var yearInput = $("#year-created").val();
-        if(yearInput != ""){
-            var newUrl = host.concat("user/chart/month?id=",${mng.user_id},"&year=",yearInput,"&isCreated=true");
-            console.log(newUrl);
-            var newTab = window.open(newUrl);
-            if(newTab){
-                newTab.focus();
-            } else{
-                alert("Cannot create a new tab");
-            }
-        } else{
-            alert("please input valid year value");
-        }
-    });
-    $("#month-list-created").click(function () {
-        var yearInput = $("#year-created").val();
-        if(yearInput != ""){
-            $.ajax({
-                type:"GET",
-                url: "http://lvtn-server.herokuapp.com/ajax/appointment/month",
-                data : "id=${mng.user_id}&isCreated=true&year="+yearInput,
-                dataType : "text",
-                cache : false,
-                success: function(result){
-                    var dataArr = $.parseJSON(result);
-                    $("#result-list").html("");
-                    $("#result-list").html(populateResultList(dataArr));
-                },
-                error: function (xhr) {
-                    var err = eval("(" + xhr.responseText + ")");
-                    alert(err.Message);
-                }
-            });
-        } else{
-            alert("Please input year value");
-        }
-    });
-
-    $("#year-list-created").click(function () {
-        var from = $("#from-created").val();
-        var to = $("#to-created").val();
-        if(from != "" && to != ""){
-            $.ajax({
-                type:"GET",
-                url: "http://lvtn-server.herokuapp.com/ajax/appointment/year",
-                data : "id=${mng.user_id}&from="+from+"&to="+to+"&isCreated=true",
-                dataType : "text",
-                cache : false,
-                success: function(result){
-                    var dataArr = $.parseJSON(result);
-                    $("#result-list").html("");
-                    $("#result-list").html(populateResultList(dataArr));
-                },
-                error: function (xhr) {
-                    var err = eval("(" + xhr.responseText + ")");
-                    alert(err.Message);
-                }
-            });
-        } else{
-            alert("Please input year value");
-        }
-    });
-    $("#year-chart-created").click(function () {
-        var from = $("#from-created").val();
-        var to = $("#to-created").val();
-        if(from != "" && to != ""){
-            var newUrl = host.concat("user/chart/year?id=",<%--${mng.user_id}--%>,"&from=",from,"&to=",to,"&isCreated=true");
-            console.log(newUrl);
-            var newTab = window.open(newUrl);
-            if(newTab){
-                newTab.focus();
-            } else{
-                alert("Cannot create a new tab");
-            }
-        } else{
-            alert("Please input year values");
-        }
-    });*/
 
     function populateResultList(data){
         var table = "";
