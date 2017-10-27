@@ -190,8 +190,8 @@
             "        <tbody>";
         for(var i = 0; i < data.length; i++){
             var obj = data[i];
-            table_body += "<a href=\""+host+"appointment/details?appointment_id="+obj.appointment_id+"\"><tr>\n" +
-                "                <td>"+obj.appointment_id+"</td>\n" +
+            table_body += "<tr>\n" +
+                "                <td><a href=\""+host+"appointment/details?appointment_id="+obj.appointment_id+"\">"+obj.appointment_id+"</a></td>\n" +
                 "                <td>"+obj.appointment_name+"</td>\n" +
                 "                <td>"+obj.start_date+"</td>\n" +
                 "                <td>"+obj.end_date+"</td>\n" +
