@@ -67,23 +67,20 @@ public class EntityRepositoryImpl<T> implements EntityRepository<T> {
 			public int compare(Object o1, Object o2) {
 				Object id1 = new Object();
 				Object id2 = new Object();
-				if(!o1.getClass().equals(Employee.class) && !o1.getClass().equals(Manager.class) && !o1.getClass().equals(UserAppointmentView.class) && !o1.getClass().equals(UserTakesAppointment.class)){
-					try {
-						id1 = o1.getClass().getDeclaredField("id");
-						id2 = o2.getClass().getDeclaredField("id");
-					} catch (NoSuchFieldException e) {
-						e.printStackTrace();
+				try {
+					if(!o1.getClass().equals(Employee.class) && !o1.getClass().equals(Manager.class) && !o1.getClass().equals(UserAppointmentView.class) && !o1.getClass().equals(UserTakesAppointment.class)){
+							id1 = o1.getClass().getDeclaredField("id").getInt(o1.getClass());
+							id2 = o2.getClass().getDeclaredField("id").getInt(o2.getClass());
+					} else{
+							id1 = o1.getClass().getDeclaredField("user_id").getInt(o1.getClass());
+							id2 = o2.getClass().getDeclaredField("user_id").getInt(o2.getClass());
 					}
-				} else{
-					try {
-						id1 = o1.getClass().getDeclaredField("user_id");
-						id2 = o2.getClass().getDeclaredField("user_id");
-					} catch (NoSuchFieldException e1) {
-						e1.printStackTrace();
-					}
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-				System.out.println((Integer)id1);
-				System.out.println((Integer)id2);
+
+				System.out.println(id1);
+				System.out.println(id2);
 				return (Integer) id1 < (Integer) id2? -1 : 1;
 			}
 		});
