@@ -104,7 +104,7 @@
                 $.ajax({
                     type:"GET",
                     url: "http://lvtn-server.herokuapp.com/ajax/appointment/month",
-                    data : "id=${mng.user_id}&isCreated=false&year="+yearInput,
+                    data : "id=${emp.user_id}&isCreated=false&year="+yearInput,
                     dataType : "text",
                     cache : false,
                     success: function(result){
@@ -125,7 +125,7 @@
                 $.ajax({
                     type:"GET",
                     url: "http://lvtn-server.herokuapp.com/ajax/appointment/year",
-                    data : "id=${mng.user_id}&from="+from+"&to="+to+"&isCreated=false",
+                    data : "id=${emp.user_id}&from="+from+"&to="+to+"&isCreated=false",
                     dataType : "text",
                     cache : false,
                     success: function(result){
@@ -147,12 +147,11 @@
     $("#chart-btn").click(function(){
         var type = $("#select-appointment").val();
         var period = $("#select-time").val();
-        var isCreated = (type == 'taken')?false:true;
 
         if(period == 'month'){
             var yearInput = $("#yearInput").val();
             if(yearInput != ""){
-                var newUrl = host.concat("user/chart/month?id=",${mng.user_id},"&year=",yearInput,"&isCreated=false");
+                var newUrl = host.concat("user/chart/month?id=",${emp.user_id},"&year=",yearInput,"&isCreated=false");
 
                 var newTab = window.open(newUrl);
                 if(newTab){
@@ -167,7 +166,7 @@
             var from = $("#from").val();
             var to = $("#to").val();
             if(from != "" && to != ""){
-                var newUrl = host.concat("user/chart/year?id=",${mng.user_id},"&from=",from,"&to=",to,"&isCreated=false");
+                var newUrl = host.concat("user/chart/year?id=",${emp.user_id},"&from=",from,"&to=",to,"&isCreated=false");
                 console.log(newUrl);
                 var newTab = window.open(newUrl);
                 if(newTab){

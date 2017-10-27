@@ -1,6 +1,7 @@
 package capgemini.webappdemo.service.Manager;
 
 
+import capgemini.webappdemo.domain.Appointment;
 import capgemini.webappdemo.domain.Image;
 import capgemini.webappdemo.domain.Manager;
 import capgemini.webappdemo.repository.Image.ImageRepository;
@@ -9,6 +10,9 @@ import capgemini.webappdemo.service.EntityServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.text.ParseException;
+import java.util.List;
 
 
 @Service
@@ -39,4 +43,15 @@ public class ManagerServiceImpl extends EntityServiceImpl<Manager> implements Ma
 	public int getCreatedAppointments(int mngID) {
 		return Repository.getCreatedAppointments(mngID);
 	}
+
+	@Override
+	public List<Appointment> getCreatedApmByMonth(int month, int year, int id) {
+		return Repository.getCreatedApmByMonth(month, year, id);
+	}
+
+	@Override
+	public List<Appointment> getCreatedApmByYear(int year, int id) {
+		return Repository.getCreatedApmByYear(year, id);
+	}
+
 }

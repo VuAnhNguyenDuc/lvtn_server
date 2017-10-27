@@ -1,7 +1,11 @@
 package capgemini.webappdemo.controllers.Ajax;
 
+import capgemini.webappdemo.domain.Appointment;
+import capgemini.webappdemo.domain.Client;
 import capgemini.webappdemo.domain.User;
 import capgemini.webappdemo.domain.UserAppointmentView;
+import capgemini.webappdemo.service.Client.ClientService;
+import capgemini.webappdemo.service.Manager.ManagerService;
 import capgemini.webappdemo.service.User.UserService;
 import capgemini.webappdemo.service.UserAppointmentView.UserAppointmentViewService;
 import capgemini.webappdemo.utils.CommonUtils;
@@ -21,6 +25,12 @@ public class UserAjax {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ClientService clService;
+
+    @Autowired
+    private ManagerService mngService;
 
     private CommonUtils utils = new CommonUtils();
 
@@ -124,7 +134,7 @@ public class UserAjax {
             if(ap.getStatus() == 1){
                 object.put("status","Active");
             } else if(ap.getStatus() == 2){
-                object.put("status","Note");
+                object.put("status","Warning");
             } else{
                 object.put("status","Finished");
             }
@@ -133,5 +143,29 @@ public class UserAjax {
         return results;
     }
 
-
+    private JSONArray convertApmToJSONArray(List<Appointment> apms){
+        JSONArray result = new JSONArray();
+        for(Appointment apm : apms){
+            JSONObject obj = new JSONObject();
+            obj.put("appointment_id",apm.getId());
+            obj.put("appointment_name",apm.getName());
+            Client cl = clService.get(apm.getClient_id());
+            obj.put("client",cl.getName());
+            obj.put("start_date",utils.convertDateToString(apm.getStart_date()));
+            if(apm.getEnd_date() != null){
+                obj.put("end_date", utils.convertDateToString(apm.getEnd_date()));
+            } else{
+                obj.put("end_date","");
+            }
+            if(apm.getStatus() == 1){
+                obj.put("status","Active");
+            } else if(apm.getStatus() == 2){
+                obj.put("status","Warning");
+            } else{
+                obj.put("status","Finished");
+            }
+            result.add(obj);
+        }
+        return result;
+    }
 }
