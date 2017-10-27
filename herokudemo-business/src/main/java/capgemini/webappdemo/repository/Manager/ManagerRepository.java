@@ -11,7 +11,7 @@ import java.util.List;
 
 
 public interface ManagerRepository extends EntityRepository<Manager> {
-	
+
 	/**
 	 * Our app has a need for a fast method for deleting names
 	 */
@@ -20,9 +20,4 @@ public interface ManagerRepository extends EntityRepository<Manager> {
 	public void assignAppointmentToUser(int apmID, int userID);
 
 	public int getCreatedAppointments(int mngID);
-
-	/*public List<Appointment> getCreatedApmByMonth(int month, int year, int id);
-
-	public List<Appointment> getCreatedApmByYear(int year, int id);*/
-	
 }

@@ -43,15 +43,4 @@ public class ManagerServiceImpl extends EntityServiceImpl<Manager> implements Ma
 	public int getCreatedAppointments(int mngID) {
 		return Repository.getCreatedAppointments(mngID);
 	}
-
-	@Override
-	public List<Appointment> getCreatedApmByMonth(int month, int year, int id) {
-		return Repository.getCreatedApmByMonth(month, year, id);
-	}
-
-	@Override
-	public List<Appointment> getCreatedApmByYear(int year, int id) {
-		return Repository.getCreatedApmByYear(year, id);
-	}
-
 }

@@ -18,8 +18,4 @@ public interface ManagerService extends EntityService<Manager> {
 	public void assignAppointmentToUser(int apmID, int userID);
 
 	public int getCreatedAppointments(int mngID);
-
-	public List<Appointment> getCreatedApmByMonth(int month, int year, int id);
-
-	public List<Appointment> getCreatedApmByYear(int year, int id);
 }
