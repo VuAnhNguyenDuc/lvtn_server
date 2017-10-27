@@ -12,7 +12,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-
+import java.lang.reflect.Field;
 /**
  * Generic implementation of some CRUD functionality, and utility method for fetching data.
  * A class extending this will have get, add, update and remove implemented already, and
@@ -69,11 +69,27 @@ public class EntityRepositoryImpl<T> implements EntityRepository<T> {
 				Object id2 = new Object();
 				try {
 					if(!o1.getClass().equals(Employee.class) && !o1.getClass().equals(Manager.class) && !o1.getClass().equals(UserAppointmentView.class) && !o1.getClass().equals(UserTakesAppointment.class)){
-							id1 = o1.getClass().getDeclaredField("id").getInt(o1.getClass());
-							id2 = o2.getClass().getDeclaredField("id").getInt(o2.getClass());
+						Field field = o1.getClass()
+.getDeclaredField("id");
+						field.setAccessible(true);
+						id1 = field.getInt(o1.getClass());
+						field.setAccessible(false);
+
+						field = o2.getClass().getDeclaredField("id");
+						field.setAccessible(true);
+						id2 = field.getInt(o2.getClass());
+						field.setAccessible(false);
 					} else{
-							id1 = o1.getClass().getDeclaredField("user_id").getInt(o1.getClass());
-							id2 = o2.getClass().getDeclaredField("user_id").getInt(o2.getClass());
+						Field field = o1.getClass()
+							.getDeclaredField("user_id");
+						field.setAccessible(true);
+						id1 = field.getInt(o1.getClass());
+						field.setAccessible(false);
+
+						field = o2.getClass().getDeclaredField("user_id");
+						field.setAccessible(true);
+						id2 = field.getInt(o2.getClass());
+						field.setAccessible(false);
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
