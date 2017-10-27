@@ -16,9 +16,9 @@ public interface UserAppointmentViewRepository extends EntityRepository<UserAppo
 	 */
 	public void deleteAll();
 
-	public List<UserAppointmentView> getAppointmentsByMonth(int month, int year, int id, boolean isCreated) throws ParseException;
+	public List<Appointment> getAppointmentsByMonth(int month, int year, int id, boolean isCreated) throws ParseException;
 
-	public List<UserAppointmentView> getAppointmentsByYear(int year,int id, boolean isCreated) throws ParseException;
+	public List<Appointment> getAppointmentsByYear(int year,int id, boolean isCreated) throws ParseException;
 
 
 	

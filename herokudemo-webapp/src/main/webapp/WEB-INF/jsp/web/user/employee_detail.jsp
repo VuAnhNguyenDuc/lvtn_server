@@ -21,12 +21,6 @@
     <jsp:include page="../side_nav.jsp"/>
     <div class="col-sm-9 col-lg-9 col-sm-12 col-xs-12" style="padding-top: 30px">
         <table class="table">
-            <%--<thead>
-            <tr>
-                <th>Thuộc tính</th>
-                <th>Giá trị</th>
-            </tr>
-            </thead>--%>
             <tbody>
             <tr>
                 <td>Username</td>
@@ -188,7 +182,6 @@
             "        <tr>\n" +
             "            <th>Appointment ID</th>\n" +
             "            <th>Appointment Name</th>\n" +
-            "            <th>Created By</th>\n" +
             "            <th>Start Date</th>\n" +
             "            <th>End Date</th>\n" +
             "            <th>Status</th>\n" +
@@ -197,10 +190,9 @@
             "        <tbody>";
         for(var i = 0; i < data.length; i++){
             var obj = data[i];
-            table_body += "<tr>\n" +
+            table_body += "<tr class=\"clickable-row\" data-href=\""+host+"appointment/details?appointment_id="+obj.appointment_id+"\">\n" +
                 "                <td>"+obj.appointment_id+"</td>\n" +
                 "                <td>"+obj.appointment_name+"</td>\n" +
-                "                <td>"+obj.create_by+"</td>\n" +
                 "                <td>"+obj.start_date+"</td>\n" +
                 "                <td>"+obj.end_date+"</td>\n" +
                 "                <td>"+obj.status+"</td>\n" +
@@ -212,6 +204,12 @@
         table = table_head + table_body + table_end;
         return table;
     }
+
+    jQuery(document).ready(function($) {
+        $(".clickable-row").click(function() {
+            window.location = $(this).data("href");
+        });
+    });
 
 </script>
 </html>

@@ -1,6 +1,7 @@
 package capgemini.webappdemo.service.UserAppointmentView;
 
 
+import capgemini.webappdemo.domain.Appointment;
 import capgemini.webappdemo.domain.User;
 import capgemini.webappdemo.domain.UserAppointmentView;
 import capgemini.webappdemo.repository.User.UserRepository;
@@ -34,12 +35,12 @@ public class UserAppointmentViewServiceImpl extends EntityServiceImpl<UserAppoin
 	}
 
 	@Override
-	public List<UserAppointmentView> getAppointmentsByMonth(int month, int year, int id, boolean isCreated) throws ParseException {
+	public List<Appointment> getAppointmentsByMonth(int month, int year, int id, boolean isCreated) throws ParseException {
 		return Repository.getAppointmentsByMonth(month, year, id, isCreated);
 	}
 
 	@Override
-	public List<UserAppointmentView> getAppointmentsByYear(int year, int id, boolean isCreated) throws ParseException {
+	public List<Appointment> getAppointmentsByYear(int year, int id, boolean isCreated) throws ParseException {
 		return Repository.getAppointmentsByYear(year, id, isCreated);
 	}
 

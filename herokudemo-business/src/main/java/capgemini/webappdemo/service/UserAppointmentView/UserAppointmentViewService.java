@@ -1,5 +1,6 @@
 package capgemini.webappdemo.service.UserAppointmentView;
 
+import capgemini.webappdemo.domain.Appointment;
 import capgemini.webappdemo.domain.User;
 import capgemini.webappdemo.domain.UserAppointmentView;
 import capgemini.webappdemo.service.EntityService;
@@ -14,7 +15,7 @@ public interface UserAppointmentViewService extends EntityService<UserAppointmen
 	 */
 	public void deleteAll();
 
-	public List<UserAppointmentView> getAppointmentsByMonth(int month, int year, int id, boolean isCreated) throws ParseException;
+	public List<Appointment> getAppointmentsByMonth(int month, int year, int id, boolean isCreated) throws ParseException;
 
-	public List<UserAppointmentView> getAppointmentsByYear(int year,int id, boolean isCreated) throws ParseException;
+	public List<Appointment> getAppointmentsByYear(int year,int id, boolean isCreated) throws ParseException;
 }
