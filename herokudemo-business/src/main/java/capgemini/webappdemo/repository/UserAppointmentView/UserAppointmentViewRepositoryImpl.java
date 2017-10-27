@@ -69,9 +69,9 @@ public class UserAppointmentViewRepositoryImpl extends EntityRepositoryImpl<User
 		Session session = getSession();
 		String strQuery = "";
 		if(!isCreated){
-			strQuery = "from UserAppointmentView a where a.start_date >= :start and a.end_date <= :end and a.user_id = :id";
+			strQuery = "from UserAppointmentView a where a.start_date >= :start and a.start_date <= :end and a.user_id = :id";
 		} else{
-			strQuery = "from Appointment a where a.start_date >= :start and a.end_date <= :end and a.manager_id = :id";
+			strQuery = "from Appointment a where a.start_date >= :start and a.start_date <= :end and a.manager_id = :id";
 		}
 		Query query = session.createQuery(strQuery);
 		query.setParameter("start",getDate(start_date));
