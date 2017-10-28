@@ -211,12 +211,12 @@
         for(var i = 0; i < data.length; i++){
             var obj = data[i];
             table_body += "<tr>\n" +
-                    "                <td><a href=\""+host+"appointment/details?appointment_id="+obj.appointment_id+"\">"+obj.appointment_id+"</a></td>\n" +
-                    "                <td>"+obj.appointment_name+"</td>\n" +
+                    "                <td>"+obj.appointment_id+"</td>\n" +
+                    "                <td><a href=\""+host+"appointment/details?appointment_id="+obj.appointment_id+"\">"+obj.appointment_name+"</a></td>\n" +
                     "                <td>"+obj.start_date+"</td>\n" +
                     "                <td>"+obj.end_date+"</td>\n" +
                     "                <td>"+obj.status+"</td>\n" +
-                    "            </tr></a>\n";
+                    "            </tr>\n";
         }
         var table_end = "</tbody>\n" +
                 "    </table>";

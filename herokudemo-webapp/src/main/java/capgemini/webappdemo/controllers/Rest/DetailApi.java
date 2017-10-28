@@ -74,6 +74,7 @@ public class DetailApi {
             detail.setStart_location(startLocation);
             detail.setUser_created(id);
             detail.setWarning(false);
+            detail.setVehicle_id(vehicleId);
             detailService.add(detail);
             if(detail.getId() != 0){
                 result.put("message",1);

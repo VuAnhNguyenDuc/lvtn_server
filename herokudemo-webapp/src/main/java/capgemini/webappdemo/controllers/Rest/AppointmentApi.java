@@ -120,6 +120,7 @@ public class AppointmentApi {
         JSONObject result = new JSONObject();
         String jsonToken = input.get("json_token").toString();
         int id = (int) input.get("id");
+        double totalCost = (double) input.get("total_cost");
         String endDate = input.get("end_date").toString();
 
         result.put("message",0);
@@ -144,6 +145,7 @@ public class AppointmentApi {
                         ap.setStatus(0);
                     }
                     ap.setEnd_date(commonUtils.convertStringToDate(endDate));
+                    ap.setTotal_cost(totalCost);
                     apmService.update(ap);
                     result.put("message",1);
                 }
