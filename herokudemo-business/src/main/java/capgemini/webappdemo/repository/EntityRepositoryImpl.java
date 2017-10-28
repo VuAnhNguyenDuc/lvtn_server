@@ -95,9 +95,6 @@ public class EntityRepositoryImpl<T> implements EntityRepository<T> {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-
-				System.out.println(id1);
-				System.out.println(id2);
 				return id1 < id2? -1 : 1;
 			}
 		});
