@@ -127,6 +127,9 @@ public class DetailApi {
         int id = (int) input.get("id");
         String endTime = input.get("end_time").toString();
         String endLocation = input.get("end_location").toString();
+        String imageContent = input.get("image_content").toString();
+        String description = input.get("description").toString();
+        double inputCost = (double) input.get("input_cost");
         JSONObject result = new JSONObject();
 
         if(jsonToken.equals("") || !jsonTokenUtil.validateKey(jsonToken)){
@@ -155,6 +158,9 @@ public class DetailApi {
                 if(vehicleService.get(dt.getId()).isCalculatable() && (coords.size() == 0 || dt.getInput_cost() == 0)){
                     result.put("description","please input the coordinates and cost of this detail before end it");
                 } else{
+                    dt.setInput_cost(inputCost);
+                    dt.setDescription(description);
+                    dt.setImage_content(imageContent);
                     dt.setCoordinates(coords);
                     calculate(id,dt.getCoordinates());
                     result.put("message",1);
