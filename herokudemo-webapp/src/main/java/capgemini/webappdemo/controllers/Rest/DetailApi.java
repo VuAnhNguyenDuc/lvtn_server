@@ -148,22 +148,21 @@ public class DetailApi {
             if(dt == null){
                 result.put("description","this detail does not exist");
             } else{
-                try {
-                    dt.setEnd_time(commonUtils.convertStringToDate(endTime));
-                    detailService.update(dt);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
                 List<Coordinate> coords = coordService.getCoordsOfDetail(id);
                 if(vehicleService.get(dt.getId()).isCalculatable() && (coords.size() == 0 || dt.getInput_cost() == 0)){
                     result.put("description","please input the coordinates and cost of this detail before end it");
                 } else{
-                    dt.setInput_cost(inputCost);
-                    dt.setDescription(description);
-                    dt.setImage_content(imageContent);
-                    dt.setCoordinates(coords);
-                    detailService.update(dt);
-                    calculate(id,dt.getCoordinates());
+                    try {
+                        dt.setEnd_time(commonUtils.convertStringToDate(endTime));
+                        dt.setInput_cost(inputCost);
+                        dt.setDescription(description);
+                        dt.setImage_content(imageContent);
+                        dt.setCoordinates(coords);
+                        detailService.update(dt);
+                        calculate(id,dt.getCoordinates());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                     result.put("message",1);
                 }
             }
