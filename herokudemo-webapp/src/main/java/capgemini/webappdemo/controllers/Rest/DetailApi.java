@@ -162,6 +162,7 @@ public class DetailApi {
                     dt.setDescription(description);
                     dt.setImage_content(imageContent);
                     dt.setCoordinates(coords);
+                    detailService.update(dt);
                     calculate(id,dt.getCoordinates());
                     result.put("message",1);
                 }
