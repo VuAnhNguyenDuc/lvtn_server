@@ -23,25 +23,28 @@
     <div class="col-sm-9 col-lg-9 col-sm-12 col-xs-12" style="padding-top: 30px">
         <div id="map" style="width: 100%; height: 600px;"></div>
     </div>
+    <%--${id}--%>
 </body>
 
 <%--
 https://stackoverflow.com/questions/5868850/creating-list-of-objects-in-javascript
 https://developers.google.com/maps/documentation/javascript/examples/polyline-simple
 --%>
-
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhlcbvdlgCkj5u5tLUqzeeyx0a3Dp_nlo&&callback=initMap">
+</script>
 <script type="text/javascript">
 
     jQuery(document).ready(function(){
         /*renderMap(*/<%--${coords}--%>/*);*/
         //renderMap();
+        initMap();
     });
 
-    function getData(){
+    /*function getData(){
         $.ajax({
             type:"GET",
             url: "https://lvtn-server.herokuapp.com/ajax/getCoordinates",
-            data : "appointmentid=${id}",
+            data : "appointmentid={id}",
             dataType : "text",
             cache : false,
             success: function(result){
@@ -55,7 +58,7 @@ https://developers.google.com/maps/documentation/javascript/examples/polyline-si
             }
         });
         return temp;
-    }
+    }*/
 
     function initMap() {
         /*var coordinates = [
@@ -152,7 +155,7 @@ https://developers.google.com/maps/documentation/javascript/examples/polyline-si
 
 
 </script>
-<script async defer
+<%--<script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhlcbvdlgCkj5u5tLUqzeeyx0a3Dp_nlo&&callback=initMap">
-</script>
+</script>--%>
 </html>

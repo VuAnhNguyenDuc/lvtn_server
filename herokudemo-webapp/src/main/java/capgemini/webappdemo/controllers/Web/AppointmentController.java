@@ -104,12 +104,12 @@ public class AppointmentController {
     }
 
     // Show the road of an appointment
-    @RequestMapping(value = "/appointment/viewMap", method = RequestMethod.GET, params = {"id"})
-    public String getDetail(HttpSession session,  @RequestParam("id") int id,ModelMap model){
+    @RequestMapping(value = "/appointment/viewMap", method = RequestMethod.GET/*, params = {"id"}*/)
+    public String getDetail(HttpSession session,  /*@RequestParam("id") int id,*/ModelMap model){
         if(!loginUtil.isLogin(session)){
             return "redirect:/login";
         } else{
-            List<Detail> dts = detailService.getDetailsOfAppointment(id);
+            /*List<Detail> dts = detailService.getDetailsOfAppointment(id);
             List<Coordinate> total_coords = new ArrayList<>();
             if(dts.size() > 0){
                 for(Detail dt : dts){
@@ -117,7 +117,7 @@ public class AppointmentController {
                     total_coords.addAll(coords);
                 }
             }
-            model.addAttribute("coords",parseCoords(total_coords));
+            model.addAttribute("coords",parseCoords(total_coords));*/
             model.addAttribute("pageName","appointment");
             return "web/appointment/apm_map";
         }

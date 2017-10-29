@@ -25,3 +25,5 @@ Sort a Java List :
 https://stackoverflow.com/questions/16252269/how-to-sort-an-arraylist
 https://stackoverflow.com/questions/4066538/sort-an-arraylist-based-on-an-object-field
 https://stackoverflow.com/questions/6911427/is-it-possible-to-invoke-private-attributes-or-methods-via-reflection
+
+["{'latitude':123.456, 'longitude':123.456, 'time': '11:05:02 23-10-2017'}", "{'latitude':123.456, 'longitude':123.456, 'time': '11:05:02 23-10-2017'}"]
