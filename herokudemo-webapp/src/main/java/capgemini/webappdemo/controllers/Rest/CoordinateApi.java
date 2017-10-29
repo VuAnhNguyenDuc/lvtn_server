@@ -114,34 +114,21 @@ public class CoordinateApi {
         if(!jsonTokenUtil.validateKey(jsonToken)){
             result.put("description","invalid json token");
         } else{
-            int i = 1;
+            //int i = 1;
             Double latitude = 0.0;
             Double longitude = 0.0;
             String time = "";
             DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
-            for(String temp : coords){
-                if(i == 1){
-                    latitude = Double.parseDouble(temp);
-                    i++;
-                    continue;
-                } else if(i == 2){
-                    longitude = Double.parseDouble(temp);
-                    i++;
-                    continue;
-                } else if(i == 3){
-                    time = temp;
-                    i++;
-                    continue;
-                } else if(i == 4){
-                    Coordinate coor = new Coordinate();
-                    coor.setLatitude(latitude);
-                    coor.setLongitude(longitude);
-                    coor.setTime(dateFormat.parse(time));
-                    coor.setDetail_id(detailid);
-                    coordinateService.add(coor);
-                    i = 1;
-                    continue;
-                }
+            for(int i = 0; i < coords.size() - 2; i+=3){
+                latitude = Double.parseDouble(coords.get(i));
+                longitude = Double.parseDouble(coords.get(i+1));
+                time = coords.get(i+2);
+                Coordinate coor = new Coordinate();
+                coor.setLatitude(latitude);
+                coor.setLongitude(longitude);
+                coor.setTime(dateFormat.parse(time));
+                coor.setDetail_id(detailid);
+                coordinateService.add(coor);
             }
             result.put("message",1);
         }
