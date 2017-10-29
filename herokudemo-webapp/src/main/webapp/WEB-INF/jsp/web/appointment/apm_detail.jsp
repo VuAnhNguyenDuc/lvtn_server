@@ -143,14 +143,13 @@
         }
     });*/
     function initMap() {
-        var coordinates = [
+        /*var coordinates = [
             {lat: 37.772, lng: -122.214},
             {lat: 21.291, lng: -157.821},
             {lat: -18.142, lng: 178.431},
             {lat: -27.467, lng: 153.027}
-        ];
-        //var coordinates = $.parseJSON(${coords});
-        //var coordinates = ${coords};
+        ];*/
+        var coordinates = ${coords};
         var startLat = coordinates[0].lat;
         var startLong = coordinates[0].lng;
         console.log("lat = " + startLat);

@@ -79,6 +79,7 @@ public class AppointmentController {
             Appointment app = appService.get(id);
             List<User> users = appService.getUsersOfAppointment(id);
             List<Detail> details = detailService.getDetailsOfAppointment(id);
+            List<Coordinate> total_coords = new ArrayList<>();
             for(Detail dt : details){
                 //calculateDetail(dt);
                 dt.setVehicle_name(vhService.get(dt.getVehicle_id()).getName());
@@ -88,6 +89,8 @@ public class AppointmentController {
                 if(dt.getEnd_time() != null){
                     dt.setEnd_time_str(commonUtils.convertDateToString(dt.getEnd_time()));
                 }
+                List<Coordinate> coords = coorService.getCoordsOfDetail(dt.getId());
+                total_coords.addAll(coords);
             }
             app.setUsers(users);
             app.setStart_date_str(commonUtils.convertDateToString(app.getStart_date()));
@@ -95,6 +98,7 @@ public class AppointmentController {
                 app.setEnd_date_str(commonUtils.convertDateToString(app.getEnd_date()));
             }
             app.setDetails(details);
+            model.addAttribute("coords",parseCoords(total_coords));
             model.addAttribute("pageName","appointment");
             model.addAttribute("apm",app);
             model.addAttribute("dts",details);
