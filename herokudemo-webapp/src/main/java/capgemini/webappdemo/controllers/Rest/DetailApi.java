@@ -149,7 +149,7 @@ public class DetailApi {
                 result.put("description","this detail does not exist");
             } else{
                 List<Coordinate> coords = coordService.getCoordsOfDetail(id);
-                if(vehicleService.get(dt.getId()).isCalculatable() && (coords.size() == 0 || dt.getInput_cost() == 0)){
+                if(vehicleService.get(dt.getVehicle_id()).isCalculatable() && (coords.size() == 0 || dt.getInput_cost() == 0)){
                     result.put("description","please input the coordinates and cost of this detail before end it");
                 } else{
                     try {
