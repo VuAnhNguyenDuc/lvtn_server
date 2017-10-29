@@ -44,21 +44,20 @@ https://developers.google.com/maps/documentation/javascript/examples/polyline-si
     function getData(){
         $.ajax({
             type:"GET",
-            url: "https://lvtn-server.herokuapp.com/ajax/getCoordinates",
+            url: "http://lvtn-server.herokuapp.com/ajax/getCoordinates",
             data : "appointmentid=105",
             dataType : "text",
             cache : false,
             success: function(result){
                 console.log(result);
-                var locations = $.parseJSON(result);
-                initMap(locations);
+                //var locations = $.parseJSON(result);
+                initMap(result);
             },
             error: function (xhr) {
                 var err = eval("(" + xhr.responseText + ")");
                 alert(err.Message);
             }
         });
-        return temp;
     }
 
     function initMap(coordinates) {
