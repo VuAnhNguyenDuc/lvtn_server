@@ -67,11 +67,12 @@ public class CoordinateApi {
 
     @RequestMapping(value = "/api/detail/addCoordinate/str", method = RequestMethod.POST)
     public ResponseEntity<JSONObject> addCoorStr(@RequestBody CoorFormString input) throws org.json.simple.parser.ParseException, ParseException {
+        System.out.println("adding coordinates");
         int detailid = input.getDetail_id();
         String jsonToken = input.getJson_token();
         ArrayList<String> coords = input.getCoordinates();
         JSONObject result = new JSONObject();
-
+        System.out.println("detail id = " + detailid + "; coords = "+coords);
         result.put("message",0);
         boolean flag = true;
 
