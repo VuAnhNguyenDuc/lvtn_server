@@ -133,15 +133,15 @@
 <script>
     /*var host =  "http://lvtn-server.herokuapp.com/";
     $("#view-map").click(function () {
-        var newUrl = host.concat("appointment/viewMap?id=",<%--${apm.id}--%>);
+        var newUrl = host.concat("appointment/viewMap?id=",*/<%--${apm.id}--%>/*);
         console.log(newUrl);
         var newTab = window.open(newUrl);
         if(newTab){
             newTab.focus();
         } else{
             alert("Cannot create a new tab");
-        }*/
-    });
+        }
+    });*/
     function initMap() {
         var coordinates = [
             {lat: 37.772, lng: -122.214},
