@@ -71,8 +71,8 @@ public class AppointmentController {
         }
     }
 
-    @RequestMapping(value = "/appointment/details", method = RequestMethod.GET, params = "appointment_id")
-    public String getAppointmentDetails(HttpSession session, @RequestParam("appointment_id") int id, ModelMap model){
+    @RequestMapping(value = "/appointment/details", method = RequestMethod.GET, params = {"appointment_id","detail_id"})
+    public String getAppointmentDetails(HttpSession session, @RequestParam("appointment_id") int id, @RequestParam("detail_id") int detail_id, ModelMap model){
         if(!loginUtil.isLogin(session)){
             return "redirect:/login";
         } else{
@@ -90,7 +90,13 @@ public class AppointmentController {
                     dt.setEnd_time_str(commonUtils.convertDateToString(dt.getEnd_time()));
                 }
                 List<Coordinate> coords = coorService.getCoordsOfDetail(dt.getId());
-                total_coords.addAll(coords);
+                if(detail_id == 0){
+                    total_coords.addAll(coords);
+                } else {
+                    if(dt.getId() == detail_id){
+                        total_coords.addAll(coords);
+                    }
+                }
             }
             app.setUsers(users);
             app.setStart_date_str(commonUtils.convertDateToString(app.getStart_date()));

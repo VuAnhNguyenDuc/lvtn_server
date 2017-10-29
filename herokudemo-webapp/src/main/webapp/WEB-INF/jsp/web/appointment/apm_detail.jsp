@@ -83,11 +83,11 @@
                 <thead>
                 <tr>
                     <th>No</th>
+                    <th>Vehicle</th>
                     <th>Start Time</th>
                     <th>End Time</th>
                     <th>Start Location</th>
                     <th>End Location</th>
-                    <th>Vehicle</th>
                     <th>Total Length (km)</th>
                     <th>Average Velocity (km/h)</th>
                     <th>Input Cost</th>
@@ -103,11 +103,11 @@
                 <c:forEach items="${dts}" var="dt">
                     <tr>
                         <td><%= i %></td>
+                        <td><a href="/appointment/details?appointment_id=${apm.id}&detail_id=${dt.id}">${dt.vehicle_name}</a></td>
                         <td>${dt.start_time_str}</td>
                         <td>${dt.end_time_str}</td>
                         <td>${dt.start_location}</td>
                         <td>${dt.end_location}</td>
-                        <td>${dt.vehicle_name}</td>
                         <td>${dt.total_length}</td>
                         <td>${dt.average_velocity}</td>
                         <td>${dt.input_cost}</td>
