@@ -131,16 +131,16 @@
 </body>
 
 <script>
-    var host =  "http://lvtn-server.herokuapp.com/";
+    /*var host =  "http://lvtn-server.herokuapp.com/";
     $("#view-map").click(function () {
-        var newUrl = host.concat("appointment/viewMap?id=",${apm.id});
+        var newUrl = host.concat("appointment/viewMap?id=",<%--${apm.id}--%>);
         console.log(newUrl);
         var newTab = window.open(newUrl);
         if(newTab){
             newTab.focus();
         } else{
             alert("Cannot create a new tab");
-        }
+        }*/
     });
     function initMap() {
         var coordinates = [
@@ -172,5 +172,8 @@
 
         flightPath.setMap(map);
     }
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhlcbvdlgCkj5u5tLUqzeeyx0a3Dp_nlo&&callback=initMap">
 </script>
 </html>
