@@ -103,4 +103,43 @@ public class CoordinateApi {
         }
         return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/api/detail/addCoordinate/strArray", method = RequestMethod.POST)
+    public ResponseEntity<JSONObject> addCoorStr2(@RequestBody JSONObject input) throws ParseException {
+        String jsonToken = input.get("json_token").toString();
+        int detailid = (int) input.get("detail_id");
+        ArrayList<String> coords = (ArrayList<String>) input.get("coordinates");
+        JSONObject result = new JSONObject();
+        result.put("message",0);
+        if(!jsonTokenUtil.validateKey(jsonToken)){
+            result.put("description","invalid json token");
+        } else{
+            int i = 1;
+            Double latitude = 0.0;
+            Double longitude = 0.0;
+            String time = "";
+            DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
+            for(String temp : coords){
+                if(i == 1){
+                    latitude = Double.parseDouble(temp);
+                } else if(i == 2){
+                    longitude = Double.parseDouble(temp);
+                } else if(i == 3){
+                    time = temp;
+                } else if(i == 4){
+                    Coordinate coor = new Coordinate();
+                    coor.setLatitude(latitude);
+                    coor.setLongitude(longitude);
+                    coor.setTime(dateFormat.parse(time));
+                    coor.setDetail_id(detailid);
+                    coordinateService.add(coor);
+                    i = 1;
+                    continue;
+                }
+                i++;
+            }
+            result.put("message",1);
+        }
+        return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
+    }
 }

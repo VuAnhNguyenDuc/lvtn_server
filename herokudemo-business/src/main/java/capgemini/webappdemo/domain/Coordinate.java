@@ -27,13 +27,6 @@ public class Coordinate {
         this.id = 0;
     }
 
-    public Coordinate(Date time, float longitude, float latitude, int detail_id) {
-        this.time = time;
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.detail_id = detail_id;
-    }
-
     public int getId() {
         return id;
     }

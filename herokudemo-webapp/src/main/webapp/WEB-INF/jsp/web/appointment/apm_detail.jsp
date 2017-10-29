@@ -150,6 +150,7 @@
             {lat: -27.467, lng: 153.027}
         ];*/
         var coordinates = ${coords};
+        console.log(coordinates);
         var startLat = coordinates[0].lat;
         var startLong = coordinates[0].lng;
         console.log("lat = " + startLat);
