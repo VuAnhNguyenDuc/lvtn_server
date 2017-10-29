@@ -122,10 +122,16 @@ public class CoordinateApi {
             for(String temp : coords){
                 if(i == 1){
                     latitude = Double.parseDouble(temp);
+                    i++;
+                    continue;
                 } else if(i == 2){
                     longitude = Double.parseDouble(temp);
+                    i++;
+                    continue;
                 } else if(i == 3){
                     time = temp;
+                    i++;
+                    continue;
                 } else if(i == 4){
                     Coordinate coor = new Coordinate();
                     coor.setLatitude(latitude);
@@ -136,7 +142,6 @@ public class CoordinateApi {
                     i = 1;
                     continue;
                 }
-                i++;
             }
             result.put("message",1);
         }
