@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,6 +85,8 @@ public class AppointmentController {
             for(Detail dt : details){
                 //calculateDetail(dt);
                 dt.setVehicle_name(vhService.get(dt.getVehicle_id()).getName());
+                dt.setTotal_length(round(dt.getTotal_length(),2));
+                dt.setAverage_velocity(round(dt.getAverage_velocity(),2));
                 if(dt.getStart_time() != null){
                     dt.setStart_time_str(commonUtils.convertDateToString(dt.getStart_time()));
                 }
@@ -113,26 +117,6 @@ public class AppointmentController {
         }
     }
 
-    // Show the road of an appointment
-    @RequestMapping(value = "/appointment/viewMap", method = RequestMethod.GET/*, params = {"id"}*/)
-    public String getDetail(HttpSession session,  /*@RequestParam("id") int id,*/ModelMap model){
-        if(!loginUtil.isLogin(session)){
-            return "redirect:/login";
-        } else{
-            /*List<Detail> dts = detailService.getDetailsOfAppointment(id);
-            List<Coordinate> total_coords = new ArrayList<>();
-            if(dts.size() > 0){
-                for(Detail dt : dts){
-                    List<Coordinate> coords = coorService.getCoordsOfDetail(dt.getId());
-                    total_coords.addAll(coords);
-                }
-            }
-            model.addAttribute("coords",parseCoords(total_coords));*/
-            model.addAttribute("pageName","appointment");
-            return "web/appointment/apm_map";
-        }
-    }
-
     private JSONArray parseCoords(List<Coordinate> coords){
         JSONArray result = new JSONArray();
         for(Coordinate coord : coords){
@@ -142,6 +126,14 @@ public class AppointmentController {
             result.add(obj);
         }
         return result;
+    }
+
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 
 }

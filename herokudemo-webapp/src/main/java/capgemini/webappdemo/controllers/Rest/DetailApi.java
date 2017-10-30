@@ -289,7 +289,7 @@ public class DetailApi {
         dt.setTotal_length(total_length);
         dt.setEstimate_cost(estimate_cost);
         // velocity km/h
-        dt.setAverage_velocity(round((total_length*3600)/total_time,2));
+        dt.setAverage_velocity((total_length*3600)/total_time);
         if(estimate_cost * 1.5 <= dt.getInput_cost()){
             dt.setWarning(true);
             Appointment apm = apmService.get(dt.getAppointment_id());

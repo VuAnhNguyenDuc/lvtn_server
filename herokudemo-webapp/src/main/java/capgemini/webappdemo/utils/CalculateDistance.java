@@ -35,14 +35,6 @@ public class CalculateDistance {
             Coordinate c2 = coords.get(i+1);
             total += getDistance(c1,c2);
         }
-        return round(total,2);
-    }
-
-    public static double round(double value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
-
-        BigDecimal bd = new BigDecimal(value);
-        bd = bd.setScale(places, RoundingMode.HALF_UP);
-        return bd.doubleValue();
+        return total;
     }
 }
