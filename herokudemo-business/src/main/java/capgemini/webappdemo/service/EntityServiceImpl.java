@@ -35,5 +35,10 @@ public abstract class EntityServiceImpl<T> implements EntityService<T> {
 	public void remove(T entity) {
 		repository.remove(entity);
 	}
+
+	@Override
+	public void sort(List<T> entities){
+		repository.sort(entities);
+	}
 	
 }

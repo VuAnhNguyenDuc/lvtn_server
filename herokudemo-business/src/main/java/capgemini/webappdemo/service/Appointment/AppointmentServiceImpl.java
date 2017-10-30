@@ -52,4 +52,9 @@ public class AppointmentServiceImpl extends EntityServiceImpl<Appointment> imple
 	public void updateAppointment(Appointment apm,boolean changeUsers) {
 		Repository.updateAppointment(apm,changeUsers);
 	}
+
+	@Override
+	public List<Appointment> getApmsByStatus(String status) {
+		return Repository.getApmsByStatus(status);
+	}
 }

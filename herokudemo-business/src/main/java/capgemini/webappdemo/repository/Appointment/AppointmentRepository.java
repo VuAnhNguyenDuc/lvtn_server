@@ -22,5 +22,7 @@ public interface AppointmentRepository extends EntityRepository<Appointment> {
 
 	public Appointment getApmByName(String name);
 
+	public List<Appointment> getApmsByStatus(String status);
+
 	public void updateAppointment(Appointment apm,boolean changeUsers);
 }

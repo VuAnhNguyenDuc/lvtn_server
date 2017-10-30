@@ -20,6 +20,15 @@
     <jsp:include page="../mobile_nav.jsp"/>
     <jsp:include page="../side_nav.jsp"/>
     <div class="col-sm-9 col-lg-9 col-sm-12 col-xs-12" style="padding-top: 30px">
+        <div class="form-group">
+            <label for="select-apm">Select the status of appointments:</label>
+            <select class="form-control" id="select-apm">
+                <option value="all">View all</option>
+                <option value="active">Active</option>
+                <option value="finished">Finished</option>
+                <option value="warning">Warning</option>
+            </select>
+        </div>
         <div class="table-responsive" style="width: 100%;">
             <table class="table table-hover">
                 <thead>
@@ -66,4 +75,11 @@
         </div>
     </div>
 </body>
+<
+<script type="application/javascript">
+    $("select-apm").change(function(){
+        var val = $("select-apm").val();
+        window.location.href("http://lvtn-server.herokuapp.com/appointments?type="+val);
+    });
+</script>
 </html>

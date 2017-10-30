@@ -25,7 +25,7 @@
         <li <% if(pageName.equals("manager")){ %> class="active" <%}%>><a href="/managers">MANAGERS</a></li>
         <li <% if(pageName.equals("employee")){ %> class="active" <%}%>><a href="/employees">EMPLOYEES</a></li>
         <li <% if(pageName.equals("client")){ %> class="active" <%}%>><a href="/clients">CLIENTS</a></li>
-        <li <% if(pageName.equals("appointment")){ %> class="active" <%}%>><a href="/appointments">APPOINTMENTS</a></li>
+        <li <% if(pageName.equals("appointment")){ %> class="active" <%}%>><a href="/appointments?type=all">APPOINTMENTS</a></li>
         <li <% if(pageName.equals("vehicle")){ %> class="active" <%}%>><a href="/vehicles">VEHICLES</a></li>
         <li><a href="/logout">LOG OUT</a></li>
     </ul><br>

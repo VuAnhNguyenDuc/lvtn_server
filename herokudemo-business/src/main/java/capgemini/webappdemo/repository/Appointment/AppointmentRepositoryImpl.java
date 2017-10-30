@@ -92,6 +92,29 @@ public class AppointmentRepositoryImpl extends EntityRepositoryImpl<Appointment>
 	}
 
 	@Override
+	public List<Appointment> getApmsByStatus(String status) {
+		Session session = getSession();
+		int statusInt = 0;
+		if(status.equals("all")){
+			return getAll();
+		} else if(status.equals("active")){
+			statusInt = 1;
+		} else if(status.equals("finished")){
+			statusInt = 0;
+		} else if(status.equals("warning")){
+			statusInt = -1;
+		}
+		String strQuery = "from Appointment a where a.status = :sta";
+		Query query = session.createQuery(strQuery);
+		query.setParameter("sta",statusInt);
+		List<Appointment> result = query.list();
+		if(result.size() >= 2){
+			sort(result);
+		}
+		return result;
+	}
+
+	@Override
 	public void updateAppointment(Appointment apm,boolean changeUsers) {
 		Session session = getSession();
 		session.merge(apm);

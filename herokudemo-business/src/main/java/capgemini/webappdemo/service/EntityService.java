@@ -51,5 +51,7 @@ public interface EntityService<T> {
 	 * @param entity<T>
 	 */
 	public void remove(T entity);
+
+	public void sort(List<T> entities);
 	
 }

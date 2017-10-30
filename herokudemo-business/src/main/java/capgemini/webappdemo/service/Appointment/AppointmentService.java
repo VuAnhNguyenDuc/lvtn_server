@@ -21,4 +21,6 @@ public interface AppointmentService extends EntityService<Appointment> {
 	public Appointment getApmByName(String name);
 
 	public void updateAppointment(Appointment apm,boolean changeUsers);
+
+	public List<Appointment> getApmsByStatus(String status);
 }

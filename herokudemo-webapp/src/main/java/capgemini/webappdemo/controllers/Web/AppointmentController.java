@@ -49,12 +49,12 @@ public class AppointmentController {
 
     private CommonUtils commonUtils = new CommonUtils();
 
-    @RequestMapping(value = "/appointments", method = RequestMethod.GET)
-    public String getAppointments(HttpSession session,ModelMap model){
+    @RequestMapping(value = "/appointments", method = RequestMethod.GET, params = "type")
+    public String getAppointments(HttpSession session,ModelMap model,@RequestParam("type") String type){
         if(!loginUtil.isLogin(session)){
             return "redirect:/login";
         } else{
-            List<Appointment> apps = appService.getAll();
+            List<Appointment> apps = appService.getApmsByStatus(type);
             for(Appointment app : apps){
                 User mng = userService.get(app.getManager_id());
                 app.setManager_name(mng.getFullname());

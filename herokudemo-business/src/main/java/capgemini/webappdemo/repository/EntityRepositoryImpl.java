@@ -63,7 +63,7 @@ public class EntityRepositoryImpl<T> implements EntityRepository<T> {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(clazz);
 		List<T> result = criteria.list();
-		Collections.sort(result, new Comparator() {
+		/*Collections.sort(result, new Comparator() {
 			@Override
 			public int compare(Object o1, Object o2) {
 				int id1 = 0;
@@ -97,7 +97,8 @@ public class EntityRepositoryImpl<T> implements EntityRepository<T> {
 				}
 				return id1 < id2? -1 : 1;
 			}
-		});
+		});*/
+		sort(result);
 		return result;
 	}
 
@@ -129,6 +130,45 @@ public class EntityRepositoryImpl<T> implements EntityRepository<T> {
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void sort(List<T> entities) {
+		Collections.sort(entities, new Comparator() {
+			@Override
+			public int compare(Object o1, Object o2) {
+				int id1 = 0;
+				int id2 = 0;
+				try {
+					if(!o1.getClass().equals(Employee.class) && !o1.getClass().equals(Manager.class) && !o1.getClass().equals(UserAppointmentView.class) && !o1.getClass().equals(UserTakesAppointment.class)){
+						Field field = o1.getClass()
+								.getDeclaredField("id");
+						field.setAccessible(true);
+						id1 = field.getInt(o1);
+						field.setAccessible(false);
+
+						field = o2.getClass().getDeclaredField("id");
+						field.setAccessible(true);
+						id2 = field.getInt(o2);
+						field.setAccessible(false);
+					} else{
+						Field field = o1.getClass()
+								.getDeclaredField("user_id");
+						field.setAccessible(true);
+						id1 = field.getInt(o1);
+						field.setAccessible(false);
+
+						field = o2.getClass().getDeclaredField("user_id");
+						field.setAccessible(true);
+						id2 = field.getInt(o2);
+						field.setAccessible(false);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return id1 < id2? 1 : -1;
+			}
+		});
 	}
 
 }
