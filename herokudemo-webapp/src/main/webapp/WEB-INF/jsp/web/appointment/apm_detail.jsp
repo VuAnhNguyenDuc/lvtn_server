@@ -116,7 +116,6 @@
                             <td>${dt.input_cost}</td>
                         </c:otherwise>
                     </c:choose>
-                    <td>${dt.input_cost}</td>
                     <td>${dt.estimate_cost}</td>
                     <td>Img</td>
                 </tr>
