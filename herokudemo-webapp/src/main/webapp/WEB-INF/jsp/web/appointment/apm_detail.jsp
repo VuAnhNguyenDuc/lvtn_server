@@ -78,7 +78,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="table-responsive" style="width: 100%;">
+        <%--<div class="table-responsive" style="width: 100%;">--%>
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -126,7 +126,7 @@
                 </tbody>
             </table>
         </div>
-    </div>
+    <%--</div>--%>
 </body>
 
 <script>
