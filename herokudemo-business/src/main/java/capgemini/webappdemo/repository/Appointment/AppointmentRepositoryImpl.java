@@ -59,7 +59,7 @@ public class AppointmentRepositoryImpl extends EntityRepositoryImpl<Appointment>
 		query.setParameter("id",id);
 		List<UserTakesAppointment> utas = query.list();
 		if(utas.size() == 0){
-			return null;
+			return new ArrayList<User>();
 		} else{
 			List<User> users = new ArrayList<User>();
 			for(UserTakesAppointment uta : utas){
