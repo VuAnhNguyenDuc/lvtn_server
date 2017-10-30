@@ -77,57 +77,54 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <%--<div class="table-responsive" style="width: 100%;">--%>
-            <table class="table table-hover" style="margin-left:10px;">
-                <thead>
+    <div class="container">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Vehicle</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Start Location</th>
+                <th>End Location</th>
+                <th>Total Length (km)</th>
+                <th>Average Velocity (km/h)</th>
+                <th>Input Cost</th>
+                <th>Estimate Cost</th>
+                <th>Image Content</th>
+            </tr>
+            </thead>
+            <tbody>
+            <%
+                int i = 1;
+            %>
+            <c:forEach items="${dts}" var="dt">
                 <tr>
-                    <th>No</th>
-                    <th>Vehicle</th>
-                    <th>Start Time</th>
-                    <th>End Time</th>
-                    <th>Start Location</th>
-                    <th>End Location</th>
-                    <th>Total Length (km)</th>
-                    <th>Average Velocity (km/h)</th>
-                    <th>Input Cost</th>
-                    <th>Estimate Cost</th>
-                    <th>Image Content</th>
+                    <td><%= i %></td>
+                    <td><a href="/appointment/details?appointment_id=${apm.id}&detail_id=${dt.id}">${dt.vehicle_name}</a></td>
+                    <td>${dt.start_time_str}</td>
+                    <td>${dt.end_time_str}</td>
+                    <td>${dt.start_location}</td>
+                    <td>${dt.end_location}</td>
+                    <td>${dt.total_length}</td>
+                    <td>${dt.average_velocity}</td>
+                    <c:choose>
+                        <c:when test="${dt.warning}">
+                            <td><p style="color:red">${dt.input_cost}</p></td>
+                        </c:when>
+                        <c:otherwise>
+                            <td>${dt.input_cost}</td>
+                        </c:otherwise>
+                    </c:choose>
+                    <td>${dt.input_cost}</td>
+                    <td>${dt.estimate_cost}</td>
+                    <td>Img</td>
                 </tr>
-                </thead>
-                <tbody>
-                <%
-                    int i = 1;
-                %>
-                <c:forEach items="${dts}" var="dt">
-                    <tr>
-                        <td><%= i %></td>
-                        <td><a href="/appointment/details?appointment_id=${apm.id}&detail_id=${dt.id}">${dt.vehicle_name}</a></td>
-                        <td>${dt.start_time_str}</td>
-                        <td>${dt.end_time_str}</td>
-                        <td>${dt.start_location}</td>
-                        <td>${dt.end_location}</td>
-                        <td>${dt.total_length}</td>
-                        <td>${dt.average_velocity}</td>
-                        <c:choose>
-                            <c:when test="${dt.warning}">
-                                <td><p style="color:red">${dt.input_cost}</p></td>
-                            </c:when>
-                            <c:otherwise>
-                                <td>${dt.input_cost}</td>
-                            </c:otherwise>
-                        </c:choose>
-                        <td>${dt.input_cost}</td>
-                        <td>${dt.estimate_cost}</td>
-                        <td>Img</td>
-                    </tr>
-                    <% i = i + 1; %>
-                </c:forEach>
-                </tbody>
-            </table>
-        </div>
-    <%--</div>--%>
-
+                <% i = i + 1; %>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
 </body>
 
 <script>
