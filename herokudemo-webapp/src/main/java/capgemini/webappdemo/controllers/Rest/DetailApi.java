@@ -19,6 +19,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -287,7 +289,7 @@ public class DetailApi {
         dt.setTotal_length(total_length);
         dt.setEstimate_cost(estimate_cost);
         // velocity km/h
-        dt.setAverage_velocity((total_length*3600)/total_time);
+        dt.setAverage_velocity(round((total_length*3600)/total_time,2));
         if(estimate_cost * 1.5 <= dt.getInput_cost()){
             dt.setWarning(true);
             Appointment apm = apmService.get(dt.getAppointment_id());
@@ -295,6 +297,14 @@ public class DetailApi {
             apmService.update(apm);
         }
         detailService.update(dt);
+    }
+
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 }
 
