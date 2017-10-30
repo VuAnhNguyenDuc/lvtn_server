@@ -157,7 +157,7 @@
         console.log("long = " + startLong);
 
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 10,
+            zoom: 20,
             center: {lat: startLat, lng: startLong},
             mapTypeId: 'terrain'
         });
