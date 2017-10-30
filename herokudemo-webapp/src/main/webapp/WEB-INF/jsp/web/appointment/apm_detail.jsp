@@ -79,7 +79,7 @@
     </div>
     <div class="row">
         <%--<div class="table-responsive" style="width: 100%;">--%>
-            <table class="table table-hover">
+            <table class="table table-hover" style="margin-left:10px;">
                 <thead>
                 <tr>
                     <th>No</th>
@@ -112,7 +112,12 @@
                         <td>${dt.average_velocity}</td>
                         <td>${dt.input_cost}</td>
                         <td>${dt.estimate_cost}</td>
-                        <td>Img</td>
+                        <td><a href="#" id="pop">
+                            <img id="imageresource" <%--src="http://patyshibuya.com.br/wp-content/uploads/2014/04/04.jpg"--%> src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUA
+AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
+    9TXL0Y4OHwAAAABJRU5ErkJggg==" style="width: 400px; height: 264px;" hidden>
+                            Img
+                        </a></td>
                         <td>
                             <c:choose>
                                 <c:when test="${dt.warning}">
@@ -127,6 +132,24 @@
             </table>
         </div>
     <%--</div>--%>
+
+    <!-- Creates the bootstrap modal where the image will appear -->
+    <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Image preview</h4>
+                </div>
+                <div class="modal-body">
+                    <img src="" id="imagepreview" style="width: 400px; height: 264px;" >
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 <script>
