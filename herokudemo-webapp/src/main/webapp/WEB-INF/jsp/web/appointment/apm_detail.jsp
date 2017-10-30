@@ -93,7 +93,6 @@
                     <th>Input Cost</th>
                     <th>Estimate Cost</th>
                     <th>Image Content</th>
-                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -110,21 +109,17 @@
                         <td>${dt.end_location}</td>
                         <td>${dt.total_length}</td>
                         <td>${dt.average_velocity}</td>
+                        <c:choose>
+                            <c:when test="${dt.warning}">
+                                <td><p style="color:red">${dt.input_cost}</p></td>
+                            </c:when>
+                            <c:otherwise>
+                                <td>${dt.input_cost}</td>
+                            </c:otherwise>
+                        </c:choose>
                         <td>${dt.input_cost}</td>
                         <td>${dt.estimate_cost}</td>
-                        <td><a href="#" id="pop">
-                            <img class="imageresource" <%--src="http://patyshibuya.com.br/wp-content/uploads/2014/04/04.jpg"--%> src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUA
-AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
-    9TXL0Y4OHwAAAABJRU5ErkJggg==" style="width: 400px; height: 264px;" hidden>
-                            Img
-                        </a></td>
-                        <td>
-                            <c:choose>
-                                <c:when test="${dt.warning}">
-                                    <p style="color:red">Warning</p>
-                                </c:when>
-                            </c:choose>
-                        </td>
+                        <td>Img</td>
                     </tr>
                     <% i = i + 1; %>
                 </c:forEach>
@@ -133,23 +128,6 @@ AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
         </div>
     <%--</div>--%>
 
-    <!-- Creates the bootstrap modal where the image will appear -->
-    <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Image preview</h4>
-                </div>
-                <div class="modal-body">
-                    <img src="" id="imagepreview" style="width: 400px; height: 264px;" >
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </body>
 
 <script>
@@ -164,11 +142,6 @@ AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
             alert("Cannot create a new tab");
         }
     });*/
-    $("a.pop").on("click", function() {
-        $('#imagepreview').attr('src', $('a.pop img.imageresource').attr('src')); // here asign the image to the modal when the user click the enlarge link
-        $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
-    });
-
     function initMap() {
         /*var coordinates = [
             {lat: 37.772, lng: -122.214},
