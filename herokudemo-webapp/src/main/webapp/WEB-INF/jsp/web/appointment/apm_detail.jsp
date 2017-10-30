@@ -20,7 +20,6 @@
     <jsp:include page="../mobile_nav.jsp"/>
     <jsp:include page="../side_nav.jsp"/>
     <div class="col-sm-9 col-lg-9 col-sm-12 col-xs-12" style="padding-top: 30px">
-        <%--<p><button type="button" class="btn btn-primary" id="view-map">VIEW MAP</button></p>--%>
         <div class="row">
             <div class="col-sm-6 col-lg-6 col-md-6 col-xs-12">
                 <table class="table table-hover">
@@ -77,7 +76,8 @@
             <div class="col-sm-6 col-lg-6 col-md-6 col-xs-12" id="map" style="min-height:400px">
             </div>
         </div>
-
+    </div>
+    <div class="row">
         <div class="table-responsive" style="width: 100%;">
             <table class="table table-hover">
                 <thead>
@@ -113,7 +113,6 @@
                         <td>${dt.input_cost}</td>
                         <td>${dt.estimate_cost}</td>
                         <td>Img</td>
-                        <%--<td><a href="/login" target="_blank" class="btn btn-primary">VIEW MAP</a></td>--%>
                         <td>
                             <c:choose>
                                 <c:when test="${dt.warning}">
