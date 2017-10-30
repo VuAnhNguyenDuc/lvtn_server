@@ -113,7 +113,7 @@
                         <td>${dt.input_cost}</td>
                         <td>${dt.estimate_cost}</td>
                         <td><a href="#" id="pop">
-                            <img id="imageresource" <%--src="http://patyshibuya.com.br/wp-content/uploads/2014/04/04.jpg"--%> src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUA
+                            <img class="imageresource" <%--src="http://patyshibuya.com.br/wp-content/uploads/2014/04/04.jpg"--%> src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUA
 AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
     9TXL0Y4OHwAAAABJRU5ErkJggg==" style="width: 400px; height: 264px;" hidden>
                             Img
@@ -164,6 +164,11 @@ AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
             alert("Cannot create a new tab");
         }
     });*/
+    $("a.pop").on("click", function() {
+        $('#imagepreview').attr('src', $('a.pop img.imageresource').attr('src')); // here asign the image to the modal when the user click the enlarge link
+        $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+    });
+
     function initMap() {
         /*var coordinates = [
             {lat: 37.772, lng: -122.214},
