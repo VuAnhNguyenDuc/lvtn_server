@@ -77,8 +77,8 @@
 </body>
 <
 <script type="application/javascript">
-    $("select-apm").change(function(){
-        var val = $("select-apm").val();
+    $("#select-apm").change(function(){
+        var val = $("#select-apm").val();
         window.location.href("http://lvtn-server.herokuapp.com/appointments?type="+val);
     });
 </script>
