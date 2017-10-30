@@ -10,6 +10,12 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8" %>
+<%
+    String type = "all";
+    if(request.getParameter("type") != null){
+        type = request.getParameter("type");
+    }
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -23,10 +29,10 @@
         <div class="form-group">
             <label for="select-apm">Select the status of appointments:</label>
             <select class="form-control" id="select-apm">
-                <option value="all">View all</option>
-                <option value="active">Active</option>
-                <option value="finished">Finished</option>
-                <option value="warning">Warning</option>
+                <option value="all" <% if(type.equals("all")){ %>selected<% } %>>View all</option>
+                <option value="active" <% if(type.equals("active")){ %>selected<% }%>>Active</option>
+                <option value="finished"<% if(type.equals("finished")){ %>selected<% }%>>Finished</option>
+                <option value="warning"<% if(type.equals("warning")){ %>selected<% }%>>Warning</option>
             </select>
         </div>
         <div class="table-responsive" style="width: 100%;">
@@ -79,7 +85,7 @@
 <script type="application/javascript">
     $("#select-apm").change(function(){
         var val = $("#select-apm").val();
-        window.location.href("http://lvtn-server.herokuapp.com/appointments?type="+val);
+        window.location.replace("http://lvtn-server.herokuapp.com/appointments?type="+val);
     });
 </script>
 </html>
