@@ -122,7 +122,6 @@
                             <img src="http://upload.wikimedia.org/wikipedia/commons/2/22/Turkish_Van_Cat.jpg" style="width: 400px; height: 264px;" hidden>
                             Click to view
                         </a>
-                        Img
                     </td>
                 </tr>
                 <% i = i + 1; %>
