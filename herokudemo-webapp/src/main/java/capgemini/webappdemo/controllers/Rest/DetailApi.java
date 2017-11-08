@@ -49,7 +49,7 @@ public class DetailApi {
         System.out.println("creating detail - Detail API");
         String jsonToken = input.get("json_token").toString();
         int vehicleId = (int) input.get("vehicle_id");
-        String startTime = input.get("start_time").toString();
+        //String startTime = input.get("start_time").toString();
         String startLocation = input.get("start_location").toString();
         //String description = input.get("description").toString();
         int appointmentId = (int) input.get("appointment_id");
@@ -71,7 +71,7 @@ public class DetailApi {
             int id = jsonTokenUtil.getUserIdFromJsonKey(jsonToken);
             Detail detail = new Detail();
             detail.setAppointment_id(appointmentId);
-            detail.setStart_time(commonUtils.convertStringToDate(startTime));
+            //detail.setStart_time(commonUtils.convertStringToDate(startTime));
             //detail.setDescription(description);
             detail.setStart_location(startLocation);
             detail.setUser_created(id);
@@ -127,8 +127,8 @@ public class DetailApi {
         System.out.println("ending a detail - Detail API");
         String jsonToken = input.get("json_token").toString();
         int id = (int) input.get("id");
-        String endTime = input.get("end_time").toString();
-        String endLocation = input.get("end_location").toString();
+        //String endTime = input.get("end_time").toString();
+        //String endLocation = input.get("end_location").toString();
         String imageContent = input.get("image_content").toString();
         String description = input.get("description").toString();
         double inputCost = (double) input.get("input_cost");
@@ -141,34 +141,24 @@ public class DetailApi {
         }
         result.put("message",0);
 
-        if(endTime.isEmpty()){
-            result.put("description","please input end time");
-        } else if(endLocation.isEmpty()){
-            result.put("description","please input end location");
+        Detail dt = detailService.get(id);
+        if(dt == null){
+            result.put("description","this detail does not exist");
         } else{
-            Detail dt = detailService.get(id);
-            if(dt == null){
-                result.put("description","this detail does not exist");
+            List<Coordinate> coords = coordService.getCoordsOfDetail(id);
+            if(vehicleService.get(dt.getVehicle_id()).isCalculatable() && (coords.size() == 0 || inputCost == 0)){
+                result.put("description","please input the coordinates and cost of this detail before end it");
             } else{
-                List<Coordinate> coords = coordService.getCoordsOfDetail(id);
-                if(vehicleService.get(dt.getVehicle_id()).isCalculatable() && (coords.size() == 0 || inputCost == 0)){
-                    result.put("description","please input the coordinates and cost of this detail before end it");
-                } else{
-                    try {
-                        dt.setEnd_time(commonUtils.convertStringToDate(endTime));
-                        dt.setInput_cost(inputCost);
-                        dt.setDescription(description);
-                        dt.setImage_content(imageContent);
-                        dt.setCoordinates(coords);
-                        detailService.update(dt);
-                        calculate(id,dt.getCoordinates());
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    result.put("message",1);
-                }
+                dt.setInput_cost(inputCost);
+                dt.setDescription(description);
+                dt.setImage_content(imageContent);
+                dt.setCoordinates(coords);
+                detailService.update(dt);
+                calculate(id,dt.getCoordinates());
+                result.put("message",1);
             }
         }
+
         return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
     }
 

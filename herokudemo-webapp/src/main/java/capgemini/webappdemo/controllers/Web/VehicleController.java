@@ -86,4 +86,13 @@ public class VehicleController {
             return "redirect:/vehicles";
         }
     }
+
+    @RequestMapping(value = "vehicle/updatePrice", method = RequestMethod.GET, params = "id")
+    public String updatePriceGet(@RequestParam("id") int id, HttpSession session, ModelMap model){
+        if(!loginUtil.isLogin(session)){
+            return "redirect:/login";
+        } else{
+            return "web/vehicle/vehicle_price";
+        }
+    }
 }

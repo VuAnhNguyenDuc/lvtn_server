@@ -46,6 +46,11 @@
         font-weight: 700 !important;
     }
 
+    .formula-text{
+        padding-left: 15px;
+        padding-right: 15px
+    }
+
     /* On small screens, set height to 'auto' for the grid */
     @media screen and (max-width: 767px) {
         .row.content {height: auto;}
