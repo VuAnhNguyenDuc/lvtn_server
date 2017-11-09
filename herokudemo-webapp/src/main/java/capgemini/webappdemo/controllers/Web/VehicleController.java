@@ -95,7 +95,7 @@ public class VehicleController {
         } else{
             model.addAttribute("id",id);
             model.addAttribute("formulas", new JSONArray());
-            model.addAttribute("vars", new JSONArray());
+            model.addAttribute("varsiable", new JSONArray());
             return "web/vehicle/vehicle_price";
         }
     }
