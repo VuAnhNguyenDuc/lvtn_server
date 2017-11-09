@@ -1,16 +1,44 @@
 package capgemini.webappdemo.controllers.Ajax;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class VehicleAjax {
-    @RequestMapping(value = "/ajax/vehicle/price", method = RequestMethod.GET, params = "input")
-    public String updatePrice(@RequestParam("input")JSONObject input){
-        int id = (int) input.get("id");
+    private class VehiclePrice{
+        private int id;
+        private JSONArray formulas;
+        private JSONArray vars;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public JSONArray getFormulas() {
+            return formulas;
+        }
+
+        public void setFormulas(JSONArray formulas) {
+            this.formulas = formulas;
+        }
+
+        public JSONArray getVars() {
+            return vars;
+        }
+
+        public void setVars(JSONArray vars) {
+            this.vars = vars;
+        }
+    }
+
+    @RequestMapping(value = "/ajax/vehicle/price", method = RequestMethod.POST)
+    public String updatePrice(@RequestBody VehiclePrice input){
+        int id = input.getId();
         return "hello vehicle " + id;
     }
 }
