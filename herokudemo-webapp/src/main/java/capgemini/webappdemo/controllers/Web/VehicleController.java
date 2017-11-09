@@ -3,6 +3,7 @@ package capgemini.webappdemo.controllers.Web;
 import capgemini.webappdemo.domain.Vehicle;
 import capgemini.webappdemo.service.Vehicle.VehicleService;
 import capgemini.webappdemo.utils.LoginUtil;
+import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -92,6 +93,9 @@ public class VehicleController {
         if(!loginUtil.isLogin(session)){
             return "redirect:/login";
         } else{
+            model.addAttribute("id",id);
+            model.addAttribute("formulas", new JSONArray());
+            model.addAttribute("vars", new JSONArray());
             return "web/vehicle/vehicle_price";
         }
     }

@@ -51,6 +51,12 @@
         padding-right: 15px
     }
 
+    .title {
+        font-size: 21px;
+        margin-bottom: 10px;
+        color: #9e4444;
+    }
+
     /* On small screens, set height to 'auto' for the grid */
     @media screen and (max-width: 767px) {
         .row.content {height: auto;}
