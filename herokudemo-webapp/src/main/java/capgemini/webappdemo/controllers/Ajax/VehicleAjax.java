@@ -37,8 +37,7 @@ public class VehicleAjax {
     }
 
     @RequestMapping(value = "/ajax/vehicle/price", method = RequestMethod.POST)
-    public String updatePrice(@RequestBody VehiclePrice input){
-        int id = input.getId();
+    public String updatePrice(@RequestParam int id, @RequestParam JSONArray formulas, @RequestParam JSONArray vars){
         return "hello vehicle " + id;
     }
 }
