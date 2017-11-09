@@ -162,7 +162,7 @@
                     $("#formulas").append(formula_template((count+1),obj["condition_type"],obj["condition"],obj["formula"]));
                 }
             } else{
-                $("#formulas").append(1,"","","");
+                $("#formulas").append(formula_template(1,"","",""));
             }
         }
 
@@ -173,7 +173,7 @@
                     $("#vars").append(var_template((count + 1),obj["name"],obj["value"]));
                 }
             } else{
-                $("#vars").append(1,"","");
+                $("#vars").append(var_template(1,"",""));
             }
         }
 
