@@ -126,7 +126,7 @@
                 var value = $("#value"+k).val();
                 var obj = {};
                 obj["name"] = name;
-                obj["value"] = parseFloat(value);
+                obj["value"] = (value != "")? parseFloat(value) : 0;
                 variables.push(obj);
             }
 
@@ -134,13 +134,13 @@
             input["id"] = ${id};
             input["formulas"] = formulas;
             input["vars"] = variables;
-            console.log(input);
+            console.log(JSON.stringify(input));
 
             $.ajax({
                 type:"GET",
                 url: "http://lvtn-server.herokuapp.com/ajax/vehicle/price",
                 /*contentType : 'application/json; charset=utf-8',*/
-                data : "input = " +JSON.stringify(input),
+                data : "input="+JSON.stringify(input),
                 dataType : "text",
                 cache : false,
                 success: function(result){
