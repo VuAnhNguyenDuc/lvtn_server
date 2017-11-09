@@ -96,7 +96,7 @@ public class VehicleAjax {
         input = input.replaceAll("%22","\"");
         JSONParser parser = new JSONParser();
         JSONObject obj = (JSONObject) parser.parse(input);
-        int id = (int) obj.get("id");
+        long id = (long) obj.get("id");
         return "hello vehicle " + id;
     }
 }
