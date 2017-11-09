@@ -137,9 +137,10 @@
             console.log(input);
 
             $.ajax({
-                type:"GET",
+                type:"POST",
                 url: "http://lvtn-server.herokuapp.com/ajax/vehicle/price",
-                data : input,
+                contentType : 'application/json; charset=utf-8',
+                data : JSON.stringify(input),
                 dataType : "json",
                 cache : false,
                 success: function(result){
