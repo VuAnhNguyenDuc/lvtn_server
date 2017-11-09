@@ -2,6 +2,8 @@ package capgemini.webappdemo.controllers.Ajax;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -89,8 +91,11 @@ public class VehicleAjax {
         }
     }
 
-    @RequestMapping(value = "/ajax/vehicle/price", method = RequestMethod.POST)
-    public String updatePrice(@RequestBody VehiclePrice vp){
-        return "hello vehicle " + vp.getId();
+    @RequestMapping(value = "/ajax/vehicle/price", method = RequestMethod.GET, params = "input")
+    public String updatePrice(@RequestParam("input") String input) throws ParseException {
+        JSONParser parser = new JSONParser();
+        JSONObject obj = (JSONObject) parser.parse(input);
+        int id = (int) obj.get("id");
+        return "hello vehicle " + id;
     }
 }
