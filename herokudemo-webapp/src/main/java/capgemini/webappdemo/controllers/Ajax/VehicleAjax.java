@@ -62,6 +62,10 @@ public class VehicleAjax {
             String condition_type= obj.get("condition_type").toString();
             String condition = obj.get("condition").toString();
             String formula = obj.get("formula").toString();
+
+            System.out.println("condition = " +condition);
+            System.out.println("formula = " + formula);
+
             if((condition_type.equals("else") || condition_type.equals("no condition")) && !condition.equals("")){
                 return "do not input condition to (else) and (no condition)";
             }
