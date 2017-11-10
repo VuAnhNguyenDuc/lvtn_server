@@ -6,6 +6,11 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -94,16 +99,82 @@ public class VehicleAjax {
     @RequestMapping(value = "/ajax/vehicle/price", method = RequestMethod.GET, params = "input")
     public String updatePrice(@RequestParam("input") String input) throws ParseException {
         input = input.replaceAll("%22","\"");
-        //System.out.println(input);
         JSONParser parser = new JSONParser();
         JSONObject obj = (JSONObject) parser.parse(input);
         long id = (long) obj.get("id");
         JSONArray formulas = (JSONArray) obj.get("formulas");
         JSONArray vars = (JSONArray) obj.get("vars");
+        ArrayList<String> var_names = new ArrayList<>();
+        ArrayList<String> condition_types = new ArrayList<>();
+
+        // Validate the variables first
+        for(int i = 0; i < vars.size(); i++){
+            obj = (JSONObject) vars.get(i);
+            var_names.add(obj.get("name").toString());
+        }
+
+        for(int i = 0; i < var_names.size(); i++){
+            int occurences = Collections.frequency(var_names,var_names.get(i));
+            if(occurences > 1){
+                return "Invalid variable : " + var_names.get(i) + ". There can not be two identical variables";
+            }
+        }
+
         for(int i = 0; i < formulas.size(); i++){
             obj = (JSONObject) formulas.get(i);
-            System.out.println(obj.get("condition"));
+            if(i == 0 && (obj.get("condition_type").equals("else-if") || obj.get("condition_type").equals("else"))){
+                return "Invalid condition type : the first condition must be if or no condition at all";
+            }
+            condition_types.add(obj.get("condition_type").toString());
         }
-        return "hello vehicle " + id;
+
+        if(Collections.frequency(condition_types,"else") > 1){
+            return "Invalid condtion type : there can not be two else statements";
+        }
+
+        for(int i = 0; i < formulas.size(); i++){
+            obj = (JSONObject) formulas.get(i);
+            String condition_type= obj.get("condition_type").toString();
+            String condition = obj.get("condition").toString();
+            String formula = obj.get("formula").toString();
+            String result = validateExpression(vars,condition);
+            String result1 = validateExpression(vars,formula);
+            if(!result.equals("success")){
+                return result;
+            } else if(!result1.equals("success")){
+                return result1;
+            }
+        }
+
+        return "success";
+    }
+
+    private String replaceAllVarsWithNumber(String input,ArrayList<String> vars){
+        for(int i = 0; i < vars.size(); i++){
+            input = input.replaceAll(vars.get(i),"1.0");
+        }
+        return input;
+    }
+
+    private String validateExpression(ArrayList<String> vars,String exp){
+        ScriptEngineManager mgr = new ScriptEngineManager();
+        ScriptEngine engine = mgr.getEngineByName("JavaScript");
+        try {
+            String input = replaceAllVarsWithNumber(exp,vars);
+            engine.eval(input);
+            return "success";
+        } catch (ScriptException e) {
+            //e.printStackTrace();
+            return "Invalid expression : " + exp;
+        }
+       /* String foo = "1 + 2*(3+1) - 1/4 + s/t";
+        double a = 100.0;
+        double b = 2.0;
+        foo = foo.replaceAll("s",Double.toString(a));
+        foo = foo.replaceAll("t",Double.toString(b));*/
+
+       /* System.out.println(result);
+        foo = "(1 > 0)";
+        System.out.println(engine.eval(exp));*/
     }
 }
