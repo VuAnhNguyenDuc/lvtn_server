@@ -99,7 +99,10 @@ public class VehicleController {
             Vehicle vehicle = service.get(id);
             JSONArray formulas = new JSONArray();
             JSONArray vars = new JSONArray();
-            if(!vehicle.getCalculate_formula().equals("")){
+
+            String vehicle_formula = vehicle.getCalculate_formula();
+
+            if(vehicle_formula != null && !vehicle_formula.equals("")){
                 JSONParser parser = new JSONParser();
                 JSONObject obj = (JSONObject) parser.parse(vehicle.getCalculate_formula());
                 formulas = (JSONArray) obj.get("formulas");
