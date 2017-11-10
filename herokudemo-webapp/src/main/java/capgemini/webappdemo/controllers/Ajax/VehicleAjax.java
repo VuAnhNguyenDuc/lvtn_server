@@ -1,9 +1,12 @@
 package capgemini.webappdemo.controllers.Ajax;
 
+import capgemini.webappdemo.domain.Vehicle;
+import capgemini.webappdemo.service.Vehicle.VehicleService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.script.ScriptEngine;
@@ -15,86 +18,8 @@ import java.util.List;
 
 @RestController
 public class VehicleAjax {
-    private class Formula{
-        private String condition;
-        private String condition_type;
-        private String formula;
-
-        public String getCondition() {
-            return condition;
-        }
-
-        public void setCondition(String condition) {
-            this.condition = condition;
-        }
-
-        public String getCondition_type() {
-            return condition_type;
-        }
-
-        public void setCondition_type(String condition_type) {
-            this.condition_type = condition_type;
-        }
-
-        public String getFormula() {
-            return formula;
-        }
-
-        public void setFormula(String formula) {
-            this.formula = formula;
-        }
-    }
-
-    private class Variable{
-        private String name;
-        private double value;
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public double getValue() {
-            return value;
-        }
-
-        public void setValue(double value) {
-            this.value = value;
-        }
-    }
-
-    private class VehiclePrice{
-        private int id;
-        private List<Formula> formulas;
-        private List<Variable> vars;
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public List<Formula> getFormulas() {
-            return formulas;
-        }
-
-        public void setFormulas(List<Formula> formulas) {
-            this.formulas = formulas;
-        }
-
-        public List<Variable> getVars() {
-            return vars;
-        }
-
-        public void setVars(List<Variable> vars) {
-            this.vars = vars;
-        }
-    }
+    @Autowired
+    private VehicleService vhService;
 
     @RequestMapping(value = "/ajax/vehicle/price", method = RequestMethod.GET, params = "input")
     public String updatePrice(@RequestParam("input") String input) throws ParseException {
@@ -152,15 +77,16 @@ public class VehicleAjax {
                 return "please do not leave formula blank";
             }
 
-            String result = validateExpression(vars,condition);
-            String result1 = validateExpression(vars,formula);
+            String result = validateExpression(var_names,condition);
+            String result1 = validateExpression(var_names,formula);
             if(!result.equals("success")){
                 return result;
             } else if(!result1.equals("success")){
                 return result1;
             }
         }
-
+        /*Vehicle vehicle = vhService.get((int) id);
+        vehicle.setCalculate_formula(input);*/
         return "success";
     }
 

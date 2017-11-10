@@ -13,6 +13,8 @@ public class Vehicle {
     private Integer status;
     @Column(name = "is_calculatable")
     private boolean calculatable;
+    @Column
+    private String calculate_formula;
 
 
     public Vehicle() {
@@ -53,5 +55,17 @@ public class Vehicle {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getCalculate_formula() {
+        return calculate_formula;
+    }
+
+    public void setCalculate_formula(String calculate_formula) {
+        this.calculate_formula = calculate_formula;
     }
 }
