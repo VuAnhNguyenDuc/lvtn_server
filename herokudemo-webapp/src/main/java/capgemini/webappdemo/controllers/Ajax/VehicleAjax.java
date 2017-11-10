@@ -98,8 +98,9 @@ public class VehicleAjax {
 
     @RequestMapping(value = "/ajax/vehicle/price", method = RequestMethod.GET, params = "input")
     public String updatePrice(@RequestParam("input") String input) throws ParseException {
+        System.out.println("before :" + input);
         input = input.replaceAll("%22","\"");
-        System.out.println(input);
+        System.out.println("after :" +input);
         JSONParser parser = new JSONParser();
         JSONObject obj = (JSONObject) parser.parse(input);
         long id = (long) obj.get("id");
