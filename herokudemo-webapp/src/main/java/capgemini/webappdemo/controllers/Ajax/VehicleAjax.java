@@ -88,6 +88,7 @@ public class VehicleAjax {
         }
         Vehicle vehicle = vhService.get((int) id);
         vehicle.setCalculate_formula(input);
+        vhService.update(vehicle);
         return "success";
     }
 
