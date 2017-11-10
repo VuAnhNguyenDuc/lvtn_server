@@ -116,7 +116,7 @@
                 var formula = $("#f" + k).val();
                 var obj = {};
                 obj["condition_type"] = condition_type;
-                obj["condition"] = condition;
+                obj["condition"] = encodeURIComponent(condition);
                 obj["formula"] = formula;
                 formulas.push(obj);
             }
