@@ -72,7 +72,7 @@ public class CoordinateApi {
         String jsonToken = input.getJson_token();
         ArrayList<String> coords = input.getCoordinates();
         JSONObject result = new JSONObject();
-        System.out.println("detail id = " + detailid + "; coords = "+coords);
+        //System.out.println("detail id = " + detailid + "; coords = "+coords);
         result.put("message",0);
         boolean flag = true;
 
