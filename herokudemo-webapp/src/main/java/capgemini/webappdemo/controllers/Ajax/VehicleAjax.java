@@ -107,6 +107,10 @@ public class VehicleAjax {
         ArrayList<String> var_names = new ArrayList<>();
         ArrayList<String> condition_types = new ArrayList<>();
 
+        if(formulas.size() < 1){
+            return "please input at least one formula";
+        }
+
         // Validate the variables first
         for(int i = 0; i < vars.size(); i++){
             obj = (JSONObject) vars.get(i);
@@ -120,6 +124,7 @@ public class VehicleAjax {
             }
         }
 
+        // Then validate the formulas
         for(int i = 0; i < formulas.size(); i++){
             obj = (JSONObject) formulas.get(i);
             if(i == 0 && (obj.get("condition_type").equals("else-if") || obj.get("condition_type").equals("else"))){
@@ -161,6 +166,7 @@ public class VehicleAjax {
         ScriptEngine engine = mgr.getEngineByName("JavaScript");
         try {
             String input = replaceAllVarsWithNumber(exp,vars);
+            input = "(" + input + ")";
             engine.eval(input);
             return "success";
         } catch (ScriptException e) {
