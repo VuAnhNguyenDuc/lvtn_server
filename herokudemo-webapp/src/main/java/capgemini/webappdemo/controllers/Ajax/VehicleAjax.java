@@ -23,9 +23,6 @@ public class VehicleAjax {
 
     @RequestMapping(value = "/ajax/vehicle/price", method = RequestMethod.GET, params = "input")
     public String updatePrice(@RequestParam("input") String input) throws ParseException {
-        System.out.println("before :" + input);
-        input = input.replaceAll("%22","\"");
-        System.out.println("after :" +input);
         JSONParser parser = new JSONParser();
         JSONObject obj = (JSONObject) parser.parse(input);
         long id = (long) obj.get("id");
@@ -100,14 +97,14 @@ public class VehicleAjax {
     private String validateExpression(ArrayList<String> vars,String exp){
         ScriptEngineManager mgr = new ScriptEngineManager();
         ScriptEngine engine = mgr.getEngineByName("JavaScript");
+        String input = replaceAllVarsWithNumber(exp,vars);
         try {
-            String input = replaceAllVarsWithNumber(exp,vars);
-            input = "(" + input + ")";
+            input = "( " + input + " )";
             engine.eval(input);
             return "success";
         } catch (ScriptException e) {
             //e.printStackTrace();
-            return "Invalid expression : " + exp;
+            return "Invalid expression : " + input;
         }
        /* String foo = "1 + 2*(3+1) - 1/4 + s/t";
         double a = 100.0;
