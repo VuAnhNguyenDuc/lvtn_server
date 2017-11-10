@@ -100,7 +100,10 @@ public class VehicleAjax {
         long id = (long) obj.get("id");
         JSONArray formulas = (JSONArray) obj.get("formulas");
         JSONArray vars = (JSONArray) obj.get("vars");
-
+        for(int i = 0; i < formulas.size(); i++){
+            obj = (JSONObject) formulas.get(i);
+            System.out.println(obj.get("condition"));
+        }
         return "hello vehicle " + id;
     }
 }
