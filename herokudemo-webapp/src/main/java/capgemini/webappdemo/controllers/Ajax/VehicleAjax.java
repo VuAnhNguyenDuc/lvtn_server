@@ -63,8 +63,8 @@ public class VehicleAjax {
             String condition = obj.get("condition").toString();
             String formula = obj.get("formula").toString();
 
-            System.out.println("condition = " +condition);
-            System.out.println("formula = " + formula);
+           /* System.out.println("condition = " +condition);
+            System.out.println("formula = " + formula);*/
 
             if((condition_type.equals("else") || condition_type.equals("no condition")) && !condition.equals("")){
                 return "do not input condition to (else) and (no condition)";
@@ -86,8 +86,8 @@ public class VehicleAjax {
                 return result1;
             }
         }
-        /*Vehicle vehicle = vhService.get((int) id);
-        vehicle.setCalculate_formula(input);*/
+        Vehicle vehicle = vhService.get((int) id);
+        vehicle.setCalculate_formula(input);
         return "success";
     }
 
@@ -110,7 +110,7 @@ public class VehicleAjax {
             return "success";
         } catch (ScriptException e) {
             //e.printStackTrace();
-            return "Invalid expression : " + input;
+            return "Invalid expression : " + exp +", you might have input one or more undefined variable";
         }
        /* String foo = "1 + 2*(3+1) - 1/4 + s/t";
         double a = 100.0;
