@@ -89,7 +89,9 @@ public class VehicleAjax {
 
     private String replaceAllVarsWithNumber(String input,ArrayList<String> vars){
         for(int i = 0; i < vars.size(); i++){
-            input = input.replaceAll(vars.get(i),"1.0");
+            if(!vars.get(i).equals("")){
+                input = input.replaceAll(vars.get(i),"1.0");
+            }
         }
         return input;
     }
