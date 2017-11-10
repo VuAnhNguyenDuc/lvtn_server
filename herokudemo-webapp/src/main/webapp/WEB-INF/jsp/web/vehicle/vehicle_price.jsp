@@ -117,7 +117,7 @@
                 var obj = {};
                 obj["condition_type"] = condition_type;
                 obj["condition"] = encodeURIComponent(condition);
-                obj["formula"] = formula;
+                obj["formula"] = encodeURIComponent(formula);
                 formulas.push(obj);
             }
 
