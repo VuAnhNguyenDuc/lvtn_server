@@ -107,10 +107,6 @@ public class VehicleAjax {
         ArrayList<String> var_names = new ArrayList<>();
         ArrayList<String> condition_types = new ArrayList<>();
 
-        if(formulas.size() < 1){
-            return "please input at least one formula";
-        }
-
         // Validate the variables first
         for(int i = 0; i < vars.size(); i++){
             obj = (JSONObject) vars.get(i);
@@ -127,7 +123,7 @@ public class VehicleAjax {
         // Then validate the formulas
         for(int i = 0; i < formulas.size(); i++){
             obj = (JSONObject) formulas.get(i);
-            if(i == 0 && (obj.get("condition_type").equals("else-if") || obj.get("condition_type").equals("else"))){
+            if(i == 0 && (obj.get("condition_type").equals("else if") || obj.get("condition_type").equals("else"))){
                 return "Invalid condition type : the first condition must be if or no condition at all";
             }
             condition_types.add(obj.get("condition_type").toString());
@@ -142,6 +138,18 @@ public class VehicleAjax {
             String condition_type= obj.get("condition_type").toString();
             String condition = obj.get("condition").toString();
             String formula = obj.get("formula").toString();
+            if((condition_type.equals("else") || condition_type.equals("no condition")) && !condition.equals("")){
+                return "do not input condition to (else) and (no condition)";
+            }
+
+            if((condition_type.equals("if") || condition_type.equals("else if")) && condition.equals("")){
+                return "do not leave condition blank on (if) and (else if)";
+            }
+
+            if(formula.equals("")){
+                return "please do not leave formula blank";
+            }
+
             String result = validateExpression(vars,condition);
             String result1 = validateExpression(vars,formula);
             if(!result.equals("success")){
