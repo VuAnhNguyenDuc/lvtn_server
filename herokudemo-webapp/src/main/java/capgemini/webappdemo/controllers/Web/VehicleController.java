@@ -4,6 +4,9 @@ import capgemini.webappdemo.domain.Vehicle;
 import capgemini.webappdemo.service.Vehicle.VehicleService;
 import capgemini.webappdemo.utils.LoginUtil;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -89,13 +92,22 @@ public class VehicleController {
     }
 
     @RequestMapping(value = "vehicle/updatePrice", method = RequestMethod.GET, params = "id")
-    public String updatePriceGet(@RequestParam("id") int id, HttpSession session, ModelMap model){
+    public String updatePriceGet(@RequestParam("id") int id, HttpSession session, ModelMap model) throws ParseException {
         if(!loginUtil.isLogin(session)){
             return "redirect:/login";
         } else{
+            Vehicle vehicle = service.get(id);
+            JSONArray formulas = new JSONArray();
+            JSONArray vars = new JSONArray();
+            if(!vehicle.getCalculate_formula().equals("")){
+                JSONParser parser = new JSONParser();
+                JSONObject obj = (JSONObject) parser.parse(vehicle.getCalculate_formula());
+                formulas = (JSONArray) obj.get("formulas");
+                vars = (JSONArray) obj.get("vars");
+            }
             model.addAttribute("id",id);
-            model.addAttribute("formulas", new JSONArray());
-            model.addAttribute("variables", new JSONArray());
+            model.addAttribute("formulas", formulas);
+            model.addAttribute("variables", vars);
             return "web/vehicle/vehicle_price";
         }
     }
