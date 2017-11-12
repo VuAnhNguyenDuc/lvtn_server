@@ -49,7 +49,7 @@ public class DetailApi {
         System.out.println("creating detail - Detail API");
         String jsonToken = input.get("json_token").toString();
         int vehicleId = (int) input.get("vehicle_id");
-        //String startTime = input.get("start_time").toString();
+        String startTime = input.get("start_time").toString();
         String startLocation = input.get("start_location").toString();
         //String description = input.get("description").toString();
         int appointmentId = (int) input.get("appointment_id");
@@ -71,7 +71,7 @@ public class DetailApi {
             int id = jsonTokenUtil.getUserIdFromJsonKey(jsonToken);
             Detail detail = new Detail();
             detail.setAppointment_id(appointmentId);
-            //detail.setStart_time(commonUtils.convertStringToDate(startTime));
+            detail.setStart_time(commonUtils.convertStringToDate(startTime));
             //detail.setDescription(description);
             detail.setStart_location(startLocation);
             detail.setUser_created(id);
