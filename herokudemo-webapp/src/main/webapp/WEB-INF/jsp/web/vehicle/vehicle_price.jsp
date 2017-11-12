@@ -86,8 +86,6 @@
                     obj["name"] = name;
                     obj["value"] = (value != "")? parseFloat(value) : 0;
                     variables.push(obj);
-                } else{
-                    alert("Invalid variable specified");
                 }
             }
 
