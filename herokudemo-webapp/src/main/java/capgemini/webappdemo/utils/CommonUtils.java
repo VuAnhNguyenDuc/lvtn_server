@@ -1,5 +1,7 @@
 package capgemini.webappdemo.utils;
 
+import javafx.scene.input.DataFormat;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,6 +9,7 @@ import java.util.Date;
 
 public class CommonUtils {
     private DateFormat dateFormat = new SimpleDateFormat("HH:mm dd-MM-yyyy");
+    private DateFormat dateWithSec = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
 
     public Date convertStringToDate(String src) throws ParseException {
         return dateFormat.parse(src);
@@ -14,6 +17,14 @@ public class CommonUtils {
 
     public String convertDateToString(Date date){
         return dateFormat.format(date);
+    }
+
+    public Date convertStringToDateSec(String src) throws ParseException {
+        return dateWithSec.parse(src);
+    }
+
+    public String convertDateToStringSec(Date date){
+        return dateWithSec.format(date);
     }
 
     public long getSeconds(Date d1,Date d2){

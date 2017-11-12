@@ -71,7 +71,7 @@ public class DetailApi {
             int id = jsonTokenUtil.getUserIdFromJsonKey(jsonToken);
             Detail detail = new Detail();
             detail.setAppointment_id(appointmentId);
-            detail.setStart_time(commonUtils.convertStringToDate(startTime));
+            detail.setStart_time(commonUtils.convertStringToDateSec(startTime));
             //detail.setDescription(description);
             detail.setStart_location(startLocation);
             detail.setUser_created(id);
@@ -111,7 +111,7 @@ public class DetailApi {
                 result.put("description","this detail does not exist");
             } else{
                 try {
-                    dt.setStart_time(commonUtils.convertStringToDate(startTime));
+                    dt.setStart_time(commonUtils.convertStringToDateSec(startTime));
                     detailService.update(dt);
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -123,11 +123,11 @@ public class DetailApi {
     }
 
     @RequestMapping(value = "/api/detail/end", method = RequestMethod.POST)
-    public ResponseEntity<JSONObject> endDetail(@RequestBody JSONObject input){
+    public ResponseEntity<JSONObject> endDetail(@RequestBody JSONObject input) throws ParseException {
         System.out.println("ending a detail - Detail API");
         String jsonToken = input.get("json_token").toString();
         int id = (int) input.get("id");
-        //String endTime = input.get("end_time").toString();
+        String endTime = input.get("end_time").toString();
         //String endLocation = input.get("end_location").toString();
         String imageContent = input.get("image_content").toString();
         String description = input.get("description").toString();
@@ -153,6 +153,7 @@ public class DetailApi {
                 dt.setDescription(description);
                 dt.setImage_content(imageContent);
                 dt.setCoordinates(coords);
+                dt.setEnd_time(commonUtils.convertStringToDateSec(endTime));
                 detailService.update(dt);
                 calculate(id,dt.getCoordinates());
                 result.put("message",1);
