@@ -26,12 +26,12 @@ public class CalculateMoney {
     @Autowired
     private VehicleService service;
 
-    public double getEstimateCost(String vehicle, double s, long t){
+    public double getEstimateCost(int id, double s, long t){
         double cost = 0;
         ScriptEngineManager mgr = new ScriptEngineManager();
         ScriptEngine engine = mgr.getEngineByName("JavaScript");
 
-        Vehicle vhc = service.getVehicleByName(vehicle);
+        Vehicle vhc = service.get(id);
         if(vhc != null){
             String formulas_and_vars = vhc.getCalculate_formula();
             JSONParser parser = new JSONParser();
