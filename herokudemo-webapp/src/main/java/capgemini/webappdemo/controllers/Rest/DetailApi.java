@@ -283,9 +283,9 @@ public class DetailApi {
         dt.setAverage_velocity((total_length*3600)/total_time);
         if(estimate_cost * 1.5 <= dt.getInput_cost()){
             dt.setWarning(true);
-            Appointment apm = apmService.get(dt.getAppointment_id());
+            /*Appointment apm = apmService.get(dt.getAppointment_id());
             apm.setStatus(-1);
-            apmService.update(apm);
+            apmService.update(apm);*/
         }
         detailService.update(dt);
     }

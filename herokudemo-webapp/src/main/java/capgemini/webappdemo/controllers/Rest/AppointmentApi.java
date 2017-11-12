@@ -140,8 +140,17 @@ public class AppointmentApi {
                 if(dts.size() == 0){
                     result.put("description","this appointment has no schedules (details)");
                 } else{
-                    // warning
-                    if(ap.getStatus() != -1){
+                    // if a detail has warning status, then update the status of the appointment
+                    boolean flag = false;
+                    for(int i = 0; i < dts.size(); i++){
+                        Detail dt = dts.get(i);
+                        if(dt.getEstimate_cost() * 1.5 < dt.getInput_cost()){
+                            ap.setStatus(-1);
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if(!flag){
                         ap.setStatus(0);
                     }
                     ap.setEnd_date(commonUtils.convertStringToDate(endDate));
