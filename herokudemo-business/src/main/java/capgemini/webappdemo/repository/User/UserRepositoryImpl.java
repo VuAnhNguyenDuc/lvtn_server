@@ -108,7 +108,7 @@ public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements Us
 	public List<UserAppointmentView> getActiveAppointments(int id) {
 		Session session = getSession();
 
-		String strQuery = "from UserAppointmentView uav where uav.user_id = :id and uav.status = 1";
+		String strQuery = "from UserAppointmentView uav where uav.user_id = :id and uav.status != 0";
 		Query query = session.createQuery(strQuery);
 		query.setParameter("id",id);
 		List<UserAppointmentView> result = query.list();
