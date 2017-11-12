@@ -133,11 +133,19 @@ public class CalculateMoney {
                         boolean validate = (boolean) engine.eval(condition);
                         if(validate){
                             formula = replaceVarsWithValues(formula,vars,s,t);
-                            cost = (double) engine.eval(formula);
+                            if(engine.eval(formula) instanceof Integer){
+                                cost = (double) (Integer) engine.eval(formula);
+                            } else{
+                                cost = (double) engine.eval(formula);
+                            }
                         }
                     } else if(condition_type.equals("else") || condition_type.equals("no condition")){
                         formula = replaceVarsWithValues(formula,vars,s,t);
-                        cost = (double) engine.eval(formula);
+                        if(engine.eval(formula) instanceof Integer){
+                            cost = (double) (Integer) engine.eval(formula);
+                        } else{
+                            cost = (double) engine.eval(formula);
+                        }
                     }
                 } catch (ScriptException e) {
                     e.printStackTrace();
