@@ -78,10 +78,10 @@
                 formulas.push(obj);
             }
 
-            for(k = 1; k <= j; k++){
+            for (k = 1; k <= j; k++){
                 var name = $("#name"+k).val();
                 var value = $("#value"+k).val();
-                if(name != ""){
+                if(name != " " && name != "" && name != null){
                     var obj = {};
                     obj["name"] = name;
                     obj["value"] = (value != "")? parseFloat(value) : 0;
@@ -105,9 +105,6 @@
                 dataType : "text",
                 cache : false,
                 success: function(result){
-                    /*var dataArr = $.parseJSON(result);
-                    $("#result-list").html("");
-                    $("#result-list").html(populateResultList(dataArr));*/
                     alert(result);
                 },
                 error: function (xhr) {
