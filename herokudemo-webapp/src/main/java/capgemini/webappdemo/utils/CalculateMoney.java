@@ -154,8 +154,6 @@ public class CalculateMoney {
         return cost;
     }
 
-
-
     private String replaceVarsWithValues(String input,JSONArray vars,double s,long t){
         for(int i = 0; i < vars.size(); i++){
             JSONObject obj = (JSONObject) vars.get(i);

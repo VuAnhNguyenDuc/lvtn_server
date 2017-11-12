@@ -117,6 +117,44 @@ public class AppointmentController {
         }
     }
 
+    @RequestMapping(value = "/appointment/details/test", method = RequestMethod.GET, params = {"appointment_id"})
+    public String getAppointmentDetailsTest(HttpSession session, @RequestParam("appointment_id") int id,ModelMap model){
+        if(!loginUtil.isLogin(session)){
+            return "redirect:/login";
+        } else{
+            Appointment app = appService.get(id);
+            List<User> users = appService.getUsersOfAppointment(id);
+            List<Detail> details = detailService.getDetailsOfAppointment(id);
+            JSONArray total_coords = new JSONArray();
+            for(Detail dt : details){
+                //calculateDetail(dt);
+                dt.setVehicle_name(vhService.get(dt.getVehicle_id()).getName());
+                dt.setTotal_length(round(dt.getTotal_length(),3));
+                dt.setAverage_velocity(round(dt.getAverage_velocity(),3));
+                if(dt.getStart_time() != null){
+                    dt.setStart_time_str(commonUtils.convertDateToString(dt.getStart_time()));
+                }
+                if(dt.getEnd_time() != null){
+                    dt.setEnd_time_str(commonUtils.convertDateToString(dt.getEnd_time()));
+                }
+                List<Coordinate> coords = coorService.getCoordsOfDetail(dt.getId());
+                total_coords.add(parseCoords(coords));
+            }
+            app.setUsers(users);
+            app.setStart_date_str(commonUtils.convertDateToString(app.getStart_date()));
+            if(app.getEnd_date() != null){
+                app.setEnd_date_str(commonUtils.convertDateToString(app.getEnd_date()));
+            }
+            app.setDetails(details);
+            model.addAttribute("coords",parseCoords(total_coords));
+            model.addAttribute("pageName","appointment");
+            model.addAttribute("apm",app);
+            model.addAttribute("dts",details);
+            model.addAttribute("mng",userService.get(app.getManager_id()).getFullname());
+            return "web/appointment/apm_detail";
+        }
+    }
+
     private JSONArray parseCoords(List<Coordinate> coords){
         JSONArray result = new JSONArray();
         for(Coordinate coord : coords){
