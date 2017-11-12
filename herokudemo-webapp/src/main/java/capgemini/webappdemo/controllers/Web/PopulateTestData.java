@@ -8,7 +8,7 @@ import capgemini.webappdemo.service.Employee.EmployeeService;
 import capgemini.webappdemo.service.Manager.ManagerService;
 import capgemini.webappdemo.service.User.UserService;
 import capgemini.webappdemo.service.Vehicle.VehicleService;
-import capgemini.webappdemo.service.VehiclePrice.VehiclePriceService;
+import capgemini.webappdemo.utils.CalculateMoney;
 import capgemini.webappdemo.utils.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,19 +48,14 @@ public class PopulateTestData {
     @Autowired
     private VehicleService vhcService;
 
-    @Autowired
-    private VehiclePriceService vhpService;
-
     private DateFormat dateFormat = new SimpleDateFormat("HH:mm dd-MM-yyyy");
     private CommonUtils cu = new CommonUtils();
 
     @RequestMapping(value = "/populateData", method = RequestMethod.GET)
     public void populateData() throws ParseException {
-        List<Vehicle> total = vhcService.getAll();
-        for(Vehicle vh : total){
-            vh.setStatus(1);
-            vhcService.update(vh);
-        }
+        CalculateMoney cm = new CalculateMoney();
+        double cost = cm.getEstimateCost("Grab Car 7 seats",10.0,60);
+        System.out.println("cost = " + cost);
 
         /*double a = vhpService.getValue("uberX_start");
         System.out.println(a);*/

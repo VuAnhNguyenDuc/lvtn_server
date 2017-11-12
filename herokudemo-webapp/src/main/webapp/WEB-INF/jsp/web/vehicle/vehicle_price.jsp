@@ -33,53 +33,10 @@
 
             <div class="row">
                 <div class="col-sm-6 col-lg-6 col-md-6 col-xs-12" id="formulas">
-                    <%--<div class="form-group row">
-                        <div class="col-md-4">
-                            <label for="ct1" class="title">Type:</label>
-                            <select class="form-control" id="ct1">
-                                <option value="if">if</option>
-                                <option value="else-if">else if</option>
-                                <option value="else">else</option>
-                                <option value="no">no condition</option>
-                            </select>
-                        </div>
-                        <div class="col-md-8">
-                            <label class="title" for="c1">Condition: </label>
-                            <input type="text" class="form-control" id="c1">
-                        </div>
-                    </div>
-                    <div class="form-group row formula-text">
-                        <label class="title" for="f1">Formula: </label>
-                        <input type="text" class="form-control" id="f1">
-                    </div>--%>
-
                 </div>
 
                 <div class="col-sm-6 col-lg-6 col-md-6 col-xs-12">
                     <section id="vars">
-                        <%--<div class="title"> Variables :</div>
-                        <div class="content row">
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label for="name1" class="col-md-4 col-form-label" style="
-    padding-top: 7px;
-">Name:</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control" id="name1" placeholder="name..">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label for="value1" class="col-md-4 col-form-label" style="
-    padding-top: 7px;
-">Value:</label>
-                                    <div class="col-md-8">
-                                        <input type="number" class="form-control" id="value1" placeholder="value..">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>--%>
                     </section>
                 </div>
             </div>
@@ -124,10 +81,14 @@
             for(k = 1; k <= j; k++){
                 var name = $("#name"+k).val();
                 var value = $("#value"+k).val();
-                var obj = {};
-                obj["name"] = name;
-                obj["value"] = (value != "")? parseFloat(value) : 0;
-                variables.push(obj);
+                if(name != ""){
+                    var obj = {};
+                    obj["name"] = name;
+                    obj["value"] = (value != "")? parseFloat(value) : 0;
+                    variables.push(obj);
+                } else{
+                    alert("Invalid variable specified");
+                }
             }
 
             var input = {};
@@ -173,9 +134,9 @@
                     var obj = variables[count];
                     $("#vars").append(var_template((count + 1),obj["name"],obj["value"]));
                 }
-            } else{
+            } /*else{
                 $("#vars").append(var_template(1,"",""));
-            }
+            }*/
         }
 
         function formula_template(i,ct,c,f){

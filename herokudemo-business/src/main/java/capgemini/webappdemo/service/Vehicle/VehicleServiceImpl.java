@@ -42,4 +42,9 @@ public class VehicleServiceImpl extends EntityServiceImpl<Vehicle> implements Ve
 	public List<Vehicle> getActiveVehicles() {
 		return Repository.getActiveVehicles();
 	}
+
+	@Override
+	public Vehicle getVehicleByName(String name) {
+		return Repository.getVehicleByName(name);
+	}
 }

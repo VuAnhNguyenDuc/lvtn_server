@@ -17,5 +17,7 @@ public interface VehicleRepository extends EntityRepository<Vehicle> {
 	public boolean checkExist(String name);
 
 	public List<Vehicle> getActiveVehicles();
+
+	public Vehicle getVehicleByName(String name);
 	
 }

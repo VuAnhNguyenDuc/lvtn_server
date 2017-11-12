@@ -16,4 +16,6 @@ public interface VehicleService extends EntityService<Vehicle> {
 	public boolean checkExist(String name);
 
 	public List<Vehicle> getActiveVehicles();
+
+	public Vehicle getVehicleByName(String name);
 }

@@ -49,12 +49,18 @@ public class VehicleAjax {
             obj = (JSONObject) formulas.get(i);
             if(i == 0 && (obj.get("condition_type").equals("else if") || obj.get("condition_type").equals("else"))){
                 return "Invalid condition type : the first condition must be if or no condition at all";
+            } else if(obj.get("condition_type").equals("else") && i != formulas.size()-1){
+                return "Invalid condition type : there can not be another condition after else";
             }
             condition_types.add(obj.get("condition_type").toString());
         }
 
+        if(Collections.frequency(condition_types,"no condition") > 0 && formulas.size() > 1){
+            return "Invalid condition type : you can not input more conditions if you have a 'no condition' type";
+        }
+
         if(Collections.frequency(condition_types,"else") > 1){
-            return "Invalid condtion type : there can not be two else statements";
+            return "Invalid condition type : there can not be two else statements";
         }
 
         for(int i = 0; i < formulas.size(); i++){
