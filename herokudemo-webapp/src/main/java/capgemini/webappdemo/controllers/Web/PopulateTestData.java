@@ -54,7 +54,7 @@ public class PopulateTestData {
     @RequestMapping(value = "/populateData", method = RequestMethod.GET)
     public void populateData() throws ParseException {
         CalculateMoney cm = new CalculateMoney();
-        double cost = cm.test(16,10.0,60);
+        double cost = cm.test("{\"id\":16,\"formulas\":[{\"condition_type\":\"if\",\"condition\":\"1 == 0\",\"formula\":\"1 + 1\"},{\"condition_type\":\"else\",\"condition\":\"\",\"formula\":\"5 + 5\"}],\"vars\":[]}",10.0,60);
         System.out.println("cost = " + cost);
 
         /*double a = vhpService.getValue("uberX_start");

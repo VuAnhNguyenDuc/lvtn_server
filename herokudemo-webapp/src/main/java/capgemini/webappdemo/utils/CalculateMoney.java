@@ -112,51 +112,47 @@ public class CalculateMoney {
         return cost;
     }
 
-    public double test(int id, double s,long t){
+    public double test(String formulas_and_vars, double s,long t){
         ScriptEngineManager mgr = new ScriptEngineManager();
         ScriptEngine engine = mgr.getEngineByName("JavaScript");
         double cost = 0;
-        Vehicle vhc = service.get(id);
-        if(vhc != null){
-            String formulas_and_vars = vhc.getCalculate_formula();
-            JSONParser parser = new JSONParser();
-            try {
-                JSONObject obj = (JSONObject) parser.parse(formulas_and_vars);
-                JSONArray formulas = (JSONArray) obj.get("formulas");
-                JSONArray vars = (JSONArray) obj.get("vars");
+        JSONParser parser = new JSONParser();
+        try {
+            JSONObject obj = (JSONObject) parser.parse(formulas_and_vars);
+            JSONArray formulas = (JSONArray) obj.get("formulas");
+            JSONArray vars = (JSONArray) obj.get("vars");
 
-                for(int i = 0; i < formulas.size(); i++){
-                    obj = (JSONObject) formulas.get(i);
-                    String condition_type = obj.get("condition_type").toString();
-                    String condition = obj.get("condition").toString();
-                    String formula = obj.get("formula").toString();
+            for(int i = 0; i < formulas.size(); i++){
+                obj = (JSONObject) formulas.get(i);
+                String condition_type = obj.get("condition_type").toString();
+                String condition = obj.get("condition").toString();
+                String formula = obj.get("formula").toString();
 
-                    try {
-                        if(condition_type.equals("if") || condition_type.equals("else if")){
-                            boolean validate = (boolean) engine.eval(condition);
-                            if(validate){
-                                formula = replaceVarsWithValues(formula,vars);
-                                cost = (double) engine.eval(formula);
-                            }
-                        } else if(condition_type.equals("else") || condition_type.equals("no condition")){
-                            formula = replaceVarsWithValues(formula,vars);
+                try {
+                    if(condition_type.equals("if") || condition_type.equals("else if")){
+                        boolean validate = (boolean) engine.eval(condition);
+                        if(validate){
+                            formula = replaceVarsWithValues(formula,vars,s,t);
                             cost = (double) engine.eval(formula);
                         }
-                    } catch (ScriptException e) {
-                        e.printStackTrace();
+                    } else if(condition_type.equals("else") || condition_type.equals("no condition")){
+                        formula = replaceVarsWithValues(formula,vars,s,t);
+                        cost = (double) engine.eval(formula);
                     }
+                } catch (ScriptException e) {
+                    e.printStackTrace();
                 }
-
-            } catch (ParseException e) {
-                e.printStackTrace();
             }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         return cost;
     }
 
 
 
-    private String replaceVarsWithValues(String input,JSONArray vars){
+    private String replaceVarsWithValues(String input,JSONArray vars,double s,long t){
         for(int i = 0; i < vars.size(); i++){
             JSONObject obj = (JSONObject) vars.get(i);
             String var = obj.get("name").toString();
@@ -165,6 +161,8 @@ public class CalculateMoney {
                 input = input.replaceAll(var, String.valueOf(value));
             }
         }
+        input = input.replaceAll("s",String.valueOf(s));
+        input = input.replaceAll("t",String.valueOf(t));
         return input;
     }
 }
