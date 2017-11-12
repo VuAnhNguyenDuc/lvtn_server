@@ -276,7 +276,7 @@ public class DetailApi {
         // time in seconds
         long total_time = commonUtils.getSeconds(dt.getStart_time(),dt.getEnd_time());
         // estimate cost
-        double estimate_cost = cm.getEstimateCost(vehicleService.get(dt.getVehicle_id()).getId(),total_length,total_time);
+        double estimate_cost = cm.getEstimateCost(vehicleService.get(dt.getVehicle_id()).getName(),total_length,total_time);
         dt.setTotal_length(total_length);
         dt.setEstimate_cost(estimate_cost);
         // velocity km/h

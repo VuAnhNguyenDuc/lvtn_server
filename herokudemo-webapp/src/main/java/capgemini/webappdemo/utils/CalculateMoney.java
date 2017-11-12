@@ -26,11 +26,9 @@ public class CalculateMoney {
     @Autowired
     private VehicleService service;
 
-    public double getEstimateCost(int id, double s, long t){
+    public double getEstimateCost(String name, double s, long t){
         double cost = 0;
-        Vehicle vhc = service.get(id);
-
-        switch (vhc.getName()){
+        switch (name){
             case "Uber X":
                     /*double uberX_start = vp.getValue("uberX_start");
                     double uberX_length = vp.getValue("uberX_length");
@@ -107,8 +105,6 @@ public class CalculateMoney {
                     break;
             default: cost = 0; break;
         }
-
-
         return cost;
     }
 
