@@ -85,8 +85,11 @@ public class VehicleAjax {
             }
 
             String result = validateExpression(var_names,condition);
+            if(condition_type.equals("else") || condition_type.equals("no condition")){
+                result = "success";
+            }
             String result1 = validateExpression(var_names,formula);
-            if(!result.equals("success") && !condition.equals("else") && !result.equals("no condition")){
+            if(!result.equals("success")){
                 return result;
             } else if(!result1.equals("success")){
                 return result1;
