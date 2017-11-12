@@ -53,14 +53,11 @@ public class PopulateTestData {
 
     @RequestMapping(value = "/populateData", method = RequestMethod.GET)
     public void populateData() throws ParseException {
-        CalculateMoney cm = new CalculateMoney();
+        /*CalculateMoney cm = new CalculateMoney();
         double cost = cm.test("{\"id\":16,\"formulas\":[{\"condition_type\":\"if\",\"condition\":\"1 == 0\",\"formula\":\"1 + 1\"},{\"condition_type\":\"else\",\"condition\":\"\",\"formula\":\"5 + 5\"}],\"vars\":[]}",10.0,60);
-        System.out.println("cost = " + cost);
+        System.out.println("cost = " + cost);*/
 
-        /*double a = vhpService.getValue("uberX_start");
-        System.out.println(a);*/
-
-        /*Admin admin = new Admin();
+        Admin admin = new Admin();
         admin.setUsername("admin");
         admin.setPassword("admin");
         adminService.add(admin);
@@ -82,7 +79,7 @@ public class PopulateTestData {
         User emp = new User();
         emp.setUsername("emp");
         emp.setPassword("emp");
-        emp.setFullname("Tran Van A");
+        emp.setFullname("Test Employee");
         emp.setEmail("emp@gmail.com");
         emp.setStatus(1);
         userService.add(emp);
@@ -97,7 +94,7 @@ public class PopulateTestData {
         User dung = new User();
         dung.setUsername("dung");
         dung.setPassword("dung");
-        dung.setFullname("Tran Van B");
+        dung.setFullname("Dũng Nguyễn");
         dung.setEmail("dung@gmail.com");
         dung.setStatus(1);
         userService.add(dung);
@@ -112,7 +109,7 @@ public class PopulateTestData {
         User dam = new User();
         dam.setUsername("dam");
         dam.setPassword("dam");
-        dam.setFullname("Tran Van C");
+        dam.setFullname("Đàm Trương");
         dam.setEmail("dam@gmail.com");
         dam.setStatus(1);
         userService.add(dam);
@@ -125,7 +122,7 @@ public class PopulateTestData {
         employeeService.add(empE);
 
 
-        Appointment apm = new Appointment();
+        /*Appointment apm = new Appointment();
         apm.setName("Appointment 1");
         apm.setManager_id(mng.getId());
         apm.setDestination("destination 1");
@@ -216,7 +213,7 @@ public class PopulateTestData {
             for(User user:users){
                 managerService.assignAppointmentToUser(apm4.getId(),user.getId());
             }
-        }
+        }*/
 
         Vehicle v1 = new Vehicle("Uber X");
         Vehicle v2 = new Vehicle("Uber Black");
@@ -233,6 +230,6 @@ public class PopulateTestData {
         vhcService.add(v5);
         vhcService.add(v6);
         vhcService.add(v7);
-        vhcService.add(v8);*/
+        vhcService.add(v8);
     }
 }
