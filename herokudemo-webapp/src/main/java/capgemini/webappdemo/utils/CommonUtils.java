@@ -1,7 +1,5 @@
 package capgemini.webappdemo.utils;
 
-import javafx.scene.input.DataFormat;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
