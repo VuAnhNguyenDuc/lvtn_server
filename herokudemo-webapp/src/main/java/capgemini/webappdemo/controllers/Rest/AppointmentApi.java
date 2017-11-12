@@ -144,7 +144,7 @@ public class AppointmentApi {
                     boolean flag = false;
                     for(int i = 0; i < dts.size(); i++){
                         Detail dt = dts.get(i);
-                        if(dt.getEstimate_cost() * 1.5 < dt.getInput_cost()){
+                        if(dt.isWarning()){
                             ap.setStatus(-1);
                             flag = true;
                             break;
