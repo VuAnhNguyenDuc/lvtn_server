@@ -102,7 +102,7 @@ public class PopulateTestData {
         empE = new Employee();
         empE.setUser_id(dung.getId());
         empE.setStatus(1);
-        empE.setManager_id(dung.getId());
+        empE.setManager_id(mng.getId());
         empE.setEmployee_type("Employee");
         employeeService.add(empE);
 
@@ -117,7 +117,7 @@ public class PopulateTestData {
         empE = new Employee();
         empE.setUser_id(dam.getId());
         empE.setStatus(1);
-        empE.setManager_id(dam.getId());
+        empE.setManager_id(mng.getId());
         empE.setEmployee_type("Employee");
         employeeService.add(empE);
 
