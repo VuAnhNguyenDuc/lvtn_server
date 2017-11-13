@@ -94,7 +94,7 @@ https://developers.google.com/maps/documentation/javascript/examples/polyline-si
             };
 
             for (var i = 0; i < dt_arr.length; i++){
-                var obj = total[i];
+                var obj = dt_arr[i];
                 var coords = obj.coords;
                 // Draw lines
                 var PathStyle = new google.maps.Polyline({
