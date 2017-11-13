@@ -21,7 +21,126 @@
     <jsp:include page="../mobile_nav.jsp"/>
     <jsp:include page="../side_nav.jsp"/>
     <div class="col-sm-9 col-lg-9 col-sm-12 col-xs-12" style="padding-top: 30px">
-        <div id="map" style="width: 100%; height: 600px;"></div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6 col-md-6 col-xs-12">
+                <table class="table table-hover">
+                    <tbody>
+                    <tr>
+                        <td>Appointment Name</td>
+                        <td>${apm.name}</td>
+                    </tr>
+                    <tr>
+                        <td>Manager Created</td>
+                        <td>${mng}</td>
+                    </tr>
+                    <tr>
+                        <td>Start Date</td>
+                        <td>${apm.start_date_str}</td>
+                    </tr>
+                    <tr>
+                        <td>End Date</td>
+                        <td>${apm.end_date_str}</td>
+                    </tr>
+                    <tr>
+                        <td>Total Cost (thousands vnđ)</td>
+                        <td>${apm.total_cost}</td>
+                    </tr>
+                    <tr>
+                        <td>Users Participate</td>
+                        <td>
+                            <c:forEach items="${apm.users}" var="usr">
+                                <ul>
+                                    <li>${usr.fullname}</li>
+                                </ul>
+                            </c:forEach>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Status</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${apm.status == 1}">
+                                    Active
+                                </c:when>
+                                <c:when test="${apm.status == -1}">
+                                    <p style="color:red">Warning</p>
+                                </c:when>
+                                <c:otherwise>
+                                    Finished
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-6 col-lg-6 col-md-6 col-xs-12" id="map" style="min-height:400px">
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Vehicle</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <%--<th>Start Location</th>
+                <th>End Location</th>--%>
+                <th>Total Length (km)</th>
+                <th>Average Velocity (km/h)</th>
+                <th>Input Cost</th>
+                <th>Estimate Cost</th>
+                <th>Image Content</th>
+            </tr>
+            </thead>
+            <tbody>
+            <%
+                int i = 1;
+            %>
+            <c:forEach items="${dts}" var="dt">
+                <tr>
+                    <td><%= i %></td>
+                    <td>${dt.vehicle_name}</td>
+                    <td>${dt.start_time_str}</td>
+                    <td>${dt.end_time_str}</td>
+                        <%--<td>${dt.start_location}</td>
+                        <td>${dt.end_location}</td>--%>
+                    <td>${dt.total_length}</td>
+                    <td>${dt.average_velocity}</td>
+                    <c:choose>
+                        <c:when test="${dt.warning}">
+                            <td><p style="color:red">${dt.input_cost}</p></td>
+                        </c:when>
+                        <c:otherwise>
+                            <td>${dt.input_cost}</td>
+                        </c:otherwise>
+                    </c:choose>
+                    <td>${dt.estimate_cost}</td>
+                    <td>
+                        <a href="#" class="pop">
+                            <img src="http://upload.wikimedia.org/wikipedia/commons/2/22/Turkish_Van_Cat.jpg" style="width: 400px; height: 264px;" hidden>
+                            Click to view
+                        </a>
+                    </td>
+                </tr>
+                <% i = i + 1; %>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <img src="" class="imagepreview" style="width: 100%;" >
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 
@@ -39,7 +158,7 @@ https://developers.google.com/maps/documentation/javascript/examples/polyline-si
             var startLat = element[0].lat;
             var startLong = element[0].lng;
             var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 3,
+                zoom: 20,
                 center: {lat : parseFloat(startLat), lng: parseFloat(startLong)},
                 mapTypeId: 'terrain'
             });

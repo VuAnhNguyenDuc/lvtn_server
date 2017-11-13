@@ -73,7 +73,7 @@ public class AppointmentController {
         }
     }
 
-    @RequestMapping(value = "/appointment/details", method = RequestMethod.GET, params = {"appointment_id","detail_id"})
+    @RequestMapping(value = "/appointment/details/old", method = RequestMethod.GET, params = {"appointment_id","detail_id"})
     public String getAppointmentDetails(HttpSession session, @RequestParam("appointment_id") int id, @RequestParam("detail_id") int detail_id, ModelMap model){
         if(!loginUtil.isLogin(session)){
             return "redirect:/login";
@@ -117,7 +117,7 @@ public class AppointmentController {
         }
     }
 
-    @RequestMapping(value = "/appointment/details/test", method = RequestMethod.GET, params = {"appointment_id"})
+    @RequestMapping(value = "/appointment/details", method = RequestMethod.GET, params = {"appointment_id"})
     public String getAppointmentDetailsTest(HttpSession session, @RequestParam("appointment_id") int id,ModelMap model){
         if(!loginUtil.isLogin(session)){
             return "redirect:/login";
