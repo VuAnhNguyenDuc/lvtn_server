@@ -35,11 +35,12 @@ https://developers.google.com/maps/documentation/javascript/examples/polyline-si
 
         var dt_arr = ${details_array};
         if(dt_arr.length > 0){
-            var startLat = dt_arr[0].coords.lat;
-            var startLong = dt_arr[0].coords.lng;
+            var element = dt_arr[0].coords;
+            var startLat = element[0].lat;
+            var startLong = element[0].lng;
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 3,
-                center: {lat : startLat, lng: startLong},
+                center: {lat : parseFloat(startLat), lng: parseFloat(startLong)},
                 mapTypeId: 'terrain'
             });
             /*var flightPlanCoordinates = [
