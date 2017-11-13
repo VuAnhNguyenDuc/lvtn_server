@@ -23,144 +23,112 @@
     <div class="col-sm-9 col-lg-9 col-sm-12 col-xs-12" style="padding-top: 30px">
         <div id="map" style="width: 100%; height: 600px;"></div>
     </div>
-    <%--${id}--%>
 </body>
 
 <%--
 https://stackoverflow.com/questions/5868850/creating-list-of-objects-in-javascript
 https://developers.google.com/maps/documentation/javascript/examples/polyline-simple
 --%>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhlcbvdlgCkj5u5tLUqzeeyx0a3Dp_nlo&&callback=initMap">
-</script>
 <script type="text/javascript">
 
-    jQuery(document).ready(function(){
-        /*renderMap(*/<%--${coords}--%>/*);*/
-        //renderMap();
-        //initMap();
-        getData();
-    });
-
-    function getData(){
-        $.ajax({
-            type:"GET",
-            url: "http://lvtn-server.herokuapp.com/ajax/getCoordinates",
-            data : "appointmentid=105",
-            dataType : "text",
-            cache : false,
-            success: function(result){
-                console.log(result);
-                //var locations = $.parseJSON(result);
-                //initMap(result);
-            },
-            error: function (xhr) {
-                var err = eval("(" + xhr.responseText + ")");
-                alert(err.Message);
-            }
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 3,
+            center: {lat: 0, lng: -180},
+            mapTypeId: 'terrain'
         });
-    }
 
-    /*function initMap(coordinates) {
-        /!*var coordinates = [
+        var flightPlanCoordinates = [
             {lat: 37.772, lng: -122.214},
             {lat: 21.291, lng: -157.821},
             {lat: -18.142, lng: 178.431},
             {lat: -27.467, lng: 153.027}
-        ];*!/
-        /!*var coordinates = [
-            ['Bondi Beach', -33.890542, 151.274856, 4],
-            ['Coogee Beach', -33.923036, 151.259052, 5],
-            ['Cronulla Beach', -34.028249, 151.157507, 3],
-            ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
-            ['Maroubra Beach', -33.950198, 151.259302, 1]
-        ];*!/
-        var startLat = coordinates[0].lat;
-        var startLong = coordinates[0].lng;
-        console.log("lat = " + startLat);
-        console.log("long = " + startLong);
+        ];
+        var v1 = [
+            {lat: 37.772, lng: -122.214},
+            {lat: 21.291, lng: -157.821},
+        ];
+        var v2 = [
+            {lat: 21.291, lng: -157.821},
+            {lat: -18.142, lng: 178.431}
+        ];
+        var v3 = [
+            {lat: -18.142, lng: 178.431},
+            {lat: -27.467, lng: 153.027}
+        ];
+        var total = [];
+        total.push(v1);
+        total.push(v2);
+        total.push(v3);
 
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 10,
-            center: {lat: startLat, lng: startLong},
-            mapTypeId: 'terrain'
-        });
-
-        var flightPath = new google.maps.Polyline({
-            path: coordinates,
-            geodesic: true,
-            strokeColor: '#FF0000',
-            strokeOpacity: 1.0,
-            strokeWeight: 2
-        });
-
-        flightPath.setMap(map);
-    }*/
-
-    function renderMap () {
-        var locations = [
-            ['Bondi Beach', -33.890542, 151.274856, 4],
-            ['Coogee Beach', -33.923036, 151.259052, 5],
-            ['Cronulla Beach', -34.028249, 151.157507, 3],
-            ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
-            ['Maroubra Beach', -33.950198, 151.259302, 1]
+        var Colors = [
+            "#FF0000",
+            "#00FF00",
+            "#0000FF",
+            "#FFFFFF",
+            "#000000",
+            "#FFFF00",
+            "#00FFFF",
+            "#FF00FF"
         ];
 
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 15,
-            center: new google.maps.LatLng(locations[0][1], locations[0][2]),
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        });
+        // Define the symbol, using one of the predefined paths ('CIRCLE')
+        // supplied by the Google Maps JavaScript API.
+        var lineSymbol = {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 8,
+            strokeColor: '#393'
+        };
 
-        var infowindow = new google.maps.InfoWindow();
 
-        var marker, i;
-
-        for (i = 0; i < locations.length; i++) {
-            marker = new google.maps.Marker({
-                position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        for (var i = 0; i < total.length; i++){
+            var obj = total[i];
+            // Draw lines
+            var PathStyle = new google.maps.Polyline({
+                path: obj,
+                strokeColor: Colors[i],
+                strokeOpacity: 1.0,
+                strokeWeight: 2,
+                icons: [{
+                    icon: lineSymbol,
+                    offset: '100%'
+                }],
                 map: map
             });
+            animateCircle(PathStyle);
 
-            google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                return function() {
-                    infowindow.setContent(locations[i][0]);
-                    infowindow.open(map, marker);
-                }
-            })(marker, i));
+            // Draw markers
+            var marker = new google.maps.Marker({
+                position: obj[0],
+                map: map,
+                html: "Hello world " + i + "<br> Hi there"
+            });
+            google.maps.event.addListener(marker, "click", function () {
+                infowindow.setContent(this.html);
+                infowindow.open(map, this);
+            });
+        }
+
+        infowindow = new google.maps.InfoWindow({
+            content: "loading..."
+        });
+
+        // Use the DOM setInterval() function to change the offset of the symbol
+        // at fixed intervals.
+        function animateCircle(line) {
+            var count = 0;
+            window.setInterval(function() {
+                count = (count + 1) % 200;
+
+                var icons = line.get('icons');
+                icons[0].offset = (count / 2) + '%';
+                line.set('icons', icons);
+            }, 20);
         }
     }
 
-    /*function renderMap(locations){
-        var startLat = locations[0].latitude;
-        var startLong = locations[0].longitude;
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 15,
-            center: new google.maps.LatLng(startLat, startLong),
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        });
-
-        var infowindow = new google.maps.InfoWindow();
-
-        var marker, i;
-
-        for (i = 0; i < locations.length; i++) {
-            marker = new google.maps.Marker({
-                position: new google.maps.LatLng(locations[i].latitude, locations[i].longitude),
-                map: map
-            });
-
-            google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                return function() {
-                    infowindow.setContent(locations[i][0]);
-                    infowindow.open(map, marker);
-                }
-            })(marker, i));
-        }
-    }*/
-
-
 </script>
-<%--<script async defer
+<script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhlcbvdlgCkj5u5tLUqzeeyx0a3Dp_nlo&&callback=initMap">
-</script>--%>
+</script>
 </html>

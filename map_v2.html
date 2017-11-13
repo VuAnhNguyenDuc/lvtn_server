@@ -66,36 +66,63 @@
 			"#00FFFF", 
 			"#FF00FF"
 		];
+
+        // Define the symbol, using one of the predefined paths ('CIRCLE')
+        // supplied by the Google Maps JavaScript API.
+        var lineSymbol = {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 8,
+            strokeColor: '#393'
+        };
+
+
 		for (var i = 0; i < total.length; i++){
 		  var obj = total[i];
+          // Draw lines
           var PathStyle = new google.maps.Polyline({
             path: obj,
             strokeColor: Colors[i],
             strokeOpacity: 1.0,
             strokeWeight: 2,
+            icons: [{
+                icon: lineSymbol,
+                offset: '100%'
+            }],
             map: map
+          });
+          animateCircle(PathStyle);
+
+          // Draw markers
+          var marker = new google.maps.Marker({
+              position: obj[0],
+              map: map,
+              /*title: sites[0],*/
+              /*zIndex: sites[3],*/
+              /*html: sites[4]*/
+              html: "Hello world " + i + "<br> Hi there"
+          });
+          google.maps.event.addListener(marker, "click", function () {
+              infowindow.setContent(this.html);
+              infowindow.open(map, this);
           });
         }
 
-		/*for (var i = 0; i < flightPlanCoordinates.length-1; i++) {
-		  var PathStyle = new google.maps.Polyline({
-			path: [flightPlanCoordinates[i], flightPlanCoordinates[i+1]],
-			strokeColor: Colors[i],
-			strokeOpacity: 1.0,
-			strokeWeight: 2,
-			map: map
-		  });
-		}*/
-		/*
-        var flightPath = new google.maps.Polyline({
-          path: flightPlanCoordinates,
-          geodesic: true,
-          strokeColor: '#FF0000',
-          strokeOpacity: 1.0,
-          strokeWeight: 2
-        });*/
+        infowindow = new google.maps.InfoWindow({
+            content: "loading..."
+        });
 
-        //flightPath.setMap(map);
+        // Use the DOM setInterval() function to change the offset of the symbol
+        // at fixed intervals.
+        function animateCircle(line) {
+            var count = 0;
+            window.setInterval(function() {
+                count = (count + 1) % 200;
+
+                var icons = line.get('icons');
+                icons[0].offset = (count / 2) + '%';
+                line.set('icons', icons);
+            }, 20);
+        }
       }
     </script>
     <script async defer

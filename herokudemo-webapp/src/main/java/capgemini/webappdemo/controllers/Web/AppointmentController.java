@@ -151,7 +151,7 @@ public class AppointmentController {
             model.addAttribute("apm",app);
             model.addAttribute("dts",details);
             model.addAttribute("mng",userService.get(app.getManager_id()).getFullname());
-            return "web/appointment/apm_detail";
+            return "web/appointment/apm_map";
         }
     }
 
