@@ -221,7 +221,7 @@ public class PopulateTestData {
             }
         }*/
 
-        List<Vehicle> vhcs = vhcService.getAll();
+        /*List<Vehicle> vhcs = vhcService.getAll();
 
         for(int i = 9; i <= 24; i++){
             Vehicle vhc = vhcService.get(i);
@@ -232,16 +232,34 @@ public class PopulateTestData {
             Vehicle vhc = vhcs.get(i);
             vhc.setCalculatable(true);
             vhcService.update(vhc);
-        }
+        }*/
 
-        /*Vehicle v1 = new Vehicle("Uber X");
+        vhcService.deleteAll();
+
+        Vehicle v1 = new Vehicle("Uber X");
+        v1.setCalculatable(true);
+        v1.setStatus(1);
         Vehicle v2 = new Vehicle("Uber Black");
+        v2.setCalculatable(true);
+        v2.setStatus(1);
         Vehicle v3 = new Vehicle("Uber SUV");
+        v3.setCalculatable(true);
+        v3.setStatus(1);
         Vehicle v4 = new Vehicle("Uber MOTO");
+        v4.setCalculatable(true);
+        v4.setStatus(1);
         Vehicle v5 = new Vehicle("Grab Bike");
+        v5.setCalculatable(true);
+        v5.setStatus(1);
         Vehicle v6 = new Vehicle("Grab Bike Premium");
+        v6.setCalculatable(true);
+        v6.setStatus(1);
         Vehicle v7 = new Vehicle("Grab Car 4 seats");
+        v7.setCalculatable(true);
+        v7.setStatus(1);
         Vehicle v8 = new Vehicle("Grab Car 7 seats");
+        v8.setCalculatable(true);
+        v8.setStatus(1);
         vhcService.add(v1);
         vhcService.add(v2);
         vhcService.add(v3);
@@ -249,6 +267,6 @@ public class PopulateTestData {
         vhcService.add(v5);
         vhcService.add(v6);
         vhcService.add(v7);
-        vhcService.add(v8);*/
+        vhcService.add(v8);
     }
 }
