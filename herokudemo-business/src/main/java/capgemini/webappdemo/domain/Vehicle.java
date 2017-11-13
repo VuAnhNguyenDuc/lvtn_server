@@ -57,10 +57,6 @@ public class Vehicle {
         this.status = status;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
     public String getCalculate_formula() {
         return calculate_formula;
     }

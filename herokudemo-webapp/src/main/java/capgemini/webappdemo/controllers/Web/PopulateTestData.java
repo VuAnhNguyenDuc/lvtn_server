@@ -48,7 +48,7 @@ public class PopulateTestData {
     @Autowired
     private VehicleService vhcService;
 
-    private DateFormat dateFormat = new SimpleDateFormat("HH:mm dd-MM-yyyy");
+    private DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
     private CommonUtils cu = new CommonUtils();
 
     @RequestMapping(value = "/populateData", method = RequestMethod.GET)
@@ -57,7 +57,7 @@ public class PopulateTestData {
         double cost = cm.test("{\"id\":16,\"formulas\":[{\"condition_type\":\"if\",\"condition\":\"1 == 0\",\"formula\":\"1 + 1\"},{\"condition_type\":\"else\",\"condition\":\"\",\"formula\":\"5 + 5\"}],\"vars\":[]}",10.0,60);
         System.out.println("cost = " + cost);*/
 
-        Admin admin = new Admin();
+        /*Admin admin = new Admin();
         admin.setUsername("admin");
         admin.setPassword("admin");
         adminService.add(admin);
@@ -119,13 +119,14 @@ public class PopulateTestData {
         empE.setStatus(1);
         empE.setManager_id(mng.getId());
         empE.setEmployee_type("Employee");
-        employeeService.add(empE);
+        employeeService.add(empE);*/
 
 
         /*Appointment apm = new Appointment();
-        apm.setName("Appointment 1");
-        apm.setManager_id(mng.getId());
-        apm.setDestination("destination 1");
+        apm.setName("Appointment Demo");
+        apm.setManager_id(28);
+        apm.setDestination("Trường THPT Nguyễn Thái B");
+        apm.setClient_id(1);
         try {
             apm.setStart_date(dateFormat.parse("15:00 15-10-2017"));
         } catch (ParseException e) {
@@ -133,9 +134,7 @@ public class PopulateTestData {
         }
         apm.setStatus(1);
         List<User> usrs = new ArrayList<>();
-        usrs.add(emp);
-        usrs.add(dung);
-        usrs.add(dam);
+        usrs.add(userService.get(29));
         apm.setUsers(usrs);
         apmService.add(apm);
         if(apm.getId() != 0){
@@ -145,7 +144,14 @@ public class PopulateTestData {
             }
         }
 
-        Appointment apm2 = new Appointment();
+        Detail dt1 = new Detail();
+        dt1.setAppointment_id(apm.getId());
+        dt1.setStart_location("Trường THPT Nguyễn Khuyến");
+        dt1.setEnd_location("cuối đường Thành Thái");
+        dt1.setUser_created(29);*/
+
+
+        /*Appointment apm2 = new Appointment();
         apm2.setName("Appointment 2");
         apm2.setManager_id(mng.getId());
         apm2.setDestination("destination 2");
@@ -215,8 +221,14 @@ public class PopulateTestData {
             }
         }*/
 
+        List<Vehicle> vhcs = vhcService.getAll();
+        for(int i = 0; i < vhcs.size(); i++){
+            vhcs.get(i).setStatus(1);
+            vhcService.update(vhcs.get(i));
+        }
 
-        Vehicle v1 = new Vehicle("Uber X");
+
+        /*Vehicle v1 = new Vehicle("Uber X");
         Vehicle v2 = new Vehicle("Uber Black");
         Vehicle v3 = new Vehicle("Uber SUV");
         Vehicle v4 = new Vehicle("Uber MOTO");
@@ -231,6 +243,6 @@ public class PopulateTestData {
         vhcService.add(v5);
         vhcService.add(v6);
         vhcService.add(v7);
-        vhcService.add(v8);
+        vhcService.add(v8);*/
     }
 }
