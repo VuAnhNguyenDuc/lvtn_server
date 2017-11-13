@@ -93,7 +93,7 @@
                 <th>Average Velocity (km/h)</th>
                 <th>Input Cost</th>
                 <th>Estimate Cost</th>
-                <th>Image Content</th>
+                <th>Billing Image</th>
             </tr>
             </thead>
             <tbody>
