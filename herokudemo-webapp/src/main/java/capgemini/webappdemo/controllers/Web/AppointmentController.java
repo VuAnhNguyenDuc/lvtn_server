@@ -145,6 +145,7 @@ public class AppointmentController {
                 obj.put("end_time", dt.getEnd_time_str());
                 obj.put("avg_velocity", dt.getAverage_velocity());
                 obj.put("coords", parseCoords(coords));
+                details_array.add(obj);
             }
             app.setUsers(users);
             app.setStart_date_str(commonUtils.convertDateToString(app.getStart_date()));

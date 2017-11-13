@@ -17,3 +17,201 @@ https://lvtn-server.herokuapp.com/api/createDetail
   "start_location" : "Trường THPT Nguyễn Khuyến"
 }
 
+https://lvtn-server.herokuapp.com/api/detail/addCoordinate
+{
+  "json_token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJINHNJQUFBQUFBQUFBRnZ6bG9HMXVJaEJQVG14SUQwMU56TXZVNjg4TlNteG9DQWxOVGRmcjdRa002ZFlMeVEvT3pVdklMRXlKejh4NVhndmMrM2R6WElybUJpWVBSbllTNHRUaStJelUzd1lPQW9TaTR2TDg0dFNTaGlFZkxJU3l4TDFjeEx6MHZXRFM0b3k4OUt0ZlJoWVNpb0xVZ3NaNmhnWUt3b1lHQmhrU2hpWWMvUFNTeGpZZlJQekV0TlRpd0E4RVppbGhnQUFBQT09In0.ZuuMzVivi_nDkgk3_anmkeS9yhK_FXVofRx6n-U3D9c",
+  "detail_id" : 60,
+  "coordinates":[{
+    "time" : "10:00:00 13-11-2017",
+    "latitude" : 10.7712664,
+    "longitude" : 106.6656627
+  },{
+    "time" : "10:00:03 13-11-2017",
+    "latitude" : 10.7715809,
+    "longitude" : 106.6654948
+  },{
+    "time" : "10:00:06 13-11-2017",
+    "latitude" : 10.7724823,
+    "longitude" : 106.6651239
+  },{
+    "time" : "10:00:09 13-11-2017",
+    "latitude" : 10.7731075,
+    "longitude" : 106.6648896
+  },{
+    "time" : "10:00:12 13-11-2017",
+    "latitude" : 10.7741316,
+    "longitude" : 106.664464
+  },{
+    "time" : "10:00:15 13-11-2017",
+    "latitude" : 10.7750675,
+    "longitude" : 106.6641556
+  },{
+    "time" : "10:00:18 13-11-2017",
+    "latitude" : 10.7760149,
+    "longitude" : 106.6637691
+  },{
+    "time" : "10:00:21 13-11-2017",
+    "latitude" : 10.7764291,
+    "longitude" : 106.6635739
+  }]
+}
+
+https://lvtn-server.herokuapp.com/api/detail/end
+{
+  "json_token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJINHNJQUFBQUFBQUFBRnZ6bG9HMXVJaEJQVG14SUQwMU56TXZVNjg4TlNteG9DQWxOVGRmcjdRa002ZFlMeVEvT3pVdklMRXlKejh4NVhndmMrM2R6WElybUJpWVBSbllTNHRUaStJelUzd1lPQW9TaTR2TDg0dFNTaGlFZkxJU3l4TDFjeEx6MHZXRFM0b3k4OUt0ZlJoWVNpb0xVZ3NaNmhnWUt3b1lHQmhrU2hpWWMvUFNTeGpZZlJQekV0TlRpd0E4RVppbGhnQUFBQT09In0.ZuuMzVivi_nDkgk3_anmkeS9yhK_FXVofRx6n-U3D9c",
+  "id" : 60,
+  "end_time" : "10:00:21 13-11-2017",
+  "end_location" : "cuối đường Thành Thái",
+  "image_content":"",
+  "description":"",
+  "input_cost":50.0
+}
+
+https://lvtn-server.herokuapp.com/api/createDetail
+{
+  "json_token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJINHNJQUFBQUFBQUFBRnZ6bG9HMXVJaEJQVG14SUQwMU56TXZVNjg4TlNteG9DQWxOVGRmcjdRa002ZFlMeVEvT3pVdklMRXlKejh4NVhndmMrM2R6WElybUJpWVBSbllTNHRUaStJelUzd1lPQW9TaTR2TDg0dFNTaGlFZkxJU3l4TDFjeEx6MHZXRFM0b3k4OUt0ZlJoWVNpb0xVZ3NaNmhnWUt3b1lHQmhrU2hpWWMvUFNTeGpZZlJQekV0TlRpd0E4RVppbGhnQUFBQT09In0.ZuuMzVivi_nDkgk3_anmkeS9yhK_FXVofRx6n-U3D9c",
+  "appointment_id" : 59,
+  "vehicle_id" : 52,
+  "start_time" : "10:01:00 13-11-2017",
+  "start_location" : "ngã tư giao nhau giữa Thành Thái và Tô Hiến Thành"
+}
+
+https://lvtn-server.herokuapp.com/api/detail/addCoordinate
+{
+  "json_token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJINHNJQUFBQUFBQUFBRnZ6bG9HMXVJaEJQVG14SUQwMU56TXZVNjg4TlNteG9DQWxOVGRmcjdRa002ZFlMeVEvT3pVdklMRXlKejh4NVhndmMrM2R6WElybUJpWVBSbllTNHRUaStJelUzd1lPQW9TaTR2TDg0dFNTaGlFZkxJU3l4TDFjeEx6MHZXRFM0b3k4OUt0ZlJoWVNpb0xVZ3NaNmhnWUt3b1lHQmhrU2hpWWMvUFNTeGpZZlJQekV0TlRpd0E4RVppbGhnQUFBQT09In0.ZuuMzVivi_nDkgk3_anmkeS9yhK_FXVofRx6n-U3D9c",
+  "detail_id" : 77,
+  "coordinates":[{
+    "time" : "10:01:00 13-11-2017",
+    "latitude" : 10.7764291,
+    "longitude" : 106.6635739
+  },{
+    "time" : "10:01:03 13-11-2017",
+    "latitude" : 10.7761453,
+    "longitude" : 106.6633279
+  },{
+    "time" : "10:01:06 13-11-2017",
+    "latitude" : 10.7758423,
+    "longitude" : 106.6631054
+  },{
+    "time" : "10:01:09 13-11-2017",
+    "latitude" : 10.7754319,
+    "longitude" : 106.6627891
+  },{
+    "time" : "10:01:12 13-11-2017",
+    "latitude" : 10.7750368,
+    "longitude" : 106.6625041
+  },{
+    "time" : "10:01:15 13-11-2017",
+    "latitude" : 10.7746648,
+    "longitude" : 106.6622074
+  },{
+    "time" : "10:01:18 13-11-2017",
+    "latitude" : 10.7741508,
+    "longitude" : 106.661856
+  },{
+    "time" : "10:01:21 13-11-2017",
+    "latitude" : 10.7736253,
+    "longitude" : 106.6614109
+  },{
+    "time" : "10:01:24 13-11-2017",
+    "latitude" : 10.7729579,
+    "longitude" : 106.6608838
+  },{
+    "time" : "10:01:27 13-11-2017",
+    "latitude" : 10.772233,
+    "longitude" : 106.660302
+  },{
+    "time" : "10:01:30 13-11-2017",
+    "latitude" : 10.7716193,
+    "longitude" : 106.6595446
+  },{
+    "time" : "10:01:33 13-11-2017",
+    "latitude" : 10.7708483,
+    "longitude" : 106.658713
+  },{
+    "time" : "10:01:36 13-11-2017",
+    "latitude" : 10.7703152,
+    "longitude" : 106.6581898
+  }]
+}
+
+https://lvtn-server.herokuapp.com/api/detail/end
+{
+  "json_token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJINHNJQUFBQUFBQUFBRnZ6bG9HMXVJaEJQVG14SUQwMU56TXZVNjg4TlNteG9DQWxOVGRmcjdRa002ZFlMeVEvT3pVdklMRXlKejh4NVhndmMrM2R6WElybUJpWVBSbllTNHRUaStJelUzd1lPQW9TaTR2TDg0dFNTaGlFZkxJU3l4TDFjeEx6MHZXRFM0b3k4OUt0ZlJoWVNpb0xVZ3NaNmhnWUt3b1lHQmhrU2hpWWMvUFNTeGpZZlJQekV0TlRpd0E4RVppbGhnQUFBQT09In0.ZuuMzVivi_nDkgk3_anmkeS9yhK_FXVofRx6n-U3D9c",
+  "id" : 77,
+  "end_time" : "10:01:36 13-11-2017",
+  "end_location" : "ngã tư giao nhau giữa đường Lý Thường Kiệt và Tô Hiến Thành",
+  "image_content":"",
+  "description":"",
+  "input_cost":40.0
+}
+
+https://lvtn-server.herokuapp.com/api/createDetail
+{
+  "json_token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJINHNJQUFBQUFBQUFBRnZ6bG9HMXVJaEJQVG14SUQwMU56TXZVNjg4TlNteG9DQWxOVGRmcjdRa002ZFlMeVEvT3pVdklMRXlKejh4NVhndmMrM2R6WElybUJpWVBSbllTNHRUaStJelUzd1lPQW9TaTR2TDg0dFNTaGlFZkxJU3l4TDFjeEx6MHZXRFM0b3k4OUt0ZlJoWVNpb0xVZ3NaNmhnWUt3b1lHQmhrU2hpWWMvUFNTeGpZZlJQekV0TlRpd0E4RVppbGhnQUFBQT09In0.ZuuMzVivi_nDkgk3_anmkeS9yhK_FXVofRx6n-U3D9c",
+  "appointment_id" : 59,
+  "vehicle_id" : 53,
+  "start_time" : "10:02:00 13-11-2017",
+  "start_location" : "trường Đại học Bách Khoa"
+}
+
+https://lvtn-server.herokuap.com/api/detail/addCoordinate
+{
+  "json_token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJINHNJQUFBQUFBQUFBRnZ6bG9HMXVJaEJQVG14SUQwMU56TXZVNjg4TlNteG9DQWxOVGRmcjdRa002ZFlMeVEvT3pVdklMRXlKejh4NVhndmMrM2R6WElybUJpWVBSbllTNHRUaStJelUzd1lPQW9TaTR2TDg0dFNTaGlFZkxJU3l4TDFjeEx6MHZXRFM0b3k4OUt0ZlJoWVNpb0xVZ3NaNmhnWUt3b1lHQmhrU2hpWWMvUFNTeGpZZlJQekV0TlRpd0E4RVppbGhnQUFBQT09In0.ZuuMzVivi_nDkgk3_anmkeS9yhK_FXVofRx6n-U3D9c",
+  "detail_id" : 104,
+  "coordinates":[{
+    "time" : "10:02:00 13-11-2017",
+    "latitude" : 10.7703152,
+    "longitude" : 106.6581898
+  },{
+    "time" : "10:02:03 13-11-2017",
+    "latitude" : 10.7710977,
+    "longitude" : 106.6580063
+  },{
+    "time" : "10:02:06 13-11-2017",
+    "latitude" : 10.7723236,
+    "longitude" : 106.6573769
+  },{
+    "time" : "10:02:09 13-11-2017",
+    "latitude" : 10.7738424,
+    "longitude" : 106.6571395
+  },{
+    "time" : "10:02:12 13-11-2017",
+    "latitude" : 10.7744553,
+    "longitude" : 106.6569739
+  },{
+    "time" : "10:02:15 13-11-2017",
+    "latitude" : 10.7751171,
+    "longitude" : 106.6567972
+  },{
+    "time" : "10:02:18 13-11-2017",
+    "latitude" : 10.7761477,
+    "longitude" : 106.6565046
+  },{
+    "time" : "10:02:21 13-11-2017",
+    "latitude" : 10.7775038,
+    "longitude" : 106.6561567
+  },{
+    "time" : "10:02:24 13-11-2017",
+    "latitude" : 10.7788056,
+    "longitude" : 106.655842
+  },{
+    "time" : "10:02:27 13-11-2017",
+    "latitude" : 10.7801074,
+    "longitude" : 106.6554776
+  },{
+    "time" : "10:02:30 13-11-2017",
+    "latitude" : 10.7716193,
+    "longitude" : 106.6595446
+  }]
+}
+
+https://lvtn-server.herokuapp.com/api/endAppointment
+{
+	"json_token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJINHNJQUFBQUFBQUFBRnZ6bG9HMXVJaEJQVG14SUQwMU56TXZVNjg4TlNteG9DQWxOVGRmcjdRa002ZFlMeVEvT3pVdklMRXlKejh4NVhndmMrM2R6WElybUJpWVBSbllTNHRUaStJelUzd1lPQW9TaTR2TDg0dFNTaGlFZkxJU3l4TDFjeEx6MHZXRFM0b3k4OUt0ZlJoWVNpb0xVZ3NaNmhnWUt3b1lHQmhrU2hpWWMvUFNTeGpZZlJQekV0TlRpd0E4RVppbGhnQUFBQT09In0.ZuuMzVivi_nDkgk3_anmkeS9yhK_FXVofRx6n-U3D9c",
+	"id":59,
+	"total_cost":100.0,
+	"end_date":"10:05 13-11-2017"
+}
+
+
