@@ -103,9 +103,9 @@ public class AppointmentController {
                 }
             }
             app.setUsers(users);
-            app.setStart_date_str(commonUtils.convertDateToString(app.getStart_date()));
+            app.setStart_date_str(commonUtils.convertDateToStringSec(app.getStart_date()));
             if(app.getEnd_date() != null){
-                app.setEnd_date_str(commonUtils.convertDateToString(app.getEnd_date()));
+                app.setEnd_date_str(commonUtils.convertDateToStringSec(app.getEnd_date()));
             }
             app.setDetails(details);
             model.addAttribute("coords",parseCoords(total_coords));
@@ -125,20 +125,26 @@ public class AppointmentController {
             Appointment app = appService.get(id);
             List<User> users = appService.getUsersOfAppointment(id);
             List<Detail> details = detailService.getDetailsOfAppointment(id);
-            JSONArray total_coords = new JSONArray();
+            JSONArray details_array = new JSONArray();
             for(Detail dt : details){
-                //calculateDetail(dt);
+                dt.setEnd_time_str("");
                 dt.setVehicle_name(vhService.get(dt.getVehicle_id()).getName());
                 dt.setTotal_length(round(dt.getTotal_length(),3));
                 dt.setAverage_velocity(round(dt.getAverage_velocity(),3));
                 if(dt.getStart_time() != null){
-                    dt.setStart_time_str(commonUtils.convertDateToString(dt.getStart_time()));
+                    dt.setStart_time_str(commonUtils.convertDateToStringSec(dt.getStart_time()));
                 }
                 if(dt.getEnd_time() != null){
-                    dt.setEnd_time_str(commonUtils.convertDateToString(dt.getEnd_time()));
+                    dt.setEnd_time_str(commonUtils.convertDateToStringSec(dt.getEnd_time()));
                 }
                 List<Coordinate> coords = coorService.getCoordsOfDetail(dt.getId());
-                total_coords.add(parseCoords(coords));
+
+                JSONObject obj = new JSONObject();
+                obj.put("vehicle_name", dt.getVehicle_name());
+                obj.put("start_time", dt.getStart_time_str());
+                obj.put("end_time", dt.getEnd_time_str());
+                obj.put("avg_velocity", dt.getAverage_velocity());
+                obj.put("coords", parseCoords(coords));
             }
             app.setUsers(users);
             app.setStart_date_str(commonUtils.convertDateToString(app.getStart_date()));
@@ -146,7 +152,7 @@ public class AppointmentController {
                 app.setEnd_date_str(commonUtils.convertDateToString(app.getEnd_date()));
             }
             app.setDetails(details);
-            model.addAttribute("coords",total_coords);
+            model.addAttribute("details_array",details_array);
             model.addAttribute("pageName","appointment");
             model.addAttribute("apm",app);
             model.addAttribute("dts",details);
