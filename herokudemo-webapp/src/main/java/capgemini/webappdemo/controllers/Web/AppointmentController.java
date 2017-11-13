@@ -146,7 +146,7 @@ public class AppointmentController {
                 app.setEnd_date_str(commonUtils.convertDateToString(app.getEnd_date()));
             }
             app.setDetails(details);
-            model.addAttribute("coords",parseCoords(total_coords));
+            model.addAttribute("coords",total_coords);
             model.addAttribute("pageName","appointment");
             model.addAttribute("apm",app);
             model.addAttribute("dts",details);
