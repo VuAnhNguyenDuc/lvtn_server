@@ -4,6 +4,7 @@ import capgemini.webappdemo.domain.*;
 import capgemini.webappdemo.service.Admin.AdminService;
 import capgemini.webappdemo.service.Appointment.AppointmentService;
 import capgemini.webappdemo.service.Coordinate.CoordinateService;
+import capgemini.webappdemo.service.Detail.DetailService;
 import capgemini.webappdemo.service.Employee.EmployeeService;
 import capgemini.webappdemo.service.Manager.ManagerService;
 import capgemini.webappdemo.service.User.UserService;
@@ -47,6 +48,9 @@ public class PopulateTestData {
 
     @Autowired
     private VehicleService vhcService;
+
+    @Autowired
+    private DetailService dtService;
 
     private DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
     private CommonUtils cu = new CommonUtils();
@@ -234,7 +238,7 @@ public class PopulateTestData {
             vhcService.update(vhc);
         }*/
 
-        vhcService.deleteAll();
+        /*vhcService.deleteAll();
 
         Vehicle v1 = new Vehicle("Uber X");
         v1.setCalculatable(true);
@@ -267,6 +271,13 @@ public class PopulateTestData {
         vhcService.add(v5);
         vhcService.add(v6);
         vhcService.add(v7);
-        vhcService.add(v8);
+        vhcService.add(v8);*/
+
+        List<Detail> dts = dtService.getAll();
+        for(int i = 0; i < dts.size(); i++){
+            Detail dt = dts.get(i);
+            dt.setVehicle_id(51);
+            dtService.update(dt);
+        }
     }
 }
