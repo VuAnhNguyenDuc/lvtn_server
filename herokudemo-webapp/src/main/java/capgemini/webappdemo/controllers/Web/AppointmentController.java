@@ -123,6 +123,7 @@ public class AppointmentController {
             return "redirect:/login";
         } else{
             Appointment app = appService.get(id);
+            double total_cost = 0;
             List<User> users = appService.getUsersOfAppointment(id);
             List<Detail> details = detailService.getDetailsOfAppointment(id);
             JSONArray details_array = new JSONArray();
@@ -131,12 +132,16 @@ public class AppointmentController {
                 dt.setVehicle_name(vhService.get(dt.getVehicle_id()).getName());
                 dt.setTotal_length(round(dt.getTotal_length(),3));
                 dt.setAverage_velocity(round(dt.getAverage_velocity(),3));
+                if(dt.getEstimate_cost() != 0){
+                    dt.setEstimate_cost(round(dt.getEstimate_cost(),3));
+                }
                 if(dt.getStart_time() != null){
                     dt.setStart_time_str(commonUtils.convertDateToStringSec(dt.getStart_time()));
                 }
                 if(dt.getEnd_time() != null){
                     dt.setEnd_time_str(commonUtils.convertDateToStringSec(dt.getEnd_time()));
                 }
+                total_cost += dt.getInput_cost();
                 List<Coordinate> coords = coorService.getCoordsOfDetail(dt.getId());
 
                 JSONObject obj = new JSONObject();
@@ -153,6 +158,7 @@ public class AppointmentController {
                 app.setEnd_date_str(commonUtils.convertDateToString(app.getEnd_date()));
             }
             app.setDetails(details);
+            app.setTotal_cost(total_cost);
             model.addAttribute("details_array",details_array);
             model.addAttribute("pageName","appointment");
             model.addAttribute("apm",app);

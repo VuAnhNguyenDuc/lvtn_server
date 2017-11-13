@@ -149,6 +149,12 @@ https://stackoverflow.com/questions/5868850/creating-list-of-objects-in-javascri
 https://developers.google.com/maps/documentation/javascript/examples/polyline-simple
 --%>
 <script type="text/javascript">
+    $(function() {
+        $('.pop').on('click', function() {
+            $('.imagepreview').attr('src', $(this).find('img').attr('src'));
+            $('#imagemodal').modal('show');
+        });
+    });
 
     function initMap() {
 
@@ -158,32 +164,10 @@ https://developers.google.com/maps/documentation/javascript/examples/polyline-si
             var startLat = element[0].lat;
             var startLong = element[0].lng;
             var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 20,
+                zoom: 15,
                 center: {lat : parseFloat(startLat), lng: parseFloat(startLong)},
                 mapTypeId: 'terrain'
             });
-            /*var flightPlanCoordinates = [
-                {lat: 37.772, lng: -122.214},
-                {lat: 21.291, lng: -157.821},
-                {lat: -18.142, lng: 178.431},
-                {lat: -27.467, lng: 153.027}
-            ];
-            var v1 = [
-                {lat: 37.772, lng: -122.214},
-                {lat: 21.291, lng: -157.821},
-            ];
-            var v2 = [
-                {lat: 21.291, lng: -157.821},
-                {lat: -18.142, lng: 178.431}
-            ];
-            var v3 = [
-                {lat: -18.142, lng: 178.431},
-                {lat: -27.467, lng: 153.027}
-            ];
-            var total = [];
-            total.push(v1);
-            total.push(v2);
-            total.push(v3);*/
 
             var Colors = [
                 "#FF0000",
