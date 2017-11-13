@@ -1,0 +1,19 @@
+https://lvtn-server.herokuapp.com/api/createAppointment
+{
+  "json_token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJINHNJQUFBQUFBQUFBRnZ6bG9HMXVJaEJQVG14SUQwMU56TXZVNjg4TlNteG9DQWxOVGRmcjdRa002ZFlMeVEvT3pVdklMRXlKejh4NVhndmMrM2R6WElybUJpWVBSbllTNHRUaStJelUzd1lPQW9TaTR2TDg0dFNTaGlFZkxJU3l4TDFjeEx6MHZXRFM0b3k4OUt0ZlJoWVNpb0xVZ3NaNmhnWUt3b1lHQmhrU2hpWWMvUFNTeGpZZlJQekV0TlRpd0E4RVppbGhnQUFBQT09In0.j0MQ48NrWOZsR2A1bqles3zGeFSFtquXX6gEut0LDCM",
+  "name" : "appointment demo",
+  "destination" : "Trường THPT Nguyễn Thái Bình",
+  "client_id":1,
+  "start_date" : "10:00 13-11-2017",
+  "users" : "[28]"
+}
+
+https://lvtn-server.herokuapp.com/api/createDetail
+{
+  "json_token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJINHNJQUFBQUFBQUFBRnZ6bG9HMXVJaEJQVG14SUQwMU56TXZVNjg4TlNteG9DQWxOVGRmcjdRa002ZFlMeVEvT3pVdklMRXlKejh4NVhndmMrM2R6WElybUJpWVBSbllTNHRUaStJelUzd1lPQW9TaTR2TDg0dFNTaGlFZkxJU3l4TDFjeEx6MHZXRFM0b3k4OUt0ZlJoWVNpb0xVZ3NaNmhnWUt3b1lHQmhrU2hpWWMvUFNTeGpZZlJQekV0TlRpd0E4RVppbGhnQUFBQT09In0.j0MQ48NrWOZsR2A1bqles3zGeFSFtquXX6gEut0LDCM",
+  "appointment_id" : 59,
+  "vehicle_id" : 51,
+  "start_time" : "10:00:00 13-11-2017",
+  "start_location" : "Trường THPT Nguyễn Khuyến"
+}
+

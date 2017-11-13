@@ -273,11 +273,6 @@ public class PopulateTestData {
         vhcService.add(v7);
         vhcService.add(v8);*/
 
-        List<Detail> dts = dtService.getAll();
-        for(int i = 0; i < dts.size(); i++){
-            Detail dt = dts.get(i);
-            dt.setVehicle_id(51);
-            dtService.update(dt);
-        }
+        coorService.deleteAll();
     }
 }
