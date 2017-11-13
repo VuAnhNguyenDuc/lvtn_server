@@ -222,11 +222,17 @@ public class PopulateTestData {
         }*/
 
         List<Vehicle> vhcs = vhcService.getAll();
-        for(int i = 0; i < vhcs.size(); i++){
-            vhcs.get(i).setStatus(1);
-            vhcService.update(vhcs.get(i));
+
+        for(int i = 9; i <= 24; i++){
+            Vehicle vhc = vhcService.get(i);
+            vhcService.remove(vhc);
         }
 
+        for(int i = 0; i < vhcs.size(); i++){
+            Vehicle vhc = vhcs.get(i);
+            vhc.setCalculatable(true);
+            vhcService.update(vhc);
+        }
 
         /*Vehicle v1 = new Vehicle("Uber X");
         Vehicle v2 = new Vehicle("Uber Black");
