@@ -23,7 +23,7 @@
     <div class="col-sm-9 col-lg-9 col-sm-12 col-xs-12" style="padding-top: 30px">
         <div class="row">
             <div class="col-sm-6 col-lg-6 col-md-6 col-xs-12">
-                <table class="table table-hover" id="details-table">
+                <table class="table table-hover">
                     <tbody>
                     <tr>
                         <td>Appointment Name</td>
@@ -34,7 +34,7 @@
                         <td>${mng}</td>
                     </tr>
                     <tr>
-                        <td>Start Date</td>
+                        <td>Expected Start Date</td>
                         <td>${apm.start_date_str}</td>
                     </tr>
                     <tr>
@@ -80,12 +80,12 @@
     </div>
 
     <div class="container">
-        <table class="table table-hover">
+        <table class="table table-hover" id="details-table">
             <thead>
             <tr>
                 <th>No</th>
                 <th>Vehicle</th>
-                <th>Expected Start Time</th>
+                <th>Start Time</th>
                 <th>End Time</th>
                 <%--<th>Start Location</th>
                 <th>End Location</th>--%>
