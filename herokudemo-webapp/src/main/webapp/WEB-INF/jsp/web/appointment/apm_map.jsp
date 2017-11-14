@@ -85,7 +85,7 @@
             <tr>
                 <th>No</th>
                 <th>Vehicle</th>
-                <th>Start Time</th>
+                <th>Expected Start Time</th>
                 <th>End Time</th>
                 <%--<th>Start Location</th>
                 <th>End Location</th>--%>

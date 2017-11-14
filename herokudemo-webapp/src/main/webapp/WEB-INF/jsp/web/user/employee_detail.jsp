@@ -68,6 +68,8 @@
         <button type="button" class="btn btn-primary" id="chart-btn">View as chart</button>
         <button type="button" class="btn btn-success" id="list-btn">View as list</button>
 
+        <br><br>
+
         <div id="result-list">
 
         </div>
