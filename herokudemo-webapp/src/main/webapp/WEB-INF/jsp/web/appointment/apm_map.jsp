@@ -23,7 +23,7 @@
     <div class="col-sm-9 col-lg-9 col-sm-12 col-xs-12" style="padding-top: 30px">
         <div class="row">
             <div class="col-sm-6 col-lg-6 col-md-6 col-xs-12">
-                <table class="table table-hover">
+                <table class="table table-hover" id="details-table">
                     <tbody>
                     <tr>
                         <td>Appointment Name</td>
@@ -154,6 +154,10 @@ https://developers.google.com/maps/documentation/javascript/examples/polyline-si
             $('.imagepreview').attr('src', $(this).find('img').attr('src'));
             $('#imagemodal').modal('show');
         });
+    });
+
+    $(document).ready(function(){
+        $('#details-table').DataTable();
     });
 
     function initMap() {

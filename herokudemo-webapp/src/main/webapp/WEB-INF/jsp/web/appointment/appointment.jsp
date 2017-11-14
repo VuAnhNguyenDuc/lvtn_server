@@ -36,7 +36,7 @@
             </select>
         </div>
         <div class="table-responsive" style="width: 100%;">
-            <table class="table table-hover">
+            <table class="table table-hover" id="apms-table">
                 <thead>
                 <tr>
                     <th>No</th>
@@ -86,6 +86,9 @@
     $("#select-apm").change(function(){
         var val = $("#select-apm").val();
         window.location.replace("http://lvtn-server.herokuapp.com/appointments?type="+val);
+    });
+    $(document).ready(function(){
+        $('#apms-table').DataTable();
     });
 </script>
 </html>

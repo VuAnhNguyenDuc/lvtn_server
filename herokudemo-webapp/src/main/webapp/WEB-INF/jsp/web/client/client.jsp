@@ -22,7 +22,7 @@
     <div class="col-sm-9 col-lg-9 col-sm-12 col-xs-12" style="padding-top: 30px">
         <p><a href="/client/insert" class="btn btn-primary">ADD NEW CLIENT</a></p>
         <div class="table-responsive" style="width: 100%;">
-            <table class="table table-hover">
+            <table class="table table-hover" id="clients-table">
                 <thead>
                 <tr>
                     <th>No</th>
@@ -55,4 +55,9 @@
         </div>
     </div>
 </body>
+<script type="application/javascript">
+    $(document).ready(function(){
+        $('#clients-table').DataTable();
+    });
+</script>
 </html>

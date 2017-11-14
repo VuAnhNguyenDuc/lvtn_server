@@ -21,7 +21,7 @@
     <jsp:include page="../side_nav.jsp"/>
     <div class="col-sm-9 col-lg-9 col-sm-12 col-xs-12" style="padding-top: 30px">
         <p><a href="/vehicle/insert" class="btn btn-primary">ADD NEW VEHICLE</a></p>
-        <table class="table table-hover">
+        <table class="table table-hover" id="vehicles-table">
             <thead>
             <tr>
                 <th>No</th>
@@ -63,4 +63,9 @@
         </table>
     </div>
 </body>
+<script type="application/javascript">
+    $(document).ready(function(){
+        $('#vehicles-table').DataTable();
+    });
+</script>
 </html>
