@@ -206,7 +206,8 @@ public class AppointmentController {
 
             if (conn.getResponseCode() != 200) {
                 throw new RuntimeException("Failed : HTTP error code : "
-                        + conn.getResponseCode());
+                        + conn.getResponseCode()+ "/n"
+                        + "Error is : " + conn.getErrorStream());
             }
 
             BufferedReader br = new BufferedReader(new InputStreamReader(
