@@ -185,9 +185,6 @@ public class AppointmentController {
                 double lat = (double) locations.get("latitude");
                 double lng = (double) locations.get("longitude");
 
-                System.out.println(lat);
-                System.out.println(lng);
-
                 JSONObject temp = new JSONObject();
                 temp.put("lat",lat);
                 temp.put("lng",lng);
