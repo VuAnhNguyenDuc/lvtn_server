@@ -194,9 +194,12 @@ public class AppointmentController {
     private JSONArray convertToSnapToRoad(List<Coordinate> coords){
         String coordStr = "";
         JSONArray result = new JSONArray();
-        for(int i = 0; i < coords.size(); i++){
+        for(int i = 0; i < coords.size() - 1; i++){
             coordStr+=coords.get(i).getLatitude() + "," + coords.get(i).getLongitude()+"|";
         }
+
+        coordStr+=coords.get(coords.size()).getLatitude()+","+coords.get(coords.size()).getLongitude();
+
         String api = "https://roads.googleapis.com/v1/snapToRoads?path="+coordStr+"&interpolate=true&key=AIzaSyDhlcbvdlgCkj5u5tLUqzeeyx0a3Dp_nlo";
         try {
             URL url = new URL(api);
@@ -207,7 +210,7 @@ public class AppointmentController {
             if (conn.getResponseCode() != 200) {
                 throw new RuntimeException("Failed : HTTP error code : "
                         + conn.getResponseCode()+ "/n"
-                        + "Error is : " + conn.getErrorStream());
+                        + "Error is : " + conn.getErrorStream().toString());
             }
 
             BufferedReader br = new BufferedReader(new InputStreamReader(
