@@ -164,9 +164,9 @@ https://developers.google.com/maps/documentation/javascript/examples/polyline-si
     $('#select-coord-type').change(function(){
         var data = $(this).val();
         if(data == 'no'){
-            window.location.replace("http://lvtn-server.herokuapp.com/appointment/details?appointment_id=${apm_id}&snapToRoad=false");
+            window.location.replace("http://lvtn-server.herokuapp.com/appointment/details?appointment_id=<%= apm_id %>&snapToRoad=false");
         } else{
-            window.location.replace("http://lvtn-server.herokuapp.com/appointment/details?appointment_id=${apm_id}&snapToRoad=true");
+            window.location.replace("http://lvtn-server.herokuapp.com/appointment/details?appointment_id=<%= apm_id %>&snapToRoad=true");
         }
     });
 
