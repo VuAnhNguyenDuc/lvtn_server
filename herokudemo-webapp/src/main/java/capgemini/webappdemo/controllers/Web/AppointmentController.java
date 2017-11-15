@@ -218,7 +218,7 @@ public class AppointmentController {
 
             String output = "";
             while ((br.readLine()) != null) {
-                output+=br.readLine()+"/n";
+                output+=br.readLine();
             }
             System.out.println(output);
             conn.disconnect();
