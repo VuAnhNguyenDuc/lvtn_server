@@ -221,7 +221,6 @@ public class AppointmentController {
             while ((output = br.readLine()) != null) {
                 apiResult+=output;
             }
-            System.out.println(apiResult);
             conn.disconnect();
 
             JSONParser parser = new JSONParser();
@@ -232,9 +231,13 @@ public class AppointmentController {
                 JSONObject locations = (JSONObject) obj.get("location");
                 double lat = (double) locations.get("latitude");
                 double lng = (double) locations.get("longitude");
+
+                System.out.println(lat);
+                System.out.println(lng);
+
                 JSONObject temp = new JSONObject();
                 temp.put("lat",lat);
-                temp.put("long",lng);
+                temp.put("lng",lng);
                 result.add(temp);
             }
 
