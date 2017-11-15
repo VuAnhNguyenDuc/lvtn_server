@@ -218,9 +218,9 @@ public class AppointmentController {
 
             String output = "";
             while ((br.readLine()) != null) {
-                output+=br.readLine();
+                output+=br.readLine()+"/n";
             }
-
+            System.out.println(output);
             conn.disconnect();
 
             JSONParser parser = new JSONParser();
