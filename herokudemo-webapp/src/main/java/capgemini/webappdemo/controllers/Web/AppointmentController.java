@@ -216,15 +216,16 @@ public class AppointmentController {
             BufferedReader br = new BufferedReader(new InputStreamReader(
                     (conn.getInputStream())));
 
-            String output = "";
-            while ((br.readLine()) != null) {
-                output+=br.readLine();
+            String apiResult = "";
+            String output;
+            while ((output = br.readLine()) != null) {
+                apiResult+=output;
             }
-            System.out.println(output);
+            System.out.println(apiResult);
             conn.disconnect();
 
             JSONParser parser = new JSONParser();
-            JSONObject returnedCoords = (JSONObject) parser.parse(output);
+            JSONObject returnedCoords = (JSONObject) parser.parse(apiResult);
             JSONArray snappedPoints = (JSONArray) returnedCoords.get("snappedPoints");
             for(int i = 0; i < snappedPoints.size(); i++){
                 JSONObject obj = (JSONObject) snappedPoints.get(i);
