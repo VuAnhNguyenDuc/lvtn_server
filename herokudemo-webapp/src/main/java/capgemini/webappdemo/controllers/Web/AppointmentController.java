@@ -198,7 +198,7 @@ public class AppointmentController {
             coordStr+=coords.get(i).getLatitude() + "," + coords.get(i).getLongitude()+"|";
         }
 
-        coordStr+=coords.get(coords.size()).getLatitude()+","+coords.get(coords.size()).getLongitude();
+        coordStr+=coords.get(coords.size()-1).getLatitude()+","+coords.get(coords.size()-1).getLongitude();
 
         String api = "https://roads.googleapis.com/v1/snapToRoads?path="+coordStr+"&interpolate=true&key=AIzaSyDhlcbvdlgCkj5u5tLUqzeeyx0a3Dp_nlo";
         try {
