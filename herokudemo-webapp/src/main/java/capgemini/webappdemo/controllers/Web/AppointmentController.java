@@ -78,8 +78,8 @@ public class AppointmentController {
         }
     }
 
-    @RequestMapping(value = "/appointment/details/snapToRoad", method = RequestMethod.GET, params = {"appointment_id"})
-    public String getAppointmentDetails(HttpSession session, @RequestParam("appointment_id") int id, ModelMap model){
+    @RequestMapping(value = "/appointment/details", method = RequestMethod.GET, params = {"appointment_id","snapToRoad"})
+    public String getAppointmentDetailsTest(HttpSession session, @RequestParam("appointment_id") int id,@RequestParam("snapToRoad") boolean snapToRoad, ModelMap model){
         if(!loginUtil.isLogin(session)){
             return "redirect:/login";
         } else{
@@ -110,58 +110,11 @@ public class AppointmentController {
                 obj.put("start_time", dt.getStart_time_str());
                 obj.put("end_time", dt.getEnd_time_str());
                 obj.put("avg_velocity", dt.getAverage_velocity());
-                obj.put("coords", convertToSnapToRoad(coords));
-                details_array.add(obj);
-            }
-            app.setUsers(users);
-            app.setStart_date_str(commonUtils.convertDateToString(app.getStart_date()));
-            if(app.getEnd_date() != null){
-                app.setEnd_date_str(commonUtils.convertDateToString(app.getEnd_date()));
-            }
-            app.setDetails(details);
-            app.setTotal_cost(total_cost);
-            model.addAttribute("details_array",details_array);
-            model.addAttribute("pageName","appointment");
-            model.addAttribute("apm",app);
-            model.addAttribute("dts",details);
-            model.addAttribute("mng",userService.get(app.getManager_id()).getFullname());
-            return "web/appointment/apm_map";
-        }
-    }
-
-    @RequestMapping(value = "/appointment/details", method = RequestMethod.GET, params = {"appointment_id"})
-    public String getAppointmentDetailsTest(HttpSession session, @RequestParam("appointment_id") int id,ModelMap model){
-        if(!loginUtil.isLogin(session)){
-            return "redirect:/login";
-        } else{
-            Appointment app = appService.get(id);
-            double total_cost = 0;
-            List<User> users = appService.getUsersOfAppointment(id);
-            List<Detail> details = detailService.getDetailsOfAppointment(id);
-            JSONArray details_array = new JSONArray();
-            for(Detail dt : details){
-                dt.setEnd_time_str("");
-                dt.setVehicle_name(vhService.get(dt.getVehicle_id()).getName());
-                dt.setTotal_length(round(dt.getTotal_length(),3));
-                dt.setAverage_velocity(round(dt.getAverage_velocity(),3));
-                if(dt.getEstimate_cost() != 0){
-                    dt.setEstimate_cost(round(dt.getEstimate_cost(),3));
+                if(snapToRoad){
+                    obj.put("coords", convertToSnapToRoad(coords));
+                } else{
+                    obj.put("coords", parseCoords(coords));
                 }
-                if(dt.getStart_time() != null){
-                    dt.setStart_time_str(commonUtils.convertDateToStringSec(dt.getStart_time()));
-                }
-                if(dt.getEnd_time() != null){
-                    dt.setEnd_time_str(commonUtils.convertDateToStringSec(dt.getEnd_time()));
-                }
-                total_cost += dt.getInput_cost();
-                List<Coordinate> coords = coorService.getCoordsOfDetail(dt.getId());
-
-                JSONObject obj = new JSONObject();
-                obj.put("vehicle_name", dt.getVehicle_name());
-                obj.put("start_time", dt.getStart_time_str());
-                obj.put("end_time", dt.getEnd_time_str());
-                obj.put("avg_velocity", dt.getAverage_velocity());
-                obj.put("coords", parseCoords(coords));
                 details_array.add(obj);
             }
             app.setUsers(users);
@@ -260,10 +213,6 @@ public class AppointmentController {
     }
 
 }
-
-
-
-
 
     /*@RequestMapping(value = "/appointment/details/old", method = RequestMethod.GET, params = {"appointment_id","detail_id"})
     public String getAppointmentDetails(HttpSession session, @RequestParam("appointment_id") int id, @RequestParam("detail_id") int detail_id, ModelMap model){

@@ -21,6 +21,14 @@
     <jsp:include page="../mobile_nav.jsp"/>
     <jsp:include page="../side_nav.jsp"/>
     <div class="col-sm-9 col-lg-9 col-sm-12 col-xs-12" style="padding-top: 30px">
+        <div class="row form-group">
+            <label for="select-coord-type">Select coordinates type:</label>
+            <select class="form-control" id="select-coord-type">
+                <option value="no">Original Coordinates</option>
+                <option value="yes">Snap To Road Coordinates</option>
+            </select>
+        </div>
+
         <div class="row">
             <div class="col-sm-6 col-lg-6 col-md-6 col-xs-12">
                 <table class="table table-hover">
@@ -148,7 +156,20 @@
 https://stackoverflow.com/questions/5868850/creating-list-of-objects-in-javascript
 https://developers.google.com/maps/documentation/javascript/examples/polyline-simple
 --%>
+
+<%
+    int apm_id = Integer.parseInt(request.getParameter("appointment_id"));
+%>
 <script type="text/javascript">
+    $('#select-coord-type').change(function(){
+        var data = $(this).val();
+        if(data == 'no'){
+            window.location.replace("http://lvtn-server.herokuapp.com/appointment/details?appointment_id=${apm_id}&snapToRoad=false");
+        } else{
+            window.location.replace("http://lvtn-server.herokuapp.com/appointment/details?appointment_id=${apm_id}&snapToRoad=true");
+        }
+    });
+
     $(function() {
         $('.pop').on('click', function() {
             $('.imagepreview').attr('src', $(this).find('img').attr('src'));
