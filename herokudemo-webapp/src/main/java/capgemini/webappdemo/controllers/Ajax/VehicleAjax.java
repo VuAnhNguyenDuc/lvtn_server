@@ -107,6 +107,8 @@ public class VehicleAjax {
                 input = input.replaceAll(vars.get(i),"1.0");
             }
         }
+        input = input.replaceAll("s","1.0");
+        input = input.replaceAll("t","1.0");
         return input;
     }
 

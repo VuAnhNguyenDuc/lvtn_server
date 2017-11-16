@@ -39,7 +39,7 @@ public class CalculateMoney {
             case "Uber Black" :
                     /*double uberBlack_start = vp.getValue("uberBlack_start");
                     double uberBlack_length = vp.getValue("uberBlack_length");
-                    double uberBlack_time = vp.getValue("uberBlack_time");
+                    double uberBlack_time = vp.getValue("uberBlack_time");ice
                     cost = uberBlack_start + uberBlack_length*s + uberBlack_time*t/60;*/
                     cost = 5 + 9.597*s + 0.8*t/60;
                     break;
