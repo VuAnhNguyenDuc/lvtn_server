@@ -273,8 +273,10 @@ public class DetailApi {
         Detail dt = detailService.get(detail_id);
         // total_length in km
         double total_length = cd.getTotalDistance(coords);
+        System.out.println("total length is : " + total_length);
         // time in seconds
         long total_time = commonUtils.getSeconds(dt.getStart_time(),dt.getEnd_time());
+        System.out.println("total time is : "+total_time);
         // estimate cost
         double estimate_cost = cm.getEstimateCost(vehicleService.get(dt.getVehicle_id()).getName(),total_length,total_time);
         dt.setTotal_length(total_length);
