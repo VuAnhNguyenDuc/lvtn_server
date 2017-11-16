@@ -114,6 +114,7 @@ public class VehicleController {
             model.addAttribute("formulas", formulas);
             model.addAttribute("variables", vars);
             model.addAttribute("pageName","vehicle");
+            model.addAttribute("vehicle_name",vehicle.getName());
             return "web/vehicle/vehicle_price";
         }
     }

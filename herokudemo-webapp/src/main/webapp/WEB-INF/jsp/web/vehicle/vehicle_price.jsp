@@ -29,7 +29,7 @@
                 </button>
                 <button class="btn btn-primary" id="addVar">ADD VARIABLE</button>
                 <button class="btn btn-primary" id="submit">SUBMIT</button>
-                <span class="label label-info">Vehicle Name : ${vehicle_name}</span>
+                <span class="label label-info" style="font-size: 14px">Vehicle Name : ${vehicle_name}</span>
             </div>
 
             <div class="row">
