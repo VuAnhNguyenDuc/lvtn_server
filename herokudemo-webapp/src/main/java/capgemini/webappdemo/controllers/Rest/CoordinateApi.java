@@ -1,10 +1,14 @@
 package capgemini.webappdemo.controllers.Rest;
 
+import capgemini.webappdemo.domain.Appointment;
 import capgemini.webappdemo.domain.Coordinate;
+import capgemini.webappdemo.domain.Detail;
 import capgemini.webappdemo.form.Coor;
 import capgemini.webappdemo.form.CoorFormString;
 import capgemini.webappdemo.form.CoordinateForm;
+import capgemini.webappdemo.service.Appointment.AppointmentService;
 import capgemini.webappdemo.service.Coordinate.CoordinateService;
+import capgemini.webappdemo.service.Detail.DetailService;
 import capgemini.webappdemo.utils.JsonTokenUtil;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -23,6 +27,10 @@ import java.util.List;
 public class CoordinateApi {
     @Autowired
     private CoordinateService coordinateService;
+
+    @Autowired
+    private DetailService dtService;
+
     private JsonTokenUtil jsonTokenUtil = new JsonTokenUtil();
 
     @RequestMapping(value = "/api/detail/addCoordinate", method = RequestMethod.POST)
@@ -33,6 +41,7 @@ public class CoordinateApi {
         String jsonToken = input.getJson_token();
         List<Coordinate> coords = new ArrayList<>();
         JSONObject result = new JSONObject();
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
 
         result.put("message",0);
         if(jsonToken.equals("") || !jsonTokenUtil.validateKey(jsonToken)){
@@ -46,7 +55,7 @@ public class CoordinateApi {
             double longitude = coor.getLongitude();
 
             Coordinate co = new Coordinate();
-            DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
+
             co.setTime(dateFormat.parse(time));
             co.setLatitude(latitude);
             co.setLongitude(longitude);
@@ -61,6 +70,10 @@ public class CoordinateApi {
         }
         if(flag){
             result.put("message",1);
+            Detail dt = dtService.get(detailId);
+            Coor lastCoord = coordinates.get(coordinates.size() - 1);
+            dt.setEnd_time(dateFormat.parse(lastCoord.getTime()));
+            dtService.update(dt);
         }
         return new ResponseEntity<JSONObject>(result, HttpStatus.OK);
     }
