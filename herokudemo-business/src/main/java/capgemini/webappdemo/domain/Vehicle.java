@@ -1,5 +1,7 @@
 package capgemini.webappdemo.domain;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,6 +16,7 @@ public class Vehicle {
     @Column(name = "is_calculatable")
     private boolean calculatable;
     @Column
+    @Type(type = "text")
     private String calculate_formula;
 
 
