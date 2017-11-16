@@ -50,6 +50,7 @@ public class VehicleController {
         } else{
             model.addAttribute("vehicle", new Vehicle());
             model.addAttribute("pageName","vehicle");
+            model.addAttribute("pageName","vehicle");
             return "web/vehicle/vehicle_insert";
         }
     }
@@ -75,6 +76,7 @@ public class VehicleController {
         } else{
             Vehicle vehicle = service.get(id);
             model.addAttribute("vehicle",vehicle);
+            model.addAttribute("pageName","vehicle");
             return "web/vehicle/vehicle_update";
         }
     }
@@ -111,6 +113,7 @@ public class VehicleController {
             model.addAttribute("id",id);
             model.addAttribute("formulas", formulas);
             model.addAttribute("variables", vars);
+            model.addAttribute("pageName","vehicle");
             return "web/vehicle/vehicle_price";
         }
     }

@@ -52,7 +52,7 @@
                     </td>
                     <td>
                         <a href="/vehicle/update?id=${vehicle.id}" class="btn btn-danger">Update</a>
-                        <a href="/vehicle/updatePrice?id=${vehicle.id}" class="btn btn-danger">Update Price</a>
+                        <a href="/vehicle/updatePrice?id=${vehicle.id}" class="btn btn-danger">Update Formula</a>
                     </td>
                 </tr>
                 <%
