@@ -11,6 +11,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%
+    int apm_id = Integer.parseInt(request.getParameter("appointment_id"));
+    boolean snapToRoad = Boolean.parseBoolean(request.getParameter("snapToRoad"));
+%>
 <html>
 <head>
     <title>MAP TRACKER</title>
@@ -24,8 +28,8 @@
         <div class="row form-group">
             <label for="select-coord-type">Select coordinates type:</label>
             <select class="form-control" id="select-coord-type">
-                <option value="no">Original Coordinates</option>
-                <option value="yes">Snap To Road Coordinates</option>
+                <option value="no" <% if(!snapToRoad){ %>selected<% } %>>Original Coordinates</option>
+                <option value="yes" <% if(snapToRoad){ %>selected<% } %>>Beautified Coordinates</option>
             </select>
         </div>
 
@@ -157,9 +161,7 @@ https://stackoverflow.com/questions/5868850/creating-list-of-objects-in-javascri
 https://developers.google.com/maps/documentation/javascript/examples/polyline-simple
 --%>
 
-<%
-    int apm_id = Integer.parseInt(request.getParameter("appointment_id"));
-%>
+
 <script type="text/javascript">
     $('#select-coord-type').change(function(){
         var data = $(this).val();

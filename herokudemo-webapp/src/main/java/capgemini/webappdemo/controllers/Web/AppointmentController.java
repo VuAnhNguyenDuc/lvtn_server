@@ -105,17 +105,20 @@ public class AppointmentController {
                 total_cost += dt.getInput_cost();
                 List<Coordinate> coords = coorService.getCoordsOfDetail(dt.getId());
 
-                JSONObject obj = new JSONObject();
-                obj.put("vehicle_name", dt.getVehicle_name());
-                obj.put("start_time", dt.getStart_time_str());
-                obj.put("end_time", dt.getEnd_time_str());
-                obj.put("avg_velocity", dt.getAverage_velocity());
-                if(snapToRoad){
-                    obj.put("coords", convertToSnapToRoad(coords));
-                } else{
-                    obj.put("coords", parseCoords(coords));
+                // We will only let google draw the coordinates that actually exist
+                if(coords.size() > 0){
+                    JSONObject obj = new JSONObject();
+                    obj.put("vehicle_name", dt.getVehicle_name());
+                    obj.put("start_time", dt.getStart_time_str());
+                    obj.put("end_time", dt.getEnd_time_str());
+                    obj.put("avg_velocity", dt.getAverage_velocity());
+                    if(snapToRoad){
+                        obj.put("coords", convertToSnapToRoad(coords));
+                    } else{
+                        obj.put("coords", parseCoords(coords));
+                    }
+                    details_array.add(obj);
                 }
-                details_array.add(obj);
             }
             app.setUsers(users);
             app.setStart_date_str(commonUtils.convertDateToString(app.getStart_date()));
