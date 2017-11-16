@@ -118,7 +118,7 @@
                     var obj = formulas[count];
                     $("#formulas").append(formula_template((count+1),obj["condition_type"],obj["condition"],obj["formula"]));
                 }
-                i == formulas.length();
+                i = formulas.length;
             } else{
                 $("#formulas").append(formula_template(1,"","",""));
             }
