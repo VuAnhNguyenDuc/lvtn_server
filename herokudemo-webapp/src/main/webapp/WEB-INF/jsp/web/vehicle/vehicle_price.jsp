@@ -118,6 +118,7 @@
                     var obj = formulas[count];
                     $("#formulas").append(formula_template((count+1),obj["condition_type"],obj["condition"],obj["formula"]));
                 }
+                i == formulas.length();
             } else{
                 $("#formulas").append(formula_template(1,"","",""));
             }
@@ -129,6 +130,7 @@
                     var obj = variables[count];
                     $("#vars").append(var_template((count + 1),obj["name"],obj["value"]));
                 }
+                j = variables.length;
             } /*else{
                 $("#vars").append(var_template(1,"",""));
             }*/
