@@ -218,15 +218,15 @@ https://developers.google.com/maps/documentation/javascript/examples/polyline-si
                 "#FF00FF"
             ];
 
-            // Define the symbol, using one of the predefined paths ('CIRCLE')
-            // supplied by the Google Maps JavaScript API.
-            var lineSymbol = {
-                path: google.maps.SymbolPath.CIRCLE,
-                scale: 8,
-                strokeColor: '#393'
-            };
-
             for (var i = 0; i < dt_arr.length; i++){
+                // Define the symbol, using one of the predefined paths ('CIRCLE')
+                // supplied by the Google Maps JavaScript API.
+                var lineSymbol = {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    scale: 8,
+                    strokeColor: Colors[i], //'#393'
+                };
+
                 var obj = dt_arr[i];
                 var coords = obj.coords;
                 // Draw lines
