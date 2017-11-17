@@ -35,3 +35,9 @@ Detect if coordinate is on water or land :
 https://onwater.io/
 https://api.onwater.io/api/v1/results/9.9446115,107.1653914
 {"lat":9.944357441646329,"lon":107.16564933376712,"water":true}
+
+Check if a coordinate is in range:
+https://en.wikipedia.org/wiki/Great-circle_distance
+https://stackoverflow.com/questions/14087076/check-if-coordinates-is-within-a-specific-distance-from-other-coordinates
+
+Maritime vehicles

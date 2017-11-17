@@ -43,6 +43,8 @@ public class Detail {
 
     private boolean warning;
 
+    private String predicted_vehicle;
+
     @Transient
     private String start_time_str;
     @Transient
@@ -221,5 +223,13 @@ public class Detail {
 
     public void setWarning(boolean warning) {
         this.warning = warning;
+    }
+
+    public String getPredicted_vehicle() {
+        return predicted_vehicle;
+    }
+
+    public void setPredicted_vehicle(String predicted_vehicle) {
+        this.predicted_vehicle = predicted_vehicle;
     }
 }

@@ -1,12 +1,10 @@
 package capgemini.webappdemo.controllers.Rest;
 
-import capgemini.webappdemo.domain.Appointment;
-import capgemini.webappdemo.domain.Coordinate;
-import capgemini.webappdemo.domain.Detail;
-import capgemini.webappdemo.domain.Vehicle;
+import capgemini.webappdemo.domain.*;
 import capgemini.webappdemo.service.Appointment.AppointmentService;
 import capgemini.webappdemo.service.Coordinate.CoordinateService;
 import capgemini.webappdemo.service.Detail.DetailService;
+import capgemini.webappdemo.service.SpecialPlace.SpecialPlaceService;
 import capgemini.webappdemo.service.Vehicle.VehicleService;
 import capgemini.webappdemo.utils.CalculateDistance;
 import capgemini.webappdemo.utils.CalculateMoney;
@@ -14,13 +12,21 @@ import capgemini.webappdemo.utils.CommonUtils;
 import capgemini.webappdemo.utils.JsonTokenUtil;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +44,9 @@ public class DetailApi {
 
     @Autowired
     private CoordinateService coordService;
+
+    @Autowired
+    private SpecialPlaceService spService;
 
     private CommonUtils commonUtils = new CommonUtils();
     private JsonTokenUtil jsonTokenUtil = new JsonTokenUtil();
@@ -273,23 +282,105 @@ public class DetailApi {
         Detail dt = detailService.get(detail_id);
         // total_length in km
         double total_length = cd.getTotalDistance(coords);
-        System.out.println("total length is : " + total_length);
         // time in seconds
         long total_time = commonUtils.getSeconds(dt.getStart_time(),dt.getEnd_time());
-        System.out.println("total time is : "+total_time);
         // estimate cost
-        double estimate_cost = cm.getEstimateCost(vehicleService.get(dt.getVehicle_id()).getName(),total_length,total_time);
+        double estimate_cost = cm.getEstimateCost(vehicleService.get(dt.getVehicle_id()).getCalculate_formula(),total_length,total_time);
         dt.setTotal_length(total_length);
         dt.setEstimate_cost(estimate_cost);
         // velocity km/h
-        dt.setAverage_velocity((total_length*3600)/total_time);
+        double avgVelocity = cd.getAvarageVelocity(coords);
+        dt.setAverage_velocity(avgVelocity);
+        dt.setPredicted_vehicle(predictVehicle(coords,avgVelocity));
         if(estimate_cost * 1.5 <= dt.getInput_cost()){
             dt.setWarning(true);
+
             /*Appointment apm = apmService.get(dt.getAppointment_id());
             apm.setStatus(-1);
             apmService.update(apm);*/
         }
         detailService.update(dt);
+    }
+
+    private String checkSpecialPlace(Coordinate coord){
+        List<SpecialPlace> total = spService.getAll();
+        for(int i = 0; i < total.size(); i++){
+            SpecialPlace temp = total.get(i);
+            double range = temp.getRange()/1000; //(m to km)
+            Coordinate place = new Coordinate();
+            place.setLatitude(temp.getLatitude());
+            place.setLatitude(temp.getLongitude());
+            double distance = cd.getDistance(coord,place);
+            if(distance <= range){
+                return temp.getType();
+            }
+        }
+        return "no";
+    }
+
+    public String predictVehicle(List<Coordinate> coords, double averageVelocity){
+        if(coords.size() == 0){
+            return "Aerial vehicles";
+        }else{
+            Coordinate start_coord = coords.get(0);
+            String api = "https://api.onwater.io/api/v1/results/"+start_coord.getLatitude()+","+start_coord.getLongitude();
+            try {
+                URL url = new URL(api);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("Accept","application/json");
+
+                if (conn.getResponseCode() != 200) {
+                    System.out.println("Error : ");
+                    InputStream error = conn.getErrorStream();
+                    InputStreamReader isrerror = new InputStreamReader(error);
+                    BufferedReader bre = new BufferedReader(isrerror);
+                    String linee;
+                    while ((linee = bre.readLine()) != null) {
+                        System.out.println(linee);
+                    }
+                    System.out.println("End of Error");
+
+                    throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
+                }
+
+                BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+
+                String apiResult = "";
+                String output;
+                while ((output = br.readLine()) != null) {
+                    apiResult+=output;
+                }
+                conn.disconnect();
+
+                JSONParser parser = new JSONParser();
+                JSONObject result = (JSONObject) parser.parse(apiResult);
+                boolean onWater = (boolean) result.get("water");
+                if(onWater){
+                    return "Maritime vehicles";
+                } else{
+                    if(averageVelocity <= 10){
+                        return "On foot";
+                    } else{
+                        String specialPlace = checkSpecialPlace(start_coord);
+                        if(specialPlace.equals("no")){
+                            return "Road vehicles";
+                        } else if(specialPlace.equals("airport")){
+                            return "Aerial Vehicles";
+                        } else if(specialPlace.equals("train station")){
+                            return "Train";
+                        }
+                    }
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (org.json.simple.parser.ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return "";
     }
 
     public static double round(double value, int places) {

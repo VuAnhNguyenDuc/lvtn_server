@@ -97,6 +97,7 @@
             <tr>
                 <th>No</th>
                 <th>Vehicle</th>
+                <th>Predicted Vehicle</th>
                 <th>Start Time</th>
                 <th>End Time</th>
                 <%--<th>Start Location</th>
@@ -116,6 +117,7 @@
                 <tr>
                     <td><%= i %></td>
                     <td>${dt.vehicle_name}</td>
+                    <td>${dt.predicted_vehicle}</td>
                     <td>${dt.start_time_str}</td>
                     <td>${dt.end_time_str}</td>
                         <%--<td>${dt.start_location}</td>
