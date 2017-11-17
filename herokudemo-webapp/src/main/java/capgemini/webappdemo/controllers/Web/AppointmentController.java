@@ -114,12 +114,12 @@ public class AppointmentController {
                     obj.put("end_time", dt.getEnd_time_str());
                     obj.put("avg_velocity", dt.getAverage_velocity());
                     if(snapToRoad){
+                        JSONArray total_coords = new JSONArray();
                         if(coords.size() > 100){
                             int a = coords.size() / 100;
                             int b = coords.size() - a*100;
                             int start = 0;
                             int end;
-                            JSONArray total_coords = new JSONArray();
                             for(int i = 0; i <= a; i++){
                                 if(i == a){
                                     end = start + b - 1;
@@ -127,13 +127,13 @@ public class AppointmentController {
                                     end = start + 99;
                                 }
                                 List<Coordinate> temp = coords.subList(start,end);
-                                total_coords.add(convertToSnapToRoad(temp));
+                                total_coords = convertToSnapToRoad(temp,total_coords);
                                 start += 100;
                             }
-                            obj.put("coords", total_coords);
                         } else{
-                            obj.put("coords", convertToSnapToRoad(coords));
+                            total_coords = convertToSnapToRoad(coords,total_coords);
                         }
+                        obj.put("coords", total_coords);
                     } else{
                         obj.put("coords", parseCoords(coords));
                     }
@@ -167,9 +167,8 @@ public class AppointmentController {
         return result;
     }
 
-    private JSONArray convertToSnapToRoad(List<Coordinate> coords){
+    private JSONArray convertToSnapToRoad(List<Coordinate> coords,JSONArray result){
         String coordStr = "";
-        JSONArray result = new JSONArray();
         for(int i = 0; i < coords.size() - 1; i++){
             coordStr+=coords.get(i).getLatitude() + "," + coords.get(i).getLongitude()+"|";
         }
