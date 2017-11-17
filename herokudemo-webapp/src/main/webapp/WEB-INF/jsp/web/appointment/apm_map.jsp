@@ -232,7 +232,7 @@ https://developers.google.com/maps/documentation/javascript/examples/polyline-si
                     path: coords,
                     strokeColor: Colors[i],
                     strokeOpacity: 1.0,
-                    strokeWeight: 2,
+                    strokeWeight: 6, // 2
                     icons: [{
                         icon: lineSymbol,
                         offset: '100%'
@@ -275,7 +275,7 @@ https://developers.google.com/maps/documentation/javascript/examples/polyline-si
                     var icons = line.get('icons');
                     icons[0].offset = (count / 2) + '%';
                     line.set('icons', icons);
-                }, 20);
+                }, 40); //20
             }
         } else{
             var map = new google.maps.Map(document.getElementById('map'), {

@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -164,9 +165,20 @@ public class AppointmentController {
             conn.setRequestProperty("Accept","application/json");
 
             if (conn.getResponseCode() != 200) {
-                throw new RuntimeException("Failed : HTTP error code : "
-                        + conn.getResponseCode()+ "/n"
-                        + "Error is : " + conn.getErrorStream().toString());
+                System.out.println("Error : " );
+                System.out.println("Input API : ");
+                System.out.println(api);
+
+                InputStream error = conn.getErrorStream();
+                InputStreamReader isrerror = new InputStreamReader(error);
+                BufferedReader bre = new BufferedReader(isrerror);
+                String linee;
+                while ((linee = bre.readLine()) != null) {
+                    System.out.println(linee);
+                }
+                System.out.println("End of Error");
+
+                throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
             }
 
             BufferedReader br = new BufferedReader(new InputStreamReader(

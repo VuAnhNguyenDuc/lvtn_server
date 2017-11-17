@@ -29,3 +29,9 @@ https://stackoverflow.com/questions/6911427/is-it-possible-to-invoke-private-att
 https://stackoverflow.com/questions/8499633/how-to-display-base64-images-in-html
 
 https://stackoverflow.com/questions/25023199/bootstrap-open-image-in-modal
+
+
+Detect if coordinate is on water or land :
+https://onwater.io/
+https://api.onwater.io/api/v1/results/9.9446115,107.1653914
+{"lat":9.944357441646329,"lon":107.16564933376712,"water":true}
