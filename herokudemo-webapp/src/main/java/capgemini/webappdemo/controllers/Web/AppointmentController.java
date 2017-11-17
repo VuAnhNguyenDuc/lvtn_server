@@ -80,7 +80,7 @@ public class AppointmentController {
     }
 
     @RequestMapping(value = "/appointment/details", method = RequestMethod.GET, params = {"appointment_id","snapToRoad"})
-    public String getAppointmentDetailsTest(HttpSession session, @RequestParam("appointment_id") int id,@RequestParam("snapToRoad") boolean snapToRoad, ModelMap model){
+    public String getAppointmentDetails(HttpSession session, @RequestParam("appointment_id") int id,@RequestParam("snapToRoad") boolean snapToRoad, ModelMap model){
         if(!loginUtil.isLogin(session)){
             return "redirect:/login";
         } else{
@@ -114,7 +114,26 @@ public class AppointmentController {
                     obj.put("end_time", dt.getEnd_time_str());
                     obj.put("avg_velocity", dt.getAverage_velocity());
                     if(snapToRoad){
-                        obj.put("coords", convertToSnapToRoad(coords));
+                        if(coords.size() > 100){
+                            int a = coords.size() / 100;
+                            int b = coords.size() - a*100;
+                            int start = 0;
+                            int end;
+                            JSONArray total_coords = new JSONArray();
+                            for(int i = 0; i <= a; i++){
+                                if(i == a){
+                                    end = start + b - 1;
+                                } else{
+                                    end = start + 99;
+                                }
+                                List<Coordinate> temp = coords.subList(start,end);
+                                total_coords.add(convertToSnapToRoad(temp));
+                                start += 100;
+                            }
+                            obj.put("coords", total_coords);
+                        } else{
+                            obj.put("coords", convertToSnapToRoad(coords));
+                        }
                     } else{
                         obj.put("coords", parseCoords(coords));
                     }
