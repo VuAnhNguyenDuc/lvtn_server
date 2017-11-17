@@ -323,7 +323,7 @@ public class DetailApi {
             return "Aerial vehicles";
         }else{
             Coordinate start_coord = coords.get(0);
-            String api = "https://api.onwater.io/api/v1/results/"+start_coord.getLatitude()+","+start_coord.getLongitude();
+            String api = "https://api.onwater.io/api/v1/results/"+start_coord.getLatitude()+","+start_coord.getLongitude()+"?access_token=UySj518Jutc-jGKsbCiC";
             try {
                 URL url = new URL(api);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
