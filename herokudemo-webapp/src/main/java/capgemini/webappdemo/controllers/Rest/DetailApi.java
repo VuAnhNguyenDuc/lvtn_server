@@ -282,16 +282,26 @@ public class DetailApi {
         Detail dt = detailService.get(detail_id);
         // total_length in km
         double total_length = cd.getTotalDistance(coords);
+        System.out.println("Total length is " + total_length);
         // time in seconds
         long total_time = commonUtils.getSeconds(dt.getStart_time(),dt.getEnd_time());
+        System.out.println("Total time is " + total_time);
+
         // estimate cost
         double estimate_cost = cm.getEstimateCost(vehicleService.get(dt.getVehicle_id()).getCalculate_formula(),total_length,total_time);
+        System.out.println("Estimate cost is "+estimate_cost);
+
         dt.setTotal_length(total_length);
         dt.setEstimate_cost(estimate_cost);
         // velocity km/h
         double avgVelocity = cd.getAvarageVelocity(coords);
+        System.out.println("Average velocity is "+avgVelocity);
         dt.setAverage_velocity(avgVelocity);
-        dt.setPredicted_vehicle(predictVehicle(coords,avgVelocity));
+
+        String predictedVehicle = predictVehicle(coords,avgVelocity);
+        dt.setPredicted_vehicle(predictedVehicle);
+        System.out.println("Predicted vehicle is "+predictedVehicle);
+
         if(estimate_cost * 1.5 <= dt.getInput_cost()){
             dt.setWarning(true);
 
