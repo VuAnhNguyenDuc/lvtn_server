@@ -30,7 +30,12 @@
 
             <div class="form-group>">
                 <label for="type">Type: </label>
-                <form:input path="type" type="text" class="form-control" id="type"/>
+                <form:select path="type" class="form-control" id="type">
+                    <form:option value="Airport" >Airport</form:option>
+                    <form:option value="Train Station" >Train Station</form:option>
+                    <form:option value="Harbor" >Harbor</form:option>
+                </form:select>
+
                 <form:errors path="type" cssClass="form-error" class="form-control"/>
             </div>
 

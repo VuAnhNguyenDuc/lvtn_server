@@ -30,7 +30,25 @@
 
             <div class="form-group>">
                 <label for="type">Type: </label>
-                <form:input path="type" type="text" class="form-control" id="type" value="${specialPlace.type}"/>
+                <form:select path="type" class="form-control" id="type">
+                    <c:choose>
+                        <c:when test="${specialPlace.type == 'Airport'}">
+                            <form:option value="Airport" selected="true">Airport</form:option>
+                            <form:option value="Train Station">Train Station</form:option>
+                            <form:option value="Harbor">Harbor</form:option>
+                        </c:when>
+                        <c:when test="${specialPlace.type == 'Train Station'}">
+                            <form:option value="Airport">Airport</form:option>
+                            <form:option value="Train Station" selected="true">Train Station</form:option>
+                            <form:option value="Harbor">Harbor</form:option>
+                        </c:when>
+                        <c:otherwise>
+                            <form:option value="Airport">Airport</form:option>
+                            <form:option value="Train Station">Train Station</form:option>
+                            <form:option value="Harbor" selected="true">Harbor</form:option>
+                        </c:otherwise>
+                    </c:choose>
+                </form:select>
                 <form:errors path="type" cssClass="form-error" class="form-control"/>
             </div>
 
