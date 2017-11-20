@@ -40,7 +40,7 @@
             </div>
 
             <div class="form-group>">
-                <label for="range">Range: </label>
+                <label for="range">Range (in meters): </label>
                 <form:input path="range" type="text" class="form-control" id="range"/>
                 <form:errors path="range" cssClass="form-error" class="form-control"/>
             </div>
