@@ -27,6 +27,7 @@
         <li <% if(pageName.equals("client")){ %> class="active" <%}%>><a href="/clients">CLIENTS</a></li>
         <li <% if(pageName.equals("appointment")){ %> class="active" <%}%>><a href="/appointments?type=all">APPOINTMENTS</a></li>
         <li <% if(pageName.equals("vehicle")){ %> class="active" <%}%>><a href="/vehicles">VEHICLES</a></li>
+        <li <% if(pageName.equals("specialPlace")){ %> class="active" <%}%>><a href="/specialPlaces">SPECIAL PLACES</a></li>
         <li><a href="/logout">LOG OUT</a></li>
     </ul><br>
 </div>

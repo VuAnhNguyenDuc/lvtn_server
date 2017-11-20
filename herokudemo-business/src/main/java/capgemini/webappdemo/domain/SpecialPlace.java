@@ -3,7 +3,7 @@ package capgemini.webappdemo.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "special_table")
+@Table(name = "special_place")
 public class SpecialPlace {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -13,6 +13,7 @@ public class SpecialPlace {
     private double range;
     private double latitude;
     private double longitude;
+    private int status;
 
     public Integer getId() {
         return id;
@@ -60,5 +61,13 @@ public class SpecialPlace {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }
