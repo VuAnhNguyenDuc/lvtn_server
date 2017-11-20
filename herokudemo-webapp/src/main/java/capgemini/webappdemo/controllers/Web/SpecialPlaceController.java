@@ -53,7 +53,7 @@ public class SpecialPlaceController {
         } else{
             specialPlace.setStatus(1);
             service.add(specialPlace);
-            return "web/special_place/special_places";
+            return "redirect:/special_places";
         }
     }
 
@@ -82,7 +82,7 @@ public class SpecialPlaceController {
             sp.setType(specialPlace.getType());
             sp.setStatus(specialPlace.getStatus());
             service.update(sp);
-            return "web/special_place/special_places";
+            return "redirect:/special_places";
         }
     }
 }

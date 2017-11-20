@@ -41,19 +41,19 @@
 
             <div class="form-group>">
                 <label for="range">Range (in meters): </label>
-                <form:input path="range" type="text" class="form-control" id="range"/>
+                <form:input path="range" type="number" class="form-control" step="any" id="range"/>
                 <form:errors path="range" cssClass="form-error" class="form-control"/>
             </div>
 
             <div class="form-group>">
                 <label for="latitude">Latitude: </label>
-                <form:input path="latitude" type="number" class="form-control" id="latitude"/>
+                <form:input path="latitude" type="number" class="form-control" step="any" id="latitude"/>
                 <form:errors path="latitude" cssClass="form-error" class="form-control"/>
             </div>
 
             <div class="form-group>">
                 <label for="longitude">Longitude: </label>
-                <form:input path="longitude" type="number" class="form-control" id="longitude"/>
+                <form:input path="longitude" type="number" class="form-control" step="any" id="longitude"/>
                 <form:errors path="longitude" cssClass="form-error" class="form-control"/>
             </div>
 
