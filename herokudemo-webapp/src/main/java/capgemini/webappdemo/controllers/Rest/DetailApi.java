@@ -319,66 +319,20 @@ public class DetailApi {
     }
 
     public String predictVehicle(List<Coordinate> coords, double averageVelocity){
-        if(coords.size() == 0){
-            return "Aerial vehicles";
-        }else{
-            Coordinate start_coord = coords.get(0);
-            String api = "https://api.onwater.io/api/v1/results/"+start_coord.getLatitude()+","+start_coord.getLongitude()+"?access_token=UySj518Jutc-jGKsbCiC";
-            try {
-                URL url = new URL(api);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod("GET");
-                conn.setRequestProperty("Accept","application/json");
-
-                if (conn.getResponseCode() != 200) {
-                    System.out.println("Error : ");
-                    InputStream error = conn.getErrorStream();
-                    InputStreamReader isrerror = new InputStreamReader(error);
-                    BufferedReader bre = new BufferedReader(isrerror);
-                    String linee;
-                    while ((linee = bre.readLine()) != null) {
-                        System.out.println(linee);
-                    }
-                    System.out.println("End of Error");
-
-                    throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
-                }
-
-                BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
-
-                String apiResult = "";
-                String output;
-                while ((output = br.readLine()) != null) {
-                    apiResult+=output;
-                }
-                conn.disconnect();
-
-                JSONParser parser = new JSONParser();
-                JSONObject result = (JSONObject) parser.parse(apiResult);
-                boolean onWater = (boolean) result.get("water");
-                if(onWater){
-                    return "Maritime vehicles";
-                } else{
-                    if(averageVelocity <= 10){
-                        return "On foot";
-                    } else{
-                        String specialPlace = checkSpecialPlace(start_coord);
-                        if(specialPlace.equals("no")){
-                            return "Road vehicles";
-                        } else if(specialPlace.equals("airport")){
-                            return "Aerial Vehicles";
-                        } else if(specialPlace.equals("train station")){
-                            return "Train";
-                        }
-                    }
-                }
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (org.json.simple.parser.ParseException e) {
-                e.printStackTrace();
+        Coordinate start_coord = coords.get(0);
+        String specialPlace = checkSpecialPlace(start_coord);
+        if(specialPlace.equals("no")){
+            if(averageVelocity <= 10){
+                return "On foot";
+            } else{
+                return "Road vehicles";
             }
+        } else if(specialPlace.equals("airport")){
+            return "Aerial Vehicles";
+        } else if(specialPlace.equals("train station")){
+            return "Train";
+        } else if(specialPlace.equals("dock harbor")){
+            return "Maritine Vehicles";
         }
         return "";
     }
