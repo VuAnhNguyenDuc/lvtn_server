@@ -134,10 +134,18 @@
                     </c:choose>
                     <td>${dt.estimate_cost}</td>
                     <td>
-                        <a href="#" class="pop">
-                            <img src="http://upload.wikimedia.org/wikipedia/commons/2/22/Turkish_Van_Cat.jpg" style="width: 400px; height: 264px;" hidden>
-                            Click to view
-                        </a>
+                        <c:choose>
+                            <c:when test="${dt.image_content != ''}">
+                                <a href="#" class="pop">
+                                    <img src="${dt.image_content}" style="width: 400px; height: 264px;" hidden>
+                                        <%--src="http://upload.wikimedia.org/wikipedia/commons/2/22/Turkish_Van_Cat.jpg"--%>
+                                    Click to view
+                                </a>
+                            </c:when>
+                            <c:otherwise>
+                                No Image
+                            </c:otherwise>
+                        </c:choose>
                     </td>
                 </tr>
                 <% i = i + 1; %>
