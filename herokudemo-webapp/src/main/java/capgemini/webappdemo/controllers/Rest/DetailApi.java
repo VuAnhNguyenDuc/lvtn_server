@@ -279,37 +279,35 @@ public class DetailApi {
     }
 
     private void calculate(int detail_id,List<Coordinate> coords){
-        Detail dt = detailService.get(detail_id);
-        // total_length in km
-        double total_length = cd.getTotalDistance(coords);
-        System.out.println("Total length is " + total_length);
-        // time in seconds
-        long total_time = commonUtils.getSeconds(dt.getStart_time(),dt.getEnd_time());
-        System.out.println("Total time is " + total_time);
+        if(coords.size() > 1){
+            Detail dt = detailService.get(detail_id);
+            // total_length in km
+            double total_length = cd.getTotalDistance(coords);
+            System.out.println("Total length is " + total_length);
+            // time in seconds
+            long total_time = commonUtils.getSeconds(dt.getStart_time(),dt.getEnd_time());
+            System.out.println("Total time is " + total_time);
 
-        // estimate cost
-        double estimate_cost = cm.getEstimateCost(vehicleService.get(dt.getVehicle_id()).getCalculate_formula(),total_length,total_time);
-        System.out.println("Estimate cost is "+estimate_cost);
+            // estimate cost
+            double estimate_cost = cm.getEstimateCost(vehicleService.get(dt.getVehicle_id()).getCalculate_formula(),total_length,total_time);
+            System.out.println("Estimate cost is "+estimate_cost);
 
-        dt.setTotal_length(total_length);
-        dt.setEstimate_cost(estimate_cost);
-        // velocity km/h
-        double avgVelocity = cd.getAvarageVelocity(coords);
-        System.out.println("Average velocity is "+avgVelocity);
-        dt.setAverage_velocity(avgVelocity);
+            dt.setTotal_length(total_length);
+            dt.setEstimate_cost(estimate_cost);
+            // velocity km/h
+            double avgVelocity = cd.getAvarageVelocity(coords);
+            System.out.println("Average velocity is "+avgVelocity);
+            dt.setAverage_velocity(avgVelocity);
 
-        String predictedVehicle = predictVehicle(coords,avgVelocity);
-        dt.setPredicted_vehicle(predictedVehicle);
-        System.out.println("Predicted vehicle is "+predictedVehicle);
+            String predictedVehicle = predictVehicle(coords,avgVelocity);
+            dt.setPredicted_vehicle(predictedVehicle);
+            System.out.println("Predicted vehicle is "+predictedVehicle);
 
-        if(estimate_cost * 1.5 <= dt.getInput_cost()){
-            dt.setWarning(true);
-
-            /*Appointment apm = apmService.get(dt.getAppointment_id());
-            apm.setStatus(-1);
-            apmService.update(apm);*/
+            if(estimate_cost * 1.5 <= dt.getInput_cost()){
+                dt.setWarning(true);
+            }
+            detailService.update(dt);
         }
-        detailService.update(dt);
     }
 
     private String checkSpecialPlace(Coordinate coord){
@@ -321,7 +319,7 @@ public class DetailApi {
             place.setLatitude(temp.getLatitude());
             place.setLatitude(temp.getLongitude());
             double distance = cd.getDistance(coord,place);
-            if(distance <= range){
+            if(distance <= range && temp.getStatus() == 1){
                 return temp.getType();
             }
         }
@@ -335,13 +333,13 @@ public class DetailApi {
             if(averageVelocity <= 10){
                 return "On foot";
             } else{
-                return "Road vehicles";
+                return "On land vehicles (cars,motorcycles..)";
             }
-        } else if(specialPlace.equals("airport")){
+        } else if(specialPlace.equals("Air port") || coords.size() == 1){
             return "Aerial Vehicles";
-        } else if(specialPlace.equals("train station")){
+        } else if(specialPlace.equals("Train Station")){
             return "Train";
-        } else if(specialPlace.equals("dock harbor")){
+        } else if(specialPlace.equals("Harbor")){
             return "Maritine Vehicles";
         }
         return "";
