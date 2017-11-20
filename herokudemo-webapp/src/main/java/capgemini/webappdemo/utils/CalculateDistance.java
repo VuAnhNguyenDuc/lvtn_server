@@ -49,10 +49,10 @@ public class CalculateDistance {
             Coordinate c1 = coords.get(i);
             Coordinate c2 = coords.get(i+1);
             length = getDistance(c1,c2);
-            time = (c2.getTime().getTime() - c1.getTime().getTime())/(1000*3600);
+            time = (c2.getTime().getTime() - c1.getTime().getTime())/(1000); // km/s
             avg += length/time;
         }
-        return avg;
+        return avg*3600; //km/h
     }
 
     public double getTotalDistance(List<Coordinate> coords){
