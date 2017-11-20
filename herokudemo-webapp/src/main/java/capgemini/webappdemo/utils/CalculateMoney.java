@@ -44,6 +44,7 @@ public class CalculateMoney {
 
                 try {
                     if(condition_type.equals("if") || condition_type.equals("else if")){
+                        condition = replaceVarsWithValues(condition,vars,s,t);
                         boolean validate = (boolean) engine.eval(condition);
                         if(validate){
                             formula = replaceVarsWithValues(formula,vars,s,t);

@@ -128,14 +128,5 @@ public class VehicleAjax {
             //e.printStackTrace();
             return "Invalid expression : " + exp +", you might have input one or more undefined variable";
         }
-       /* String foo = "1 + 2*(3+1) - 1/4 + s/t";
-        double a = 100.0;
-        double b = 2.0;
-        foo = foo.replaceAll("s",Double.toString(a));
-        foo = foo.replaceAll("t",Double.toString(b));*/
-
-       /* System.out.println(result);
-        foo = "(1 > 0)";
-        System.out.println(engine.eval(exp));*/
     }
 }
