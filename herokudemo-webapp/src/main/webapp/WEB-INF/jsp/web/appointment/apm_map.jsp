@@ -135,7 +135,7 @@
                     <td>${dt.estimate_cost}</td>
                     <td>
                         <c:choose>
-                            <c:when test="${dt.image_content != ''}">
+                            <c:when test="${not empty dt.image_content}">
                                 <a href="#" class="pop">
                                     <img src="${dt.image_content}" style="width: 400px; height: 264px;" hidden>
                                         <%--src="http://upload.wikimedia.org/wikipedia/commons/2/22/Turkish_Van_Cat.jpg"--%>
