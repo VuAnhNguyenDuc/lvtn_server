@@ -155,7 +155,8 @@ public class DetailApi {
             result.put("description","this detail does not exist");
         } else{
             List<Coordinate> coords = coordService.getCoordsOfDetail(id);
-            if(vehicleService.get(dt.getVehicle_id()).isCalculatable() && (coords.size() == 0 || inputCost == 0)){
+            boolean isCalculatable = vehicleService.get(dt.getVehicle_id()).isCalculatable();
+            if(isCalculatable && (coords.size() == 0 || inputCost == 0)){
                 result.put("description","please input the coordinates and cost of this detail before end it");
             } else{
                 dt.setInput_cost(inputCost);
@@ -164,7 +165,9 @@ public class DetailApi {
                 dt.setCoordinates(coords);
                 /*dt.setEnd_time(commonUtils.convertStringToDateSec(endTime));*/
                 detailService.update(dt);
-                calculate(id,dt.getCoordinates());
+                if(vehicleService.get(dt.getVehicle_id()).isCalculatable()){
+                    calculate(id,dt.getCoordinates());
+                }
                 result.put("message",1);
             }
         }
