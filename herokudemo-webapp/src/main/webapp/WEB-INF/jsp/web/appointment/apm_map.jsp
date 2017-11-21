@@ -104,8 +104,8 @@
                 <th>End Location</th>--%>
                 <th>Total Length (km)</th>
                 <th>Average Velocity (km/h)</th>
-                <th>Input Cost</th>
-                <th>Estimate Cost</th>
+                <th>Input Cost (thousands vnd)</th>
+                <th>Estimate Cost (thousands vnd)</th>
                 <th>Billing Image</th>
             </tr>
             </thead>
@@ -152,6 +152,7 @@
             </c:forEach>
             </tbody>
         </table>
+        <br><br>
     </div>
 
     <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
