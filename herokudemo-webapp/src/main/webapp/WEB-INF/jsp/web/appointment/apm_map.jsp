@@ -116,7 +116,7 @@
             <c:forEach items="${dts}" var="dt">
                 <tr>
                     <td><%= i %></td>
-                    <td>${dt.vehicle_name}</td>
+                    <td>${dt.vehicle_name}_${dt.id}</td>
                     <td>${dt.predicted_vehicle}</td>
                     <td>${dt.start_time_str}</td>
                     <td>${dt.end_time_str}</td>
