@@ -143,12 +143,12 @@ public class DetailApi {
         double inputCost = (double) input.get("input_cost");
         JSONObject result = new JSONObject();
 
+        result.put("message",0);
+
         if(jsonToken.equals("") || !jsonTokenUtil.validateKey(jsonToken)){
-            result.put("message",0);
             result.put("description","invalid json token");
             return new ResponseEntity<JSONObject>(result, HttpStatus.OK);
         }
-        result.put("message",0);
 
         Detail dt = detailService.get(id);
         if(dt == null){
@@ -165,7 +165,7 @@ public class DetailApi {
                 dt.setCoordinates(coords);
                 /*dt.setEnd_time(commonUtils.convertStringToDateSec(endTime));*/
                 detailService.update(dt);
-                if(vehicleService.get(dt.getVehicle_id()).isCalculatable()){
+                if(isCalculatable){
                     calculate(id,dt.getCoordinates());
                 }
                 result.put("message",1);
