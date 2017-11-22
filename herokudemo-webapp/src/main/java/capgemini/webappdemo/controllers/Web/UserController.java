@@ -99,7 +99,7 @@ public class UserController {
                 return "web/user/manager_insert";
             }
             String email = managerForm.getEmail();
-            if(!isValidEmailAddress(email)){
+            if(!email.isEmpty() && !isValidEmailAddress(email)){
                 model.addAttribute("error","This is not a valid email address");
                 return "web/user/manager_insert";
             }
@@ -144,15 +144,21 @@ public class UserController {
         }
         User usr = service.get(id);
         usr.setUserType("Manager");
-        usr.setEmail(managerForm.getEmail());
-        usr.setStatus(managerForm.getStatus());
-        usr.setFullname(managerForm.getFull_name());
-        service.update(usr);
-        Manager mng = mngService.get(id);
-        mng.setStatus(managerForm.getStatus());
-        mng.setUser_id(usr.getId());
-        mngService.update(mng);
-        return "redirect:/managers";
+        String email = managerForm.getEmail();
+        if(!email.isEmpty() && !isValidEmailAddress(email)){
+            model.addAttribute("error","This is not a valid email address");
+            return "web/user/manager_update";
+        } else{
+            usr.setEmail(email);
+            usr.setStatus(managerForm.getStatus());
+            usr.setFullname(managerForm.getFull_name());
+            service.update(usr);
+            Manager mng = mngService.get(id);
+            mng.setStatus(managerForm.getStatus());
+            mng.setUser_id(usr.getId());
+            mngService.update(mng);
+            return "redirect:/managers";
+        }
     }
 
     @RequestMapping(value = "/employees", method = RequestMethod.GET)

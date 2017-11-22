@@ -10,7 +10,6 @@ public class ManagerForm {
     private String password;
     @Size(min = 4, max = 32,message = "full name must be from between 4 to 32 characters")
     private String full_name;
-
     private String email;
     private int status;
 
