@@ -116,7 +116,7 @@
             <c:forEach items="${dts}" var="dt">
                 <tr>
                     <td><%= i %></td>
-                    <td>${dt.vehicle_name}_${dt.id}</td>
+                    <td>${dt.vehicle_name}</td>
                     <td>${dt.predicted_vehicle}</td>
                     <td>${dt.start_time_str}</td>
                     <td>${dt.end_time_str}</td>
@@ -152,7 +152,7 @@
             </c:forEach>
             </tbody>
         </table>
-        <br><br>
+        <div style="height:15vh"></div>
     </div>
 
     <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

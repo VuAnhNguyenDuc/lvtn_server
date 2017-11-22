@@ -40,4 +40,5 @@ Check if a coordinate is in range:
 https://en.wikipedia.org/wiki/Great-circle_distance
 https://stackoverflow.com/questions/14087076/check-if-coordinates-is-within-a-specific-distance-from-other-coordinates
 
-Maritime vehicles
+Validate email :
+https://stackoverflow.com/questions/624581/what-is-the-best-java-email-address-validation-method

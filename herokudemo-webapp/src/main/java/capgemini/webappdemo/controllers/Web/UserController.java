@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
@@ -90,17 +92,22 @@ public class UserController {
     @RequestMapping(value = "/manager/insert", method = RequestMethod.POST)
     public String insertManagerPost(@ModelAttribute("managerForm") @Valid ManagerForm managerForm, BindingResult result, ModelMap model){
         if(result.hasErrors()){
-            return "redirect:web/user/manager_insert";
+            return "web/user/manager_insert";
         } else{
             if(service.checkUserExist(managerForm.getUsername())){
                 model.addAttribute("error","This username was used by another user");
+                return "web/user/manager_insert";
+            }
+            String email = managerForm.getEmail();
+            if(!isValidEmailAddress(email)){
+                model.addAttribute("error","This is not a valid email address");
                 return "web/user/manager_insert";
             }
             User usr = new User();
             Manager mng = new Manager();
             usr.setUsername(managerForm.getUsername());
             usr.setPassword(managerForm.getPassword());
-            usr.setEmail(managerForm.getEmail());
+            usr.setEmail(email);
             usr.setFullname(managerForm.getFull_name());
             usr.setUserType("Manager");
             usr.setStatus(1);
@@ -338,5 +345,16 @@ public class UserController {
         emp.setEmail(user.getEmail());
         emp.setStatus(user.getStatus());
         return emp;
+    }
+
+    public static boolean isValidEmailAddress(String email) {
+        boolean result = true;
+        try {
+            InternetAddress emailAddr = new InternetAddress(email);
+            emailAddr.validate();
+        } catch (AddressException ex) {
+            result = false;
+        }
+        return result;
     }
 }
