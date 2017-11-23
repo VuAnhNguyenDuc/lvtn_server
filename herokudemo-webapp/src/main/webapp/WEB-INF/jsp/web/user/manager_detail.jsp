@@ -159,6 +159,7 @@
                 alert("Please input year value");
             }
         }
+        $('#apm-list').DataTable();
     });
 
     $("#chart-btn").click(function(){
@@ -201,7 +202,7 @@
     function populateResultList(data){
         var table = "";
         var table_body = "";
-        var table_head = "<table class=\"table table-hover\">\n" +
+        var table_head = "<table class=\"table table-hover\" id=\"apm-list\">\n" +
                 "        <thead>\n" +
                 "        <tr>\n" +
                 "            <th>No</th>\n" +
@@ -216,7 +217,7 @@
             var obj = data[i];
             table_body += "<tr>\n" +
                     "                <td>"+(i+1)+"</td>\n" +
-                    "                <td><a href=\""+host+"appointment/details?appointment_id="+obj.appointment_id+"\">"+obj.appointment_name+"</a></td>\n" +
+                    "                <td><a href=\""+host+"appointment/details?appointment_id="+obj.appointment_id+"&snapToRoad=false\">"+obj.appointment_name+"</a></td>\n" +
                     "                <td>"+obj.start_date+"</td>\n" +
                     "                <td>"+obj.end_date+"</td>\n" +
                     "                <td>"+obj.status+"</td>\n" +
