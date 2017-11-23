@@ -68,11 +68,13 @@
         <button type="button" class="btn btn-primary" id="chart-btn">View as chart</button>
         <button type="button" class="btn btn-success" id="list-btn">View as list</button>
 
-        <br><br>
+        <div style="height: 20px"></div>
 
         <div id="result-list">
 
         </div>
+
+        <div style="height: 20px"></div>
     </div>
 </body>
 <script type="application/javascript">
@@ -182,7 +184,7 @@
         var table_head = "<table class=\"table table-hover\">\n" +
             "        <thead>\n" +
             "        <tr>\n" +
-            "            <th>Appointment ID</th>\n" +
+            "            <th>No</th>\n" +
             "            <th>Appointment Name</th>\n" +
             "            <th>Start Date</th>\n" +
             "            <th>End Date</th>\n" +
@@ -193,7 +195,7 @@
         for(var i = 0; i < data.length; i++){
             var obj = data[i];
             table_body += "<tr>\n" +
-                "                <td>"+obj.appointment_id+"</td>\n" +
+                "                <td>"+(i+1)+"</td>\n" +
                 "                <td><a href=\""+host+"appointment/details?appointment_id="+obj.appointment_id+"\">"+obj.appointment_name+"</a></td>\n" +
                 "                <td>"+obj.start_date+"</td>\n" +
                 "                <td>"+obj.end_date+"</td>\n" +

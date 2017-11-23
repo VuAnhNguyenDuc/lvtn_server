@@ -131,6 +131,7 @@ public class UserController {
             managerForm.setUsername(usr.getUsername());
             managerForm.setFull_name(usr.getFullname());
             managerForm.setStatus(usr.getStatus());
+            model.addAttribute("username",usr.getUsername());
             model.addAttribute("pageName","manager");
             model.addAttribute("managerForm",managerForm);
             return "web/user/manager_update";
@@ -208,20 +209,27 @@ public class UserController {
             model.addAttribute("error","This username was used by another user");
             return "web/user/employee_insert";
         }
-        User usr = new User();
-        usr.setUserType("Employee");
-        usr.setUsername(employeeForm.getUsername());
-        usr.setPassword(employeeForm.getPassword());
-        usr.setEmail(employeeForm.getEmail());
-        usr.setStatus(1);
-        usr.setFullname(employeeForm.getFull_name());
-        service.add(usr);
-        Employee emp = new Employee();
-        emp.setStatus(1);
-        emp.setUser_id(usr.getId());
-        emp.setManager_id(employeeForm.getManager_id());
-        empService.add(emp);
-        return "redirect:/employees";
+        String email = employeeForm.getEmail();
+        if(!email.isEmpty() && !isValidEmailAddress(email)){
+            model.addAttribute("error","This is not a valid email address");
+            return "web/user/manager_insert";
+        } else{
+            User usr = new User();
+            usr.setUserType("Employee");
+            usr.setUsername(employeeForm.getUsername());
+            usr.setPassword(employeeForm.getPassword());
+            usr.setEmail(employeeForm.getEmail());
+            usr.setStatus(1);
+            usr.setFullname(employeeForm.getFull_name());
+            service.add(usr);
+            Employee emp = new Employee();
+            emp.setStatus(1);
+            emp.setUser_id(usr.getId());
+            emp.setManager_id(employeeForm.getManager_id());
+            empService.add(emp);
+            return "redirect:/employees";
+        }
+
     }
 
     @RequestMapping(value = "/employee/update", method = RequestMethod.GET,params = "id")
@@ -237,6 +245,7 @@ public class UserController {
             employeeForm.setFull_name(usr.getFullname());
             employeeForm.setManager_id(emp.getManager_id());
             employeeForm.setStatus(usr.getStatus());
+            model.addAttribute("username",usr.getUsername());
             model.addAttribute("pageName","employee");
             model.addAttribute("employeeForm",employeeForm);
             return "web/user/employee_update";
@@ -245,25 +254,28 @@ public class UserController {
 
     @RequestMapping(value = "/employee/update", method = RequestMethod.POST,params = "id")
     public String updateEmployeePost(@ModelAttribute("employeeForm") @Valid EmployeeForm employeeForm, BindingResult result, ModelMap model,@RequestParam("id") int id){
+        User usr = service.get(id);
+        model.addAttribute("username",usr.getUsername());
         if(result.hasErrors()){
             return "web/user/employee_update";
         }
-        /*if(service.checkUserExist(employeeForm.getUsername())){
-            model.addAttribute("error","This username was used by another user");
-            return "web/user/employee_update";
-        }*/
-        User usr = service.get(id);
-        usr.setUserType("Employee");
-        usr.setEmail(employeeForm.getEmail());
-        usr.setStatus(employeeForm.getStatus());
-        usr.setFullname(employeeForm.getFull_name());
-        service.update(usr);
-        Employee emp = empService.get(id);
-        emp.setStatus(employeeForm.getStatus());
-        emp.setUser_id(usr.getId());
-        emp.setManager_id(employeeForm.getManager_id());
-        empService.update(emp);
-        return "redirect:/employees";
+        String email = employeeForm.getEmail();
+        if(!email.isEmpty() && !isValidEmailAddress(email)){
+            model.addAttribute("error","This is not a valid email address");
+            return "web/user/manager_update";
+        } else{
+            usr.setUserType("Employee");
+            usr.setEmail(employeeForm.getEmail());
+            usr.setStatus(employeeForm.getStatus());
+            usr.setFullname(employeeForm.getFull_name());
+            service.update(usr);
+            Employee emp = empService.get(id);
+            emp.setStatus(employeeForm.getStatus());
+            emp.setUser_id(usr.getId());
+            emp.setManager_id(employeeForm.getManager_id());
+            empService.update(emp);
+            return "redirect:/employees";
+        }
     }
 
     @ModelAttribute("mngSelectList")
