@@ -139,10 +139,11 @@ public class UserController {
 
     @RequestMapping(value = "/manager/update", method = RequestMethod.POST,params = "id")
     public String updateManagerPost(@ModelAttribute("managerForm") @Valid ManagerForm managerForm, BindingResult result, ModelMap model,@RequestParam("id") int id){
+        User usr = service.get(id);
+        model.addAttribute("username",usr.getUsername());
         if(result.hasErrors()){
             return "web/user/manager_update";
         }
-        User usr = service.get(id);
         usr.setUserType("Manager");
         String email = managerForm.getEmail();
         if(!email.isEmpty() && !isValidEmailAddress(email)){
