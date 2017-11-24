@@ -86,10 +86,15 @@ public class VehicleController {
         if(result.hasErrors()){
             return "web/vehicle/vehicle_update";
         } else{
-            Vehicle old = service.get(id);
-            old.setStatus(vehicle.getStatus());
-            service.update(old);
-            return "redirect:/vehicles";
+            if(service.checkExist(vehicle.getName())){
+                model.addAttribute("error","This name is already taken by another vehicle");
+                return "web/vehicle/vehicle_update";
+            } else{
+                Vehicle old = service.get(id);
+                old.setStatus(vehicle.getStatus());
+                service.update(old);
+                return "redirect:/vehicles";
+            }
         }
     }
 
