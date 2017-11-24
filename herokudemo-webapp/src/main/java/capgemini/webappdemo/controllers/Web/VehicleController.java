@@ -58,7 +58,7 @@ public class VehicleController {
     @RequestMapping(value = "/vehicle/insert", method = RequestMethod.POST)
     public String insertVehiclePost(@ModelAttribute("vehicle") @Valid Vehicle vehicle, BindingResult result, ModelMap model){
         if(result.hasErrors()){
-            return "web/vehicle/insertVehicle";
+            return "web/vehicle/vehicle_insert";
         } else{
             if(service.checkExist(vehicle.getName())){
                 model.addAttribute("error","This vehicle existed in the database");
