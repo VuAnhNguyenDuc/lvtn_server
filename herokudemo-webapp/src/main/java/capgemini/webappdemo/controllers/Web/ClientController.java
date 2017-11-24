@@ -3,9 +3,11 @@ package capgemini.webappdemo.controllers.Web;
 import capgemini.webappdemo.domain.Client;
 import capgemini.webappdemo.service.Client.ClientService;
 import capgemini.webappdemo.utils.LoginUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,9 +66,11 @@ public class ClientController {
                 model.addAttribute("error","this client was created in the database");
                 return "web/client/client_insert";
             } else{
-                String email = client.getEmail();
-                if(!isValidEmailAddress(email)){
+                if(!isValidEmailAddress(client.getEmail())){
                     model.addAttribute("error","Ivalid email address");
+                    return "web/client/client_insert";
+                } else if(!validatePhone(client.getPhone_number())){
+                    model.addAttribute("error","Ivalid phone number");
                     return "web/client/client_insert";
                 }
                 service.add(client);
@@ -90,13 +94,38 @@ public class ClientController {
         if(result.hasErrors()){
             return "web/client/client_update";
         } else{
-            Client old = service.get(id);
-            old.setPhone_number(client.getPhone_number());
-            old.setAddress(client.getAddress());
-            old.setEmail(client.getEmail());
-            old.setName(client.getName());
-            service.update(old);
-            return "redirect:/clients";
+            if(!isValidEmailAddress(client.getEmail())){
+                model.addAttribute("error","Ivalid email address");
+                return "web/client/client_update";
+            } else if(!validatePhone(client.getPhone_number())){
+                model.addAttribute("error","Ivalid phone number");
+                return "web/client/client_update";
+            } else{
+                Client old = service.get(id);
+                old.setPhone_number(client.getPhone_number());
+                old.setAddress(client.getAddress());
+                old.setEmail(client.getEmail());
+                old.setName(client.getName());
+                service.update(old);
+                return "redirect:/clients";
+            }
+        }
+    }
+
+    public boolean validatePhone(String input){
+        //matches numbers only
+        String regexStr = "^[0-9 ]*$";
+        if(input.equals("")){
+            return false;
+        } else if(input.matches(regexStr)){
+            int blanks = StringUtils.countOccurrencesOf(input," ");
+            // less than 10 numbers
+            if(input.length() - blanks < 10){
+                return false;
+            }
+            return true;
+        } else{
+            return false;
         }
     }
 
