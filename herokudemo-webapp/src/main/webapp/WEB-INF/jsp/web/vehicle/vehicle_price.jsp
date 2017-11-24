@@ -73,6 +73,12 @@
                 var condition = $("#c"+k).val();
                 var formula = $("#f" + k).val();
                 var obj = {};
+
+                if(formula == ""){
+                    alert("Please do not input blank formula");
+                    return;
+                }
+
                 obj["condition_type"] = condition_type;
                 obj["condition"] = encodeURIComponent(condition);
                 obj["formula"] = encodeURIComponent(formula);
@@ -82,35 +88,44 @@
             for (k = 1; k <= j; k++){
                 var name = $("#name"+k).val();
                 var value = $("#value"+k).val();
-                if(name != " " && name != "" && name != null){
-                    var obj = {};
-                    obj["name"] = name;
-                    obj["value"] = (value != "")? parseFloat(value) : 0;
-                    variables.push(obj);
+                if(name != "" && name != "" && name != null){
+                    if(obj["value"] == ""){
+                        alert("Variable's value can not be blank");
+                        return;
+                    } else{
+                        var obj = {};
+                        obj["name"] = name;
+                        obj["value"] = parseFloat(value);
+                        variables.push(obj);
+                    }
                 }
             }
 
-            var input = {};
-            input["id"] = ${id};
-            input["formulas"] = formulas;
-            input["vars"] = variables;
-            console.log(JSON.stringify(input));
+            if(formulas.length == 0){
+                var input = {};
+                input["id"] = ${id};
+                input["formulas"] = formulas;
+                input["vars"] = variables;
+                console.log(JSON.stringify(input));
 
-            $.ajax({
-                type:"GET",
-                url: "http://lvtn-server.herokuapp.com/ajax/vehicle/price",
-                /*contentType : 'application/json; charset=utf-8',*/
-                data : "input="+JSON.stringify(input),
-                dataType : "text",
-                cache : false,
-                success: function(result){
-                    alert(result);
-                },
-                error: function (xhr) {
-                    var err = eval("(" + xhr.responseText + ")");
-                    alert(err.Message);
-                }
-            });
+                $.ajax({
+                    type:"GET",
+                    url: "http://lvtn-server.herokuapp.com/ajax/vehicle/price",
+                    /*contentType : 'application/json; charset=utf-8',*/
+                    data : "input="+JSON.stringify(input),
+                    dataType : "text",
+                    cache : false,
+                    success: function(result){
+                        alert(result);
+                    },
+                    error: function (xhr) {
+                        var err = eval("(" + xhr.responseText + ")");
+                        alert(err.Message);
+                    }
+                });
+            } else{
+                alert("Please input at least one formula before press Submit button");
+            }
         });
 
         function populate_formulas(formulas){

@@ -1,6 +1,7 @@
 package capgemini.webappdemo.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "special_place")
@@ -8,10 +9,14 @@ public class SpecialPlace {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
+    @Size(min = 1, message = "name can not be empty")
     private String name;
     private String type;
+    @Size(min = 1, message = "range can not be empty")
     private double range;
+    @Size(min = 1, message = "latitude can not be empty")
     private double latitude;
+    @Size(min = 1, message = "longitude can not be empty")
     private double longitude;
     private int status;
 

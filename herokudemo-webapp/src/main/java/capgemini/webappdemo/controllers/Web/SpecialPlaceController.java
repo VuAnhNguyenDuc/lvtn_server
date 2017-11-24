@@ -51,9 +51,15 @@ public class SpecialPlaceController {
         if(result.hasErrors()){
             return "web/special_place/special_place_insert";
         } else{
-            specialPlace.setStatus(1);
-            service.add(specialPlace);
-            return "redirect:/specialPlaces";
+            String name = specialPlace.getName();
+            if(service.getPlaceByName(name) != null){
+                specialPlace.setStatus(1);
+                service.add(specialPlace);
+                return "redirect:/specialPlaces";
+            } else{
+                model.addAttribute("A place with the same name already existed");
+                return "web/special_place/special_place_insert";
+            }
         }
     }
 
@@ -70,19 +76,25 @@ public class SpecialPlaceController {
     }
 
     @RequestMapping(value = "/specialPlace/update", method = RequestMethod.POST, params = "id")
-    public String updateSpecialPlacePost(@ModelAttribute("specialPlace") SpecialPlace specialPlace, BindingResult result, @RequestParam("id") int id){
+    public String updateSpecialPlacePost(@ModelAttribute("specialPlace") SpecialPlace specialPlace, BindingResult result, @RequestParam("id") int id, ModelMap model){
         if(result.hasErrors()){
             return "web/special_place/special_place_update";
         } else{
-            SpecialPlace sp = service.get(id);
-            sp.setLatitude(specialPlace.getLatitude());
-            sp.setLongitude(specialPlace.getLongitude());
-            sp.setName(specialPlace.getName());
-            sp.setRange(specialPlace.getRange());
-            sp.setType(specialPlace.getType());
-            sp.setStatus(specialPlace.getStatus());
-            service.update(sp);
-            return "redirect:/specialPlaces";
+            String name = specialPlace.getName();
+            if(service.getPlaceByName(name) != null){
+                SpecialPlace sp = service.get(id);
+                sp.setLatitude(specialPlace.getLatitude());
+                sp.setLongitude(specialPlace.getLongitude());
+                sp.setName(specialPlace.getName());
+                sp.setRange(specialPlace.getRange());
+                sp.setType(specialPlace.getType());
+                sp.setStatus(specialPlace.getStatus());
+                service.update(sp);
+                return "redirect:/specialPlaces";
+            } else{
+                model.addAttribute("A place with the same name already existed");
+                return "web/special_place/special_place_update";
+            }
         }
     }
 }

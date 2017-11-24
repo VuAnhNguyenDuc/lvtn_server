@@ -43,12 +43,16 @@ public class VehicleAjax {
                 return "Invalid variable : " + var_names.get(i) + ". There can not be two identical variables";
             }
         }
-
+        boolean elseIfFlag = false;
         // Then validate the formulas
         for(int i = 0; i < formulas.size(); i++){
             obj = (JSONObject) formulas.get(i);
             if(i == 0 && (obj.get("condition_type").equals("else if") || obj.get("condition_type").equals("else"))){
                 return "Invalid condition type : the first condition must be if or no condition at all";
+            } else if(obj.get("condition_type").equals("else if") && !elseIfFlag){
+                elseIfFlag = true;
+            } else if(elseIfFlag && obj.get("condition_type").equals("if")){
+                return "Invalid condition type : there can not be if conditions after else if condition";
             } else if(obj.get("condition_type").equals("else") && i != formulas.size()-1){
                 return "Invalid condition type : there can not be another condition after else";
             }
