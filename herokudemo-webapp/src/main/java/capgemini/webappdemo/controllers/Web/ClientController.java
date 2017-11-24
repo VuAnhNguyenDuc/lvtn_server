@@ -66,7 +66,7 @@ public class ClientController {
                 model.addAttribute("error","this client was created in the database");
                 return "web/client/client_insert";
             } else{
-                if(!isValidEmailAddress(client.getEmail())){
+                if(!client.getEmail().isEmpty() && !isValidEmailAddress(client.getEmail())){
                     model.addAttribute("error","Ivalid email address");
                     return "web/client/client_insert";
                 } else if(!validatePhone(client.getPhone_number())){
@@ -116,7 +116,7 @@ public class ClientController {
         //matches numbers only
         String regexStr = "^[0-9 ]*$";
         if(input.equals("")){
-            return false;
+            return true;
         } else if(input.matches(regexStr)){
             int blanks = StringUtils.countOccurrencesOf(input," ");
             // less than 10 numbers

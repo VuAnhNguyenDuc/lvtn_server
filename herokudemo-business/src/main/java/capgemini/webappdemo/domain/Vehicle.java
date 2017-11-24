@@ -3,6 +3,7 @@ package capgemini.webappdemo.domain;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "vehicle")
@@ -10,6 +11,7 @@ public class Vehicle {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private int id;
+    @Size(min = 1, message = "Cannot input empty value into vehicle's name")
     private String name;
     @Column(name = "status")
     private Integer status;
