@@ -1,5 +1,7 @@
 package capgemini.webappdemo.utils;
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -43,4 +45,6 @@ public class CommonUtils {
         }
         return results;
     }
+
+
 }

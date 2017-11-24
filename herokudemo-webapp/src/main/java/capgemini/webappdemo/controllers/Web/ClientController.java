@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
@@ -62,6 +64,11 @@ public class ClientController {
                 model.addAttribute("error","this client was created in the database");
                 return "web/client/client_insert";
             } else{
+                String email = client.getEmail();
+                if(!isValidEmailAddress(email)){
+                    model.addAttribute("error","Ivalid email address");
+                    return "web/client/client_insert";
+                }
                 service.add(client);
                 return "redirect:/clients";
             }
@@ -91,5 +98,16 @@ public class ClientController {
             service.update(old);
             return "redirect:/clients";
         }
+    }
+
+    public static boolean isValidEmailAddress(String email) {
+        boolean result = true;
+        try {
+            InternetAddress emailAddr = new InternetAddress(email);
+            emailAddr.validate();
+        } catch (AddressException ex) {
+            result = false;
+        }
+        return result;
     }
 }

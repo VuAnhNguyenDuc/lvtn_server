@@ -100,7 +100,7 @@ public class UserController {
             }
             String email = managerForm.getEmail();
             if(!email.isEmpty() && !isValidEmailAddress(email)){
-                model.addAttribute("error","This is not a valid email address");
+                model.addAttribute("error","Ivalid email address");
                 return "web/user/manager_insert";
             }
             User usr = new User();
@@ -148,7 +148,7 @@ public class UserController {
         usr.setUserType("Manager");
         String email = managerForm.getEmail();
         if(!email.isEmpty() && !isValidEmailAddress(email)){
-            model.addAttribute("error","This is not a valid email address");
+            model.addAttribute("error","Ivalid email address");
             return "web/user/manager_update";
         } else{
             usr.setEmail(email);
@@ -211,7 +211,7 @@ public class UserController {
         }
         String email = employeeForm.getEmail();
         if(!email.isEmpty() && !isValidEmailAddress(email)){
-            model.addAttribute("error","This is not a valid email address");
+            model.addAttribute("error","Ivalid email address");
             return "web/user/manager_insert";
         } else{
             User usr = new User();
@@ -261,7 +261,7 @@ public class UserController {
         }
         String email = employeeForm.getEmail();
         if(!email.isEmpty() && !isValidEmailAddress(email)){
-            model.addAttribute("error","This is not a valid email address");
+            model.addAttribute("error","Ivalid email address");
             return "web/user/manager_update";
         } else{
             usr.setUserType("Employee");
@@ -283,7 +283,7 @@ public class UserController {
         List<Manager> mngs = mngService.getAll();
         for(Manager mng : mngs){
             User usr = service.get(mng.getUser_id());
-            mng.setUsername(usr.getUsername());
+            mng.setUsername(usr.getFullname());
         }
         return mngs;
     }
