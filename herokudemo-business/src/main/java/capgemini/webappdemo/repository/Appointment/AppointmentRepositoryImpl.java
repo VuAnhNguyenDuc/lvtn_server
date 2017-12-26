@@ -133,6 +133,7 @@ public class AppointmentRepositoryImpl extends EntityRepositoryImpl<Appointment>
                 }
             }
 		} catch (HibernateException e) {
+			System.out.println("Exception : ");
 			e.printStackTrace();
 		}
 	}
