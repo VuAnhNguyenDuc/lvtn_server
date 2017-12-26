@@ -222,6 +222,20 @@ public class UserApi {
             client.put("email",cl.getEmail());
 
             obj.put("client",client);
+
+            List<User> users = apmService.getUsersOfAppointment(uav.getAppointment_id());
+            JSONArray usersList = new JSONArray();
+            for(User user : users){
+                if(user.getStatus() == 1){
+                    JSONObject userObj = new JSONObject();
+                    userObj.put("id",user.getId());
+                    userObj.put("full_name",user.getFullname());
+                    userObj.put("username",user.getUsername());
+                    userObj.put("type",user.getUserType());
+                    usersList.add(userObj);
+                }
+            }
+            obj.put("users", usersList);
             uavList.add(obj);
         }
         result.put("message",1);
@@ -336,6 +350,24 @@ public class UserApi {
             }
             return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
         }
+    }
+
+    @RequestMapping(value = "/api/updateAppointmentCost", method = RequestMethod.POST)
+    public ResponseEntity<JSONObject> updateCost(@RequestBody JSONObject input){
+        int appointment_id = (int) input.get("id");
+        double cost = (double) input.get("cost");
+        JSONObject result = new JSONObject();
+        result.put("message",0);
+
+        Appointment apm = apmService.get(appointment_id);
+        if(apm != null){
+            apm.setTotal_cost(cost);
+            apmService.update(apm);
+            result.put("message",1);
+        } else{
+            result.put("description","can't find the appointment");
+        }
+        return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
     }
 
     private boolean compareUsers(List<User> u1,List<User> u2){
