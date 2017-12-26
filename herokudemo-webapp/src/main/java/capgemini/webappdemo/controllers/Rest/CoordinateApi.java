@@ -71,11 +71,13 @@ public class CoordinateApi {
         if(flag){
             result.put("message",1);
             Detail dt = dtService.get(detailId);
-            Coor lastCoord = coordinates.get(coordinates.size() - 1);
-            if(lastCoord != null){
-                dt.setEnd_time(dateFormat.parse(lastCoord.getTime()));
+            if(coordinates != null && coordinates.size() > 1){
+                Coor lastCoord = coordinates.get(coordinates.size() - 1);
+                if(lastCoord != null){
+                    dt.setEnd_time(dateFormat.parse(lastCoord.getTime()));
+                }
+                dtService.update(dt);
             }
-            dtService.update(dt);
         }
         return new ResponseEntity<JSONObject>(result, HttpStatus.OK);
     }
