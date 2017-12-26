@@ -128,8 +128,14 @@ public class AppointmentRepositoryImpl extends EntityRepositoryImpl<Appointment>
                 Query query = session.createQuery(strQuery);
                 query.setParameter("apmid",apm.getId());
                 for(User usr : usrs){
-                    UserTakesAppointment uta = new UserTakesAppointment(apm.getId(),usr.getId());
-                    utaService.add(uta);
+                	strQuery = "from UserTakesAppointment uta where uta.appointment_id = :apmid and uta.user_id = :userid";
+                	query = session.createQuery(strQuery);
+                	query.setParameter("apmid", apm.getId());
+                	query.setParameter("userid",usr.getId());
+                	if(query.list().size() == 0){
+						UserTakesAppointment uta = new UserTakesAppointment(apm.getId(),usr.getId());
+						utaService.add(uta);
+					}
                 }
             }
 		} catch (HibernateException e) {
