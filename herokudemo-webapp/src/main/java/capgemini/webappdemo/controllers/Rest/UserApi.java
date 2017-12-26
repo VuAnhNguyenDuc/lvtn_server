@@ -4,6 +4,7 @@ import capgemini.webappdemo.domain.*;
 import capgemini.webappdemo.form.AppointmentForm;
 import capgemini.webappdemo.service.Appointment.AppointmentService;
 import capgemini.webappdemo.service.Client.ClientService;
+import capgemini.webappdemo.service.Detail.DetailService;
 import capgemini.webappdemo.service.User.UserService;
 import capgemini.webappdemo.service.Vehicle.VehicleService;
 import capgemini.webappdemo.utils.CalculateDistance;
@@ -43,6 +44,9 @@ public class UserApi {
 
     @Autowired
     private ClientService clService;
+
+    @Autowired
+    private DetailService dtService;
 
     private JsonTokenUtil jsonTokenUtil = new JsonTokenUtil();
 
@@ -184,6 +188,13 @@ public class UserApi {
                 client.put("email",cl.getEmail());
             }
             obj.put("client",client);
+
+            List<Detail> dts = dtService.getDetailsOfAppointment(uav.getAppointment_id());
+            if(dts.size() > 0){
+                obj.put("has_details",true);
+            } else{
+                obj.put("has_details",false);
+            }
             uavList.add(obj);
         }
         result.put("message",1);
