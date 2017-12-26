@@ -72,7 +72,9 @@ public class CoordinateApi {
             result.put("message",1);
             Detail dt = dtService.get(detailId);
             Coor lastCoord = coordinates.get(coordinates.size() - 1);
-            dt.setEnd_time(dateFormat.parse(lastCoord.getTime()));
+            if(lastCoord != null){
+                dt.setEnd_time(dateFormat.parse(lastCoord.getTime()));
+            }
             dtService.update(dt);
         }
         return new ResponseEntity<JSONObject>(result, HttpStatus.OK);
