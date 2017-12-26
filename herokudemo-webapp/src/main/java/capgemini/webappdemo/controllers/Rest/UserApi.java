@@ -341,8 +341,10 @@ public class UserApi {
                     }
 
                     if(compareUsers(usrs,userArray)){
+                        System.out.println("Updating user, with true flag");
                         apmService.updateAppointment(apm,false);
                     } else{
+                        System.out.println("Updating user, with false flag");
                         apm.setUsers(userArray);
                         apmService.updateAppointment(apm,true);
                     }
