@@ -313,6 +313,12 @@ public class DetailApi {
                 dt.setWarning(true);
             }
             detailService.update(dt);
+
+            Appointment apm = apmService.get(dt.getAppointment_id());
+            double total_cost = apm.getTotal_cost();
+            total_cost += estimate_cost;
+            apm.setTotal_cost(total_cost);
+            apmService.update(apm);
         }
     }
 

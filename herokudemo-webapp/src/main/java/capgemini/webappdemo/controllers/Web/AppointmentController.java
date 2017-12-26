@@ -146,7 +146,7 @@ public class AppointmentController {
                 app.setEnd_date_str(commonUtils.convertDateToString(app.getEnd_date()));
             }
             app.setDetails(details);
-            app.setTotal_cost(total_cost);
+            //app.setTotal_cost(total_cost);
             model.addAttribute("details_array",details_array);
             model.addAttribute("pageName","appointment");
             model.addAttribute("apm",app);
