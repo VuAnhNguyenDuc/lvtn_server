@@ -316,7 +316,7 @@ public class DetailApi {
 
             Appointment apm = apmService.get(dt.getAppointment_id());
             double total_cost = apm.getTotal_cost();
-            total_cost += estimate_cost;
+            total_cost += dt.getInput_cost();
             apm.setTotal_cost(total_cost);
             apmService.update(apm);
         }
