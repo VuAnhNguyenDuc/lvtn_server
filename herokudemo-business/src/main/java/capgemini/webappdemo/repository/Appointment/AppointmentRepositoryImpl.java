@@ -8,6 +8,7 @@ import capgemini.webappdemo.domain.UserTakesAppointment;
 import capgemini.webappdemo.repository.EntityRepositoryImpl;
 import capgemini.webappdemo.service.User.UserService;
 import capgemini.webappdemo.service.UserTakesAppointment.UserTakesAppointmentService;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.classic.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,21 +117,24 @@ public class AppointmentRepositoryImpl extends EntityRepositoryImpl<Appointment>
 
 	@Override
 	public void updateAppointment(Appointment apm,boolean changeUsers) {
-		Session session = getSession();
-		session.merge(apm);
+		try {
+			Session session = getSession();
+			session.merge(apm);
 
-		if(changeUsers){
-			List<User> usrs = apm.getUsers();
+			if(changeUsers){
+                List<User> usrs = apm.getUsers();
 
-			String strQuery = "delete from UserTakesAppointment uta where uta.appointment_id =:apmid";
-			Query query = session.createQuery(strQuery);
-			query.setParameter("apmid",apm.getId());
-			for(User usr : usrs){
-				UserTakesAppointment uta = new UserTakesAppointment(apm.getId(),usr.getId());
-				utaService.add(uta);
-			}
+                String strQuery = "delete from UserTakesAppointment uta where uta.appointment_id =:apmid";
+                Query query = session.createQuery(strQuery);
+                query.setParameter("apmid",apm.getId());
+                for(User usr : usrs){
+                    UserTakesAppointment uta = new UserTakesAppointment(apm.getId(),usr.getId());
+                    utaService.add(uta);
+                }
+            }
+		} catch (HibernateException e) {
+			e.printStackTrace();
 		}
-
 	}
 
 	private Date getDate() throws ParseException {
