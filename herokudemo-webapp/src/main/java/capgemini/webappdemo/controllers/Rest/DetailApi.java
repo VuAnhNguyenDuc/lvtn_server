@@ -138,7 +138,10 @@ public class DetailApi {
         int id = (int) input.get("id");
         //String endTime = input.get("end_time").toString();
         //String endLocation = input.get("end_location").toString();
-        String imageContent = input.get("image_content").toString();
+        String imageContent = "";
+        if(input.get("image_content") != null){
+            imageContent = input.get("image_content").toString();
+        }
         String description = input.get("description").toString();
         double inputCost = (double) input.get("input_cost");
         JSONObject result = new JSONObject();
