@@ -176,12 +176,13 @@ public class UserApi {
             int clientId = uav.getClient_id();
             Client cl = clService.get(clientId);
             JSONObject client = new JSONObject();
-            client.put("id",cl.getId());
-            client.put("name",cl.getName());
-            client.put("phone_number",cl.getPhone_number());
-            client.put("address",cl.getAddress());
-            client.put("email",cl.getEmail());
-
+            if(cl != null){
+                client.put("id",cl.getId());
+                client.put("name",cl.getName());
+                client.put("phone_number",cl.getPhone_number());
+                client.put("address",cl.getAddress());
+                client.put("email",cl.getEmail());
+            }
             obj.put("client",client);
             uavList.add(obj);
         }
@@ -231,7 +232,7 @@ public class UserApi {
                     userObj.put("id",user.getId());
                     userObj.put("full_name",user.getFullname());
                     userObj.put("username",user.getUsername());
-                    userObj.put("type",user.getUserType());
+                    userObj.put("type",userService.getUserType(user.getId()));
                     usersList.add(userObj);
                 }
             }
