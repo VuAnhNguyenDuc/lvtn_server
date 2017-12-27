@@ -117,7 +117,7 @@
             <c:forEach items="${dts}" var="dt">
                 <tr>
                     <%--<td><%= i %></td>--%>
-                    <td>${dt.user_created}</td>
+                    <td>${dt.user_created_name}</td>
                     <td>${dt.vehicle_name}</td>
                     <td>${dt.predicted_vehicle}</td>
                     <td>${dt.start_time_str}</td>
@@ -257,13 +257,13 @@ https://developers.google.com/maps/documentation/javascript/examples/polyline-si
 
                 // Draw markers
                 var vhc_name = obj.vehicle_name;
-                var created_by = obj.created_by;
+                var user_created = obj.user_created;
                 var start_time = obj.start_time;
                 var end_time = obj.end_time;
                 var avg_velocity = obj.avg_velocity + " km/h";
                 var content =
                 "Vehicle Name : " +  vhc_name +
-                "<br>Created By : " + created_by +
+                "<br>Created By : " + user_created +
                 "<br>Start time : " + start_time +
                 "<br>End time : " + end_time +                                               "<br>Average Velocity : " + avg_velocity;
 

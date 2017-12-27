@@ -106,6 +106,7 @@ public class AppointmentController {
                     dt.setEnd_time_str(commonUtils.convertDateToStringSec(dt.getEnd_time()));
                 }
                 total_cost += dt.getInput_cost();
+                dt.setUser_created_name(userService.get(dt.getUser_created()).getFullname());
                 List<Coordinate> coords = coorService.getCoordsOfDetail(dt.getId());
 
                 // We will only let google draw the coordinates that actually exist
@@ -139,7 +140,7 @@ public class AppointmentController {
                     } else{
                         obj.put("coords", parseCoords(coords));
                     }
-                    obj.put("user_created",userService.get(dt.getUser_created()).getFullname());
+                    obj.put("user_created",dt.getUser_created_name());
                     details_array.add(obj);
                 }
             }
