@@ -93,6 +93,8 @@ public class SpecialPlaceController {
                 return "redirect:/specialPlaces";
             } else{
                 model.addAttribute("error","A place with the same name already existed");
+                System.out.println(service.getPlaceByName(name).getName());
+                System.out.println(service.getPlaceByName(name).getType());
                 return "web/special_place/special_place_update";
             }
         }
