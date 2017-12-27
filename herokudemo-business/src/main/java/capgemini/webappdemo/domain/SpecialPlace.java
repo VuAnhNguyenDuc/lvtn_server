@@ -1,5 +1,7 @@
 package capgemini.webappdemo.domain;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 
@@ -12,11 +14,11 @@ public class SpecialPlace {
     @Size(min = 1, message = "name can not be empty")
     private String name;
     private String type;
-    @Size(min = 1, message = "range can not be empty")
+    @NotEmpty(message = "range can not be empty")
     private double range;
-    @Size(min = 1, message = "latitude can not be empty")
+    @NotEmpty(message = "latitude can not be empty")
     private double latitude;
-    @Size(min = 1, message = "longitude can not be empty")
+    @NotEmpty(message = "longitude can not be empty")
     private double longitude;
     private int status;
 
