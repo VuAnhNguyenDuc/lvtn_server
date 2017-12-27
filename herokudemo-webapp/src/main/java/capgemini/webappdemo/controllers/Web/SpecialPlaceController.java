@@ -57,7 +57,7 @@ public class SpecialPlaceController {
                 service.add(specialPlace);
                 return "redirect:/specialPlaces";
             } else{
-                model.addAttribute("A place with the same name already existed");
+                model.addAttribute("error","A place with the same name already existed");
                 return "web/special_place/special_place_insert";
             }
         }
@@ -92,7 +92,7 @@ public class SpecialPlaceController {
                 service.update(sp);
                 return "redirect:/specialPlaces";
             } else{
-                model.addAttribute("A place with the same name already existed");
+                model.addAttribute("error","A place with the same name already existed");
                 return "web/special_place/special_place_update";
             }
         }
