@@ -257,12 +257,15 @@ https://developers.google.com/maps/documentation/javascript/examples/polyline-si
 
                 // Draw markers
                 var vhc_name = obj.vehicle_name;
+                var created_by = obj.created_by;
                 var start_time = obj.start_time;
                 var end_time = obj.end_time;
                 var avg_velocity = obj.avg_velocity + " km/h";
                 var content =
-                "Vehicle Name : " +  vhc_name +                         "<br>Start time : " + start_time +
-                    "<br>End time : " + end_time +                          "<br>Average Velocity : " + avg_velocity;
+                "Vehicle Name : " +  vhc_name +
+                "<br>Created By : " + created_by +
+                "<br>Start time : " + start_time +
+                "<br>End time : " + end_time +                                               "<br>Average Velocity : " + avg_velocity;
 
                 var marker = new google.maps.Marker({
                     position: coords[0],
