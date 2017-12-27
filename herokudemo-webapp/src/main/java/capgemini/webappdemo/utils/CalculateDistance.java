@@ -42,17 +42,16 @@ public class CalculateDistance {
 
     public double getAvarageVelocity(List<Coordinate> coords){
         double avg = 0;
-        double length;
-        long time;
+        double length = 0;
+        long time = 0;
         int size = coords.size() - 1;
         for(int i = 0; i < size; i++){
             Coordinate c1 = coords.get(i);
             Coordinate c2 = coords.get(i+1);
-            length = getDistance(c1,c2);
-            time = (c2.getTime().getTime() - c1.getTime().getTime())/(1000); // km/s
-            avg += length/time;
+            length += getDistance(c1,c2);
+            time += (c2.getTime().getTime() - c1.getTime().getTime())/(1000); // km/s
         }
-        return avg*3600; //km/h
+        return (length*3600/time); //km/h
     }
 
     public double getTotalDistance(List<Coordinate> coords){

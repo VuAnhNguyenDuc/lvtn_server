@@ -77,7 +77,14 @@ public class CalculateMoney {
         for(int i = 0; i < vars.size(); i++){
             JSONObject obj = (JSONObject) vars.get(i);
             String var = obj.get("name").toString();
-            double value = (double) obj.get("value");
+            double value = 0;
+            try {
+                value = (double) obj.get("value");
+            } catch (Exception e) {
+                Long temp = new Long((String) obj.get("value"));
+                value = temp.doubleValue();
+                e.printStackTrace();
+            }
             if(!var.equals("")){
                 input = input.replaceAll(var, String.valueOf(value));
             }
