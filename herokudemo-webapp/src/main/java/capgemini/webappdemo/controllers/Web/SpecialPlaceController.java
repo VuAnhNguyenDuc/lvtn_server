@@ -52,15 +52,14 @@ public class SpecialPlaceController {
             return "web/special_place/special_place_insert";
         } else{
             String name = specialPlace.getName();
-            System.out.println("Name = " +name);
-            if(service.getPlaceByName(name) != null){
+            SpecialPlace checkExist = service.getPlaceByName(name);
+            System.out.println(checkExist);
+            if(checkExist != null){
                 specialPlace.setStatus(1);
                 service.add(specialPlace);
                 return "redirect:/specialPlaces";
             } else{
                 model.addAttribute("error","A place with the same name already existed");
-                System.out.println(service.getPlaceByName(name).getName());
-                System.out.println(service.getPlaceByName(name).getType());
                 return "web/special_place/special_place_insert";
             }
         }
@@ -84,8 +83,9 @@ public class SpecialPlaceController {
             return "web/special_place/special_place_update";
         } else{
             String name = specialPlace.getName();
-            System.out.println("Name = " +name);
-            if(service.getPlaceByName(name) != null){
+            SpecialPlace checkExist = service.getPlaceByName(name);
+            System.out.println(checkExist);
+            if(checkExist != null){
                 SpecialPlace sp = service.get(id);
                 sp.setLatitude(specialPlace.getLatitude());
                 sp.setLongitude(specialPlace.getLongitude());
@@ -97,8 +97,6 @@ public class SpecialPlaceController {
                 return "redirect:/specialPlaces";
             } else{
                 model.addAttribute("error","A place with the same name already existed");
-                System.out.println(service.getPlaceByName(name).getName());
-                System.out.println(service.getPlaceByName(name).getType());
                 return "web/special_place/special_place_update";
             }
         }
