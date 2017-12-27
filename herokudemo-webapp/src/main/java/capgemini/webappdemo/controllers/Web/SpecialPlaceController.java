@@ -54,7 +54,7 @@ public class SpecialPlaceController {
             String name = specialPlace.getName();
             SpecialPlace checkExist = service.getPlaceByName(name);
             System.out.println(checkExist);
-            if(checkExist == null){
+            if(checkExist != null){
                 model.addAttribute("error","A place with the same name already existed");
                 return "web/special_place/special_place_insert";
             } else{
@@ -85,7 +85,7 @@ public class SpecialPlaceController {
             String name = specialPlace.getName();
             SpecialPlace checkExist = service.getPlaceByName(name);
             System.out.println(checkExist);
-            if(checkExist == null){
+            if(checkExist != null){
                 model.addAttribute("error","A place with the same name already existed");
                 return "web/special_place/special_place_update";
             } else{
