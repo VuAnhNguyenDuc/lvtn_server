@@ -237,14 +237,12 @@ public class UserApi {
             List<User> users = apmService.getUsersOfAppointment(uav.getAppointment_id());
             JSONArray usersList = new JSONArray();
             for(User user : users){
-                if(user.getStatus() == 1){
-                    JSONObject userObj = new JSONObject();
-                    userObj.put("id",user.getId());
-                    userObj.put("full_name",user.getFullname());
-                    userObj.put("username",user.getUsername());
-                    userObj.put("type",userService.getUserType(user.getId()));
-                    usersList.add(userObj);
-                }
+                JSONObject userObj = new JSONObject();
+                userObj.put("id",user.getId());
+                userObj.put("full_name",user.getFullname());
+                userObj.put("username",user.getUsername());
+                userObj.put("type",userService.getUserType(user.getId()));
+                usersList.add(userObj);
             }
             if(uav.getStatus() == -1){
                 obj.put("status","warning");
