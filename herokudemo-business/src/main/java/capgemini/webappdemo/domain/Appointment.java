@@ -14,6 +14,8 @@ public class Appointment {
     @Temporal(TemporalType.TIMESTAMP)
     private Date start_date;
     @Temporal(TemporalType.TIMESTAMP)
+    private Date real_start_date;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date end_date;
     private String destination;
     private Integer status;

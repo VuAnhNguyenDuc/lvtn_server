@@ -204,7 +204,6 @@ public class UserApi {
 
     @RequestMapping(value = "/api/getCompletedAppointments", method = RequestMethod.POST)
     public ResponseEntity<JSONObject> getAllAps(@RequestBody JSONObject input){
-        System.out.println("getting all appointments - User API");
         String jsonToken = input.get("json_token").toString();
         JSONObject result = new JSONObject();
         if(jsonToken.equals("") || !jsonTokenUtil.validateKey(jsonToken)){
@@ -246,6 +245,11 @@ public class UserApi {
                     userObj.put("type",userService.getUserType(user.getId()));
                     usersList.add(userObj);
                 }
+            }
+            if(uav.getStatus() == -1){
+                obj.put("status","warning");
+            } else if(uav.getStatus() == 0){
+                obj.put("status","completed");
             }
             obj.put("users", usersList);
             uavList.add(obj);
