@@ -179,7 +179,7 @@ public class PopulateTestData {
         SpecialPlace sp = new SpecialPlace();
         sp.setName("Cat Lai Harbor");
         sp.setType("Harbor");
-        sp.setRange(2000.0);
+        sp.setRange(200.0);
         sp.setLatitude(10.755063);
         sp.setLongitude(106.7883273);
         sp.setStatus(1);
