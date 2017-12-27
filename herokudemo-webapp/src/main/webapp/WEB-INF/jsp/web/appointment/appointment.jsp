@@ -41,7 +41,7 @@
                 <tr>
                     <th>No</th>
                     <th>Appointment Name</th>
-                    <th>Start Date</th>
+                    <th>Expected Start Date</th>
                     <th>End Date</th>
                     <th>Status</th>
                     <th></th>
