@@ -31,6 +31,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -62,7 +64,7 @@ public class AppointmentController {
         if(!loginUtil.isLogin(session)){
             return "redirect:/login";
         } else{
-            List<Appointment> apps = appService.getApmsByStatus(type);
+            List<Appointment> apps = sortAppointments(type);
             for(Appointment app : apps){
                 User mng = userService.get(app.getManager_id());
                 app.setManager_name(mng.getFullname());
@@ -242,48 +244,50 @@ public class AppointmentController {
         return bd.doubleValue();
     }
 
+    private List<Appointment> sortAppointments(String type){
+        if(type.equals("all")){
+            List<Appointment> result = new ArrayList<>();
+            List<Appointment> actives = appService.getApmsByStatus("active");
+            List<Appointment> finished = appService.getApmsByStatus("finished");
+            List<Appointment> warnings = appService.getApmsByStatus("warning");
+            List<Appointment> others = new ArrayList<>();
+            others.addAll(finished);
+            others.addAll(warnings);
+
+            sortActive(actives);
+            sortOthers(others);
+
+            result.addAll(actives);
+            result.addAll(others);
+            return result;
+        } else{
+            List<Appointment> apms = appService.getApmsByStatus(type);
+            if(type.equals("active")){
+                sortActive(apms);
+            } else {
+                sortOthers(apms);
+            }
+            return apms;
+        }
+    }
+
+    private void sortActive(List<Appointment> actives){
+        Collections.sort(actives, new Comparator<Appointment>() {
+            @Override
+            public int compare(Appointment o1, Appointment o2) {
+                return o1.getStart_date().before(o2.getStart_date())?1:-1;
+            }
+        });
+    }
+
+    private void sortOthers(List<Appointment> others){
+        Collections.sort(others, new Comparator<Appointment>() {
+            @Override
+            public int compare(Appointment o1, Appointment o2) {
+                return o1.getEnd_date().before(o2.getEnd_date())?1:-1;
+            }
+        });
+    }
+
 }
 
-    /*@RequestMapping(value = "/appointment/details/old", method = RequestMethod.GET, params = {"appointment_id","detail_id"})
-    public String getAppointmentDetails(HttpSession session, @RequestParam("appointment_id") int id, @RequestParam("detail_id") int detail_id, ModelMap model){
-        if(!loginUtil.isLogin(session)){
-            return "redirect:/login";
-        } else{
-            Appointment app = appService.get(id);
-            List<User> users = appService.getUsersOfAppointment(id);
-            List<Detail> details = detailService.getDetailsOfAppointment(id);
-            List<Coordinate> total_coords = new ArrayList<>();
-            for(Detail dt : details){
-                //calculateDetail(dt);
-                dt.setVehicle_name(vhService.get(dt.getVehicle_id()).getName());
-                dt.setTotal_length(round(dt.getTotal_length(),2));
-                dt.setAverage_velocity(round(dt.getAverage_velocity(),2));
-                if(dt.getStart_time() != null){
-                    dt.setStart_time_str(commonUtils.convertDateToString(dt.getStart_time()));
-                }
-                if(dt.getEnd_time() != null){
-                    dt.setEnd_time_str(commonUtils.convertDateToString(dt.getEnd_time()));
-                }
-                List<Coordinate> coords = coorService.getCoordsOfDetail(dt.getId());
-                if(detail_id == 0){
-                    total_coords.addAll(coords);
-                } else {
-                    if(dt.getId() == detail_id){
-                        total_coords.addAll(coords);
-                    }
-                }
-            }
-            app.setUsers(users);
-            app.setStart_date_str(commonUtils.convertDateToStringSec(app.getStart_date()));
-            if(app.getEnd_date() != null){
-                app.setEnd_date_str(commonUtils.convertDateToStringSec(app.getEnd_date()));
-            }
-            app.setDetails(details);
-            model.addAttribute("coords",parseCoords(total_coords));
-            model.addAttribute("pageName","appointment");
-            model.addAttribute("apm",app);
-            model.addAttribute("dts",details);
-            model.addAttribute("mng",userService.get(app.getManager_id()).getFullname());
-            return "web/appointment/apm_detail";
-        }
-    }*/

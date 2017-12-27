@@ -18,9 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 @Repository
@@ -141,6 +139,12 @@ public class AppointmentRepositoryImpl extends EntityRepositoryImpl<Appointment>
 		} catch (HibernateException e) {
 			System.out.println("Exception : ");
 			e.printStackTrace();
+		}
+	}
+
+	public void sortApms(List<Appointment> entities, String type) {
+		if(type.equals("active")){
+
 		}
 	}
 
