@@ -179,7 +179,7 @@ public class PopulateTestData {
         SpecialPlace sp = new SpecialPlace();
         sp.setName("Cat Lai Harbor");
         sp.setType("Harbor");
-        sp.setRange(2000);
+        sp.setRange(2000.0);
         sp.setLatitude(10.755063);
         sp.setLongitude(106.7883273);
         sp.setStatus(1);
@@ -187,7 +187,7 @@ public class PopulateTestData {
 
         sp.setName("Tan Son Nhat Airport");
         sp.setType("Airport");
-        sp.setRange(1000);
+        sp.setRange(1000.0);
         sp.setLatitude(10.8184631);
         sp.setLongitude(106.6566358);
         sp.setStatus(1);
@@ -195,7 +195,7 @@ public class PopulateTestData {
 
         sp.setName("Saigon Train Station");
         sp.setType("Train Station");
-        sp.setRange(500);
+        sp.setRange(500.0);
         sp.setLatitude(10.7823643);
         sp.setLongitude(106.6749899);
         sp.setStatus(1);
