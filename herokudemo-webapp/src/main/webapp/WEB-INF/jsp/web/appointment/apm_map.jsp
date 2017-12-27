@@ -95,7 +95,8 @@
         <table class="table table-hover" id="details-table">
             <thead>
             <tr>
-                <th>No</th>
+                <%--<th>No</th>--%>
+                <th>Created by</th>
                 <th>Vehicle</th>
                 <th>Predicted Vehicle</th>
                 <th>Start Time</th>
@@ -115,7 +116,8 @@
             %>
             <c:forEach items="${dts}" var="dt">
                 <tr>
-                    <td><%= i %></td>
+                    <%--<td><%= i %></td>--%>
+                    <td>${dt.user_created}</td>
                     <td>${dt.vehicle_name}</td>
                     <td>${dt.predicted_vehicle}</td>
                     <td>${dt.start_time_str}</td>
