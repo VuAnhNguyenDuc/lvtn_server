@@ -14,11 +14,11 @@ public class SpecialPlace {
     @Size(min = 1, message = "name can not be empty")
     private String name;
     private String type;
-    @NotEmpty(message = "range can not be empty")
+   // @NotEmpty(message = "range can not be empty")
     private double range;
-    @NotEmpty(message = "latitude can not be empty")
+   // @NotEmpty(message = "latitude can not be empty")
     private double latitude;
-    @NotEmpty(message = "longitude can not be empty")
+    //@NotEmpty(message = "longitude can not be empty")
     private double longitude;
     private int status;
 
