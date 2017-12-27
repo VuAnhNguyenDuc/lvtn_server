@@ -81,7 +81,8 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>No</th>
+                <%--<th>No</th>--%>
+                <th>Created By</th>
                 <th>Vehicle</th>
                 <th>Start Time</th>
                 <th>End Time</th>
@@ -100,7 +101,8 @@
             %>
             <c:forEach items="${dts}" var="dt">
                 <tr>
-                    <td><%= i %></td>
+                    <%--<td><%= i %></td>--%>
+                    <td>${dt.user_created}</td>
                     <td><a href="/appointment/details?appointment_id=${apm.id}&detail_id=${dt.id}">${dt.vehicle_name}</a></td>
                     <td>${dt.start_time_str}</td>
                     <td>${dt.end_time_str}</td>
@@ -124,7 +126,7 @@
                         </a>
                     </td>
                 </tr>
-                <% i = i + 1; %>
+                <%--<% i = i + 1; %>--%>
             </c:forEach>
             </tbody>
         </table>

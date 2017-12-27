@@ -139,6 +139,7 @@ public class AppointmentController {
                     } else{
                         obj.put("coords", parseCoords(coords));
                     }
+                    obj.put("user_created",userService.get(dt.getUser_created()).getFullname());
                     details_array.add(obj);
                 }
             }
