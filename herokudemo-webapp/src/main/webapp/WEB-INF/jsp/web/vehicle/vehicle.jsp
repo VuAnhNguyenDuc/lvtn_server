@@ -52,7 +52,9 @@
                     </td>
                     <td>
                         <a href="/vehicle/update?id=${vehicle.id}" class="btn btn-danger">Update</a>
-                        <a href="/vehicle/updatePrice?id=${vehicle.id}" class="btn btn-danger">Update Formula</a>
+                        <c:if test="${vehicle.calculatable}">
+                            <a href="/vehicle/updatePrice?id=${vehicle.id}" class="btn btn-danger">Update Formula</a>
+                        </c:if>
                     </td>
                 </tr>
                 <%

@@ -153,13 +153,13 @@ public class PopulateTestData {
         v8.setCalculatable(true);
         v8.setStatus(1);
         Vehicle v9 = new Vehicle("Air plane");
-        v9.setCalculatable(true);
+        v9.setCalculatable(false);
         v9.setStatus(1);
         Vehicle v10 = new Vehicle("Train");
-        v10.setCalculatable(true);
+        v10.setCalculatable(false);
         v10.setStatus(1);
         Vehicle v11 = new Vehicle("Boat");
-        v11.setCalculatable(true);
+        v11.setCalculatable(false);
         v11.setStatus(1);
         vhcService.add(v1);
         vhcService.add(v2);
@@ -172,6 +172,21 @@ public class PopulateTestData {
         vhcService.add(v9);
         vhcService.add(v10);
         vhcService.add(v11);
+    }
+
+    @RequestMapping(value = "/updateVehicles", method = RequestMethod.GET)
+    public void updateVehicles(){
+        Vehicle v = vhcService.get(14);
+        v.setCalculatable(false);
+        vhcService.update(v);
+
+        v = vhcService.get(15);
+        v.setCalculatable(false);
+        vhcService.update(v);
+
+        v = vhcService.get(16);
+        v.setCalculatable(false);
+        vhcService.update(v);
     }
 
     @RequestMapping(value = "/createSpecialPlaces",method = RequestMethod.GET)
