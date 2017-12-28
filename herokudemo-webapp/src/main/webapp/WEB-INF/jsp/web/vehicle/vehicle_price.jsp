@@ -101,7 +101,7 @@
                 }
             }
 
-            if(formulas.length == 0){
+            if(formulas.length > 0){
                 var input = {};
                 input["id"] = ${id};
                 input["formulas"] = formulas;
