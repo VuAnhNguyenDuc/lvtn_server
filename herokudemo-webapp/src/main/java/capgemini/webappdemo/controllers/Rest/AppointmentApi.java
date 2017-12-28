@@ -1,11 +1,9 @@
 package capgemini.webappdemo.controllers.Rest;
 
 import capgemini.webappdemo.domain.Appointment;
+import capgemini.webappdemo.domain.Coordinate;
 import capgemini.webappdemo.domain.Detail;
-import capgemini.webappdemo.domain.User;
-import capgemini.webappdemo.form.AppointmentForm;
 import capgemini.webappdemo.service.Appointment.AppointmentService;
-import capgemini.webappdemo.service.Client.ClientService;
 import capgemini.webappdemo.service.Coordinate.CoordinateService;
 import capgemini.webappdemo.service.Detail.DetailService;
 import capgemini.webappdemo.service.Manager.ManagerService;
@@ -13,6 +11,7 @@ import capgemini.webappdemo.service.User.UserService;
 import capgemini.webappdemo.service.Vehicle.VehicleService;
 import capgemini.webappdemo.utils.CommonUtils;
 import capgemini.webappdemo.utils.JsonTokenUtil;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -160,6 +159,40 @@ public class AppointmentApi {
                 }
             }
 
+            return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
+        }
+    }
+
+    @RequestMapping(value = "/api/getAppointmentDetails", method = RequestMethod.POST)
+    public ResponseEntity<JSONObject> getAppointmentDetails(@RequestBody JSONObject input){
+        JSONObject result = new JSONObject();
+        String jsonToken = input.get("json_token").toString();
+        int apmId = (int) input.get("appointment_id");
+        result.put("message",0);
+        if(jsonToken.equals("") || !jsonTokenUtil.validateKey(jsonToken)){
+            result.put("description","invalid json token");
+            return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
+        } else{
+            List<Detail> dts = dtService.getDetailsOfAppointment(apmId);
+            JSONArray details = new JSONArray();
+            for(Detail dt:dts){
+                List<Coordinate> coordinates = coorService.getCoordsOfDetail(dt.getId());
+                JSONObject detail = new JSONObject();
+                detail.put("vehicle_name",dt.getVehicle_name());
+                String coordinateList = "";
+                for(int i = 0; i < coordinates.size(); i++){
+                    Coordinate coordinate = coordinates.get(i);
+                    if(i != coordinates.size()){
+                        coordinateList += coordinate.getLatitude()+","+coordinate.getLongitude()+"|";
+                    } else{
+                        coordinateList += coordinate.getLatitude()+","+coordinate.getLongitude();
+                    }
+                }
+                detail.put("coordinates",coordinateList);
+                details.add(detail);
+            }
+            result.put("message",1);
+            result.put("appointment_details",details);
             return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
         }
     }

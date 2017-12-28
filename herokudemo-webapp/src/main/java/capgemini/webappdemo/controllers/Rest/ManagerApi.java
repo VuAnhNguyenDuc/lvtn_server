@@ -3,7 +3,6 @@ package capgemini.webappdemo.controllers.Rest;
 import capgemini.webappdemo.domain.Employee;
 import capgemini.webappdemo.domain.User;
 import capgemini.webappdemo.service.Employee.EmployeeService;
-import capgemini.webappdemo.service.Manager.ManagerService;
 import capgemini.webappdemo.service.User.UserService;
 import capgemini.webappdemo.utils.JsonTokenUtil;
 import org.json.simple.JSONArray;

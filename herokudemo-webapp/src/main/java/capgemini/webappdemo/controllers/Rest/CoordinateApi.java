@@ -1,12 +1,10 @@
 package capgemini.webappdemo.controllers.Rest;
 
-import capgemini.webappdemo.domain.Appointment;
 import capgemini.webappdemo.domain.Coordinate;
 import capgemini.webappdemo.domain.Detail;
 import capgemini.webappdemo.form.Coor;
 import capgemini.webappdemo.form.CoorFormString;
 import capgemini.webappdemo.form.CoordinateForm;
-import capgemini.webappdemo.service.Appointment.AppointmentService;
 import capgemini.webappdemo.service.Coordinate.CoordinateService;
 import capgemini.webappdemo.service.Detail.DetailService;
 import capgemini.webappdemo.utils.JsonTokenUtil;

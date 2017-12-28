@@ -1,7 +1,6 @@
 package capgemini.webappdemo.controllers.Rest;
 
 import capgemini.webappdemo.domain.*;
-import capgemini.webappdemo.form.AppointmentForm;
 import capgemini.webappdemo.service.Appointment.AppointmentService;
 import capgemini.webappdemo.service.Client.ClientService;
 import capgemini.webappdemo.service.Detail.DetailService;
@@ -11,11 +10,8 @@ import capgemini.webappdemo.utils.CalculateDistance;
 import capgemini.webappdemo.utils.CommonUtils;
 import capgemini.webappdemo.utils.JsonTokenUtil;
 import capgemini.webappdemo.utils.TokenPayload;
-import org.eclipse.jetty.util.ajax.JSON;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
