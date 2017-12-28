@@ -87,7 +87,6 @@ public class AppointmentController {
             return "redirect:/login";
         } else{
             Appointment app = appService.get(id);
-            double total_cost = 0;
             List<User> users = appService.getUsersOfAppointment(id);
             List<Detail> details = detailService.getDetailsOfAppointment(id);
             JSONArray details_array = new JSONArray();
@@ -105,7 +104,6 @@ public class AppointmentController {
                 if(dt.getEnd_time() != null){
                     dt.setEnd_time_str(commonUtils.convertDateToStringSec(dt.getEnd_time()));
                 }
-                total_cost += dt.getInput_cost();
                 dt.setUser_created_name(userService.get(dt.getUser_created()).getFullname());
                 List<Coordinate> coords = coorService.getCoordsOfDetail(dt.getId());
 
@@ -150,7 +148,6 @@ public class AppointmentController {
                 app.setEnd_date_str(commonUtils.convertDateToString(app.getEnd_date()));
             }
             app.setDetails(details);
-            //app.setTotal_cost(total_cost);
             model.addAttribute("details_array",details_array);
             model.addAttribute("pageName","appointment");
             model.addAttribute("apm",app);

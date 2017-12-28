@@ -126,8 +126,6 @@ public class DetailApi {
         System.out.println("ending a detail - Detail API");
         String jsonToken = input.get("json_token").toString();
         int id = (int) input.get("id");
-        //String endTime = input.get("end_time").toString();
-        //String endLocation = input.get("end_location").toString();
         String imageContent = "";
         if(input.get("image_content") != null){
             imageContent = input.get("image_content").toString();
@@ -156,11 +154,18 @@ public class DetailApi {
                 dt.setDescription(description);
                 dt.setImage_content(imageContent);
                 dt.setCoordinates(coords);
-                /*dt.setEnd_time(commonUtils.convertStringToDateSec(endTime));*/
                 detailService.update(dt);
+
                 if(isCalculatable){
                     calculate(id,dt.getCoordinates());
                 }
+
+                Appointment apm = apmService.get(dt.getAppointment_id());
+                double total_cost = apm.getTotal_cost();
+                total_cost += dt.getInput_cost();
+                apm.setTotal_cost(total_cost);
+                apmService.update(apm);
+
                 result.put("message",1);
             }
         }
@@ -303,12 +308,6 @@ public class DetailApi {
                 dt.setWarning(true);
             }
             detailService.update(dt);
-
-            Appointment apm = apmService.get(dt.getAppointment_id());
-            double total_cost = apm.getTotal_cost();
-            total_cost += dt.getInput_cost();
-            apm.setTotal_cost(total_cost);
-            apmService.update(apm);
         }
     }
 

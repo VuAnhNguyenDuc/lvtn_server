@@ -119,7 +119,6 @@ public class AppointmentApi {
         JSONObject result = new JSONObject();
         String jsonToken = input.get("json_token").toString();
         int id = (int) input.get("id");
-        double totalCost = (double) input.get("total_cost");
         String endDate = input.get("end_date").toString();
 
         result.put("message",0);
@@ -153,7 +152,6 @@ public class AppointmentApi {
                         ap.setStatus(0);
                     }
                     ap.setEnd_date(commonUtils.convertStringToDate(endDate));
-                    ap.setTotal_cost(totalCost);
                     apmService.update(ap);
                     result.put("message",1);
                 }
@@ -174,25 +172,20 @@ public class AppointmentApi {
             return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
         } else{
             List<Detail> dts = dtService.getDetailsOfAppointment(apmId);
-            JSONArray details = new JSONArray();
+            String coordinateList = "";
             for(Detail dt:dts){
                 List<Coordinate> coordinates = coorService.getCoordsOfDetail(dt.getId());
-                JSONObject detail = new JSONObject();
-                detail.put("vehicle_name",dt.getVehicle_name());
-                String coordinateList = "";
                 for(int i = 0; i < coordinates.size(); i++){
                     Coordinate coordinate = coordinates.get(i);
-                    if(i != coordinates.size()){
+                    if(i != (coordinates.size() -1)){
                         coordinateList += coordinate.getLatitude()+","+coordinate.getLongitude()+"|";
                     } else{
                         coordinateList += coordinate.getLatitude()+","+coordinate.getLongitude();
                     }
                 }
-                detail.put("coordinates",coordinateList);
-                details.add(detail);
             }
             result.put("message",1);
-            result.put("appointment_details",details);
+            result.put("coordinates",coordinateList);
             return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
         }
     }
