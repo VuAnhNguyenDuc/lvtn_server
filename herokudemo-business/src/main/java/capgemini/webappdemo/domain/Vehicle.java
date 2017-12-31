@@ -52,6 +52,8 @@ public class Vehicle {
         return calculatable;
     }
 
+    public boolean getCalculatable(){return calculatable;}
+
     public void setCalculatable(boolean calculatable) {
         this.calculatable = calculatable;
     }
