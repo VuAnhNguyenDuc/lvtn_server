@@ -341,7 +341,7 @@ public class UserController {
     @RequestMapping(value = "/user/infos", method = RequestMethod.GET, params = {"id"})
     public String getUserInfo(@RequestParam("id") int id,ModelMap model){
         model.addAttribute("id",id);
-        return "web/user/user_info";
+        return "web/user/user_infos";
     }
 
     private Manager getManagerInfo(int id){

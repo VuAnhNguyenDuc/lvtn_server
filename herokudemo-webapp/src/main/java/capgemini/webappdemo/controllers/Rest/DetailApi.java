@@ -303,8 +303,9 @@ public class DetailApi {
             String predictedVehicle = predictVehicle(coords,avgVelocity);
             dt.setPredicted_vehicle(predictedVehicle);
             System.out.println("Predicted vehicle is "+predictedVehicle);
+            Vehicle vhc = vehicleService.get(dt.getVehicle_id());
 
-            if(estimate_cost * 1.5 <= dt.getInput_cost()){
+            if(estimate_cost * vhc.getWarning_rate() < dt.getInput_cost()){
                 dt.setWarning(true);
             }
             detailService.update(dt);

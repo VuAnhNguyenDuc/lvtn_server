@@ -23,9 +23,9 @@ public class Vehicle {
     @Column(name = "warning_rate")
     private double warning_rate;
 
-
     public Vehicle() {
         this.id = 0;
+        this.warning_rate = 1;
     }
 
     public Vehicle(String name) {

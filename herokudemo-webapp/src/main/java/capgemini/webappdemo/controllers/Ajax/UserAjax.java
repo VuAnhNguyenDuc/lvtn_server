@@ -157,7 +157,7 @@ public class UserAjax {
             detail.put("vehicle_name",vhc.getName());
             detail.put("appointment_name", apm.getName());
             detail.put("appointment_id", apm.getId());
-            if(dt.getInput_cost() > dt.getEstimate_cost() * 1.5 /** vhc.getWarning_rate()*/){
+            if(dt.getInput_cost() > dt.getEstimate_cost() * vhc.getWarning_rate()){
                 detail.put("warning",true);
                 warning = warning + 1;
             } else{
