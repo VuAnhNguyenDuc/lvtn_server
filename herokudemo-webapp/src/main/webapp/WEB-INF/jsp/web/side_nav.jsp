@@ -20,7 +20,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <div class="col-sm-3 sidenav hidden-xs" <%--style="min-height: 100vh;"--%>>
-    <h2>LVTN SERVER</h2>
+    <h2>EMS SERVER</h2>
     <ul class="nav nav-pills nav-stacked">
         <li <% if(pageName.equals("manager")){ %> class="active" <%}%>><a href="/managers">MANAGERS</a></li>
         <li <% if(pageName.equals("employee")){ %> class="active" <%}%>><a href="/employees">EMPLOYEES</a></li>

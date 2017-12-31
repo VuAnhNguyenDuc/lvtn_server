@@ -338,6 +338,12 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "/user/infos", method = RequestMethod.GET, params = {"id"})
+    public String getUserInfo(@RequestParam("id") int id,ModelMap model){
+        model.addAttribute("id",id);
+        return "web/user/user_info";
+    }
+
     private Manager getManagerInfo(int id){
         User user = service.get(id);
         Manager mng = mngService.get(id);

@@ -20,6 +20,8 @@ public class Vehicle {
     @Column
     @Type(type = "text")
     private String calculate_formula;
+    @Column(name = "warning_rate")
+    private double warning_rate;
 
 
     public Vehicle() {
@@ -68,5 +70,13 @@ public class Vehicle {
 
     public void setCalculate_formula(String calculate_formula) {
         this.calculate_formula = calculate_formula;
+    }
+
+    public double getWarning_rate() {
+        return warning_rate;
+    }
+
+    public void setWarning_rate(double warning_rate) {
+        this.warning_rate = warning_rate;
     }
 }

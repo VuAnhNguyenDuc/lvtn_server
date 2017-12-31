@@ -73,4 +73,9 @@ public class UserServiceImpl extends EntityServiceImpl<User> implements UserServ
 	public UserAppointmentView getAppointment(int id) {
 		return Repository.getAppointment(id);
 	}
+
+	@Override
+	public List getDetailsOfUser(int id) {
+		return Repository.getDetailsOfUser(id);
+	}
 }

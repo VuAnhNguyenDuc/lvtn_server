@@ -179,6 +179,16 @@ public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements Us
 		}
 	}
 
+	@Override
+	public List<Detail> getDetailsOfUser(int id) {
+		Session session = getSession();
+
+		String strQuery = "from Detail dt where dt.user_created = :id";
+		Query query = session.createQuery(strQuery);
+		query.setParameter("id",id);
+		return query.list();
+	}
+
 	private void getUAVInfo(UserAppointmentView uav){
 		Date date = uav.getStart_date();
 		uav.setStart_date_str(convertDateToString(date));

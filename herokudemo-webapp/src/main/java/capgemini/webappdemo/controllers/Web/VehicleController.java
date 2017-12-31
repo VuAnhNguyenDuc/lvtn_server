@@ -92,6 +92,7 @@ public class VehicleController {
             } else{
                 Vehicle old = service.get(id);
                 old.setStatus(vehicle.getStatus());
+                old.setWarning_rate(vehicle.getWarning_rate());
                 service.update(old);
                 return "redirect:/vehicles";
             }

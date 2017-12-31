@@ -85,6 +85,7 @@
         <br><br><br>
         <button type="button" class="btn btn-primary" id="chart-btn">View as chart</button>
         <button type="button" class="btn btn-success" id="list-btn">View as list</button>
+        <a href="http://lvtn-server.herokuapp.com/user/infos?id=${id}" class="btn btn-warning">View cost statistic of employee</a>
 
         <div style="height: 20px"></div>
 

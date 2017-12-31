@@ -1,9 +1,6 @@
 package capgemini.webappdemo.repository.User;
 
-import capgemini.webappdemo.domain.Appointment;
-import capgemini.webappdemo.domain.Name;
-import capgemini.webappdemo.domain.User;
-import capgemini.webappdemo.domain.UserAppointmentView;
+import capgemini.webappdemo.domain.*;
 import capgemini.webappdemo.repository.EntityRepository;
 
 import java.util.List;
@@ -31,5 +28,7 @@ public interface UserRepository extends EntityRepository<User> {
 	public boolean checkUserExist(String username);
 
 	public UserAppointmentView getAppointment(int id);
+
+	public List getDetailsOfUser(int id);
 	
 }

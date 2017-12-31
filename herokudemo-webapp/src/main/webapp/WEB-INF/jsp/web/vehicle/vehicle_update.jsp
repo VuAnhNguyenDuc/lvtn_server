@@ -24,9 +24,15 @@
         <form:form modelAttribute="vehicle" method="post">
             <div class="form-group>">
                 <label for="name">Vehicle name: </label>
-                <form:input path="name" type="text" class="form-control" id="name"/>
-                <form:errors path="name" cssClass="form-error" class="form-control" value="${vehicle.name}"/>
+                <form:input path="name" type="text" class="form-control" id="name" value="${vehicle.name}"/>
+                <form:errors path="name" cssClass="form-error" class="form-control"/>
                 <%--<input type="text" class="form-control" id="name" value="${vehicle.name}" readonly="readonly"/>--%>
+            </div>
+
+            <div class="form-group>">
+                <label for="name">Warning rate: </label>
+                <form:input path="warning_rate" type="number" class="form-control" id="warning_rate" value="${vehicle.warning_rate}"/>
+                <form:errors path="warning_rate" cssClass="form-error" class="form-control"/>
             </div>
 
             <div class="form-group>">

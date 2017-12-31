@@ -1,9 +1,6 @@
 package capgemini.webappdemo.service.User;
 
-import capgemini.webappdemo.domain.Appointment;
-import capgemini.webappdemo.domain.Name;
-import capgemini.webappdemo.domain.User;
-import capgemini.webappdemo.domain.UserAppointmentView;
+import capgemini.webappdemo.domain.*;
 import capgemini.webappdemo.service.EntityService;
 
 import java.util.List;
@@ -30,4 +27,6 @@ public interface UserService extends EntityService<User> {
 	public boolean checkUserExist(String username);
 
 	public UserAppointmentView getAppointment(int id);
+
+	public List getDetailsOfUser(int id);
 }

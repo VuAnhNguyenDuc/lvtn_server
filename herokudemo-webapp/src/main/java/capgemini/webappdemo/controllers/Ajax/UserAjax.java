@@ -1,13 +1,12 @@
 package capgemini.webappdemo.controllers.Ajax;
 
-import capgemini.webappdemo.domain.Appointment;
-import capgemini.webappdemo.domain.Client;
-import capgemini.webappdemo.domain.User;
-import capgemini.webappdemo.domain.UserAppointmentView;
+import capgemini.webappdemo.domain.*;
+import capgemini.webappdemo.service.Appointment.AppointmentService;
 import capgemini.webappdemo.service.Client.ClientService;
 import capgemini.webappdemo.service.Manager.ManagerService;
 import capgemini.webappdemo.service.User.UserService;
 import capgemini.webappdemo.service.UserAppointmentView.UserAppointmentViewService;
+import capgemini.webappdemo.service.Vehicle.VehicleService;
 import capgemini.webappdemo.utils.CommonUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -22,6 +21,15 @@ import java.util.List;
 public class UserAjax {
     @Autowired
     private UserAppointmentViewService uavService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private VehicleService vhcService;
+
+    @Autowired
+    private AppointmentService apmService;
 
     private CommonUtils utils = new CommonUtils();
 
@@ -129,5 +137,43 @@ public class UserAjax {
             results.add(object);
         }
         return results;
+    }
+
+    @RequestMapping(value = "/ajax/user/infos",method = RequestMethod.GET, params = {"id"})
+    public JSONObject getUserInfos(@RequestParam("id") int id){
+        List<Detail> dts = userService.getDetailsOfUser(id);
+        double total_cost = 0;
+        int warning = 0;
+        JSONObject result = new JSONObject();
+        JSONArray details = new JSONArray();
+        for(Detail dt:dts){
+            Vehicle vhc = vhcService.get(dt.getVehicle_id());
+            Appointment apm = apmService.get(dt.getAppointment_id());
+            JSONObject detail = new JSONObject();
+            detail.put("input_cost",dt.getInput_cost());
+            detail.put("estimate_cost",dt.getEstimate_cost());
+            detail.put("length",dt.getTotal_length());
+            detail.put("predicted_vehicle",dt.getPredicted_vehicle());
+            detail.put("vehicle_name",vhc.getName());
+            detail.put("appointment_name", apm.getName());
+            detail.put("appointment_id", apm.getId());
+            if(dt.getInput_cost() > dt.getEstimate_cost() * 1.5 /** vhc.getWarning_rate()*/){
+                detail.put("warning",true);
+                warning = warning + 1;
+            } else{
+                detail.put("warning",false);
+            }
+            total_cost += dt.getInput_cost();
+            details.add(detail);
+        }
+        result.put("total_cost",total_cost);
+        result.put("total_vehicles",dts.size());
+        if(dts.size() > 0){
+            result.put("warning_rate",((double)warning/dts.size()));
+        }else{
+            result.put("warning_rate",0);
+        }
+        result.put("vehicles", details);
+        return result;
     }
 }
