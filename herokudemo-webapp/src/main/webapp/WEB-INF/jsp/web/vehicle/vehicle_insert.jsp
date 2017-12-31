@@ -29,7 +29,7 @@
             </div>
             <div class="form-group>">
                 <label for="is_calculatable">Is calculable: </label>
-                <form:input path="is_calculatable" type="checkbox" class="form-control" id="is_calculatable"/>
+                <form:checkbox path="is_calculatable" class="form-control" id="is_calculatable"/>
                 <form:errors path="is_calculatable" cssClass="form-error" class="form-control"/>
             </div>
             <div class="form-group>">
