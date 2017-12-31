@@ -27,6 +27,16 @@
                 <form:input path="name" type="text" class="form-control" id="name"/>
                 <form:errors path="name" cssClass="form-error" class="form-control"/>
             </div>
+            <div class="form-group>">
+                <label for="is_calculatable">Is calculable: </label>
+                <form:input path="is_calculatable" type="checkbox" class="form-control" id="is_calculatable"/>
+                <form:errors path="is_calculatable" cssClass="form-error" class="form-control"/>
+            </div>
+            <div class="form-group>">
+                <label for="warning_rate">Warning rate: </label>
+                <form:input path="warning_rate" type="number" class="form-control" id="warning_rate" step="0.1"/>
+                <form:errors path="warning_rate" cssClass="form-error" class="form-control"/>
+            </div>
             <c:if test="${not empty error}">
                 <p class="form-error">${error}</p>
             </c:if>
