@@ -16,7 +16,7 @@ public class Vehicle {
     @Column(name = "status")
     private Integer status;
     @Column(name = "is_calculatable")
-    private boolean calculatable;
+    private boolean calculatable = true;
     @Column
     @Type(type = "text")
     private String calculate_formula;
