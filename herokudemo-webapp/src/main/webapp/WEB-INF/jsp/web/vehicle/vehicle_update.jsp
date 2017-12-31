@@ -30,9 +30,9 @@
             </div>
 
             <div class="form-group>">
-                <label for="is_calculatable">Is calculable: </label>
-                <form:checkbox path="is_calculatable" class="form-control" id="is_calculatable" value="${vehicle.is_calculatable}"/>
-                <form:errors path="is_calculatable" cssClass="form-error" class="form-control"/>
+                <label for="calculatable">Is calculable: </label>
+                <form:checkbox path="calculatable" class="form-control" id="calculatable" value="${vehicle.calculatable}"/>
+                <form:errors path="calculatable" cssClass="form-error" class="form-control"/>
             </div>
 
             <div class="form-group>">
