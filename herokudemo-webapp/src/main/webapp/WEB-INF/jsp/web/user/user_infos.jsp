@@ -67,7 +67,6 @@
     var host =  "http://lvtn-server.herokuapp.com/";
 
     $(document).ready(function () {
-        alert("running");
         $.ajax({
             type:"GET",
             url: "http://lvtn-server.herokuapp.com/ajax/user/infos",
@@ -79,13 +78,13 @@
                 var data = dataArr.vehicles;
                 console.log(result);
                 populateResultList(data);
-                $('#detail-list').DataTable();
             },
             error: function (xhr) {
                 var err = eval("(" + xhr.responseText + ")");
                 alert(err.Message);
             }
         });
+        $('#detail-list').DataTable();
     });
 
     function populateResultList(data){
@@ -109,6 +108,8 @@
                 if (obj.warning) {
                     new_line.innerHTML += "<td><span style='color:red'>Warning</td>\n";
                     warning++;
+                } else{
+                    new_line.innerHTML += "<td></td>\n";
                 }
                 total_cost += obj.input_cost;
                 estimate_cost_total += obj.estimate_cost;
@@ -116,8 +117,8 @@
             }
         }
         warning_percentage = (warning*100/count);
-        $("#total_cost").html(total_cost);
-        $("#estimate_cost_total").html(estimate_cost_total);
+        $("#total_cost").html(total_cost.toFixed(2));
+        $("#estimate_cost_total").html(estimate_cost_total.toFixed(2));
         $("#warning_percentage").html(warning_percentage.toFixed(2) + "%");
     }
 
