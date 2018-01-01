@@ -129,6 +129,7 @@
                         var dataArr = $.parseJSON(result);
                         $("#result-list").html("");
                         $("#result-list").html(populateResultList(dataArr));
+                        $('#apm-list').DataTable();
                     },
                     error: function (xhr) {
                         var err = eval("(" + xhr.responseText + ")");
@@ -150,6 +151,7 @@
                         var dataArr = $.parseJSON(result);
                         $("#result-list").html("");
                         $("#result-list").html(populateResultList(dataArr));
+                        $('#apm-list').DataTable();
                     },
                     error: function (xhr) {
                         var err = eval("(" + xhr.responseText + ")");
@@ -160,7 +162,6 @@
                 alert("Please input year value");
             }
         }
-        $('#apm-list').DataTable();
     });
 
     $("#chart-btn").click(function(){
