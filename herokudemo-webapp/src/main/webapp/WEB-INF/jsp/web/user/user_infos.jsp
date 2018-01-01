@@ -28,11 +28,11 @@
             </tr>--%>
             <tr>
                 <td>Total amount of money used (thousands vnđ)</td>
-                <td id="total_cost">${total}</td>
+                <td id="total_cost"></td>
             </tr>
             <tr>
                 <td>Total amount of vehicles booked </td>
-                <td id="total_vehicles">${total}</td>
+                <td id="total_vehicles"></td>
             </tr>
             </tbody>
         </table>
@@ -74,8 +74,8 @@
                 var dataArr = $.parseJSON(result);
                 var data = dataArr.vehicles;
                 console.log(result);
-                $("#total_cost").innerHTML = data.total_cost;
-                $("#total_vehicles").innerHTML = data.total_vehicles;
+                $("#total_cost").html(data.total_cost);
+                $("#total_vehicles").html(data.total_vehicles);
                 populateResultList(data);
             },
             error: function (xhr) {
@@ -99,7 +99,7 @@
             if (obj.warning) {
                 new_line.innerHTML += "<td><span style='color:red'>Warning</td>\n";
             }
-            $("#result-list").innerHTML += new_line;
+            $("#result-list").append(new_line);
         }
     }
 
