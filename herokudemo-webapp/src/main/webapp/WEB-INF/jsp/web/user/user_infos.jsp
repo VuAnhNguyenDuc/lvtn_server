@@ -63,6 +63,7 @@
     var host =  "http://lvtn-server.herokuapp.com/";
 
     $(document).ready(function () {
+        alert("running");
         $.ajax({
             type:"GET",
             url: "http://lvtn-server.herokuapp.com/ajax/user/infos",
@@ -72,6 +73,7 @@
             success: function(result){
                 var dataArr = $.parseJSON(result);
                 var data = dataArr.vehicles;
+                console.log(result);
                 $("#total_cost").innerHTML = data.total_cost;
                 $("#total_vehicles").innerHTML = data.total_vehicles;
                 populateResultList(data);
