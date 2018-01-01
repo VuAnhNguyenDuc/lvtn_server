@@ -48,9 +48,9 @@
                     <th>Appointment Name</th>
                     <th>Vehicle</th>
                     <th>Predicted Vehicle</th>
-                    <th>Length</th>
-                    <th>Input cost</th>
-                    <th>Estimate cost</th>
+                    <th>Length(km)</th>
+                    <th>Input cost(thousand vnđ)</th>
+                    <th>Estimate cost(thousand vnđ)</th>
                     <th></th>
                 </tr>
             </thead>
