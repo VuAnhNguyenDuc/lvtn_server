@@ -74,8 +74,8 @@
                 var dataArr = $.parseJSON(result);
                 var data = dataArr.vehicles;
                 console.log(result);
-                $("#total_cost").html(data.total_cost);
-                $("#total_vehicles").html(data.total_vehicles);
+                $("#total_cost").html(dataArr.total_cost.toFixed(2));
+                $("#total_vehicles").html(dataArr.total_vehicles.toFixed(2));
                 populateResultList(data);
             },
             error: function (xhr) {
@@ -91,11 +91,11 @@
             var new_line = document.createElement("tr");
             new_line.innerHTML += "<td>" + (i + 1) + "</td>\n";
             new_line.innerHTML += "<td>" + obj.appointment_name + "</td>\n";
-            new_line.innerHTML += "<td>" + obj.vehicle + "</td>\n";
+            new_line.innerHTML += "<td>" + obj.vehicle_name + "</td>\n";
             new_line.innerHTML += "<td>" + obj.predicted_vehicle + "</td>\n";
-            new_line.innerHTML += "<td>" + obj.length + "</td>\n";
+            new_line.innerHTML += "<td>" + obj.length.toFixed(2) + "</td>\n";
             new_line.innerHTML += "<td>" + obj.input_cost + "</td>\n";
-            new_line.innerHTML += "<td>" + obj.estimate_cost + "</td>\n";
+            new_line.innerHTML += "<td>" + obj.estimate_cost.toFixed(2) + "</td>\n";
             if (obj.warning) {
                 new_line.innerHTML += "<td><span style='color:red'>Warning</td>\n";
             }
