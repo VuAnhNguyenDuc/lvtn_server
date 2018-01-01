@@ -106,7 +106,7 @@
                 $("#result-list").append(new_line);
             }
         }
-        $("#total_cost").html(dataArr.total_cost);
+        $("#total_cost").html(total_cost);
         /*$("#total_vehicles").html(count);*/
     }
 
