@@ -33,12 +33,13 @@ public class VehicleRepositoryImpl extends EntityRepositoryImpl<Vehicle> impleme
 	}
 
 	@Override
-	public boolean checkExist(String name) {
+	public boolean checkExist(String name, int id) {
 		Session session = getSession();
 
-		String strQuery = "from Vehicle v where v.name = :name";
+		String strQuery = "from Vehicle v where v.name = :name and v.id != :id";
 		Query query = session.createQuery(strQuery);
 		query.setParameter("name",name);
+		query.setParameter("id",id);
 		if(query.list().size() > 0){
 			return true;
 		}

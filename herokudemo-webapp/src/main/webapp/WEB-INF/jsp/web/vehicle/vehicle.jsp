@@ -26,7 +26,8 @@
             <tr>
                 <th>No</th>
                 <th>Name of vehicle</th>
-                <th>Is Calculatable</th>
+                <th>Is Calculable</th>
+                <th>Warning rate</th>
                 <th>Status</th>
                 <th></th>
             </tr>
@@ -40,6 +41,7 @@
                     <td><%= i %></td>
                     <td>${vehicle.name}</td>
                     <td>${vehicle.calculatable}</td>
+                    <td>${vehicle.warning_rate}</td>
                     <td>
                         <c:choose>
                             <c:when test="${vehicle.status == 1}">

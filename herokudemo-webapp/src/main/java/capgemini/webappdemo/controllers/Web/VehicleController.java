@@ -60,7 +60,7 @@ public class VehicleController {
         if(result.hasErrors()){
             return "web/vehicle/vehicle_insert";
         } else{
-            if(service.checkExist(vehicle.getName())){
+            if(service.checkExist(vehicle.getName(),0)){
                 model.addAttribute("error","This vehicle existed in the database");
                 return "web/vehicle/vehicle_insert";
             }
@@ -86,7 +86,7 @@ public class VehicleController {
         if(result.hasErrors()){
             return "web/vehicle/vehicle_update";
         } else{
-            if(service.checkExist(vehicle.getName())){
+            if(service.checkExist(vehicle.getName(),id)){
                 model.addAttribute("error","This name is already taken by another vehicle");
                 return "web/vehicle/vehicle_update";
             } else{

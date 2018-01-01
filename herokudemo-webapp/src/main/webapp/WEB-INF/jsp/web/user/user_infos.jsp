@@ -66,7 +66,7 @@
         $.ajax({
             type:"GET",
             url: "http://lvtn-server.herokuapp.com/ajax/user/infos",
-            data : "id=${id}
+            data : "id=${id}",
             dataType : "text",
             cache : false,
             success: function(result){

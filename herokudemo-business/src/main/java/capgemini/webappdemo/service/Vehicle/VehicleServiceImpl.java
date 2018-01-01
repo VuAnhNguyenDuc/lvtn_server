@@ -34,8 +34,8 @@ public class VehicleServiceImpl extends EntityServiceImpl<Vehicle> implements Ve
 	}
 
 	@Override
-	public boolean checkExist(String name) {
-		return Repository.checkExist(name);
+	public boolean checkExist(String name, int id) {
+		return Repository.checkExist(name,id);
 	}
 
 	@Override

@@ -13,7 +13,7 @@ public interface VehicleService extends EntityService<Vehicle> {
 	 */
 	public void deleteAll();
 
-	public boolean checkExist(String name);
+	public boolean checkExist(String name, int id);
 
 	public List<Vehicle> getActiveVehicles();
 
