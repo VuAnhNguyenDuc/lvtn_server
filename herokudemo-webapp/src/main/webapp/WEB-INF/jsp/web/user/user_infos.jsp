@@ -78,13 +78,13 @@
                 var data = dataArr.vehicles;
                 console.log(result);
                 populateResultList(data);
+                $('#detail-list').DataTable();
             },
             error: function (xhr) {
                 var err = eval("(" + xhr.responseText + ")");
                 alert(err.Message);
             }
         });
-        $('#detail-list').DataTable();
     });
 
     function populateResultList(data){
