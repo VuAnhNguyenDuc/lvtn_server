@@ -191,7 +191,7 @@ public class AppointmentApi {
                 detailList.add(obj);
             }
             result.put("message",1);
-            result.put("details",coordinateList);
+            result.put("details",detailList);
             return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
         }
     }
