@@ -30,10 +30,14 @@
                 <td>Total amount of money used (thousands vnđ)</td>
                 <td id="total_cost"></td>
             </tr>
-           <%-- <tr>
-                <td>Total amount of vehicles booked </td>
-                <td id="total_vehicles"></td>
-            </tr>--%>
+            <tr>
+                <td>Total amount of money estimated (thousands vnđ) </td>
+                <td id="estimate_cost_total"></td>
+            </tr>
+            <tr>
+                <td>Warning percentage </td>
+                <td id="warning_percentage"></td>
+            </tr>
             </tbody>
         </table>
 
@@ -87,6 +91,9 @@
     function populateResultList(data){
         var count = 0;
         var total_cost = 0;
+        var estimate_cost_total = 0;
+        var warning_percentage = 0;
+        var warning = 0;
         for(var i = 0; i < data.length; i++) {
             var obj = data[i];
             if(obj.predicted_vehicle != null){
@@ -101,13 +108,17 @@
                 new_line.innerHTML += "<td>" + obj.estimate_cost.toFixed(2) + "</td>\n";
                 if (obj.warning) {
                     new_line.innerHTML += "<td><span style='color:red'>Warning</td>\n";
+                    warning++;
                 }
                 total_cost += obj.input_cost;
+                estimate_cost_total += obj.estimate_cost;
                 $("#result-list").append(new_line);
             }
         }
+        warning_percentage = (warning*100/count);
         $("#total_cost").html(total_cost);
-        /*$("#total_vehicles").html(count);*/
+        $("#estimate_cost_total").html(estimate_cost_total);
+        $("#warning_percentage").html(warning_percentage.toFixed(2) + "%");
     }
 
 
