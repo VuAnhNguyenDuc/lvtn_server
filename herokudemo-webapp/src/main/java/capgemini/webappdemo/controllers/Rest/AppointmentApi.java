@@ -173,20 +173,25 @@ public class AppointmentApi {
         } else{
             List<Detail> dts = dtService.getDetailsOfAppointment(apmId);
             String coordinateList = "";
+            JSONArray detailList = new JSONArray();
             for(int j = 0; j < dts.size(); j++){
                 Detail dt = dts.get(j);
+                JSONObject obj = new JSONObject();
+                obj.put("vehicle_name",vhService.get(dt.getVehicle_id()).getName());
                 List<Coordinate> coordinates = coorService.getCoordsOfDetail(dt.getId());
                 for(int i = 0; i < coordinates.size(); i++){
                     Coordinate coordinate = coordinates.get(i);
-                    if(i != (coordinates.size() -1) || j != (dts.size() - 1)){
+                    if(i != (coordinates.size() -1)){
                         coordinateList += coordinate.getLatitude()+","+coordinate.getLongitude()+"|";
                     } else{
                         coordinateList += coordinate.getLatitude()+","+coordinate.getLongitude();
                     }
                 }
+                obj.put("coordinates", coordinateList);
+                detailList.add(obj);
             }
             result.put("message",1);
-            result.put("coordinates",coordinateList);
+            result.put("details",coordinateList);
             return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
         }
     }
