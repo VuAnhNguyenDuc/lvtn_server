@@ -30,14 +30,14 @@
                 <td>Total amount of money used (thousands vnđ)</td>
                 <td id="total_cost"></td>
             </tr>
-            <tr>
+           <%-- <tr>
                 <td>Total amount of vehicles booked </td>
                 <td id="total_vehicles"></td>
-            </tr>
+            </tr>--%>
             </tbody>
         </table>
 
-        <table class="table table-hover" id="apm-list">
+        <table class="table table-hover" id="detail-list">
             <thead>
                 <tr>
                     <th>No</th>
@@ -74,9 +74,8 @@
                 var dataArr = $.parseJSON(result);
                 var data = dataArr.vehicles;
                 console.log(result);
-                $("#total_cost").html(dataArr.total_cost.toFixed(2));
-                $("#total_vehicles").html(dataArr.total_vehicles.toFixed(2));
                 populateResultList(data);
+                $('#detail-list').DataTable();
             },
             error: function (xhr) {
                 var err = eval("(" + xhr.responseText + ")");
@@ -86,28 +85,31 @@
     });
 
     function populateResultList(data){
+        var count = 0;
+        var total_cost = 0;
         for(var i = 0; i < data.length; i++) {
             var obj = data[i];
-            var new_line = document.createElement("tr");
-            new_line.innerHTML += "<td>" + (i + 1) + "</td>\n";
-            new_line.innerHTML += "<td>" + obj.appointment_name + "</td>\n";
-            new_line.innerHTML += "<td>" + obj.vehicle_name + "</td>\n";
-            new_line.innerHTML += "<td>" + obj.predicted_vehicle + "</td>\n";
-            new_line.innerHTML += "<td>" + obj.length.toFixed(2) + "</td>\n";
-            new_line.innerHTML += "<td>" + obj.input_cost + "</td>\n";
-            new_line.innerHTML += "<td>" + obj.estimate_cost.toFixed(2) + "</td>\n";
-            if (obj.warning) {
-                new_line.innerHTML += "<td><span style='color:red'>Warning</td>\n";
+            if(obj.predicted_vehicle != null){
+                count++;
+                var new_line = document.createElement("tr");
+                new_line.innerHTML += "<td>" + count + "</td>\n";
+                new_line.innerHTML += "<td>" + obj.appointment_name + "</td>\n";
+                new_line.innerHTML += "<td>" + obj.vehicle_name + "</td>\n";
+                new_line.innerHTML += "<td>" + obj.predicted_vehicle + "</td>\n";
+                new_line.innerHTML += "<td>" + obj.length.toFixed(2) + "</td>\n";
+                new_line.innerHTML += "<td>" + obj.input_cost + "</td>\n";
+                new_line.innerHTML += "<td>" + obj.estimate_cost.toFixed(2) + "</td>\n";
+                if (obj.warning) {
+                    new_line.innerHTML += "<td><span style='color:red'>Warning</td>\n";
+                }
+                total_cost += obj.input_cost;
+                $("#result-list").append(new_line);
             }
-            $("#result-list").append(new_line);
         }
+        $("#total_cost").html(dataArr.total_cost);
+        /*$("#total_vehicles").html(count);*/
     }
 
-    jQuery(document).ready(function($) {
-        $(".clickable-row").click(function() {
-            window.location = $(this).data("href");
-        });
-    });
 
 </script>
 </html>
