@@ -198,11 +198,11 @@ public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements Us
 		String start_date = "";
 		String end_date = "";
 		if(month < 10){
-			start_date = "00:00 01-0"+month+"-"+year;
-			end_date = "23:59 31-0"+month+"-"+year;
+			start_date = "00:00:00 01-0"+month+"-"+year;
+			end_date = "23:59:00 31-0"+month+"-"+year;
 		} else{
-			start_date = "00:00 01-"+month+"-"+year;
-			end_date = "00:00 31-"+month+"-"+year;
+			start_date = "00:00:00 01-"+month+"-"+year;
+			end_date = "00:00:00 31-"+month+"-"+year;
 		}
 
 		String strQuery = "from Detail dt where dt.user_created = :id and dt.start_time >= :start and dt.start_time < :end";
