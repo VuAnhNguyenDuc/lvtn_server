@@ -73,7 +73,7 @@
             var data = dataArr[i];
             borders.push(data.border);
             labels.push(data.year);
-            datas.push(data.amount);
+            datas.push(data.total);
             backgrounds.push(data.background);
         }
         var myChart = new Chart(ctx, {
