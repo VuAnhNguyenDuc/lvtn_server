@@ -3,6 +3,7 @@ package capgemini.webappdemo.repository.User;
 import capgemini.webappdemo.domain.*;
 import capgemini.webappdemo.repository.EntityRepository;
 
+import java.text.ParseException;
 import java.util.List;
 
 
@@ -31,6 +32,6 @@ public interface UserRepository extends EntityRepository<User> {
 
 	public List<Detail> getDetailsOfUser(int id);
 
-	public double getCostOfMonth(int month, int year,int id);
+	public double getCostOfMonth(int month, int year,int id) throws ParseException;
 	
 }

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
 import java.util.List;
 
 
@@ -80,7 +81,7 @@ public class UserServiceImpl extends EntityServiceImpl<User> implements UserServ
 	}
 
 	@Override
-	public double getCostOfMonth(int month, int year, int id) {
+	public double getCostOfMonth(int month, int year, int id) throws ParseException {
 		return Repository.getCostOfMonth(month,year,id);
 	}
 }

@@ -3,6 +3,7 @@ package capgemini.webappdemo.service.User;
 import capgemini.webappdemo.domain.*;
 import capgemini.webappdemo.service.EntityService;
 
+import java.text.ParseException;
 import java.util.List;
 
 public interface UserService extends EntityService<User> {
@@ -30,5 +31,5 @@ public interface UserService extends EntityService<User> {
 
 	public List getDetailsOfUser(int id);
 
-	public double getCostOfMonth(int month, int year,int id);
+	public double getCostOfMonth(int month, int year,int id) throws ParseException;
 }

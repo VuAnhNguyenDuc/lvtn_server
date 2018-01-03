@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -192,7 +193,7 @@ public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements Us
 	}
 
 	@Override
-	public double getCostOfMonth(int month, int year, int id) {
+	public double getCostOfMonth(int month, int year, int id) throws ParseException {
 		Session session = getSession();
 
 		String start_date = "";
@@ -208,8 +209,8 @@ public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements Us
 		String strQuery = "from Detail dt where dt.user_created = :id and dt.start_time >= :start and dt.start_time < :end";
 		Query query = session.createQuery(strQuery);
 		query.setParameter("id",id);
-		query.setParameter("start",dateWithSec.format(start_date));
-		query.setParameter("end",dateWithSec.format(end_date));
+		query.setParameter("start",dateWithSec.parse(start_date));
+		query.setParameter("end",dateWithSec.parse(end_date));
 		double total = 0;
 		List<Detail> dts = query.list();
 		if(dts.size() > 0){
