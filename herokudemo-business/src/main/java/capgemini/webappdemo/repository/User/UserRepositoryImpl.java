@@ -193,7 +193,7 @@ public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements Us
 	}
 
 	@Override
-	public double getCostOfMonth(int month, int year, int id) throws ParseException {
+	public double getCostOfMonth(int month, int year, int id){
 		Session session = getSession();
 
 		String start_date = "";
@@ -209,8 +209,12 @@ public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements Us
 		String strQuery = "from Detail dt where dt.user_created = :id and dt.start_time >= :start and dt.start_time < :end";
 		Query query = session.createQuery(strQuery);
 		query.setParameter("id",id);
-		query.setParameter("start",dateWithSec.parse(start_date));
-		query.setParameter("end",dateWithSec.parse(end_date));
+		try {
+			query.setParameter("start",dateWithSec.parse(start_date));
+			query.setParameter("end",dateWithSec.parse(end_date));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		double total = 0;
 		List<Detail> dts = query.list();
 		if(dts.size() > 0){

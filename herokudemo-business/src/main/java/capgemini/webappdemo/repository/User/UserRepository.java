@@ -32,6 +32,6 @@ public interface UserRepository extends EntityRepository<User> {
 
 	public List<Detail> getDetailsOfUser(int id);
 
-	public double getCostOfMonth(int month, int year,int id) throws ParseException;
+	public double getCostOfMonth(int month, int year,int id);
 	
 }

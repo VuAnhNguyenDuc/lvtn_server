@@ -81,7 +81,7 @@ public class UserServiceImpl extends EntityServiceImpl<User> implements UserServ
 	}
 
 	@Override
-	public double getCostOfMonth(int month, int year, int id) throws ParseException {
+	public double getCostOfMonth(int month, int year, int id) {
 		return Repository.getCostOfMonth(month,year,id);
 	}
 }

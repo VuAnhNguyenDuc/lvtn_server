@@ -31,5 +31,5 @@ public interface UserService extends EntityService<User> {
 
 	public List getDetailsOfUser(int id);
 
-	public double getCostOfMonth(int month, int year,int id) throws ParseException;
+	public double getCostOfMonth(int month, int year,int id);
 }
