@@ -188,7 +188,7 @@
         if(period == 'month'){
             var yearInput = $("#yearInput").val();
             if(yearInput != ""){
-                var newUrl = host.concat("user/infos/chart/month?id=",${emp.user_id},"&year=",yearInput);
+                var newUrl = host.concat("user/infos/month?id=",${emp.user_id},"&year=",yearInput);
                 var newTab = window.open(newUrl);
                 if(newTab){
                     newTab.focus();
@@ -202,7 +202,7 @@
             var from = $("#from").val();
             var to = $("#to").val();
             if(from != "" && to != ""){
-                var newUrl = host.concat("user/infos/chart/month?id=",${emp.user_id},"&from=",from,"&to=",to);
+                var newUrl = host.concat("user/infos/year?id=",${emp.user_id},"&from=",from,"&to=",to);
                 var newTab = window.open(newUrl);
                 if(newTab){
                     newTab.focus();
