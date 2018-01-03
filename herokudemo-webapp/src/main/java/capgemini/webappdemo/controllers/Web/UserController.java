@@ -349,7 +349,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/user/infos/year", method = RequestMethod.GET, params = {"year","from","to"})
+    @RequestMapping(value = "/user/infos/year", method = RequestMethod.GET, params = {"id","from","to"})
     public String drawCostChartYear(HttpSession session, @RequestParam("from") int from, @RequestParam("to") int to, @RequestParam("id") int id, ModelMap model){
         if(!loginUtil.isLogin(session)){
             return "redirect:/login";
