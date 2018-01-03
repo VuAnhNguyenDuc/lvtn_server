@@ -38,6 +38,8 @@ public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements Us
 
     private DateFormat dateFormat = new SimpleDateFormat("HH:mm dd-MM-yyyy");
 
+    private DateFormat dateWithSec = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
+
 	public UserRepositoryImpl() {
 		super(User.class);
 	}
@@ -187,6 +189,35 @@ public class UserRepositoryImpl extends EntityRepositoryImpl<User> implements Us
 		Query query = session.createQuery(strQuery);
 		query.setParameter("id",id);
 		return query.list();
+	}
+
+	@Override
+	public double getCostOfMonth(int month, int year, int id) {
+		Session session = getSession();
+
+		String start_date = "";
+		String end_date = "";
+		if(month < 10){
+			start_date = "00:00 01-0"+month+"-"+year;
+			end_date = "23:59 31-0"+month+"-"+year;
+		} else{
+			start_date = "00:00 01-"+month+"-"+year;
+			end_date = "00:00 31-"+month+"-"+year;
+		}
+
+		String strQuery = "from Detail dt where dt.user_created = :id and dt.start_time >= :start and dt.start_time < :end";
+		Query query = session.createQuery(strQuery);
+		query.setParameter("id",id);
+		query.setParameter("start",dateWithSec.format(start_date));
+		query.setParameter("end",dateWithSec.format(end_date));
+		double total = 0;
+		List<Detail> dts = query.list();
+		if(dts.size() > 0){
+			for (Detail dt : dts){
+				total += dt.getInput_cost();
+			}
+		}
+		return total;
 	}
 
 	private void getUAVInfo(UserAppointmentView uav){

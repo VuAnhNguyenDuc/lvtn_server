@@ -67,7 +67,8 @@
         <br><br><br>
         <button type="button" class="btn btn-primary" id="chart-btn">View appointment statistic as chart</button>
         <button type="button" class="btn btn-success" id="list-btn">View appointment statistic as list</button>
-        <a href="http://lvtn-server.herokuapp.com/user/infos?id=${id}" class="btn btn-warning">View cost statistic of employee</a>
+        <button type="button" class="btn btn-info" id="cost-chart-btn">View cost statistic as chart</button>
+        <a href="http://lvtn-server.herokuapp.com/user/infos?id=${id}" target="_blank" class="btn btn-warning">View cost statistic as list</a>
 
         <div style="height: 20px"></div>
 
@@ -169,6 +170,39 @@
             if(from != "" && to != ""){
                 var newUrl = host.concat("user/chart/year?id=",${emp.user_id},"&from=",from,"&to=",to,"&isCreated=false");
                 console.log(newUrl);
+                var newTab = window.open(newUrl);
+                if(newTab){
+                    newTab.focus();
+                } else{
+                    alert("Cannot create a new tab");
+                }
+            } else{
+                alert("Please input year values");
+            }
+        }
+    });
+
+    $("#cost-chart-btn").click(function () {
+        var period = $("#select-time").val();
+
+        if(period == 'month'){
+            var yearInput = $("#yearInput").val();
+            if(yearInput != ""){
+                var newUrl = host.concat("user/infos/chart/month?id=",${emp.user_id},"&year=",yearInput);
+                var newTab = window.open(newUrl);
+                if(newTab){
+                    newTab.focus();
+                } else{
+                    alert("Cannot create a new tab");
+                }
+            } else{
+                alert("Please input year value");
+            }
+        } else if(period == 'year'){
+            var from = $("#from").val();
+            var to = $("#to").val();
+            if(from != "" && to != ""){
+                var newUrl = host.concat("user/infos/chart/month?id=",${emp.user_id},"&from=",from,"&to=",to);
                 var newTab = window.open(newUrl);
                 if(newTab){
                     newTab.focus();

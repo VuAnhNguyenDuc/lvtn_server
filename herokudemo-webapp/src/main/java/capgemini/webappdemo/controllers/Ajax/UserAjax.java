@@ -139,6 +139,40 @@ public class UserAjax {
         return results;
     }
 
+    @RequestMapping(value = "/ajax/user/infos/month", method = RequestMethod.GET, params = {"year","id"})
+    public String getCostInOneYear(@RequestParam("id") int id, @RequestParam("year") int year){
+        String result = "";
+        for(int month = 1; month <= 12; month++){
+            double cost = userService.getCostOfMonth(month,year,id);
+            result += cost + " ";
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "/ajax/user/infos/year", method = RequestMethod.GET, params = {"from","to","id"})
+    public JSONArray getCostByYears(@RequestParam("from") int from, @RequestParam("to") int to, @RequestParam("id") int id){
+        String background = "rgba(255, 99, 132, 0.2)";
+        String border = "rgba(255,99,132,1)";
+        JSONArray array = new JSONArray();
+        JSONObject object;
+
+        List<Appointment> results = new ArrayList<>();
+        for(int i = from; i <= to; i++){
+            double total = 0;
+            for(int month = 1; month <= 12; month++){
+                double cost = userService.getCostOfMonth(month,i,id);
+                total += cost;
+            }
+            object = new JSONObject();
+            object.put("total",total);
+            object.put("year",i);
+            object.put("background",background);
+            object.put("border",border);
+            array.add(object);
+        }
+        return array;
+    }
+
     @RequestMapping(value = "/ajax/user/infos",method = RequestMethod.GET, params = {"id"})
     public JSONObject getUserInfos(@RequestParam("id") int id){
         List<Detail> dts = userService.getDetailsOfUser(id);

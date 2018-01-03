@@ -29,6 +29,8 @@ public interface UserRepository extends EntityRepository<User> {
 
 	public UserAppointmentView getAppointment(int id);
 
-	public List getDetailsOfUser(int id);
+	public List<Detail> getDetailsOfUser(int id);
+
+	public double getCostOfMonth(int month, int year,int id);
 	
 }

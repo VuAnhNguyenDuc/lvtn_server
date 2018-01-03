@@ -78,4 +78,9 @@ public class UserServiceImpl extends EntityServiceImpl<User> implements UserServ
 	public List getDetailsOfUser(int id) {
 		return Repository.getDetailsOfUser(id);
 	}
+
+	@Override
+	public double getCostOfMonth(int month, int year, int id) {
+		return Repository.getCostOfMonth(month,year,id);
+	}
 }

@@ -29,4 +29,6 @@ public interface UserService extends EntityService<User> {
 	public UserAppointmentView getAppointment(int id);
 
 	public List getDetailsOfUser(int id);
+
+	public double getCostOfMonth(int month, int year,int id);
 }

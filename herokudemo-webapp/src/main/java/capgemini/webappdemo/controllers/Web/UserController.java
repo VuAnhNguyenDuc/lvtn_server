@@ -338,6 +338,29 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "/user/infos/chart/month", method = RequestMethod.GET, params = {"year","id"})
+    public String drawCostChartMonth(HttpSession session, @RequestParam("year") int year, @RequestParam("id") int id, ModelMap model){
+        if(!loginUtil.isLogin(session)){
+            return "redirect:/login";
+        } else{
+            model.addAttribute("id",id);
+            model.addAttribute("year",year);
+            return "web/detail/cost_by_month_chart";
+        }
+    }
+
+    @RequestMapping(value = "/user/infos/chart/month", method = RequestMethod.GET, params = {"year","id"})
+    public String drawCostChartYear(HttpSession session, @RequestParam("from") int from, @RequestParam("to") int to, @RequestParam("id") int id, ModelMap model){
+        if(!loginUtil.isLogin(session)){
+            return "redirect:/login";
+        } else{
+            model.addAttribute("id",id);
+            model.addAttribute("from",from);
+            model.addAttribute("to",to);
+            return "web/detail/cost_by_year_chart";
+        }
+    }
+
     @RequestMapping(value = "/user/infos", method = RequestMethod.GET, params = {"id"})
     public String getUserInfo(@RequestParam("id") int id,ModelMap model){
         model.addAttribute("id",id);
