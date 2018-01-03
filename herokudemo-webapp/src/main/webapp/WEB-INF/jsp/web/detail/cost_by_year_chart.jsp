@@ -77,7 +77,7 @@
             backgrounds.push(data.background);
         }
         var myChart = new Chart(ctx, {
-            type: 'bar',
+            type: 'line',
             data: {
                 labels: labels,
                 datasets: [{
